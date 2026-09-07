@@ -1,4 +1,4 @@
-# No recorded client-source assurance route
+# No recorded fork assurance route
 
 ## State
 
@@ -6,21 +6,21 @@ open
 
 ## Gap
 
-No implemented Oracle and retained PASS Witness establish an assured verification route for [P-000001](situation/promises/P-000001-inherited-element-client-source.md).
+No implemented Oracle and retained PASS Witness record an assured verification route for a Poda Web fork-specific gate claim.
 
 ## Relevance
 
-[P-000001](situation/promises/P-000001-inherited-element-client-source.md) is implemented but not assured. The root repository block therefore cannot claim that an inherited workflow assures that promise merely because a workflow file exists.
+The root repository block must state whether a recorded route can support a gate claim. As an `UPSTREAM_FORK`, Poda Web cannot treat inherited upstream workflows as fork-owned assurance merely because their files are present.
 
 ## Evidence
 
-- [O-000001](situation/oracles/O-000001-inherited-element-client-source.md) is `designed` and its implementation-coverage rows are all `manual`.
-- At `aef8fa27ee`, `git ls-tree -r --name-only aef8fa27ee situation/witnesses` returns only `situation/witnesses/AGENTS.md`; no `P-000001` witness group or retained PASS witness exists.
-- `.github/workflows/tests.yml` defines an inherited test workflow, but no current Promise, Oracle, and Witness records connect it to a gate claim for P-000001.
+- At `0fa70ec5ce`, `git ls-tree -r --name-only 0fa70ec5ce situation/witnesses` returns only `situation/witnesses/AGENTS.md`; no retained PASS witness exists.
+- `.github/workflows/tests.yml` defines an inherited test workflow, but no recorded Oracle and Witness connect it to a fork-specific gate claim.
+- [D-000001](situation/decisions/D-000001-upstream-authority.md) records that Element Web remains the external upstream authority.
 
 ## Impact
 
-P-000001 cannot enter `assured`, and the root repository block must render its Verification bullet as unassured.
+The root repository block must render its Verification bullet as unassured, and no fork-specific gate claim can cite an inherited workflow run.
 
 ## Resolution
 
@@ -28,5 +28,5 @@ none
 
 ## References
 
-- `situation/promises/P-000001-inherited-element-client-source.md`
-- `situation/oracles/O-000001-inherited-element-client-source.md`
+- `situation/decisions/D-000001-upstream-authority.md`
+- `situation/invariants/I-000001-upstream-authority-boundary.md`

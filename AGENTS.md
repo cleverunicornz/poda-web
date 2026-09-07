@@ -207,7 +207,7 @@ Repository-specific orientation belongs in the repository block that follows.
 - Ownership: `UPSTREAM_FORK` of https://github.com/element-hq/element-web; synchronization and contribution follow the organization's fork rules in the root organization block.
 - Phase and implementation map: `situation/context.md`.
 - Critical invariants: [I-000001](situation/invariants/I-000001-upstream-authority-boundary.md) — Bedrock keeps the upstream-owned Element Web source, documentation, configuration, and nested `AGENTS.md` files intact; fork-specific orientation exists only in `situation/` and the root `<bedrock-repository>` block.
-- Verification: Unassured: no assured witness route is presently recorded for [P-000001](situation/promises/P-000001-inherited-element-client-source.md); [G-000001](situation/gaps/G-000001-client-source-assurance-route.md) retains that absence, and [C-000001](situation/candidates/C-000001-client-source-assurance-route.md) remains proposed.
+- Verification: Unassured: no assured witness route is presently recorded for this fork; [G-000001](situation/gaps/G-000001-client-source-assurance-route.md) retains that absence.
 - Tool priority: organization defaults.
 - Donor boundary: `51ccbf3c36fc160066424b656456b115994309b5` (opening checkpoint over donor trigger tree `b53af60d7e2ae8c9021e94dd628d478dbc65c37e`).
 </bedrock-repository>
