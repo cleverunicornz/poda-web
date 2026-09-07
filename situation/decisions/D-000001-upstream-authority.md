@@ -16,7 +16,6 @@ Poda Web's first Bedrock closure must identify whether the inherited Element Web
 
 - https://api.github.com/repos/cleverunicornz/poda-web identifies `element-hq/element-web` as this repository's public parent.
 - `b53af60d7e2ae8c9021e94dd628d478dbc65c37e:package.json` declares `https://github.com/element-hq/element-web` as the package repository.
-- `b53af60d7e2ae8c9021e94dd628d478dbc65c37e:README.md` identifies the inherited project as Element.
 
 ## Decision
 
