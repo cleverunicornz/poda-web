@@ -209,5 +209,5 @@ Repository-specific orientation belongs in the repository block that follows.
 - Critical invariants: [I-000001](situation/invariants/I-000001-upstream-authority-boundary.md) — Bedrock keeps the upstream-owned Element Web source, documentation, configuration, and nested `AGENTS.md` files intact; fork-specific orientation exists only in `situation/` and the root `<bedrock-repository>` block.
 - Verification: Unassured: no assured witness route is presently recorded for this fork; [G-000001](situation/gaps/G-000001-fork-assurance-route.md) retains that absence.
 - Tool priority: organization defaults.
-- Donor boundary: `51ccbf3c36fc160066424b656456b115994309b5` (opening checkpoint over donor trigger tree `b53af60d7e2ae8c9021e94dd628d478dbc65c37e`).
+- Donor boundary: `b53af60d7e2ae8c9021e94dd628d478dbc65c37e` (trigger tree admitted by opening checkpoint `51ccbf3c36fc160066424b656456b115994309b5`).
 </bedrock-repository>
