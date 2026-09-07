@@ -201,7 +201,7 @@ Repository-specific orientation belongs in the repository block that follows.
 </bedrock-organization>
 
 <bedrock-repository>
-## Poda Web
+## poda-web
 
 - Identity: Poda Web is an internal Element Web fork that produces the Element Matrix web client and Electron-wrapped desktop client.
 - Ownership: `UPSTREAM_FORK` of https://github.com/element-hq/element-web; synchronization and contribution follow the organization's fork rules in the root organization block.
