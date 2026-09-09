@@ -8,7 +8,7 @@
 - Behavior: [P-000006](situation/promises/P-000006-poda-element-visual-alignment.md)
 - Judgment: [O-000006](situation/oracles/O-000006-poda-element-visual-alignment.md)
 - Open visual contract: [G-000002](situation/gaps/G-000002-poda-visual-acceptance-contract.md)
-- Delivery candidate: [C-000001](situation/candidates/C-000001-element-native-poda-skin.md)
+- Delivery Promise: [P-000007](situation/promises/P-000007-poda-theme-delivery.md)
 - Brand source choice: [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md)
 - Theme implementation choice: [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
 
@@ -157,9 +157,9 @@ the extracted palette, source-safety findings, and early contrast checks.
   background material for an existing Element branding slot.
 - The girls-podcasting-by-lantern vector is candidate complete illustration
   material for an existing auth, welcome, or empty-state slot.
-- The SVGs remain provenance evidence outside runtime paths. Implementation
-  creates optimized, source-linked derivatives only after placement and crops
-  are approved.
+- The SVG masters remain provenance evidence outside runtime paths. Commit
+  `7329320de0` adds the D-000009-approved source-linked derivatives and records
+  their transformations, runtime slots, sizes, and digests in the manifest.
 - The artwork never creates a podcast, episode, launcher, tab, card, or action;
   it can only decorate an Element surface that already exists.
 
@@ -301,6 +301,13 @@ Light and Poda Dark with native theme fallbacks, semantic visual fidelity while
 preserving Element geometry, the character mark and landscape in existing web
 brand slots, full reachable-client token coverage, and preservation of every
 user-selected message layout.
+
+Commit `7329320de0` is the first implementation commit. It supplies the
+paired custom themes, operating-system theme mapping, source-derived brand
+assets, default web branding, focused tests, and a production-build preflight
+gate. It reaches the client through semantic theme variables and existing
+branding configuration; no component-layout stylesheet was changed because no
+demonstrated presentation gap required one.
 
 The implementation does not wait on speculative product choices. The remaining
 gates judge what is built:

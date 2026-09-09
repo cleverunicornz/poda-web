@@ -23,25 +23,27 @@ mock.
   a standalone mock stylesheet, not an Element acceptance fixture.
 - [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) now
   admits user-supplied vector masters and render references, resolving source
-  authority but not their semantic-token mapping, placement, crops, or runtime
-  derivatives.
-- No Poda theme, computed-token fixture, or Poda screenshot baseline is present
-  in the current repository tree.
+  authority.
+- [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
+  selects the first semantic-token, placement, crop-behavior, and theme-family
+  decisions, and commit `7329320de0` implements them.
+- No approved computed-token fixture or desktop/narrow Poda screenshot baseline
+  is present in the current repository tree.
 
 ## Impact
 
-Implementation can safely preserve the native capability boundary and derive
-assets from a known source set, but exact theme availability, artwork
-placement, visual fidelity, and screenshot acceptance cannot be assured until
-the contract is qualified.
+The implemented slice can be built and its source-level theme and asset
+contracts can be checked, but exhaustive rendered-state fidelity, artwork crop,
+responsive behavior, and screenshot acceptance cannot be assured until the
+remaining visual contract is qualified.
 
 ## Resolution
 
-- [C-000001](situation/candidates/C-000001-element-native-poda-skin.md) is being
-  implemented as [P-000007](situation/promises/P-000007-poda-theme-delivery.md)
-  under [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md).
-- [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) resolves
-  the source-asset portion of the gap; the remaining visual contract is open.
+- [P-000007](situation/promises/P-000007-poda-theme-delivery.md) implements the
+  promoted C-000001 theme and brand-asset slice under
+  [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md).
+- D-000008 and D-000009 resolve the source-asset and first-slice design portions
+  of the gap; computed and rendered acceptance evidence remains open.
 
 ## References
 

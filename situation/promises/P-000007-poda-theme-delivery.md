@@ -2,7 +2,7 @@
 
 ## State
 
-implementing
+implemented
 
 ## Promise
 
@@ -28,8 +28,11 @@ tests and boundary audit for those changes in `apps/web/`.
 
 - [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
   promotes C-000001 and selects the implementation route.
-- [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md)
-  has active implementation work for this promise.
+- Commit `7329320de0` implements the paired custom themes, system-preference
+  mapping, default branding, deterministic runtime assets, executable checks,
+  focused tests, and production-build dependency.
+- [O-000007](situation/oracles/O-000007-poda-theme-delivery.md) is implemented;
+  exact-head assurance and retained Witness evidence remain pending.
 
 ## Residual
 

@@ -2,7 +2,7 @@
 
 ## State
 
-hypothesis
+implemented
 
 ## Promise
 
@@ -32,7 +32,11 @@ components.
 - [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) admits
   the Poda source artwork and palette without selecting runtime placement or
   establishing implementation evidence.
-- No implementation or run evidence exists yet.
+- [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
+  selects the paired theme, branding-slot, geometry, and message-layout choices.
+- Commit `7329320de0` implements the configuration-backed visual treatment and
+  runtime assets without adding a route or Matrix behavior. Exact-head visual,
+  accessibility, and behavior assurance remains pending.
 
 ## Residual
 
