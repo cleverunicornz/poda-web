@@ -2,7 +2,7 @@
 
 ## State
 
-open
+addressing
 
 ## Gap
 
@@ -24,7 +24,11 @@ The root repository block must render its Verification bullet as unassured, and 
 
 ## Resolution
 
-none
+- [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) states
+  the intended fork-specific assurance behavior.
+- [PLAN-000001](situation/plans/active/PLAN-000001-poda-element-integration.md)
+  orders its implementation and requires retained PASS Witnesses before
+  completion.
 
 ## References
 
