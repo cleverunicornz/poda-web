@@ -10,7 +10,8 @@ Poda Web is an internal fork of Element Web that retains a monorepo for Element'
 
 ## Phase
 
-`PLANNING` — the fork has selected a visual-only first migration; implementation and assurance have not started.
+`IMPLEMENTATION` — the fork is implementing the selected visual-only Poda
+theme and branding slice; assurance has not started.
 
 ## Implementation map
 
@@ -26,9 +27,10 @@ application-integration plan has been abandoned before implementation. The
 active direction is to restyle the existing Element Web interface without
 adding behavior beyond capabilities Element Web and Matrix already provide.
 User-supplied Poda vector masters and render references are retained under
-`situation/references/D-000008/`, but their final token mapping, placement, and
-runtime derivatives are not yet approved. No Poda visual implementation or
-fork-specific assurance witness exists.
+`situation/references/D-000008/`. D-000009 selects config-backed Poda Light and
+Poda Dark themes, existing Element branding slots, preserved layout geometry,
+and deterministic runtime derivatives. Implementation is active; no Poda
+visual or fork-specific assurance witness exists yet.
 
 ## Intended state
 

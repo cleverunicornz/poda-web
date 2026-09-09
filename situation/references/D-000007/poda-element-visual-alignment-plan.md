@@ -10,6 +10,7 @@
 - Open visual contract: [G-000002](situation/gaps/G-000002-poda-visual-acceptance-contract.md)
 - Delivery candidate: [C-000001](situation/candidates/C-000001-element-native-poda-skin.md)
 - Brand source choice: [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md)
+- Theme implementation choice: [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
 
 This reference replaces the earlier first-migration scope. Git retains that
 earlier planning commit; [PLAN-000001](situation/plans/abandoned/PLAN-000001-poda-element-integration.md)
@@ -42,11 +43,11 @@ existing Element React components, stores, actions, routes, and Matrix SDK
 | Chat owner | Retain Element and Matrix end to end | Port PCC chat state or APIs | **USER CHOICE, carried forward** |
 | Donor role | Visual and assessment evidence only | Runtime dependency or source transplant | **EVIDENCE-BASED CONCLUSION** |
 | Framework | Keep React, Compound, PostCSS, current stores and view models | Add Svelte, Tauri, Tailwind, Lucide, or donor model code | **CONSTRAINT** |
-| Theme delivery | Configuration-first theme plus minimal Poda-scoped CSS | Built-in Poda themes or rewriting Element defaults | **WORKING RECOMMENDATION; USER CHOICE OPEN** |
-| Theme coverage | Preserve light and dark support | Dark-only or light-only first slice | **WORKING ASSUMPTION; USER CHOICE OPEN** |
-| Panel geometry | Preserve Element's responsive resizers and defaults | Copy donor widths exactly | **WORKING RECOMMENDATION; USER CHOICE OPEN** |
+| Theme delivery | Configuration-backed custom themes plus minimal presentation changes | Built-in Poda themes or rewriting Element defaults | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Theme coverage | Poda Light and Poda Dark follow system preference; native high-contrast fallback retained | Dark-only or light-only first slice | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Panel geometry | Preserve Element's responsive resizers and defaults | Copy donor widths exactly | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
 | Brand source set | Use the maintainer-supplied vectors and render references retained by D-000008 | Donor placeholder, screenshot extraction, or invented artwork | **USER CHOICE; RESOLVED** |
-| Brand placement and derivatives | Optimize from the retained masters for existing Element branding slots | Ship editor masters directly or create new surfaces around them | **WORKING RECOMMENDATION; USER CHOICE OPEN** |
+| Brand placement and derivatives | Character mark and landscape in existing web branding slots; lantern scene retained but unshipped | Ship editor masters directly or create new surfaces around them | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
 
 ### Earlier assumptions explicitly removed
 
@@ -292,36 +293,27 @@ expected presentation boundary is:
 No application API, Tauri, Svelte, podcast, organization, or Matrix protocol
 module is an expected touch point.
 
-## High-impact open choices
+## Implementation choices and remaining gates
 
-These are the few choices worth resolving before implementation because they
-determine future upstream maintenance and visual acceptance:
+[D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
+selects the previously recommended implementation choices: config-backed Poda
+Light and Poda Dark with native theme fallbacks, semantic visual fidelity while
+preserving Element geometry, the character mark and landscape in existing web
+brand slots, full reachable-client token coverage, and preservation of every
+user-selected message layout.
 
-1. **Theme product model.** Recommended: Poda light and dark are the defaults,
-   while Element themes remain temporarily available as diagnostic baselines.
-   Alternatives are a single forced Poda theme or an optional Poda theme.
-2. **Fidelity boundary.** Recommended: match palette, typography, surface
-   hierarchy, radii, selection, unread, and focus treatment while preserving
-   Element's current dimensions and resizers. Exact donor widths are an option,
-   but add little value and increase responsive risk.
-3. **Brand placement and derivative policy.** Source authority is resolved by
-   D-000008. Recommended: use an optimized character-and-microphone derivative
-   for existing logo/icon slots, use scene art only in existing spacious auth
-   or welcome illustration slots, and keep dense chat surfaces free of scenic
-   backgrounds. The open alternatives are which scene wins, which crops are
-   approved, and whether the full mark remains legible or needs a simplified
-   small-size derivative.
-4. **First acceptance surface.** Recommended: cover the complete web experience
-   users can reach, including auth, chat, profiles/member info, settings,
-   dialogs, and empty/error states. A chat-shell-only first frame is faster but
-   intentionally leaves mixed styling.
-5. **Message layout.** Recommended: skin Element's existing user-selected
-   modern/compact/bubble layouts rather than force the donor's right-aligned
-   bubbles. Forcing one layout changes a current user preference even though it
-   looks like a CSS decision.
-6. **External distribution terms.** The maintainer supplied and authorized the
+The implementation does not wait on speculative product choices. The remaining
+gates judge what is built:
+
+1. **Visual acceptance evidence.** Approve deterministic light/dark desktop and
+   narrow screenshots, including the current centered `cover` crop used for the
+   auth landscape and the mark's legibility at each rendered size.
+2. **Poda high contrast.** This slice deliberately falls back to Element's
+   native light high-contrast theme. A separately designed Poda high-contrast
+   variant remains an option after the light/dark contract is witnessed.
+3. **External distribution terms.** The maintainer supplied and authorized the
    source set for this migration. Ownership, attribution, or relicensing terms
-   for distribution outside the internal fork remain unrecorded and should be
+   for distribution outside the internal fork remain unrecorded and must be
    confirmed before a public release.
 
 ## Promise, Oracle, and Witness flow

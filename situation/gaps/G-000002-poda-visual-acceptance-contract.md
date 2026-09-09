@@ -38,7 +38,8 @@ the contract is qualified.
 ## Resolution
 
 - [C-000001](situation/candidates/C-000001-element-native-poda-skin.md) is being
-  qualified by [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md).
+  implemented as [P-000007](situation/promises/P-000007-poda-theme-delivery.md)
+  under [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md).
 - [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) resolves
   the source-asset portion of the gap; the remaining visual contract is open.
 

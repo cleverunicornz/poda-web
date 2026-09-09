@@ -2,7 +2,7 @@
 
 ## State
 
-qualifying
+promoted
 
 ## Candidate
 
@@ -57,4 +57,6 @@ intact and limiting future upstream merge conflicts.
 
 ## Disposition
 
-none; qualification is active.
+- Selected by [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md).
+- Promoted into [P-000007](situation/promises/P-000007-poda-theme-delivery.md),
+  judged by [O-000007](situation/oracles/O-000007-poda-theme-delivery.md).
