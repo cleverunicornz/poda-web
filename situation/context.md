@@ -10,7 +10,7 @@ Poda Web is an internal fork of Element Web that retains a monorepo for Element'
 
 ## Phase
 
-`PLANNING` — the fork has selected and recorded its Poda product direction; implementation and assurance have not started.
+`PLANNING` — the fork has selected a visual-only first migration; implementation and assurance have not started.
 
 ## Implementation map
 
@@ -21,21 +21,19 @@ Poda Web is an internal fork of Element Web that retains a monorepo for Element'
 
 ## Current state
 
-The fork retains the upstream Element client source tree. It now records a
-Poda product composition, authority boundary, contract boundary, branding
-boundary, public-publication boundary, and active implementation plan. The
-promised Poda behavior remains hypothetical and no fork-specific assurance
-witness exists.
+The fork retains the upstream Element client source tree. The earlier broad
+application-integration plan has been abandoned before implementation. The
+active direction is to restyle the existing Element Web interface without
+adding behavior beyond capabilities Element Web and Matrix already provide.
+No Poda visual implementation or fork-specific assurance witness exists.
 
 ## Intended state
 
-The responsive web client becomes one Poda-branded product with Home, Studio,
-Chat, and Profile surfaces. Element Web remains the Matrix implementation under
-Chat; first-party React surfaces provide listening, discovery, personal guest
-profiles, and organization-scoped podcast and episode authoring. Versioned
-organization APIs own business state, Matrix owns communication state, and
-canonical public pages remain at the external publication boundary. The active
-plan is `situation/plans/active/PLAN-000001-poda-element-integration.md`.
+The responsive web client retains Element's existing information architecture,
+Matrix data model, routes, stores, permissions, and actions while presenting an
+approved Poda visual treatment through Element's theme and branding mechanisms
+and narrowly scoped presentation styles. The active plan is
+`situation/plans/active/PLAN-000002-poda-element-visual-alignment.md`.
 
 ## Closure state
 

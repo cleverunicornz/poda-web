@@ -1,0 +1,337 @@
+# Poda Element visual alignment plan
+
+## Record status
+
+- Date: 2026-09-09
+- Decision: [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
+- Active plan: [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md)
+- Behavior: [P-000006](situation/promises/P-000006-poda-element-visual-alignment.md)
+- Judgment: [O-000006](situation/oracles/O-000006-poda-element-visual-alignment.md)
+- Open visual contract: [G-000002](situation/gaps/G-000002-poda-visual-acceptance-contract.md)
+- Delivery candidate: [C-000001](situation/candidates/C-000001-element-native-poda-skin.md)
+
+This reference replaces the earlier first-migration scope. Git retains that
+earlier planning commit; [PLAN-000001](situation/plans/abandoned/PLAN-000001-poda-element-integration.md)
+is no longer active.
+
+## Outcome
+
+Restyle Element Web itself so it reads visually as Poda while leaving Element
+and Matrix in sole control of chat behavior. This is a skin, not a second app,
+not a new tab shell, and not a feature migration.
+
+The implementation boundary is deliberately mechanical:
+
+```text
+Poda visual contract
+        |
+        v
+Element branding + theme tokens + presentation CSS
+        |
+        v
+existing Element React components, stores, actions, routes, and Matrix SDK
+```
+
+## Choices, corrections, and assumptions
+
+| Topic | Selected path | Alternatives | Classification |
+|---|---|---|---|
+| First migration | Restyle Element's existing interface | Build a combined podcast/chat application | **USER CHOICE** |
+| Capability boundary | Expose only operations Element/Matrix already implements | Add podcast, PODA, collaboration, artifact, or custom workflow behavior | **USER CHOICE** |
+| Chat owner | Retain Element and Matrix end to end | Port PCC chat state or APIs | **USER CHOICE, carried forward** |
+| Donor role | Visual and assessment evidence only | Runtime dependency or source transplant | **EVIDENCE-BASED CONCLUSION** |
+| Framework | Keep React, Compound, PostCSS, current stores and view models | Add Svelte, Tauri, Tailwind, Lucide, or donor model code | **CONSTRAINT** |
+| Theme delivery | Configuration-first theme plus minimal Poda-scoped CSS | Built-in Poda themes or rewriting Element defaults | **WORKING RECOMMENDATION; USER CHOICE OPEN** |
+| Theme coverage | Preserve light and dark support | Dark-only or light-only first slice | **WORKING ASSUMPTION; USER CHOICE OPEN** |
+| Panel geometry | Preserve Element's responsive resizers and defaults | Copy donor widths exactly | **WORKING RECOMMENDATION; USER CHOICE OPEN** |
+| Brand assets | Use an approved, provenance-known Poda mark | Extract a mark from a screenshot or invent one | **BLOCKED ASSET CHOICE** |
+
+### Earlier assumptions explicitly removed
+
+The following were introduced by the earlier plan but were not required by the
+maintainer's corrected direction. None is part of this migration:
+
+- a persistent Home, Studio, Chat, and Profile application shell;
+- podcast, episode, Podcast 2.0, publication, authoring, or playback behavior;
+- a new Poda browser API, fixture adapter, or capability handshake;
+- new audience/organization identity switching or Matrix Coordinator work;
+- Poda workflow event types, cards, business objects, or custom deep links;
+- public-page ownership choices; and
+- porting any PCC native or structured-chat runtime implementation.
+
+## Donor branch identification
+
+The branch matching “chat interface” and the requested assessment logic is
+`codex/structured-chat-mock` at
+`6bddee4dfd9fa8ee0474aa70170b79650447cbc8` in the private
+`cleverunicornz/yeet-code` repository. Its head subject is
+`docs: add structured chat integration assessment` dated 2026-06-27.
+
+The decisive files are:
+
+- `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/AGENTS.md`
+- `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/STRUCTURED_CHAT_INTEGRATION_STRATEGY.md`
+- `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/STRUCTURED_CHAT_CAPABILITY_MATRIX.md`
+- `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/STRUCTURED_CHAT_NATIVE_DEDUPE_MAP.md`
+- `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/native/src/app.css`
+
+Later `codex/todo-structured-chat-*` branches implement portions of that spike
+in PCC native. They are not the source of the assessment method and do not
+change this repository's Element-native boundary.
+
+## The donor's assessment logic
+
+The useful logic is a disciplined classification process, not a component
+copying recipe:
+
+1. Freeze the mock as UX evidence.
+2. Locate the real production owner for each visible capability.
+3. Classify present evidence as `implemented`, `partial`, `candidate`,
+   `stub/fail-closed`, `not found`, `wrong boundary`, or `mock-only`.
+4. Classify missing work by boundary: frontend DTO, API projection, API
+   contract, domain behavior, composition, downstream ownership, or
+   mock-only/out-of-scope.
+5. Reuse proven production behavior before inventing a replacement.
+6. Never wire a visible control to a stub or local fixture.
+7. Preserve the production source of truth and remove older UI only after
+   parity is proven.
+
+Applied here, the production owner is usually already Element or Matrix. If no
+native Element/Matrix owner exists, the feature is out of this migration rather
+than a gap to fill now.
+
+## Existing structural correspondence
+
+| Donor visual region | Element-native surface | Assessment |
+|---|---|---|
+| 64 px bucket rail | `SpacePanel.tsx` / `_SpacePanel.pcss` (68 px collapsed) | Strong visual analogue; keep Space semantics |
+| 320 px thread list | `LeftPanel.tsx`, `RoomListPanel.tsx`, shared room-list components | Strong visual analogue; mock “threads” map to Matrix rooms/DMs, not Matrix threads |
+| Timeline header | `RoomHeader.tsx` / `_RoomHeader.pcss` (64 px) | Restyle existing room identity and actions |
+| Message timeline | `RoomView.tsx`, `EventTile.tsx`, timeline view models | Restyle only; retain Matrix event rendering and virtualization |
+| Composer | `MessageComposer.tsx` and current composer implementations | Restyle existing controls and permission states |
+| 304–560 px context canvas | `MainSplit.tsx` / `RightPanel.tsx` (320 px default, resizable) | Strong visual analogue; keep current panel phases |
+| Global notification panel | `NotificationPanel.tsx` and notification stores | Style existing Matrix notifications only |
+| Profile canvas/full view | current member info and `UserView.tsx` | Style Matrix profile/member data only |
+| Mock home | `HomePage.tsx` | Visual direction only; do not add PODA actions |
+
+The two applications already share Inter and approximately eight-pixel corner
+radii. Their desktop geometry is close enough that visual alignment does not
+require a layout rewrite.
+
+## What can be used
+
+### Use as direct design input
+
+- Poda gold `#F9BA51`, supporting orange `#EFB855`, deep orange `#E5793E`,
+  warm orange `#E4763C`, brown `#563522`, and dark brown `#332216`.
+- Light surface hierarchy: near-white canvas, white cards, warm cream secondary
+  surface, dark-brown text, warm translucent borders, and gold focus/accent.
+- Dark surface hierarchy: `#1a1410` canvas, `#2c2018` card, `#3a2d20`
+  secondary surface, warm light text, muted brown text, and gold borders.
+- Eight-pixel radii, compact square rail actions, restrained borders, warm
+  selection fills, clear unread badges, and a layered rather than flat panel
+  hierarchy.
+- The visual relationship among rail, list, timeline, and context panel.
+
+These are specifications to translate into Element semantic tokens. They do
+not justify copying the donor stylesheet or its framework utilities.
+
+### Adapt onto Element-native behavior
+
+| Donor concept | Safe Element adaptation |
+|---|---|
+| Active bucket | Style the active Matrix Space or meta-space |
+| Favorite conversation | Style rooms carrying Element's existing `m.favourite` tag |
+| Muted conversation | Style the existing room notification/push-rule state |
+| Unread badge | Style current receipt/unread notification state |
+| Search box and filters | Style Element's existing room and message search controls |
+| Profile panel | Style existing member info and user view |
+| Notification center | Style the current Matrix notification timeline |
+| Context canvas | Style current right-panel cards, threads, files, pins, and room info |
+| Message states | Style states already emitted and understood by Element |
+| Light/dark switch | Use current ThemeWatcher and settings behavior |
+
+### Do not use in this migration
+
+- Svelte components, Tauri commands, Rust persistence, seeded fixtures,
+  aggregate `MockState`, or pure donor mutation functions.
+- Tailwind and Lucide dependencies; Element already has Compound tokens,
+  Compound icons, CSS modules/PostCSS, and a bundled Inter font.
+- The donor's Google Fonts import; Element packages Inter locally.
+- PODA launcher, assistant/tool events, artifacts, approvals, booking, matches,
+  playlists, podcast buckets, followed/owned podcast projections, support
+  projections, or collaboration requests.
+- Mock global/bucket/thread/profile notification preferences that do not map to
+  a current Element control.
+- PCC native, gateway, application-api, collaboration-service, or conversation
+  runtime paths.
+- Any “successful” local mutation used as a substitute for a Matrix operation.
+
+## Semantic traps to prevent
+
+- **Thread:** the mock generally calls a whole conversation a thread. In
+  Element, a Matrix thread is a reply relation inside a room. Labels and logic
+  must retain Matrix's meaning.
+- **Bucket:** donor business buckets are not Matrix Spaces. Only existing
+  Spaces, meta-spaces, and room-list sections may receive the visual treatment.
+- **Block:** the mock combines block, mute, hide, collaboration denial, and
+  sometimes deletion. Element's ignore, ban, leave, forget, report, and redact
+  operations remain distinct.
+- **Delete:** a Matrix client cannot promise deletion of a distributed room
+  history merely because the mock removes a local array.
+- **Favorite and mute:** use existing room tags and push rules; do not create a
+  parallel Poda preference store.
+- **Object card:** style only event and panel types Element already recognizes;
+  do not introduce a Poda event schema in a visual migration.
+
+## Element-native implementation route
+
+### 1. Admit the visual contract
+
+- Capture deterministic baseline screenshots of the current Element surfaces.
+- Produce approved Poda reference frames for the same states and viewports.
+- Resolve the open choices listed below, including the authoritative logo
+  asset.
+- Freeze semantic token values and contrast targets before changing CSS.
+
+### 2. Implement the theme through supported hooks
+
+- Map the palette first through `setting_defaults.custom_themes` and the
+  `compound` token overrides already consumed by `apps/web/src/theme.ts`.
+- Use `brand`, `branding`, and `default_theme` only within their documented
+  presentation roles.
+- Keep Inter from the existing `@fontsource/inter` imports.
+- Keep current Compound icons and accessible button primitives.
+- Keep Element light/dark and high-contrast behavior until an explicit choice
+  narrows theme availability.
+
+### 3. Close presentation gaps without adding behavior
+
+- Prefer semantic token changes over component selectors.
+- Where tokens cannot express the approved surface hierarchy, add the smallest
+  Poda-scoped CSS variable or presentation rule.
+- Do not add React state, new callbacks, routes, SDK calls, event types, or
+  storage to implement a visual effect.
+- Avoid changing shared CSS modules unless the approved reference cannot be
+  met through tokens; each such edit needs a visual test because it expands the
+  upstream merge surface.
+- Preserve existing panel resizers, virtualization, keyboard order, focus
+  management, and responsive collapse behavior.
+
+### 4. Apply the treatment surface by surface
+
+1. Authentication, welcome, loading, error, and home surfaces.
+2. Space rail, user menu, room search, room filters, sections, and room rows.
+3. Room header, timeline events, reactions, composer, status and error states.
+4. Right panel, notification panel, member/profile info, and room summary.
+5. Settings, menus, dialogs, toasts, empty states, and narrow responsive views.
+
+Each slice is accepted only when its screenshots and existing behavior checks
+pass together.
+
+### 5. Prove the boundary
+
+- Build the production web client from the exact candidate head.
+- Run existing Element tests for the named surfaces and journeys.
+- Run Poda visual snapshots for light/dark and desktop/narrow states.
+- Audit the diff and bundle for routes, SDK calls, network destinations,
+  storage keys, Matrix event types, donor imports, and new behavior
+  dependencies.
+- Retain evidence through O-000006 and only then create a Witness.
+
+## Likely repository touch points
+
+The exact file list follows the selected theme-delivery approach, but the
+expected presentation boundary is:
+
+- `apps/web/src/theme.ts` and deployment theme configuration;
+- `apps/web/res/themes/*` only if a built-in theme is selected;
+- `apps/web/res/css/structures/_SpacePanel.pcss`;
+- `apps/web/res/css/structures/_LeftPanel.pcss`;
+- `apps/web/res/css/structures/_RoomView.pcss`;
+- `apps/web/res/css/structures/_RightPanel.pcss`;
+- `apps/web/res/css/views/rooms/_RoomHeader.pcss`;
+- `apps/web/res/css/views/rooms/_EventTile.pcss`;
+- `apps/web/res/css/views/rooms/_MessageComposer.pcss`; and
+- relevant `packages/shared-components/src/room-list/*.module.css` only when
+  semantic tokens cannot satisfy an approved frame.
+
+No application API, Tauri, Svelte, podcast, organization, or Matrix protocol
+module is an expected touch point.
+
+## High-impact open choices
+
+These are the few choices worth resolving before implementation because they
+determine future upstream maintenance and visual acceptance:
+
+1. **Theme product model.** Recommended: Poda light and dark are the defaults,
+   while Element themes remain temporarily available as diagnostic baselines.
+   Alternatives are a single forced Poda theme or an optional Poda theme.
+2. **Fidelity boundary.** Recommended: match palette, typography, surface
+   hierarchy, radii, selection, unread, and focus treatment while preserving
+   Element's current dimensions and resizers. Exact donor widths are an option,
+   but add little value and increase responsive risk.
+3. **Brand asset authority.** An approved vector microphone mark and icon set
+   need a stable private repository coordinate. The structured-chat branch has
+   no authoritative reusable vector mark; a screenshot is not an asset source.
+4. **First acceptance surface.** Recommended: cover the complete web experience
+   users can reach, including auth, chat, profiles/member info, settings,
+   dialogs, and empty/error states. A chat-shell-only first frame is faster but
+   intentionally leaves mixed styling.
+5. **Message layout.** Recommended: skin Element's existing user-selected
+   modern/compact/bubble layouts rather than force the donor's right-aligned
+   bubbles. Forcing one layout changes a current user preference even though it
+   looks like a CSS decision.
+
+## Promise, Oracle, and Witness flow
+
+The repository does not create a placeholder Witness:
+
+```text
+P-000006 visual behavior
+        |
+        v
+implementation on a named commit
+        |
+        v
+O-000006 exact pass/fail judgment
+        |
+        v
+real CI run and retained artifacts
+        |
+        v
+new W-* PASS/FAIL/INVALID/BLOCKED observation
+        |
+        v
+P-000006 disposition
+```
+
+A green screenshot alone is insufficient. The Witness must cover both the
+approved visual matrix and the named Element/Matrix behavior journeys on the
+same exact head. Until that run exists, P-000006 remains unassured.
+
+## Out of scope
+
+- podcast, episode, profile-business, Podcast 2.0, and public-page features;
+- PODA, AI, tool, approval, artifact, booking, match, or playlist features;
+- custom Matrix events or altered Matrix semantics;
+- new web APIs, PCC services, gateways, Tauri commands, or local mock storage;
+- identity/context architecture changes;
+- replacement of Element's routing, state stores, view models, accessibility
+  primitives, or responsive layout engine; and
+- Electron-specific behavior or packaging in this first web migration.
+
+## Provenance
+
+- Donor UX and assessment evidence:
+  `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock`
+  (private; requires repository access).
+- Element theme implementation: `apps/web/src/theme.ts`,
+  `apps/web/res/themes/light-custom/css/_custom.pcss`, and `docs/theming.md`.
+- Element layout implementation:
+  `apps/web/src/components/views/spaces/SpacePanel.tsx`,
+  `apps/web/src/components/structures/LeftPanel.tsx`,
+  `apps/web/src/components/views/rooms/RoomListPanel/RoomListPanel.tsx`,
+  `apps/web/src/components/structures/RoomView.tsx`,
+  `apps/web/src/components/structures/MainSplit.tsx`, and
+  `apps/web/src/components/structures/RightPanel.tsx`.

@@ -26,7 +26,7 @@ The root repository block must render its Verification bullet as unassured, and 
 
 - [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) states
   the intended fork-specific assurance behavior.
-- [PLAN-000001](situation/plans/active/PLAN-000001-poda-element-integration.md)
+- [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md)
   orders its implementation and requires retained PASS Witnesses before
   completion.
 

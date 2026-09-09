@@ -2,7 +2,7 @@
 
 ## State
 
-hypothesis
+withdrawn
 
 ## Promise
 
@@ -29,7 +29,9 @@ notifications, settings, and Poda workflow cards in `apps/web/`.
   Matrix as the communication surface.
 - [D-000003](situation/decisions/D-000003-platform-matrix-authority.md) selects
   the current authority and identity baseline.
-- No implementation or run evidence exists yet.
+- [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
+  removes identity, context, and Matrix behavior changes from this migration.
+- No implementation or run evidence exists.
 
 ## Residual
 

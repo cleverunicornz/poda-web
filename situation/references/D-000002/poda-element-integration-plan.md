@@ -6,7 +6,7 @@
 - Product: Poda Web
 - Delivery state: planned, not implemented
 - Owning decision: [D-000002](situation/decisions/D-000002-poda-product-composition.md)
-- Active plan: [PLAN-000001](situation/plans/active/PLAN-000001-poda-element-integration.md)
+- Superseded plan: [PLAN-000001](situation/plans/abandoned/PLAN-000001-poda-element-integration.md)
 
 This reference preserves the complete product and implementation intent behind
 the thin Bedrock Plan. Statements labelled **USER CHOICE** are selections made

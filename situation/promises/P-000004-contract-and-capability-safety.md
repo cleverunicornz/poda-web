@@ -2,7 +2,7 @@
 
 ## State
 
-hypothesis
+withdrawn
 
 ## Promise
 
@@ -27,7 +27,10 @@ and network destinations introduced or retained by the integrated web client.
   selects the contract and fail-closed boundary.
 - [D-000005](situation/decisions/D-000005-poda-product-branding.md) rejects
   inherited Element-operated defaults.
-- No implementation or run evidence exists yet.
+- [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
+  removes new application contracts, adapters, and service integration from
+  this migration.
+- No implementation or run evidence exists.
 
 ## Residual
 

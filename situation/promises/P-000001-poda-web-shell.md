@@ -2,7 +2,7 @@
 
 ## State
 
-hypothesis
+superseded
 
 ## Promise
 
@@ -26,7 +26,10 @@ locales, responsive layouts, and the global podcast player in `apps/web/`.
   the unified shell.
 - [D-000005](situation/decisions/D-000005-poda-product-branding.md) selects the
   product-surface branding boundary.
-- No implementation or run evidence exists yet.
+- [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
+  replaces this shell integration with the narrower
+  [P-000006](situation/promises/P-000006-poda-element-visual-alignment.md).
+- No implementation or run evidence exists.
 
 ## Residual
 

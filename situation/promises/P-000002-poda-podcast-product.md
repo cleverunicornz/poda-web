@@ -2,7 +2,7 @@
 
 ## State
 
-hypothesis
+withdrawn
 
 ## Promise
 
@@ -28,7 +28,9 @@ and the Podcast Namespace 1.0 revision pinned by the owning plan.
   the donor-derived product behavior.
 - [D-000006](situation/decisions/D-000006-public-publication-boundary.md)
   selects the authenticated/public division.
-- No implementation or run evidence exists yet.
+- [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
+  removes podcast product behavior from this migration.
+- No implementation or run evidence exists.
 
 ## Residual
 

@@ -2,7 +2,11 @@
 
 ## Status
 
-accepted
+superseded
+
+## Superseded by
+
+- [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
 
 ## Date
 
@@ -63,8 +67,10 @@ pending.
 
 ## Consequences
 
-- [I-000002](situation/invariants/I-000002-platform-matrix-authority-boundary.md)
-  binds the authority split until it is superseded.
+- The draft authority invariant originally allocated as I-000002 was corrected
+  before closure; [I-000002](situation/invariants/I-000002-element-native-capability-boundary.md)
+  now binds the narrower Element-native capability boundary selected by
+  D-000007.
 - Matrix workflow cards refetch authoritative organization state before an
   action and cannot mutate business state solely from event contents.
 - The client runs one namespaced Matrix context at a time.

@@ -2,7 +2,11 @@
 
 ## Status
 
-accepted
+superseded
+
+## Superseded by
+
+- [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
 
 ## Date
 
