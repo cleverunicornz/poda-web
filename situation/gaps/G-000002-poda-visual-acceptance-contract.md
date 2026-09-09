@@ -29,6 +29,11 @@ mock.
   decisions, and commit `7329320de0` implements them.
 - No approved computed-token fixture or desktop/narrow Poda screenshot baseline
   is present in the current repository tree.
+- The first authenticated render at commit `3c9dfbeeff` showed an empty native
+  Matrix account with Poda colors applied, but stock Element surface hierarchy;
+  it therefore supplied rejection evidence rather than an acceptance baseline.
+- [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)
+  selects Poda-scoped component presentation as the corrective route.
 
 ## Impact
 
@@ -44,6 +49,8 @@ remaining visual contract is qualified.
   [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md).
 - D-000008 and D-000009 resolve the source-asset and first-slice design portions
   of the gap; computed and rendered acceptance evidence remains open.
+- D-000010 addresses the demonstrated authenticated-surface mismatch; the gap
+  remains open until retained light/dark room-state references are reviewed.
 
 ## References
 

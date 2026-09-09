@@ -10,9 +10,14 @@ import { describe, expect, it } from "vitest";
 import {
     PODA_CUSTOM_THEMES,
     PODA_DARK_THEME,
+    PODA_DARK_THEME_CLASS,
     PODA_DARK_THEME_ID,
     PODA_LIGHT_THEME,
+    PODA_LIGHT_THEME_CLASS,
     PODA_LIGHT_THEME_ID,
+    PODA_THEME_CLASS,
+    PODA_THEME_CLASSES,
+    getPodaThemeClasses,
     isPodaThemeId,
 } from "./podaTheme";
 
@@ -48,6 +53,28 @@ describe("Poda themes", () => {
             for (const token of Object.keys(theme.compound ?? {})) {
                 expect(token).toMatch(/^--cpd-[a-z0-9-]+$/u);
             }
+        }
+    });
+
+    it("maps only Poda theme IDs onto the scoped presentation classes", () => {
+        expect(PODA_THEME_CLASSES).toEqual([PODA_THEME_CLASS, PODA_LIGHT_THEME_CLASS, PODA_DARK_THEME_CLASS]);
+        expect(getPodaThemeClasses(PODA_LIGHT_THEME_ID)).toEqual([PODA_THEME_CLASS, PODA_LIGHT_THEME_CLASS]);
+        expect(getPodaThemeClasses(PODA_DARK_THEME_ID)).toEqual([PODA_THEME_CLASS, PODA_DARK_THEME_CLASS]);
+        expect(getPodaThemeClasses("light")).toEqual([]);
+    });
+
+    it("provides every runtime presentation variable in both themes", () => {
+        const presentationVariables = [
+            "poda-card-color",
+            "poda-border-color",
+            "poda-rail-content-color",
+            "poda-shadow-color",
+            "poda-glow-color",
+            "poda-home-overlay-color",
+        ];
+
+        for (const theme of PODA_CUSTOM_THEMES) {
+            expect(Object.keys(theme.colors ?? {})).toEqual(expect.arrayContaining(presentationVariables));
         }
     });
 

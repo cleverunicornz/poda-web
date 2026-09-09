@@ -11,6 +11,7 @@
 - Delivery Promise: [P-000007](situation/promises/P-000007-poda-theme-delivery.md)
 - Brand source choice: [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md)
 - Theme implementation choice: [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
+- Native-surface treatment choice: [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)
 
 This reference replaces the earlier first-migration scope. Git retains that
 earlier planning commit; [PLAN-000001](situation/plans/abandoned/PLAN-000001-poda-element-integration.md)
@@ -45,6 +46,8 @@ existing Element React components, stores, actions, routes, and Matrix SDK
 | Framework                       | Keep React, Compound, PostCSS, current stores and view models                                     | Add Svelte, Tauri, Tailwind, Lucide, or donor model code                | **CONSTRAINT**                                  |
 | Theme delivery                  | Configuration-backed custom themes plus minimal presentation changes                              | Built-in Poda themes or rewriting Element defaults                      | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
 | Theme coverage                  | Poda Light and Poda Dark follow system preference; native high-contrast fallback retained         | Dark-only or light-only first slice                                     | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Native surface treatment        | Poda-scoped CSS over the existing Element rail, list, room, timeline, composer, panel, home, and dialogs | Retain stock component presentation or import donor components      | **IMPLEMENTATION CHOICE; RESOLVED BY D-000010** |
+| Default message layout          | Element's native bubble layout for new/default accounts; explicit user selection wins              | Force bubble for every user or retain the stock default                 | **IMPLEMENTATION CHOICE; RESOLVED BY D-000010** |
 | Panel geometry                  | Preserve Element's responsive resizers and defaults                                               | Copy donor widths exactly                                               | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
 | Brand source set                | Use the maintainer-supplied vectors and render references retained by D-000008                    | Donor placeholder, screenshot extraction, or invented artwork           | **USER CHOICE; RESOLVED**                       |
 | Brand placement and derivatives | Character mark and landscape in existing web branding slots; lantern scene retained but unshipped | Ship editor masters directly or create new surfaces around them         | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
@@ -306,8 +309,10 @@ Commit `7329320de0` is the first implementation commit. It supplies the
 paired custom themes, operating-system theme mapping, source-derived brand
 assets, default web branding, focused tests, and a production-build preflight
 gate. It reaches the client through semantic theme variables and existing
-branding configuration; no component-layout stylesheet was changed because no
-demonstrated presentation gap required one.
+branding configuration. The first authenticated review at commit `3c9dfbeeff`
+demonstrated that this was not sufficient visual alignment; D-000010 therefore
+supersedes the no-component-styles portion of D-000009 and requires scoped
+presentation treatment of the existing Element surfaces.
 
 Commit `8b5da14300` aligns the affected inherited Element unit expectations and
 rendered snapshots with the selected Poda defaults. That forward test-only

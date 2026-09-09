@@ -62,14 +62,21 @@ implemented
 ## Implementation
 
 - `apps/web/src/podaTheme.test.ts` checks the semantic theme contract's core
-  token, font, contrast, and status-color boundaries.
+  token, font, contrast, status-color, presentation-variable, and Poda document-
+  marker boundaries.
 - `apps/web/src/settings/watchers/ThemeWatcher.test.ts` checks Poda system-theme
   selection without replacing explicit Element theme selection.
 - `apps/web/scripts/derive-poda-brand-assets.mjs --check` checks runtime-asset
   provenance, determinism, geometry preservation, and SVG safety.
 - `apps/web/scripts/check-poda-branding.mjs` and
   `apps/web/src/components/views/auth/AuthHeaderLogo.test.tsx` check the existing
-  Poda brand slots and accessible logo name.
+  Poda brand slots and accessible logo name. The source checker also requires
+  the Poda-scoped stylesheet to name the native Space rail, room list, room
+  header, timeline, event, composer, right-panel, home, and dialog surfaces and
+  requires the native bubble-layout default.
+- `apps/web/res/css/structures/_PodaTheme.pcss` contains the Poda-only surface
+  treatment; `apps/web/src/theme.ts` applies its body marker only while a Poda
+  theme is active.
 - The inherited unit contracts and rendered snapshots affected by the Poda
   defaults cover existing auth, room, settings, widget, notification, export,
   device, and Matrix-facing brand behavior.
@@ -81,10 +88,10 @@ implemented
 
 | Leg | Decision                                                                             | Coverage                                                                                                                                                  |
 | --- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1  | Approved visual contract is rendered across the declared matrix                      | `apps/web/src/podaTheme.test.ts` checks core tokens; rendered matrix remains manual                                                                       |
+| P1  | Approved visual contract is rendered across the declared matrix                      | `apps/web/src/podaTheme.test.ts` checks core tokens and Poda scope; the source checker names all native surfaces; complete rendered room-state matrix remains manual                 |
 | P2  | Existing Element/Matrix journeys retain their admitted outcomes                      | affected inherited unit contracts and snapshots are executable; exact-head end-to-end regression journeys remain manual until retained CI evidence exists |
 | P3  | Accessibility and responsive states pass                                             | core contrast and logo accessible-name checks are executable; focus, zoom, responsive, and rendered checks remain manual                                  |
-| P4  | No new capability boundary is introduced                                             | manual diff and bundle audit                                                                                                                              |
-| P5  | No donor runtime material ships                                                      | manual diff and dependency audit                                                                                                                          |
+| P4  | No new capability boundary is introduced                                             | source checks cover the presentation-only selectors and native layout default; final diff and bundle audit remains manual                                                   |
+| P5  | No donor runtime material ships                                                      | tracked implementation uses Element theme/config/CSS paths; final diff and dependency audit remains manual                                                                    |
 | P6  | Runtime brand assets retain approved provenance and safe presentation-only placement | `apps/web/scripts/derive-poda-brand-assets.mjs --check`; `apps/web/scripts/check-poda-branding.mjs`; rendered placement remains manual                    |
 | F1  | Any Pass-leg contradiction fails the Oracle                                          | named executable checks decide their covered contradictions; remaining clauses are manual                                                                 |

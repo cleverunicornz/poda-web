@@ -11,6 +11,10 @@ export const PODA_LIGHT_THEME_NAME = "Poda Light";
 export const PODA_DARK_THEME_NAME = "Poda Dark";
 export const PODA_LIGHT_THEME_ID = `custom-${PODA_LIGHT_THEME_NAME}`;
 export const PODA_DARK_THEME_ID = `custom-${PODA_DARK_THEME_NAME}`;
+export const PODA_THEME_CLASS = "mx_PodaTheme";
+export const PODA_LIGHT_THEME_CLASS = "mx_PodaTheme_light";
+export const PODA_DARK_THEME_CLASS = "mx_PodaTheme_dark";
+export const PODA_THEME_CLASSES = [PODA_THEME_CLASS, PODA_LIGHT_THEME_CLASS, PODA_DARK_THEME_CLASS] as const;
 
 const accentScale = {
     "accent-color-100": "#fff8e8",
@@ -83,6 +87,12 @@ export const PODA_LIGHT_THEME: CustomTheme = {
         "background": "#fffdf9",
         "panels": "#fff1d8",
         "panels-actions": "#fffdf9",
+        "poda-card-color": "#ffffff",
+        "poda-border-color": "#e2c4aa",
+        "poda-rail-content-color": "#fff8e8",
+        "poda-shadow-color": "#33221626",
+        "poda-glow-color": "#f9ba5133",
+        "poda-home-overlay-color": "#fffdf9dc",
     },
     compound: {
         ...commonCompound,
@@ -162,6 +172,12 @@ export const PODA_DARK_THEME: CustomTheme = {
         "background": "#1a1410",
         "panels": "#2c2018",
         "panels-actions": "#3a2d20",
+        "poda-card-color": "#2c2018",
+        "poda-border-color": "#684831",
+        "poda-rail-content-color": "#fff8e8",
+        "poda-shadow-color": "#00000066",
+        "poda-glow-color": "#f9ba5126",
+        "poda-home-overlay-color": "#1a1410e6",
     },
     compound: {
         ...commonCompound,
@@ -201,4 +217,10 @@ export const PODA_CUSTOM_THEMES: CustomTheme[] = [PODA_LIGHT_THEME, PODA_DARK_TH
 
 export function isPodaThemeId(theme: unknown): theme is string {
     return theme === PODA_LIGHT_THEME_ID || theme === PODA_DARK_THEME_ID;
+}
+
+export function getPodaThemeClasses(theme: unknown): string[] {
+    if (theme === PODA_LIGHT_THEME_ID) return [PODA_THEME_CLASS, PODA_LIGHT_THEME_CLASS];
+    if (theme === PODA_DARK_THEME_ID) return [PODA_THEME_CLASS, PODA_DARK_THEME_CLASS];
+    return [];
 }

@@ -2,7 +2,7 @@
 
 ## State
 
-implemented
+implementing
 
 ## Promise
 
@@ -39,6 +39,10 @@ components.
 - Commit `8b5da14300` aligns the affected inherited Element unit contracts and
   rendered snapshots with the selected Poda defaults without changing a
   production path.
+- The maintainer's first authenticated rendered review at commit `3c9dfbeeff`
+  rejected the theme-only result as insufficiently distinct from stock Element;
+  [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)
+  selects the corrective native-surface presentation work.
 - Exact-head visual, accessibility, and retained CI behavior assurance remains
   pending.
 

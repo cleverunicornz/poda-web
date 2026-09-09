@@ -17,7 +17,9 @@
 
 - [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) fixes the
   asset source; [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
-  promotes C-000001 and fixes the first implementation route.
+  promoted C-000001 and fixed the first implementation route; the authenticated
+  rejection evidence caused [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)
+  to supersede its presentation limit with Poda-scoped native-surface styling.
 - P-000007 implements the configuration, themes, system-preference mapping,
   brand slots, and deterministic assets used by the broader P-000006 surface
   and behavior judgment.

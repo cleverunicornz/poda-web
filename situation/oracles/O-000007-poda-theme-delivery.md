@@ -62,7 +62,8 @@ implemented
 
 - `apps/web/src/podaTheme.test.ts` checks the paired definitions, locally
   bundled font selection, valid Compound-property names, core contrast pairs,
-  and preserved success/critical semantics.
+  preserved success/critical semantics, runtime presentation variables, and
+  exact Poda body-class mapping.
 - `apps/web/src/SdkConfig.test.ts` checks the fork defaults and existing
   operator-override merge behavior.
 - `apps/web/src/settings/watchers/ThemeWatcher.test.ts` checks system light,
@@ -73,7 +74,11 @@ implemented
   the committed runtime assets reproduce from the admitted sources and satisfy
   the declared SVG-content boundary.
 - `node apps/web/scripts/check-poda-branding.mjs` checks the default deployment
-  configs, browser metadata, manifest, and runtime asset references.
+  configs, native bubble-layout default, browser metadata, manifest, runtime
+  asset references, Poda stylesheet scope, and coverage selectors for the
+  named native Element surfaces.
+- `apps/web/res/css/structures/_PodaTheme.pcss` applies the selected hierarchy
+  only beneath the Poda body marker maintained by `apps/web/src/theme.ts`.
 - The `element-web:poda:check` target runs both Node checks, and
   `element-web:build` depends on that target before producing the distribution.
 
@@ -86,6 +91,6 @@ implemented
 | P3  | Contrast fallback and rendered accessible states pass              | `apps/web/src/podaTheme.test.ts`; `apps/web/src/settings/watchers/ThemeWatcher.test.ts`; exhaustive computed and rendered states remain manual                        |
 | P4  | Runtime assets are deterministic, sanitized derivatives            | `apps/web/scripts/derive-poda-brand-assets.mjs --check`                                                                                                               |
 | P5  | Existing browser and in-app brand slots use Poda assets            | `apps/web/scripts/check-poda-branding.mjs`; `apps/web/src/components/views/auth/AuthHeaderLogo.test.tsx`; unobscured rendered placement remains manual                |
-| P6  | Declared surface matrix matches the Poda hierarchy                 | manual until screenshot checks exist                                                                                                                                  |
+| P6  | Declared surface matrix matches the Poda hierarchy                 | source-level scope and selector coverage are executable; complete retained light/dark room-state screenshots remain manual                                           |
 | P7  | Build/regressions pass and no capability boundary changes          | `element-web:build`, focused tests, and affected inherited unit contracts/snapshots; exact-head CI and diff/bundle audit remain manual until retained evidence exists |
 | F1  | Any Pass-leg contradiction fails the Oracle                        | the named checks fail on their decidable contradictions; route, permission, Matrix-operation, and state-transition review remains manual                              |

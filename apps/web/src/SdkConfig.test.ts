@@ -30,6 +30,7 @@ describe("SdkConfig", () => {
                 expect.objectContaining({ name: "Poda Light", is_dark: false }),
                 expect.objectContaining({ name: "Poda Dark", is_dark: true }),
             ]);
+            expect(SdkConfig.getObject("setting_defaults").get("layout")).toBe("bubble");
         });
     });
 

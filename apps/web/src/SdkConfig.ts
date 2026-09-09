@@ -27,6 +27,7 @@ export const DEFAULTS = {
     },
     setting_defaults: {
         custom_themes: PODA_CUSTOM_THEMES,
+        layout: "bubble",
     },
     help_url: "https://element.io/help",
     help_encryption_url: "https://element.io/help#encryption",

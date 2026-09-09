@@ -27,7 +27,9 @@ tests and boundary audit for those changes in `apps/web/`.
 ## State evidence
 
 - [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
-  promotes C-000001 and selects the implementation route.
+  promoted C-000001 and selected the configuration/bootstrap route; it is
+  superseded for broader native-surface presentation by
+  [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md).
 - Commit `7329320de0` implements the paired custom themes, system-preference
   mapping, default branding, deterministic runtime assets, executable checks,
   focused tests, and production-build dependency.
@@ -36,6 +38,9 @@ tests and boundary audit for those changes in `apps/web/`.
   those defaults.
 - [O-000007](situation/oracles/O-000007-poda-theme-delivery.md) is implemented;
   exact-head assurance and retained Witness evidence remain pending.
+- The corrective candidate adds Poda-only document markers, native-surface
+  presentation CSS, and an Element-native bubble-layout default without adding
+  a route, Matrix event, store, or runtime donor dependency.
 
 ## Residual
 

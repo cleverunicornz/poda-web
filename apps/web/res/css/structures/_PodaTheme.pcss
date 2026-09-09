@@ -1,0 +1,376 @@
+/*
+Copyright 2026 Poda contributors
+
+SPDX-License-Identifier: AGPL-3.0-only OR GPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
+/* stylelint-disable csstools/value-no-unknown-custom-properties -- Poda custom-theme variables are injected at runtime. */
+
+/* Poda is a presentation layer over native Element surfaces. The body marker
+   is applied only for the two Poda themes, so operator and upstream themes are
+   unaffected by these rules. */
+body.mx_PodaTheme {
+    --poda-radius-small: 8px;
+    --poda-radius-medium: 12px;
+    --poda-radius-large: 18px;
+    --poda-panel-shadow: 0 18px 48px var(--poda-shadow-color);
+    --poda-card-shadow: 0 8px 24px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_MatrixChat {
+    background: var(--background);
+}
+
+body.mx_PodaTheme .mx_MatrixChat > :not(.mx_LeftPanel):not(.mx_SpacePanel):not(.mx_ResizeHandle):not(
+        .mx_LeftPanel_outerWrapper
+    ) {
+    background-color: var(--background);
+}
+
+/* Space and meta-space rail */
+body.mx_PodaTheme .mx_SpacePanel {
+    --activeBackground-color: var(--primary-color);
+    --activeBorder-color: var(--primary-color);
+
+    background: var(--sidebar-color);
+    border-right-color: var(--poda-border-color);
+    box-shadow: 4px 0 20px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_SpacePanel button,
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton_name {
+    color: var(--poda-rail-content-color);
+}
+
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton .mx_SpaceButton_icon {
+    background: rgb(255 248 232 / 0.1);
+    border: 1px solid rgb(249 186 81 / 0.18);
+    box-sizing: border-box;
+}
+
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton .mx_SpaceButton_icon svg {
+    color: var(--poda-rail-content-color);
+}
+
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton_active .mx_SpaceButton_selectionWrapper {
+    background: var(--primary-color);
+    box-shadow: 0 5px 16px rgb(0 0 0 / 0.22);
+}
+
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton_active .mx_SpaceButton_icon {
+    background: transparent;
+    border-color: transparent;
+}
+
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton_active .mx_SpaceButton_icon svg,
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton_active .mx_SpaceButton_name {
+    color: #332216;
+}
+
+body.mx_PodaTheme .mx_SpacePanel .mx_SpaceButton:hover .mx_SpaceButton_selectionWrapper {
+    outline: 1px solid rgb(249 186 81 / 0.35);
+}
+
+/* Search, room filters and Matrix room list */
+body.mx_PodaTheme .mx_LeftPanel,
+body.mx_PodaTheme .mx_LeftPanel .mx_LeftPanel_roomListContainer,
+body.mx_PodaTheme .mx_RoomListPanel {
+    background: var(--roomlist-background-color);
+}
+
+body.mx_PodaTheme .mx_LeftPanel_outerWrapper {
+    border-right: 1px solid var(--poda-border-color);
+    box-shadow: 5px 0 24px var(--poda-shadow-color);
+    z-index: 2;
+}
+
+body.mx_PodaTheme [data-testid="room-list-search"] {
+    border-bottom-color: var(--poda-border-color);
+    background: var(--roomlist-background-color);
+}
+
+body.mx_PodaTheme [data-testid="room-list-search"] button {
+    background: var(--poda-card-color);
+    border: 1px solid var(--poda-border-color);
+    border-radius: var(--poda-radius-medium);
+    box-shadow: 0 2px 10px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme [data-testid="room-list-header"] {
+    background: var(--roomlist-background-color);
+    border-bottom: 1px solid var(--poda-border-color);
+}
+
+body.mx_PodaTheme .mx_RoomListPanel [role="tablist"] button,
+body.mx_PodaTheme .mx_RoomListPanel [role="tab"] {
+    border-radius: 999px;
+}
+
+body.mx_PodaTheme .mx_RoomListItemView {
+    border-radius: var(--poda-radius-medium);
+    transition:
+        background-color 120ms ease,
+        box-shadow 120ms ease;
+}
+
+body.mx_PodaTheme .mx_RoomListItemView:hover {
+    background: var(--timeline-highlights-color);
+}
+
+body.mx_PodaTheme .mx_RoomListItemView_selected {
+    background: var(--roomlist-highlights-color);
+    box-shadow:
+        inset 4px 0 0 var(--primary-color),
+        0 3px 14px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_RoomListItemView_selected::after {
+    content: "";
+    position: absolute;
+    inset: 7px 8px 7px auto;
+    width: 3px;
+    border-radius: 999px;
+    background: var(--accent-color);
+}
+
+/* Native room header and timeline canvas */
+body.mx_PodaTheme .mx_RoomHeader {
+    background: var(--poda-card-color);
+    border-bottom-color: var(--poda-border-color);
+    box-shadow: 0 4px 18px var(--poda-shadow-color);
+    position: relative;
+    z-index: 3;
+}
+
+body.mx_PodaTheme .mx_RoomHeader:hover {
+    background: var(--panels-actions);
+}
+
+body.mx_PodaTheme .mx_RoomHeader::after {
+    content: "";
+    position: absolute;
+    inset: auto 20px -1px 20px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), transparent 78%);
+}
+
+body.mx_PodaTheme .mx_RoomView,
+body.mx_PodaTheme .mx_RoomView_body,
+body.mx_PodaTheme .mx_RoomView_timeline,
+body.mx_PodaTheme .mx_RoomView_messagePanel {
+    background-color: var(--timeline-background-color);
+}
+
+body.mx_PodaTheme .mx_RoomView_timeline {
+    background-image:
+        radial-gradient(circle at 92% 8%, var(--poda-glow-color), transparent 33%),
+        linear-gradient(180deg, var(--timeline-background-color), var(--background));
+}
+
+body.mx_PodaTheme .mx_EventTile {
+    --event-tile-state-hover-background: var(--timeline-highlights-color);
+    --event-tile-state-selected-background: var(--room-highlight-color);
+    --event-tile-state-marker-color: var(--primary-color);
+    --event-tile-bubble-other-background: var(--eventbubble-others-bg);
+    --event-tile-bubble-self-background: var(--eventbubble-self-bg);
+    --event-tile-bubble-hover-background: var(--eventbubble-bg-hover);
+}
+
+body.mx_PodaTheme [data-layout="bubble"] .mx_EventTile .mx_EventTile_line,
+body.mx_PodaTheme .mx_EventTileBubble {
+    border: 1px solid var(--poda-border-color);
+    box-shadow: 0 4px 14px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_ReactionsRow button,
+body.mx_PodaTheme .mx_MessageActionBar {
+    border-color: var(--poda-border-color);
+    box-shadow: 0 3px 12px var(--poda-shadow-color);
+}
+
+/* Native composer, including plain-text and WYSIWYG variants */
+body.mx_PodaTheme .mx_RoomView .mx_MessageComposer {
+    background: var(--timeline-background-color);
+    padding: 10px 16px 16px;
+    box-sizing: border-box;
+}
+
+body.mx_PodaTheme .mx_MessageComposer_wrapper {
+    background: var(--poda-card-color);
+    border: 1px solid var(--poda-border-color);
+    border-radius: var(--poda-radius-large);
+    box-shadow: var(--poda-card-shadow);
+}
+
+body.mx_PodaTheme .mx_MessageComposer_input textarea,
+body.mx_PodaTheme .mx_BasicMessageComposer,
+body.mx_PodaTheme .mx_BasicMessageComposer_input,
+body.mx_PodaTheme .mx_WysiwygComposer_Editor,
+body.mx_PodaTheme .mx_WysiwygComposer_Editor_container,
+body.mx_PodaTheme .mx_WysiwygComposer_Editor_content {
+    background: transparent;
+}
+
+body.mx_PodaTheme .mx_MessageComposer_sendMessage {
+    width: 20px;
+    height: 20px;
+    border-radius: var(--poda-radius-small);
+    background: var(--primary-color);
+    box-shadow: 0 5px 14px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_MessageComposer_sendMessage svg {
+    color: #332216;
+}
+
+/* Threads, members, room information and other native right-panel phases */
+body.mx_PodaTheme .mx_RightPanel {
+    background: var(--panels);
+    border-left-color: var(--poda-border-color);
+    box-shadow: -5px 0 24px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_BaseCard_header {
+    background: var(--poda-card-color);
+    border-bottom-color: var(--poda-border-color);
+}
+
+body.mx_PodaTheme .mx_BaseCard .mx_AutoHideScrollbar > section,
+body.mx_PodaTheme .mx_BaseCard .mx_AutoHideScrollbar > div {
+    border-color: var(--poda-border-color);
+}
+
+/* Branded native home/empty state. Its actions remain Element's existing
+   direct-message, public-room and group-room operations. */
+body.mx_PodaTheme .mx_HomePage {
+    width: 100%;
+    max-width: none;
+    padding: clamp(20px, 4vw, 64px);
+    box-sizing: border-box;
+    background-image:
+        linear-gradient(180deg, var(--poda-home-overlay-color), var(--poda-home-overlay-color)),
+        url("../../poda/img/backgrounds/poda-landscape.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body.mx_PodaTheme .mx_HomePage_default {
+    width: 100%;
+    max-width: none;
+    padding: clamp(20px, 4vw, 64px);
+    box-sizing: border-box;
+}
+
+body.mx_PodaTheme .mx_HomePage_default_wrapper {
+    position: relative;
+    width: min(100%, 760px);
+    margin: 0 auto;
+    padding: clamp(26px, 4vw, 48px);
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid var(--poda-border-color);
+    border-radius: 24px;
+    background: var(--poda-home-overlay-color);
+    box-shadow: var(--poda-panel-shadow);
+    backdrop-filter: blur(14px);
+}
+
+body.mx_PodaTheme .mx_HomePage_default_wrapper::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    width: 58px;
+    height: 58px;
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    background: var(--poda-card-color) url("../../poda/img/logos/poda-mark.svg") center / cover no-repeat;
+    box-shadow: 0 7px 20px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_HomePage_default h1 {
+    color: var(--primary-content);
+}
+
+body.mx_PodaTheme .mx_HomePage_default_buttons {
+    gap: 18px;
+    margin-top: 48px;
+}
+
+body.mx_PodaTheme .mx_HomePage_default_buttons .mx_AccessibleButton {
+    color: #332216;
+    background: linear-gradient(145deg, var(--primary-color), #efa43e);
+    border: 1px solid rgb(86 53 34 / 0.3);
+    box-shadow: 0 10px 22px var(--poda-shadow-color);
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease;
+}
+
+body.mx_PodaTheme .mx_HomePage_default_buttons .mx_AccessibleButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px var(--poda-shadow-color);
+}
+
+body.mx_PodaTheme .mx_HomePage_default_buttons .mx_AccessibleButton svg {
+    color: #332216;
+}
+
+/* Menus, dialogs and quick settings */
+body.mx_PodaTheme .mx_ContextualMenu,
+body.mx_PodaTheme .mx_Dialog {
+    background: var(--poda-card-color);
+    border: 1px solid var(--poda-border-color);
+    border-radius: var(--poda-radius-large);
+    box-shadow: var(--poda-panel-shadow);
+}
+
+body.mx_PodaTheme .mx_Dialog_header,
+body.mx_PodaTheme .mx_Dialog_buttons {
+    border-color: var(--poda-border-color);
+}
+
+body.mx_PodaTheme .mx_QuickSettingsButton_ContextMenuWrapper .mx_ContextualMenu {
+    background: var(--poda-card-color);
+}
+
+body.mx_PodaTheme :focus-visible {
+    outline-color: var(--primary-color);
+}
+
+@media (max-width: 700px) {
+    body.mx_PodaTheme .mx_LeftPanel_outerWrapper,
+    body.mx_PodaTheme .mx_RightPanel {
+        box-shadow: none;
+    }
+
+    body.mx_PodaTheme .mx_HomePage {
+        padding: 12px;
+        background-position: 42% center;
+    }
+
+    body.mx_PodaTheme .mx_HomePage_default {
+        padding: 12px;
+    }
+
+    body.mx_PodaTheme .mx_HomePage_default_wrapper {
+        padding: 24px 18px;
+        border-radius: var(--poda-radius-large);
+    }
+
+    body.mx_PodaTheme .mx_HomePage_default_wrapper::before {
+        width: 42px;
+        height: 42px;
+        top: 14px;
+        right: 14px;
+    }
+
+    body.mx_PodaTheme .mx_RoomView .mx_MessageComposer {
+        padding-inline: 8px;
+    }
+}
+
+/* stylelint-enable csstools/value-no-unknown-custom-properties */

@@ -10,9 +10,10 @@ Poda Web is an internal fork of Element Web that retains a monorepo for Element'
 
 ## Phase
 
-`IMPLEMENTATION` — the selected visual-only Poda theme and branding slice is
-implemented; exact-head CI, visual, accessibility, and behavior assurance is
-pending.
+`IMPLEMENTATION` — the configuration-backed Poda theme bootstrap is
+implemented and the corrective treatment of native Element surfaces is being
+validated; exact-head CI, room-state visual, accessibility, and behavior
+assurance is pending.
 
 ## Implementation map
 
@@ -28,13 +29,21 @@ application-integration plan has been abandoned before implementation. The
 active direction is to restyle the existing Element Web interface without
 adding behavior beyond capabilities Element Web and Matrix already provide.
 User-supplied Poda vector masters and render references are retained under
-`situation/references/D-000008/`. D-000009 selects config-backed Poda Light and
-Poda Dark themes, existing Element branding slots, preserved layout geometry,
-and deterministic runtime derivatives. Commit `7329320de0` implements that
-slice with focused tests and a production-build preflight gate; commit
-`8b5da14300` aligns the affected inherited unit contracts and snapshots with
-the selected defaults. No Poda visual or fork-specific assurance Witness exists
-yet.
+`situation/references/D-000008/`. D-000009 selected config-backed Poda Light
+and Poda Dark themes, existing Element branding slots, preserved layout
+geometry, and deterministic runtime derivatives. Commit `7329320de0`
+implements that bootstrap with focused tests and a production-build preflight
+gate; commit `8b5da14300` aligns the affected inherited unit contracts and
+snapshots with the selected defaults. The maintainer rejected its first
+authenticated render as visually too close to stock Element. D-000010
+supersedes D-000009's presentation limit and selects a Poda document marker,
+Poda-scoped styling of native Element surfaces, and Element's native bubble
+layout as the default while preserving explicit user choice. The corrective
+candidate renders the supplied landscape, character mark, warm light surfaces,
+dark brown/green surfaces, rail, room-list shell, home card, actions, and
+native room dialogs in both modes. The logged-in test account has no joined
+rooms, so room-row, timeline, composer, and right-panel rendered evidence is
+still absent. No Poda visual or fork-specific assurance Witness exists yet.
 
 ## Intended state
 

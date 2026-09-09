@@ -27,6 +27,7 @@ import { _t } from "./languageHandler";
 import SettingsStore from "./settings/SettingsStore";
 import ThemeWatcher from "./settings/watchers/ThemeWatcher";
 import { FontWatcher } from "./settings/watchers/FontWatcher";
+import { getPodaThemeClasses, PODA_THEME_CLASSES } from "./podaTheme";
 
 export const DEFAULT_THEME = "light";
 const HIGH_CONTRAST_THEMES: Record<string, string> = {
@@ -335,6 +336,11 @@ export async function setTheme(theme?: string): Promise<void> {
         const customTheme = getCustomTheme(theme.slice(7));
         stylesheetName = customTheme.is_dark ? "dark-custom" : "light-custom";
         setCustomThemeVars(customTheme);
+    }
+
+    const podaThemeClasses = getPodaThemeClasses(theme);
+    for (const className of PODA_THEME_CLASSES) {
+        document.body.classList.toggle(className, podaThemeClasses.includes(className));
     }
 
     // look for the stylesheet elements.

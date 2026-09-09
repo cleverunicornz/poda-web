@@ -2,7 +2,7 @@
 
 ## Status
 
-accepted
+superseded
 
 ## Date
 
@@ -98,3 +98,7 @@ operation.
 Visual evidence shows the custom-theme hooks cannot express an approved state,
 the maintainer requests Poda-only theme exposure or different geometry, or a
 Poda-specific high-contrast contract is accepted.
+
+## Superseded by
+
+- [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)

@@ -24,7 +24,28 @@ for (const relativePath of ["config.sample.json", "element.io/app/config.json", 
     assert.equal(config.brand, "Poda", `${relativePath} brand`);
     assert.equal(config.default_theme, "custom-Poda Light", `${relativePath} default theme`);
     assert.deepEqual(config.branding, branding, `${relativePath} branding paths`);
+    assert.equal(config.setting_defaults.layout, "bubble", `${relativePath} native message-layout default`);
 }
+
+const presentationCss = readFileSync(path.join(webRoot, "res/css/structures/_PodaTheme.pcss"), "utf8");
+for (const nativeSurface of [
+    ".mx_SpacePanel",
+    ".mx_RoomListPanel",
+    ".mx_RoomListItemView",
+    ".mx_RoomHeader",
+    ".mx_RoomView_timeline",
+    ".mx_EventTile",
+    ".mx_MessageComposer",
+    ".mx_RightPanel",
+    ".mx_HomePage",
+    ".mx_Dialog",
+]) {
+    assert.ok(presentationCss.includes(nativeSurface), `Poda presentation should cover ${nativeSurface}`);
+}
+assert.ok(
+    presentationCss.includes("body.mx_PodaTheme"),
+    "Poda presentation rules should be scoped to the Poda body marker",
+);
 
 const manifest = JSON.parse(readFileSync(path.join(webRoot, "res/manifest.json"), "utf8"));
 assert.equal(manifest.name, "Poda");
@@ -69,4 +90,4 @@ for (const relativePath of [
     assert.ok(existsSync(path.join(webRoot, relativePath)), `missing ${relativePath}`);
 }
 
-console.log("Poda branding configuration, metadata, manifest, and asset references are consistent");
+console.log("Poda branding, native-surface presentation, metadata, manifest, and asset references are consistent");
