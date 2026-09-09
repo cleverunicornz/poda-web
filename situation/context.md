@@ -39,11 +39,12 @@ authenticated render as visually too close to stock Element. D-000010
 supersedes D-000009's presentation limit and selects a Poda document marker,
 Poda-scoped styling of native Element surfaces, and Element's native bubble
 layout as the default while preserving explicit user choice. The corrective
-candidate renders the supplied landscape, character mark, warm light surfaces,
-dark brown/green surfaces, rail, room-list shell, home card, actions, and
-native room dialogs in both modes. The logged-in test account has no joined
-rooms, so room-row, timeline, composer, and right-panel rendered evidence is
-still absent. No Poda visual or fork-specific assurance Witness exists yet.
+implementation at commit `5baf4ea7e3` renders the supplied landscape,
+character mark, warm light surfaces, dark brown/green surfaces, rail, room-list
+shell, home card, actions, and native room dialogs in both modes. The logged-in
+test account has no joined rooms, so room-row, timeline, composer, and right-
+panel rendered evidence is still absent. No Poda visual or fork-specific
+assurance Witness exists yet.
 
 ## Intended state
 

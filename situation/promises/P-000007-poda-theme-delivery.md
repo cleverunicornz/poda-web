@@ -38,9 +38,9 @@ tests and boundary audit for those changes in `apps/web/`.
   those defaults.
 - [O-000007](situation/oracles/O-000007-poda-theme-delivery.md) is implemented;
   exact-head assurance and retained Witness evidence remain pending.
-- The corrective candidate adds Poda-only document markers, native-surface
-  presentation CSS, and an Element-native bubble-layout default without adding
-  a route, Matrix event, store, or runtime donor dependency.
+- Commit `5baf4ea7e3` adds Poda-only document markers, native-surface presentation
+  CSS, and an Element-native bubble-layout default without adding a route,
+  Matrix event, store, or runtime donor dependency.
 
 ## Residual
 

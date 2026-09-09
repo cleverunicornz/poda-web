@@ -314,6 +314,12 @@ demonstrated that this was not sufficient visual alignment; D-000010 therefore
 supersedes the no-component-styles portion of D-000009 and requires scoped
 presentation treatment of the existing Element surfaces.
 
+Commit `5baf4ea7e3` implements that corrective route with a Poda-only document
+marker, scoped native-surface CSS, the supplied artwork on the native home
+surface, and Element's bubble layout as the new-account default. It does not
+seed rooms or messages; complete room-list, timeline, composer, and right-panel
+rendering therefore depends on authorized Matrix account state.
+
 Commit `8b5da14300` aligns the affected inherited Element unit expectations and
 rendered snapshots with the selected Poda defaults. That forward test-only
 commit covers the expected native propagation of `brand`, `default_theme`, and

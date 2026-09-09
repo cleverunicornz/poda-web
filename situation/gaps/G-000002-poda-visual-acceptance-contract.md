@@ -34,6 +34,10 @@ mock.
   it therefore supplied rejection evidence rather than an acceptance baseline.
 - [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)
   selects Poda-scoped component presentation as the corrective route.
+- Commit `5baf4ea7e3` supplies that corrective implementation. Local authenticated
+  light/dark renders establish improved empty-home and native-dialog evidence,
+  but they are not a retained approved baseline and the account had no joined
+  room with which to render the remaining room-state matrix.
 
 ## Impact
 

@@ -43,6 +43,11 @@ components.
   rejected the theme-only result as insufficiently distinct from stock Element;
   [D-000010](situation/decisions/D-000010-poda-native-surface-treatment.md)
   selects the corrective native-surface presentation work.
+- Commit `5baf4ea7e3` implements the Poda-only document marker, scoped native-
+  surface treatment, home artwork placement, and native bubble-layout default.
+  Local light/dark authenticated rendering covers the empty home and native
+  room dialogs; joined-room, timeline, composer, and right-panel rendering is
+  still pending because the test account contains no joined rooms.
 - Exact-head visual, accessibility, and retained CI behavior assurance remains
   pending.
 
