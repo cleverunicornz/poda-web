@@ -79,13 +79,13 @@ implemented
 
 ## Implementation coverage
 
-| Leg | Decision | Coverage |
-|---|---|---|
-| P1 | Defaults and existing override behavior are correct | `apps/web/src/SdkConfig.test.ts`; `apps/web/scripts/check-poda-branding.mjs` |
-| P2 | Theme enumeration, application, and preference mapping are correct | `apps/web/src/podaTheme.test.ts`; `apps/web/src/settings/watchers/ThemeWatcher.test.ts`; final rendered application remains manual |
-| P3 | Contrast fallback and rendered accessible states pass | `apps/web/src/podaTheme.test.ts`; `apps/web/src/settings/watchers/ThemeWatcher.test.ts`; exhaustive computed and rendered states remain manual |
-| P4 | Runtime assets are deterministic, sanitized derivatives | `apps/web/scripts/derive-poda-brand-assets.mjs --check` |
-| P5 | Existing browser and in-app brand slots use Poda assets | `apps/web/scripts/check-poda-branding.mjs`; `apps/web/src/components/views/auth/AuthHeaderLogo.test.tsx`; unobscured rendered placement remains manual |
-| P6 | Declared surface matrix matches the Poda hierarchy | manual until screenshot checks exist |
-| P7 | Build/regressions pass and no capability boundary changes | `element-web:build` and focused tests; exact-head full regression and diff/bundle audit remain manual until retained CI evidence exists |
-| F1 | Any Pass-leg contradiction fails the Oracle | the named checks fail on their decidable contradictions; route, permission, Matrix-operation, and state-transition review remains manual |
+| Leg | Decision                                                           | Coverage                                                                                                                                                              |
+| --- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1  | Defaults and existing override behavior are correct                | `apps/web/src/SdkConfig.test.ts`; `apps/web/scripts/check-poda-branding.mjs`                                                                                          |
+| P2  | Theme enumeration, application, and preference mapping are correct | `apps/web/src/podaTheme.test.ts`; `apps/web/src/settings/watchers/ThemeWatcher.test.ts`; final rendered application remains manual                                    |
+| P3  | Contrast fallback and rendered accessible states pass              | `apps/web/src/podaTheme.test.ts`; `apps/web/src/settings/watchers/ThemeWatcher.test.ts`; exhaustive computed and rendered states remain manual                        |
+| P4  | Runtime assets are deterministic, sanitized derivatives            | `apps/web/scripts/derive-poda-brand-assets.mjs --check`                                                                                                               |
+| P5  | Existing browser and in-app brand slots use Poda assets            | `apps/web/scripts/check-poda-branding.mjs`; `apps/web/src/components/views/auth/AuthHeaderLogo.test.tsx`; unobscured rendered placement remains manual                |
+| P6  | Declared surface matrix matches the Poda hierarchy                 | manual until screenshot checks exist                                                                                                                                  |
+| P7  | Build/regressions pass and no capability boundary changes          | `element-web:build`, focused tests, and affected inherited unit contracts/snapshots; exact-head CI and diff/bundle audit remain manual until retained evidence exists |
+| F1  | Any Pass-leg contradiction fails the Oracle                        | the named checks fail on their decidable contradictions; route, permission, Matrix-operation, and state-transition review remains manual                              |

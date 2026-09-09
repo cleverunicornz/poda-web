@@ -31,6 +31,9 @@ tests and boundary audit for those changes in `apps/web/`.
 - Commit `7329320de0` implements the paired custom themes, system-preference
   mapping, default branding, deterministic runtime assets, executable checks,
   focused tests, and production-build dependency.
+- Commit `8b5da14300` aligns the inherited brand, theme, auth, settings, widget,
+  export, notification, and Matrix-facing unit expectations and snapshots with
+  those defaults.
 - [O-000007](situation/oracles/O-000007-poda-theme-delivery.md) is implemented;
   exact-head assurance and retained Witness evidence remain pending.
 

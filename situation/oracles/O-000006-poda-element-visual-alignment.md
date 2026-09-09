@@ -70,17 +70,21 @@ implemented
 - `apps/web/scripts/check-poda-branding.mjs` and
   `apps/web/src/components/views/auth/AuthHeaderLogo.test.tsx` check the existing
   Poda brand slots and accessible logo name.
-- The broader rendered surface, accessibility, Element journey, donor, and
-  capability-boundary legs remain manual until exact-head evidence is retained.
+- The inherited unit contracts and rendered snapshots affected by the Poda
+  defaults cover existing auth, room, settings, widget, notification, export,
+  device, and Matrix-facing brand behavior.
+- The broader rendered surface, accessibility, end-to-end Element journey,
+  donor, and capability-boundary legs remain manual until exact-head evidence
+  is retained.
 
 ## Implementation coverage
 
-| Leg | Decision | Coverage |
-|---|---|---|
-| P1 | Approved visual contract is rendered across the declared matrix | `apps/web/src/podaTheme.test.ts` checks core tokens; rendered matrix remains manual |
-| P2 | Existing Element/Matrix journeys retain their admitted outcomes | focused config/theme tests are executable; exact-head inherited regression journeys remain manual until retained CI evidence exists |
-| P3 | Accessibility and responsive states pass | core contrast and logo accessible-name checks are executable; focus, zoom, responsive, and rendered checks remain manual |
-| P4 | No new capability boundary is introduced | manual diff and bundle audit |
-| P5 | No donor runtime material ships | manual diff and dependency audit |
-| P6 | Runtime brand assets retain approved provenance and safe presentation-only placement | `apps/web/scripts/derive-poda-brand-assets.mjs --check`; `apps/web/scripts/check-poda-branding.mjs`; rendered placement remains manual |
-| F1 | Any Pass-leg contradiction fails the Oracle | named executable checks decide their covered contradictions; remaining clauses are manual |
+| Leg | Decision                                                                             | Coverage                                                                                                                                                  |
+| --- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1  | Approved visual contract is rendered across the declared matrix                      | `apps/web/src/podaTheme.test.ts` checks core tokens; rendered matrix remains manual                                                                       |
+| P2  | Existing Element/Matrix journeys retain their admitted outcomes                      | affected inherited unit contracts and snapshots are executable; exact-head end-to-end regression journeys remain manual until retained CI evidence exists |
+| P3  | Accessibility and responsive states pass                                             | core contrast and logo accessible-name checks are executable; focus, zoom, responsive, and rendered checks remain manual                                  |
+| P4  | No new capability boundary is introduced                                             | manual diff and bundle audit                                                                                                                              |
+| P5  | No donor runtime material ships                                                      | manual diff and dependency audit                                                                                                                          |
+| P6  | Runtime brand assets retain approved provenance and safe presentation-only placement | `apps/web/scripts/derive-poda-brand-assets.mjs --check`; `apps/web/scripts/check-poda-branding.mjs`; rendered placement remains manual                    |
+| F1  | Any Pass-leg contradiction fails the Oracle                                          | named executable checks decide their covered contradictions; remaining clauses are manual                                                                 |

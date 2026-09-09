@@ -35,8 +35,12 @@ components.
 - [D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
   selects the paired theme, branding-slot, geometry, and message-layout choices.
 - Commit `7329320de0` implements the configuration-backed visual treatment and
-  runtime assets without adding a route or Matrix behavior. Exact-head visual,
-  accessibility, and behavior assurance remains pending.
+  runtime assets without adding a route or Matrix behavior.
+- Commit `8b5da14300` aligns the affected inherited Element unit contracts and
+  rendered snapshots with the selected Poda defaults without changing a
+  production path.
+- Exact-head visual, accessibility, and retained CI behavior assurance remains
+  pending.
 
 ## Residual
 

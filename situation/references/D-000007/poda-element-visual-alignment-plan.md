@@ -36,18 +36,18 @@ existing Element React components, stores, actions, routes, and Matrix SDK
 
 ## Choices, corrections, and assumptions
 
-| Topic | Selected path | Alternatives | Classification |
-|---|---|---|---|
-| First migration | Restyle Element's existing interface | Build a combined podcast/chat application | **USER CHOICE** |
-| Capability boundary | Expose only operations Element/Matrix already implements | Add podcast, PODA, collaboration, artifact, or custom workflow behavior | **USER CHOICE** |
-| Chat owner | Retain Element and Matrix end to end | Port PCC chat state or APIs | **USER CHOICE, carried forward** |
-| Donor role | Visual and assessment evidence only | Runtime dependency or source transplant | **EVIDENCE-BASED CONCLUSION** |
-| Framework | Keep React, Compound, PostCSS, current stores and view models | Add Svelte, Tauri, Tailwind, Lucide, or donor model code | **CONSTRAINT** |
-| Theme delivery | Configuration-backed custom themes plus minimal presentation changes | Built-in Poda themes or rewriting Element defaults | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
-| Theme coverage | Poda Light and Poda Dark follow system preference; native high-contrast fallback retained | Dark-only or light-only first slice | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
-| Panel geometry | Preserve Element's responsive resizers and defaults | Copy donor widths exactly | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
-| Brand source set | Use the maintainer-supplied vectors and render references retained by D-000008 | Donor placeholder, screenshot extraction, or invented artwork | **USER CHOICE; RESOLVED** |
-| Brand placement and derivatives | Character mark and landscape in existing web branding slots; lantern scene retained but unshipped | Ship editor masters directly or create new surfaces around them | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Topic                           | Selected path                                                                                     | Alternatives                                                            | Classification                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------- |
+| First migration                 | Restyle Element's existing interface                                                              | Build a combined podcast/chat application                               | **USER CHOICE**                                 |
+| Capability boundary             | Expose only operations Element/Matrix already implements                                          | Add podcast, PODA, collaboration, artifact, or custom workflow behavior | **USER CHOICE**                                 |
+| Chat owner                      | Retain Element and Matrix end to end                                                              | Port PCC chat state or APIs                                             | **USER CHOICE, carried forward**                |
+| Donor role                      | Visual and assessment evidence only                                                               | Runtime dependency or source transplant                                 | **EVIDENCE-BASED CONCLUSION**                   |
+| Framework                       | Keep React, Compound, PostCSS, current stores and view models                                     | Add Svelte, Tauri, Tailwind, Lucide, or donor model code                | **CONSTRAINT**                                  |
+| Theme delivery                  | Configuration-backed custom themes plus minimal presentation changes                              | Built-in Poda themes or rewriting Element defaults                      | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Theme coverage                  | Poda Light and Poda Dark follow system preference; native high-contrast fallback retained         | Dark-only or light-only first slice                                     | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Panel geometry                  | Preserve Element's responsive resizers and defaults                                               | Copy donor widths exactly                                               | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
+| Brand source set                | Use the maintainer-supplied vectors and render references retained by D-000008                    | Donor placeholder, screenshot extraction, or invented artwork           | **USER CHOICE; RESOLVED**                       |
+| Brand placement and derivatives | Character mark and landscape in existing web branding slots; lantern scene retained but unshipped | Ship editor masters directly or create new surfaces around them         | **IMPLEMENTATION CHOICE; RESOLVED BY D-000009** |
 
 ### Earlier assumptions explicitly removed
 
@@ -105,17 +105,17 @@ than a gap to fill now.
 
 ## Existing structural correspondence
 
-| Donor visual region | Element-native surface | Assessment |
-|---|---|---|
-| 64 px bucket rail | `SpacePanel.tsx` / `_SpacePanel.pcss` (68 px collapsed) | Strong visual analogue; keep Space semantics |
-| 320 px thread list | `LeftPanel.tsx`, `RoomListPanel.tsx`, shared room-list components | Strong visual analogue; mock “threads” map to Matrix rooms/DMs, not Matrix threads |
-| Timeline header | `RoomHeader.tsx` / `_RoomHeader.pcss` (64 px) | Restyle existing room identity and actions |
-| Message timeline | `RoomView.tsx`, `EventTile.tsx`, timeline view models | Restyle only; retain Matrix event rendering and virtualization |
-| Composer | `MessageComposer.tsx` and current composer implementations | Restyle existing controls and permission states |
-| 304–560 px context canvas | `MainSplit.tsx` / `RightPanel.tsx` (320 px default, resizable) | Strong visual analogue; keep current panel phases |
-| Global notification panel | `NotificationPanel.tsx` and notification stores | Style existing Matrix notifications only |
-| Profile canvas/full view | current member info and `UserView.tsx` | Style Matrix profile/member data only |
-| Mock home | `HomePage.tsx` | Visual direction only; do not add PODA actions |
+| Donor visual region       | Element-native surface                                            | Assessment                                                                         |
+| ------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 64 px bucket rail         | `SpacePanel.tsx` / `_SpacePanel.pcss` (68 px collapsed)           | Strong visual analogue; keep Space semantics                                       |
+| 320 px thread list        | `LeftPanel.tsx`, `RoomListPanel.tsx`, shared room-list components | Strong visual analogue; mock “threads” map to Matrix rooms/DMs, not Matrix threads |
+| Timeline header           | `RoomHeader.tsx` / `_RoomHeader.pcss` (64 px)                     | Restyle existing room identity and actions                                         |
+| Message timeline          | `RoomView.tsx`, `EventTile.tsx`, timeline view models             | Restyle only; retain Matrix event rendering and virtualization                     |
+| Composer                  | `MessageComposer.tsx` and current composer implementations        | Restyle existing controls and permission states                                    |
+| 304–560 px context canvas | `MainSplit.tsx` / `RightPanel.tsx` (320 px default, resizable)    | Strong visual analogue; keep current panel phases                                  |
+| Global notification panel | `NotificationPanel.tsx` and notification stores                   | Style existing Matrix notifications only                                           |
+| Profile canvas/full view  | current member info and `UserView.tsx`                            | Style Matrix profile/member data only                                              |
+| Mock home                 | `HomePage.tsx`                                                    | Visual direction only; do not add PODA actions                                     |
 
 The two applications already share Inter and approximately eight-pixel corner
 radii. Their desktop geometry is close enough that visual alignment does not
@@ -170,18 +170,18 @@ part of the acceptance contract.
 
 ### Adapt onto Element-native behavior
 
-| Donor concept | Safe Element adaptation |
-|---|---|
-| Active bucket | Style the active Matrix Space or meta-space |
-| Favorite conversation | Style rooms carrying Element's existing `m.favourite` tag |
-| Muted conversation | Style the existing room notification/push-rule state |
-| Unread badge | Style current receipt/unread notification state |
-| Search box and filters | Style Element's existing room and message search controls |
-| Profile panel | Style existing member info and user view |
-| Notification center | Style the current Matrix notification timeline |
-| Context canvas | Style current right-panel cards, threads, files, pins, and room info |
-| Message states | Style states already emitted and understood by Element |
-| Light/dark switch | Use current ThemeWatcher and settings behavior |
+| Donor concept          | Safe Element adaptation                                              |
+| ---------------------- | -------------------------------------------------------------------- |
+| Active bucket          | Style the active Matrix Space or meta-space                          |
+| Favorite conversation  | Style rooms carrying Element's existing `m.favourite` tag            |
+| Muted conversation     | Style the existing room notification/push-rule state                 |
+| Unread badge           | Style current receipt/unread notification state                      |
+| Search box and filters | Style Element's existing room and message search controls            |
+| Profile panel          | Style existing member info and user view                             |
+| Notification center    | Style the current Matrix notification timeline                       |
+| Context canvas         | Style current right-panel cards, threads, files, pins, and room info |
+| Message states         | Style states already emitted and understood by Element               |
+| Light/dark switch      | Use current ThemeWatcher and settings behavior                       |
 
 ### Do not use in this migration
 
@@ -308,6 +308,13 @@ assets, default web branding, focused tests, and a production-build preflight
 gate. It reaches the client through semantic theme variables and existing
 branding configuration; no component-layout stylesheet was changed because no
 demonstrated presentation gap required one.
+
+Commit `8b5da14300` aligns the affected inherited Element unit expectations and
+rendered snapshots with the selected Poda defaults. That forward test-only
+commit covers the expected native propagation of `brand`, `default_theme`, and
+branding slots through authentication, rooms, settings, widgets, notifications,
+exports, device metadata, OAuth registration, and other existing client
+surfaces; it does not add or alter a production capability.
 
 The implementation does not wait on speculative product choices. The remaining
 gates judge what is built:

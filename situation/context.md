@@ -31,8 +31,10 @@ User-supplied Poda vector masters and render references are retained under
 `situation/references/D-000008/`. D-000009 selects config-backed Poda Light and
 Poda Dark themes, existing Element branding slots, preserved layout geometry,
 and deterministic runtime derivatives. Commit `7329320de0` implements that
-slice with focused tests and a production-build preflight gate. No Poda visual
-or fork-specific assurance Witness exists yet.
+slice with focused tests and a production-build preflight gate; commit
+`8b5da14300` aligns the affected inherited unit contracts and snapshots with
+the selected defaults. No Poda visual or fork-specific assurance Witness exists
+yet.
 
 ## Intended state
 
