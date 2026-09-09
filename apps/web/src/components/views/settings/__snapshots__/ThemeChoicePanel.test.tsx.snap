@@ -564,6 +564,72 @@ exports[`<ThemeChoicePanel /> > renders the theme choice UI 1`] = `
             </label>
           </div>
         </div>
+        <div
+          class="_inline-field_1o4d9_33 mx_ThemeChoicePanel_themeSelector cpd-theme-dark"
+        >
+          <div
+            class="_inline-field-control_1o4d9_45"
+          >
+            <div
+              class="_container_1ug7n_10"
+            >
+              <input
+                class="_input_1ug7n_18"
+                id="radix-react-use-id-5"
+                name="themeSelector"
+                title=""
+                type="radio"
+                value="custom-Poda Dark"
+              />
+              <div
+                class="_ui_1ug7n_19"
+              />
+            </div>
+          </div>
+          <div
+            class="_inline-field-body_1o4d9_39"
+          >
+            <label
+              class="_label_1o4d9_60 mx_ThemeChoicePanel_themeSelector_Label"
+              for="radix-react-use-id-5"
+            >
+              Poda Dark
+            </label>
+          </div>
+        </div>
+        <div
+          class="_inline-field_1o4d9_33 mx_ThemeChoicePanel_themeSelector cpd-theme-light"
+        >
+          <div
+            class="_inline-field-control_1o4d9_45"
+          >
+            <div
+              class="_container_1ug7n_10"
+            >
+              <input
+                class="_input_1ug7n_18"
+                id="radix-react-use-id-6"
+                name="themeSelector"
+                title=""
+                type="radio"
+                value="custom-Poda Light"
+              />
+              <div
+                class="_ui_1ug7n_19"
+              />
+            </div>
+          </div>
+          <div
+            class="_inline-field-body_1o4d9_39"
+          >
+            <label
+              class="_label_1o4d9_60 mx_ThemeChoicePanel_themeSelector_Label"
+              for="radix-react-use-id-6"
+            >
+              Poda Light
+            </label>
+          </div>
+        </div>
       </form>
     </div>
     <div

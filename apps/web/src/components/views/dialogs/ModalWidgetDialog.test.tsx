@@ -45,8 +45,8 @@ describe("ModalWidgetDialog", () => {
         stubClient();
         let theme = "light";
         const settingsSpy = vi
-            .spyOn(SettingsStore, "getValue")
-            .mockImplementation((name) => (name === "theme" ? theme : null));
+            .spyOn(SettingsStore, "getValueAt")
+            .mockImplementation((_level, name): any => (name === "theme" ? theme : null));
         try {
             render(
                 <TooltipProvider>

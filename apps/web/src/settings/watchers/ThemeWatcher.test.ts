@@ -8,12 +8,14 @@ Please see LICENSE files in the repository root for full details.
 
 // @vitest-environment happy-dom
 
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect } from "vitest";
 
 import SettingsStore from "../SettingsStore";
 import ThemeWatcher from "./ThemeWatcher";
 import { type SettingLevel } from "../SettingLevel";
 import { type SettingKey, type Settings } from "../Settings.tsx";
+import SdkConfig from "../../SdkConfig";
+import { PODA_DARK_THEME_ID, PODA_LIGHT_THEME_ID } from "../../podaTheme";
 
 function makeMatchMedia(values: any) {
     class FakeMediaQueryList {
@@ -61,6 +63,10 @@ function makeGetValueAt(values: any) {
 }
 
 describe("ThemeWatcher", function () {
+    beforeEach(() => {
+        SdkConfig.put({ default_theme: "light" });
+    });
+
     it("should choose a light theme by default", () => {
         // Given no system settings
         global.matchMedia = makeMatchMedia({});
@@ -208,5 +214,35 @@ describe("ThemeWatcher", function () {
         const themeWatcher = new ThemeWatcher();
         expect(themeWatcher.getEffectiveTheme()).toBe("custom-darkula");
         expect(themeWatcher.isUserOnDarkTheme()).toBe(true);
+    });
+
+    it("should choose Poda Light when the configured Poda family follows a light system", () => {
+        global.matchMedia = makeMatchMedia({ "(prefers-color-scheme: light)": true });
+        SdkConfig.put({ default_theme: PODA_LIGHT_THEME_ID });
+        SettingsStore.getValueAt = makeGetValueAt({});
+        SettingsStore.getValue = makeGetValue({ use_system_theme: true });
+
+        expect(new ThemeWatcher().getEffectiveTheme()).toBe(PODA_LIGHT_THEME_ID);
+    });
+
+    it("should choose Poda Dark when the configured Poda family follows a dark system", () => {
+        global.matchMedia = makeMatchMedia({ "(prefers-color-scheme: dark)": true });
+        SdkConfig.put({ default_theme: PODA_LIGHT_THEME_ID });
+        SettingsStore.getValueAt = makeGetValueAt({});
+        SettingsStore.getValue = makeGetValue({ use_system_theme: true });
+
+        expect(new ThemeWatcher().getEffectiveTheme()).toBe(PODA_DARK_THEME_ID);
+    });
+
+    it("should use the native light high-contrast fallback for Poda Light", () => {
+        global.matchMedia = makeMatchMedia({
+            "(prefers-color-scheme: light)": true,
+            "(prefers-contrast: more)": true,
+        });
+        SdkConfig.put({ default_theme: PODA_LIGHT_THEME_ID });
+        SettingsStore.getValueAt = makeGetValueAt({});
+        SettingsStore.getValue = makeGetValue({ use_system_theme: true });
+
+        expect(new ThemeWatcher().getEffectiveTheme()).toBe("light-high-contrast");
     });
 });
