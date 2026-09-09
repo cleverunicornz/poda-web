@@ -15,6 +15,7 @@ hooks cannot express the approved visual contract.
 
 - [G-000002](situation/gaps/G-000002-poda-visual-acceptance-contract.md)
 - [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
+- [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md)
 - `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock`
   (private; requires repository access)
 
@@ -31,12 +32,17 @@ intact and limiting future upstream merge conflicts.
 - Is Poda the default selectable theme, the only exposed theme, or an optional
   theme alongside Element light and dark?
 - Must the first accepted slice include both Poda light and Poda dark modes?
-- Which repository coordinate is authoritative for the approved microphone
-  logo and application icon assets?
+- Which supplied illustration and crop, if any, belongs in each existing
+  Element auth, welcome, loading, or empty-state branding slot, and which
+  optimized derivatives are required for dense icon sizes?
+- Which extracted colors become semantic UI tokens, and which remain confined
+  to artwork after contrast and state-role checks?
 - Does approved fidelity preserve Element's current rail/panel widths and
   resizers, or adopt the donor's exact 64/320/380-pixel defaults?
 - Does the visual contract cover all user-facing web surfaces in the first
   slice, or the authenticated chat shell before authentication and settings?
+- What public redistribution, attribution, or licensing terms apply if the
+  internal source set is later shipped outside this fork?
 
 ## Candidate approaches
 

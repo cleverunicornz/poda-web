@@ -21,22 +21,28 @@ mock.
 - `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/native/src/app.css`
   (private; requires repository access) supplies directional Poda tokens but is
   a standalone mock stylesheet, not an Element acceptance fixture.
-- The donor branch contains only a letter mark and generated Tauri icons for
-  this mock; it does not identify an approved reusable vector microphone mark.
+- [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) now
+  admits user-supplied vector masters and render references, resolving source
+  authority but not their semantic-token mapping, placement, crops, or runtime
+  derivatives.
 - No Poda theme, computed-token fixture, or Poda screenshot baseline is present
   in the current repository tree.
 
 ## Impact
 
-Implementation can safely preserve the native capability boundary, but exact
-theme availability, asset provenance, visual fidelity, and screenshot
-acceptance cannot be assured until the contract is qualified.
+Implementation can safely preserve the native capability boundary and derive
+assets from a known source set, but exact theme availability, artwork
+placement, visual fidelity, and screenshot acceptance cannot be assured until
+the contract is qualified.
 
 ## Resolution
 
 - [C-000001](situation/candidates/C-000001-element-native-poda-skin.md) is being
   qualified by [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md).
+- [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) resolves
+  the source-asset portion of the gap; the remaining visual contract is open.
 
 ## References
 
 - [Poda Element visual alignment plan](situation/references/D-000007/poda-element-visual-alignment-plan.md)
+- [Poda brand source asset manifest](situation/references/D-000008/brand-source-asset-manifest.md)

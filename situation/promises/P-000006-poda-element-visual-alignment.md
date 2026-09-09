@@ -29,6 +29,9 @@ components.
 
 - [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md)
   selects the presentation-only, Element-native boundary.
+- [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) admits
+  the Poda source artwork and palette without selecting runtime placement or
+  establishing implementation evidence.
 - No implementation or run evidence exists yet.
 
 ## Residual

@@ -25,7 +25,10 @@ The fork retains the upstream Element client source tree. The earlier broad
 application-integration plan has been abandoned before implementation. The
 active direction is to restyle the existing Element Web interface without
 adding behavior beyond capabilities Element Web and Matrix already provide.
-No Poda visual implementation or fork-specific assurance witness exists.
+User-supplied Poda vector masters and render references are retained under
+`situation/references/D-000008/`, but their final token mapping, placement, and
+runtime derivatives are not yet approved. No Poda visual implementation or
+fork-specific assurance witness exists.
 
 ## Intended state
 

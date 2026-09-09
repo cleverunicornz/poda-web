@@ -13,8 +13,10 @@
 
 ## Dependencies
 
-- C-000001 is qualified before implementation fixes a theme delivery route,
-  asset source, visual matrix, or panel geometry.
+- [D-000008](situation/decisions/D-000008-poda-brand-source-assets.md) fixes the
+  asset source. C-000001 is qualified before implementation fixes a theme
+  delivery route, semantic-token map, derivative placement, visual matrix, or
+  panel geometry.
 - P-000005 is implemented early enough to generate exact-head visual,
   accessibility, behavior, and boundary evidence for P-000006.
 - P-000006 can become `assured` only after O-000006 is applied to the final
