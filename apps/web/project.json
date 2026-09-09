@@ -19,9 +19,31 @@
             "inputs": ["{projectRoot}/res/css/**/*"],
             "outputs": ["{projectRoot}/res/css/_components.pcss"]
         },
+        "poda:check": {
+            "cache": true,
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "node scripts/derive-poda-brand-assets.mjs --check",
+                    "node scripts/check-poda-branding.mjs"
+                ],
+                "parallel": false,
+                "cwd": "apps/web"
+            },
+            "inputs": [
+                "{projectRoot}/config.sample.json",
+                "{projectRoot}/element.io/{app,develop}/config.json",
+                "{projectRoot}/res/manifest.json",
+                "{projectRoot}/res/themes/poda/**/*",
+                "{projectRoot}/scripts/{check,derive}-poda-*.mjs",
+                "{projectRoot}/src/vector/index.html",
+                "{workspaceRoot}/situation/references/D-000008/assets/**/*"
+            ]
+        },
         "build": {
             "command": "webpack-cli --progress --mode production",
             "outputs": ["{projectRoot}/webapp"],
+            "dependsOn": ["poda:check"],
             "options": { "cwd": "apps/web" }
         },
         "start": {

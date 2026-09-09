@@ -13,7 +13,12 @@
     "disable_login_language_selector": false,
     "disable_3pid_login": false,
     "force_verification": false,
-    "brand": "Element",
+    "brand": "Poda",
+    "branding": {
+        "logo_link_url": "#/welcome",
+        "auth_header_logo_url": "themes/poda/img/logos/poda-mark.svg",
+        "welcome_background_url": "themes/poda/img/backgrounds/poda-landscape.svg"
+    },
     "integrations_ui_url": "https://scalar.vector.im/",
     "integrations_rest_url": "https://scalar.vector.im/api",
     "integrations_widgets_urls": [
@@ -27,7 +32,7 @@
     "show_labs_settings": false,
     "features": {},
     "default_federate": true,
-    "default_theme": "light",
+    "default_theme": "custom-Poda Light",
     "room_directory": {
         "servers": ["matrix.org"]
     },

@@ -8,7 +8,13 @@
             "base_url": "https://vector.im"
         }
     },
-    "brand": "Element",
+    "brand": "Poda",
+    "default_theme": "custom-Poda Light",
+    "branding": {
+        "logo_link_url": "#/welcome",
+        "auth_header_logo_url": "themes/poda/img/logos/poda-mark.svg",
+        "welcome_background_url": "themes/poda/img/backgrounds/poda-landscape.svg"
+    },
     "integrations_ui_url": "https://scalar.vector.im/",
     "integrations_rest_url": "https://scalar.vector.im/api",
     "integrations_widgets_urls": [

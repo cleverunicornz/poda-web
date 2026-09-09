@@ -8,7 +8,7 @@ the exact files supplied by the maintainer on 2026-09-09. Files under this
 reference are source evidence, not production web assets. A runtime derivative
 must be added to an appropriate Element asset path, cite its source file and
 digest below, and be judged under
-[O-000006](situation/oracles/O-000006-poda-element-visual-alignment.md).
+[O-000007](situation/oracles/O-000007-poda-theme-delivery.md).
 
 ## Inventory
 
@@ -24,6 +24,30 @@ digest below, and be judged under
 The scene illustrations are candidate placements, not commitments. They may be
 used only in presentation slots Element already has; they do not imply a new
 landing page or podcast workflow.
+
+## Runtime derivatives
+
+The first visual-alignment implementation produces the following runtime files.
+`apps/web/scripts/derive-poda-brand-assets.mjs` verifies every retained input
+digest before deriving or copying an output. Its `--check` mode regenerates the
+expected bytes in memory and fails if a committed output is absent or stale.
+
+| Runtime file | Retained source | Transformation | Runtime geometry | Bytes | SHA-256 | Existing Element slot |
+|---|---|---|---|---:|---|---|
+| `apps/web/res/themes/poda/img/logos/poda-mark.svg` | `poda-character-microphone.svg` at `95e06cec71258fd14b07b652f23bdc5814efe3e225f1373eb9eff290d4549d88` | Remove XML/editor metadata and editor namespaces; convert internal `xlink:href` to `href`; reject executable, embedded-raster, data, and external references; preserve viewBox and visible geometry counts | viewBox `0 0 220.40433 222.05831` | 90,813 | `0fdc3690902eb417340d83c6d5635ad5bb3dbbe9348ca92b0dc2b7b13fc37dfa` | Authentication header, default welcome, signed-in home, SVG favicon, and scalable manifest icon |
+| `apps/web/res/themes/poda/img/backgrounds/poda-landscape.svg` | `poda-landscape.svg` at `71e6d678f57b6c129956175833ec0f2ac3763e152f30a8dae1fee2312e075b91` | Same deterministic SVG sanitization and geometry checks | viewBox `0 0 406.39999 270.93332` | 49,240 | `5f61d269a25686554c0504b3508aae2d9710fa8c83bce71a484382c125ac797a` | Existing authentication/welcome background configured with centered cover behavior |
+| `apps/web/res/themes/poda/img/logos/poda-mark-25.webp` | `poda-character-microphone-25px.webp` at the same digest | Digest-checked byte-for-byte copy of the maintainer-supplied dense-size rendering | `25 × 25` RGBA lossless WebP | 1,690 | `58a462c20b6005791c2ba7c8eb43bc41b8a5052a2ed692f6140417b5f918f4b3` | Small browser favicon and manifest fallback |
+| `apps/web/res/themes/poda/img/logos/poda-mark-500.png` | `poda-character-microphone-preview.png` at the same digest | Digest-checked byte-for-byte copy of the maintainer-supplied large rendering | `500 × 504` RGBA PNG | 119,259 | `b19b73a11e28c8277b14cd82e946b161212113f6c5467b16084d593dfb964820` | Apple touch icon and default Open Graph image |
+
+Generate the files from the repository root with
+`node apps/web/scripts/derive-poda-brand-assets.mjs`; verify them with the same
+command plus `--check`. The `element-web:poda:check` Nx target combines that
+derivation check with `apps/web/scripts/check-poda-branding.mjs`, and the
+production `element-web:build` target depends on it.
+
+No runtime derivative of `poda-girls-podcasting-by-lantern.svg` is present in
+this slice. Its responsive crop and exact existing Element placement remain
+unapproved.
 
 ## Source scan
 
@@ -75,18 +99,18 @@ tokens and rendered states.
 | `#FFFFFF` on `#006052` | 7.51:1 | Strong light-on-deep-teal pairing |
 | `#332216` on `#F8D8AF` | 11.17:1 | Strong dark-on-warm-light pairing |
 
-## Decisions still required before runtime use
+## First-slice disposition
 
-- Choose whether Poda is the default, only, or optional selectable theme, and
-  whether the first slice ships both light and dark variants.
-- Approve the exact semantic-token map and reference screenshots rather than
-  assigning every illustration color to an interface role.
-- Choose which scene, if either, occupies each existing Element auth, welcome,
-  loading, or empty-state illustration slot and approve desktop/narrow crops.
-- Choose the dense-size derivative strategy for the character-and-microphone
-  mark after checking legibility at favicon, app-icon, and rail-avatar sizes.
-- Confirm any public redistribution, attribution, or licensing requirement
-  before these internal source references are shipped outside the fork.
+[D-000009](situation/decisions/D-000009-configuration-backed-poda-theme.md)
+selects paired optional Poda Light and Poda Dark themes, makes Poda Light the
+fork default, assigns the mark and landscape only to existing Element branding
+slots, selects the supplied small and large raster renderings for dense and
+social metadata use, and leaves the lantern illustration out of runtime.
+
+Rendered desktop/narrow crop acceptance, exhaustive computed-state contrast,
+and any public redistribution, attribution, or licensing requirement remain
+open. Those boundaries prevent assurance of P-000007; they do not change the
+admitted internal implementation scope.
 
 ## Derivative rules
 

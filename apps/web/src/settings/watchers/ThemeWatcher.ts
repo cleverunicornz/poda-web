@@ -16,6 +16,8 @@ import { Action } from "../../dispatcher/actions";
 import { findHighContrastTheme, getCustomTheme } from "../../theme";
 import { type ActionPayload } from "../../dispatcher/payloads";
 import { SettingLevel } from "../SettingLevel";
+import SdkConfig from "../../SdkConfig";
+import { isPodaThemeId, PODA_DARK_THEME_ID, PODA_LIGHT_THEME_ID } from "../../podaTheme";
 
 export enum ThemeWatcherEvent {
     Change = "change",
@@ -137,14 +139,17 @@ export default class ThemeWatcher extends TypedEventEmitter<ThemeWatcherEvent, T
     }
 
     private themeBasedOnSystem(): string | undefined {
+        const usePodaThemeFamily = isPodaThemeId(SdkConfig.get("default_theme"));
         let newTheme: string | undefined;
         if (this.preferDark.matches) {
-            newTheme = "dark";
+            newTheme = usePodaThemeFamily ? PODA_DARK_THEME_ID : "dark";
         } else if (this.preferLight.matches) {
-            newTheme = "light";
+            newTheme = usePodaThemeFamily ? PODA_LIGHT_THEME_ID : "light";
         }
         if (newTheme && this.preferHighContrast.matches) {
-            const hcTheme = findHighContrastTheme(newTheme);
+            const hcTheme =
+                findHighContrastTheme(newTheme) ??
+                (newTheme === PODA_LIGHT_THEME_ID ? findHighContrastTheme("light") : undefined);
             if (hcTheme) {
                 newTheme = hcTheme;
             }

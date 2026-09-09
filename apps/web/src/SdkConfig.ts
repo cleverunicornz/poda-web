@@ -13,15 +13,20 @@ import { type DeepReadonly } from "shared-types";
 import { SnakedObject } from "./utils/SnakedObject";
 import { type IConfigOptions, type ConfigOptions } from "./IConfigOptions";
 import { isObject, objectClone } from "./utils/objects";
+import { PODA_CUSTOM_THEMES, PODA_LIGHT_THEME_ID } from "./podaTheme";
 import ElementDesktopLogoSvg from "../res/img/element-desktop-logo.svg";
 
 // see element-web config.md for docs, or the IConfigOptions interface for dev docs
 export const DEFAULTS = {
-    brand: "Element",
+    brand: "Poda",
+    default_theme: PODA_LIGHT_THEME_ID,
     branding: {
-        logo_link_url: "https://element.io",
-        auth_header_logo_url: "themes/element/img/logos/element-logo.svg",
-        welcome_background_url: "themes/element/img/backgrounds/lake.jpg",
+        logo_link_url: "#/welcome",
+        auth_header_logo_url: "themes/poda/img/logos/poda-mark.svg",
+        welcome_background_url: "themes/poda/img/backgrounds/poda-landscape.svg",
+    },
+    setting_defaults: {
+        custom_themes: PODA_CUSTOM_THEMES,
     },
     help_url: "https://element.io/help",
     help_encryption_url: "https://element.io/help#encryption",
