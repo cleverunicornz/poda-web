@@ -39,11 +39,11 @@ beyond the enumerated surfaces without a superseding decision.
 
 ## Implementation coverage
 
-| Leg | Decision | Coverage |
-|---|---|---|
-| P-build | Build, Vitest, branding gate pass | manual (local commands; CI when available) |
-| P-tabs | Tab bar switches all four tabs correctly | manual (browser run) |
-| P-studio | Studio renders and edits via mock adapter | manual (browser run) + Vitest contract tests |
-| P-profile | Profile and creators render and navigate | manual (browser run) |
-| P-themes | Light/dark and narrow render correctly | manual (browser run) |
-| F-chat | Chat behavior/layout changed | manual (browser run + existing Vitest suites) |
+| Leg       | Decision                                  | Coverage                                      |
+| --------- | ----------------------------------------- | --------------------------------------------- |
+| P-build   | Build, Vitest, branding gate pass         | manual (local commands; CI when available)    |
+| P-tabs    | Tab bar switches all four tabs correctly  | manual (browser run)                          |
+| P-studio  | Studio renders and edits via mock adapter | manual (browser run) + Vitest contract tests  |
+| P-profile | Profile and creators render and navigate  | manual (browser run)                          |
+| P-themes  | Light/dark and narrow render correctly    | manual (browser run)                          |
+| F-chat    | Chat behavior/layout changed              | manual (browser run + existing Vitest suites) |

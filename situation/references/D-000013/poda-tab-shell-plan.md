@@ -33,20 +33,20 @@ Chat behaves exactly as upstream Element.
 
 ## Choices and defaults
 
-| Choice | Status |
-|---|---|
-| Four primary tabs: Chat / Studio / Profile / Settings | USER CHOICE |
-| Studio contains Podcasts, Episodes, Analytics | USER CHOICE |
-| All Studio/Profile data strictly mocked | USER CHOICE |
-| Module pages (not fork routes, not widgets) carry Studio/Profile/Creators | USER CHOICE |
-| Chat tab is native Element, unmodified beyond the existing Poda skin | DISCOVERED CONSTRAINT (standing direction) |
-| Settings tab routes to Element's native settings, no Poda rebuild | PLANNING DEFAULT |
-| Creators directory lives inside the Profile tab (`#/creators`), keeping four primary tabs | PLANNING DEFAULT |
-| Chat tab lands on the last active chat screen, else `#/home` | PLANNING DEFAULT |
-| Module pages suppress chat chrome (space rail, room list); tab bar persists on every tab | PLANNING DEFAULT |
-| In-session edits persist only in memory; reload resets; the UI states this | PLANNING DEFAULT |
-| Podcasting 2.0 support limited to the field subset below, display + edit | PLANNING DEFAULT |
-| Analytics are mock charts (CSS/SVG), no chart library dependency | PLANNING DEFAULT |
+| Choice                                                                                    | Status                                     |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Four primary tabs: Chat / Studio / Profile / Settings                                     | USER CHOICE                                |
+| Studio contains Podcasts, Episodes, Analytics                                             | USER CHOICE                                |
+| All Studio/Profile data strictly mocked                                                   | USER CHOICE                                |
+| Module pages (not fork routes, not widgets) carry Studio/Profile/Creators                 | USER CHOICE                                |
+| Chat tab is native Element, unmodified beyond the existing Poda skin                      | DISCOVERED CONSTRAINT (standing direction) |
+| Settings tab routes to Element's native settings, no Poda rebuild                         | PLANNING DEFAULT                           |
+| Creators directory lives inside the Profile tab (`#/creators`), keeping four primary tabs | PLANNING DEFAULT                           |
+| Chat tab lands on the last active chat screen, else `#/home`                              | PLANNING DEFAULT                           |
+| Module pages suppress chat chrome (space rail, room list); tab bar persists on every tab  | PLANNING DEFAULT                           |
+| In-session edits persist only in memory; reload resets; the UI states this                | PLANNING DEFAULT                           |
+| Podcasting 2.0 support limited to the field subset below, display + edit                  | PLANNING DEFAULT                           |
+| Analytics are mock charts (CSS/SVG), no chart library dependency                          | PLANNING DEFAULT                           |
 
 ## Discovered constraints
 
@@ -111,16 +111,16 @@ Upstream merge surface is exactly: one conditional branch in
 
 ### Module pages and routes
 
-| Route | Page | Content |
-|---|---|---|
-| `#/studio` | StudioPage | Sub-nav Podcasts / Episodes / Analytics |
-| `#/studio?podcast=<id>` | StudioPage | Podcast detail/editor |
-| `#/studio?episode=<id>` | StudioPage | Episode detail/editor |
-| `#/profile` | ProfilePage | Own creator profile view/edit |
-| `#/creators` | CreatorsPage | Directory of mock creators |
-| `#/creators?creator=<id>` | CreatorsPage | Creator profile detail |
-| `#/settings` | native | Element settings |
-| `#/home`, `#/room/...` | native | Chat surfaces |
+| Route                     | Page         | Content                                 |
+| ------------------------- | ------------ | --------------------------------------- |
+| `#/studio`                | StudioPage   | Sub-nav Podcasts / Episodes / Analytics |
+| `#/studio?podcast=<id>`   | StudioPage   | Podcast detail/editor                   |
+| `#/studio?episode=<id>`   | StudioPage   | Episode detail/editor                   |
+| `#/profile`               | ProfilePage  | Own creator profile view/edit           |
+| `#/creators`              | CreatorsPage | Directory of mock creators              |
+| `#/creators?creator=<id>` | CreatorsPage | Creator profile detail                  |
+| `#/settings`              | native       | Element settings                        |
+| `#/home`, `#/room/...`    | native       | Chat surfaces                           |
 
 ### Data contract
 
