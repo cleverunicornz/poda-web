@@ -60,13 +60,20 @@ Communities (empty, staff-curated), and Poda Support (read-only
 Announcements + Support Chat). All children use space-restricted join rules,
 verified live by invite-free room joins and a blocked regular-user post.
 
+The next slice is planned but not implemented: D-000013 selects a Poda tab
+shell (Chat/Studio/Profile/Settings) with module pages fed by a typed
+in-memory mock adapter, reviving only the shell and field models of the
+shelved D-000002 integration plan. The active plan is
+`situation/plans/active/PLAN-000003-poda-tab-shell.md`.
+
 ## Intended state
 
 The responsive web client retains Element's existing information architecture,
 Matrix data model, routes, stores, permissions, and actions while presenting an
 approved Poda visual treatment through Element's theme and branding mechanisms
-and narrowly scoped presentation styles. The active plan is
-`situation/plans/active/PLAN-000002-poda-element-visual-alignment.md`.
+and narrowly scoped presentation styles. The active plans are
+`situation/plans/active/PLAN-000002-poda-element-visual-alignment.md` and
+`situation/plans/active/PLAN-000003-poda-tab-shell.md`.
 
 ## Closure state
 
