@@ -18,6 +18,9 @@ The root repository block must state whether a recorded route can support a gate
 - `.github/workflows/tests.yml` defines an inherited test workflow, but no recorded Oracle and Witness connect it to a fork-specific gate claim.
 - [D-000001](situation/decisions/D-000001-upstream-authority.md) records that Element Web remains the external upstream authority.
 
+- DELTA observation for run `20260914T064256Z-af14eab5807a7290dd44ecbc075672d799fd0cf8`: `git diff --name-status 7f2105f5fe4f719e157d00850c6ecae4f36138c6..af14eab5807a7290dd44ecbc075672d799fd0cf8 -- situation/promises situation/oracles situation/witnesses` changes only `situation/oracles/AGENTS.md`; it adds no Promise, Oracle, or Witness record that could establish an assured fork route.
+- [D-000002](situation/decisions/D-000002-disable-inherited-workflows.md) records the inherited-workflow settings decision, but it does not establish a Promise, Oracle, and PASS Witness route.
+
 ## Impact
 
 The root repository block must render its Verification bullet as unassured, and no fork-specific gate claim can cite an inherited workflow run.
