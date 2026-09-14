@@ -53,6 +53,13 @@ Join actions, and zero narrow overflow. Retained approved visual evidence and
 exact-head CI remain pending. No Poda visual or fork-specific assurance Witness
 exists yet.
 
+The demo Matrix homeserver now carries the four-Space organization from
+D-000012: Poda Community (General auto-joined; Equipment and both Last Minute
+rooms suggested), Podcast Topics (19 Apple-taxonomy rooms), Podcast
+Communities (empty, staff-curated), and Poda Support (read-only
+Announcements + Support Chat). All children use space-restricted join rules,
+verified live by invite-free room joins and a blocked regular-user post.
+
 ## Intended state
 
 The responsive web client retains Element's existing information architecture,
