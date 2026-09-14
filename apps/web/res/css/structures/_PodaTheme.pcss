@@ -22,9 +22,9 @@ body.mx_PodaTheme .mx_MatrixChat {
     background: var(--background);
 }
 
-body.mx_PodaTheme .mx_MatrixChat > :not(.mx_LeftPanel):not(.mx_SpacePanel):not(.mx_ResizeHandle):not(
-        .mx_LeftPanel_outerWrapper
-    ) {
+body.mx_PodaTheme
+    .mx_MatrixChat
+    > :not(.mx_LeftPanel):not(.mx_SpacePanel):not(.mx_ResizeHandle):not(.mx_LeftPanel_outerWrapper) {
     background-color: var(--background);
 }
 
@@ -132,6 +132,68 @@ body.mx_PodaTheme .mx_RoomListItemView_selected::after {
     width: 3px;
     border-radius: 999px;
     background: var(--accent-color);
+}
+
+/* Space overview: native hierarchy tiles reuse the dark rail colour for hover,
+   which is unreadable under Poda; keep the warm surface tint instead. The
+   native Join/View actions stay visible instead of hover-only so room choice
+   is discoverable without a pointer. */
+body.mx_PodaTheme
+    .mx_SpaceRoomView_landing
+    .mx_SpaceHierarchy_list
+    li.mx_SpaceHierarchy_roomTileWrapper
+    .mx_SpaceHierarchy_roomTile {
+    border: 1px solid transparent;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease;
+}
+
+body.mx_PodaTheme
+    .mx_SpaceRoomView_landing
+    .mx_SpaceHierarchy_list
+    li.mx_SpaceHierarchy_roomTileWrapper
+    .mx_SpaceHierarchy_roomTile:hover,
+body.mx_PodaTheme
+    .mx_SpaceRoomView_landing
+    .mx_SpaceHierarchy_list
+    li.mx_SpaceHierarchy_roomTileWrapper
+    .mx_SpaceHierarchy_roomTile:focus-within {
+    background-color: var(--timeline-highlights-color);
+    border-color: var(--poda-border-color);
+}
+
+body.mx_PodaTheme
+    .mx_SpaceRoomView_landing
+    .mx_SpaceHierarchy_list
+    li.mx_SpaceHierarchy_roomTileWrapper
+    .mx_SpaceHierarchy_actions
+    .mx_AccessibleButton {
+    visibility: visible;
+}
+
+body.mx_PodaTheme .mx_SearchBox {
+    position: relative;
+}
+
+body.mx_PodaTheme .mx_SearchBox input.mx_textinput_search {
+    background-image: none;
+}
+
+body.mx_PodaTheme .mx_SearchBox::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-color: var(--cpd-color-icon-secondary);
+    mask-image: url("@vector-im/compound-design-tokens/icons/search.svg");
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    pointer-events: none;
 }
 
 /* Native room header and timeline canvas */
@@ -370,6 +432,30 @@ body.mx_PodaTheme :focus-visible {
 
     body.mx_PodaTheme .mx_RoomView .mx_MessageComposer {
         padding-inline: 8px;
+    }
+
+    /* Narrow Space overview: replace the desktop 80px/60px padding and avoid
+       the fixed-width button row overflowing the viewport. */
+    body.mx_PodaTheme .mx_SpaceRoomView .mx_MainSplit > div:first-child {
+        padding: 32px 16px;
+    }
+
+    body.mx_PodaTheme .mx_SpaceRoomView .mx_SpaceRoomView_buttons {
+        width: auto;
+        max-width: 100%;
+    }
+
+    /* Give the native room title its space back on narrow viewports. */
+    body.mx_PodaTheme .mx_RoomHeader {
+        padding-inline: var(--cpd-space-2x);
+    }
+
+    body.mx_PodaTheme .mx_RoomHeader_info {
+        padding-right: var(--cpd-space-3x);
+    }
+
+    body.mx_PodaTheme .mx_RoomHeader_infoWrapper {
+        gap: var(--cpd-space-2x);
     }
 }
 
