@@ -41,10 +41,17 @@ Poda-scoped styling of native Element surfaces, and Element's native bubble
 layout as the default while preserving explicit user choice. The corrective
 implementation at commit `5baf4ea7e3` renders the supplied landscape,
 character mark, warm light surfaces, dark brown/green surfaces, rail, room-list
-shell, home card, actions, and native room dialogs in both modes. The logged-in
-test account has no joined rooms, so room-row, timeline, composer, and right-
-panel rendered evidence is still absent. No Poda visual or fork-specific
-assurance Witness exists yet.
+shell, home card, actions, and native room dialogs in both modes. A signed-in
+audit of that build then found the custom-theme Compound overrides inert at
+runtime (the generated style elements carried `title`, which leaves them
+unselected in the HTML style sheet set mechanism) plus Space hover, action
+visibility, icon-tint, and narrow-width presentation defects. D-000011 repairs
+the cascade in `apps/web/src/theme.ts` and applies the Poda-scoped corrections;
+verified post-fix renders show the Poda tokens computing in both modes, the
+demo Space carrying the supplied mark as its native `m.room.avatar`, visible
+Join actions, and zero narrow overflow. Retained approved visual evidence and
+exact-head CI remain pending. No Poda visual or fork-specific assurance Witness
+exists yet.
 
 ## Intended state
 
