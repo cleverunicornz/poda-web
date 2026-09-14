@@ -29,6 +29,6 @@ Fork-specific orientation remains in `situation/` and the root repository block.
 
 ## Closure state
 
-- Current run: `20260914T064256Z-af14eab5807a7290dd44ecbc075672d799fd0cf8` (open)
-- Last completed closure: run `20260907T093249Z-b53af60d7e2ae8c9021e94dd628d478dbc65c37e`, opened at `51ccbf3c36fc160066424b656456b115994309b5`
-- Transcript: `s3://cvu-automation-runs-uk/bedrock/cleverunicornz/poda-web/pr-1/20260907T093249Z-b53af60d7e2ae8c9021e94dd628d478dbc65c37e/`
+- Current run: none
+- Last completed closure: run `20260914T064256Z-af14eab5807a7290dd44ecbc075672d799fd0cf8`, opened at `afa945263aa5cf1e6e9eb9cc9f1ef67fcd402f32`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34814424869`
