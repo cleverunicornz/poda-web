@@ -20,7 +20,7 @@ describe("JSONExport", () => {
         vi.setSystemTime(REPEATABLE_DATE);
     });
 
-    it("should have an Element-branded destination file name", () => {
+    it("should have a Poda-branded destination file name", () => {
         const roomName = "My / Test / Room: Welcome";
         const client = createTestClient();
         const stubOptions: IExportOptions = {

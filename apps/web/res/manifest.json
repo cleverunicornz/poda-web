@@ -1,44 +1,20 @@
 {
-    "name": "Element",
-    "short_name": "Element",
+    "name": "Poda",
+    "short_name": "Poda",
     "display": "standalone",
-    "theme_color": "#76CFA6",
+    "theme_color": "#F9BA51",
+    "background_color": "#FFFDF9",
     "start_url": "index.html",
     "icons": [
         {
-            "src": "/vector-icons/24.png",
-            "sizes": "24x24",
-            "type": "image/png"
+            "src": "/themes/poda/img/logos/poda-mark.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
         },
         {
-            "src": "/vector-icons/120.png",
-            "sizes": "120x120",
-            "type": "image/png"
-        },
-        {
-            "src": "/vector-icons/144.png",
-            "sizes": "144x144",
-            "type": "image/png"
-        },
-        {
-            "src": "/vector-icons/152.png",
-            "sizes": "152x152",
-            "type": "image/png"
-        },
-        {
-            "src": "/vector-icons/180.png",
-            "sizes": "180x180",
-            "type": "image/png"
-        },
-        {
-            "src": "/vector-icons/512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        },
-        {
-            "src": "/vector-icons/1024.png",
-            "sizes": "1024x1024",
-            "type": "image/png"
+            "src": "/themes/poda/img/logos/poda-mark-25.webp",
+            "sizes": "25x25",
+            "type": "image/webp"
         }
     ],
     "related_applications": [

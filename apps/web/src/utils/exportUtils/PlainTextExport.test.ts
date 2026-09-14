@@ -37,7 +37,7 @@ describe("PlainTextExport", () => {
         stubRoom = mkStubRoom("!myroom:example.org", roomName, client);
     });
 
-    it("should have an Element-branded destination file name", () => {
+    it("should have a Poda-branded destination file name", () => {
         const exporter = new PlainTextExporter(stubRoom, ExportType.Timeline, stubOptions, () => {});
 
         expect(exporter.destinationFileName).toMatchSnapshot();

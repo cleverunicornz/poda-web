@@ -91,8 +91,6 @@ vi.stubGlobal("matchMedia", (query: string) => ({
     dispatchEvent: vi.fn(),
 }));
 
-const originGetValue = SettingsStore.getValue;
-
 describe("WidgetMessaging", () => {
     let client: MockedObject<MatrixClient>;
     let widget: WidgetMessaging;
@@ -128,25 +126,23 @@ describe("WidgetMessaging", () => {
     });
 
     it("should replace parameters in widget url template", () => {
-        const spy = vi.spyOn(SettingsStore, "getValue").mockImplementation((setting) => {
-            if (setting === "theme") return "my-theme-for-testing";
-            return originGetValue(setting);
-        });
+        const spy = vi
+            .spyOn(SettingsStore, "getValueAt")
+            .mockImplementation((_level, setting): any => (setting === "theme" ? "my-theme-for-testing" : null));
         expect(widget.embedUrl).toBe(
             "https://example.org/?user-id=%40userId%3Amatrix.org&device-id=ABCDEFGHI&base-url=https%3A%2F%2Fmatrix-client.matrix.org&theme=my-theme-for-testing&widgetId=test&parentUrl=http%3A%2F%2Flocalhost%2F",
         );
-        spy.mockClear();
+        spy.mockRestore();
     });
 
     it("should replace parameters in widget url template for popout", () => {
-        const spy = vi.spyOn(SettingsStore, "getValue").mockImplementation((setting) => {
-            if (setting === "theme") return "my-theme-for-testing";
-            return originGetValue(setting);
-        });
+        const spy = vi
+            .spyOn(SettingsStore, "getValueAt")
+            .mockImplementation((_level, setting): any => (setting === "theme" ? "my-theme-for-testing" : null));
         expect(widget.popoutUrl).toBe(
             "https://example.org/?user-id=%40userId%3Amatrix.org&device-id=ABCDEFGHI&base-url=https%3A%2F%2Fmatrix-client.matrix.org&theme=my-theme-for-testing",
         );
-        spy.mockClear();
+        spy.mockRestore();
     });
 
     it("feeds incoming to-device messages to the widget", async () => {
@@ -205,8 +201,8 @@ describe("WidgetMessaging", () => {
     it("informs widget of theme changes", () => {
         let theme = "light";
         const settingsSpy = vi
-            .spyOn(SettingsStore, "getValue")
-            .mockImplementation((name) => (name === "theme" ? theme : null));
+            .spyOn(SettingsStore, "getValueAt")
+            .mockImplementation((_level, name): any => (name === "theme" ? theme : null));
         try {
             // Indicate that the widget is ready
             findLast(messaging.once.mock.calls, ([eventName]) => eventName === "ready")![1]();

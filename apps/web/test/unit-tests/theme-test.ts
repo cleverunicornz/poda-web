@@ -139,7 +139,12 @@ describe("theme", () => {
                 lightCustomTheme.onload!({} as Event);
             });
             expect(spy).toHaveBeenCalled();
-            expect(spy.mock.calls[0][0].textContent).toMatchSnapshot();
+            const styleElement = spy.mock.calls[0][0] as HTMLElement;
+            // A `title` attribute would enroll the element in the HTML style sheet set
+            // mechanism and leave its rules inert, so identification uses a data attribute.
+            expect(styleElement.getAttribute("data-mx-custom-theme")).toEqual("compound");
+            expect(styleElement.getAttribute("title")).toBeNull();
+            expect(styleElement.textContent).toMatchSnapshot();
             spy.mockRestore();
         });
 
@@ -229,7 +234,7 @@ describe("theme", () => {
         beforeEach(() => {
             // Reset document state
             document.body.style.cssText = "";
-            document.head.querySelectorAll("style[title^='custom-theme-']").forEach((el) => el.remove());
+            document.head.querySelectorAll("style[data-mx-custom-theme]").forEach((el) => el.remove());
         });
 
         it("should not remove font family custom properties", async () => {

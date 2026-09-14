@@ -2,7 +2,7 @@
 
 ## State
 
-open
+addressing
 
 ## Gap
 
@@ -20,6 +20,21 @@ The root repository block must state whether a recorded route can support a gate
 
 - DELTA observation for run `20260914T064256Z-af14eab5807a7290dd44ecbc075672d799fd0cf8`: `git diff --name-status 7f2105f5fe4f719e157d00850c6ecae4f36138c6..af14eab5807a7290dd44ecbc075672d799fd0cf8 -- situation/promises situation/oracles situation/witnesses` changes only `situation/oracles/AGENTS.md`; it adds no Promise, Oracle, or Witness record that could establish an assured fork route.
 - [D-000002](situation/decisions/D-000002-disable-inherited-workflows.md) records the inherited-workflow settings decision, but it does not establish a Promise, Oracle, and PASS Witness route.
+- DELTA observation for run `20260914T132604Z-a79258d272a124a98501ae78dc96a0e468e506ac`:
+  [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) remains
+  `hypothesis`, [O-000005](situation/oracles/O-000005-poda-fork-assurance-route.md)
+  remains `designed`, and `situation/witnesses/` contains only its namespace
+  guidance; no P-000005 Witness or exact-head fork-owned CI result is retained.
+- Validator observation for run
+  `20260914T132604Z-a79258d272a124a98501ae78dc96a0e468e506ac` at reviewed
+  head `0953c28a88924114176abb5bca3f867274f84666`:
+  `apps/web/scripts/check-poda-branding.mjs` treats the presence of the literal
+  `body.mx_PodaTheme` anywhere in `_PodaTheme.pcss` as its stylesheet-scope
+  check, so unscoped rules would not contradict that executable result.
+  `apps/web/project.json` also makes `poda:check` cacheable but omits the
+  stylesheet from the target's explicit inputs even though the checker reads
+  it. Whether a future fork-owned exact-head route supplies a decision-complete,
+  cache-correct scope check remains unresolved.
 
 ## Impact
 
@@ -27,7 +42,11 @@ The root repository block must render its Verification bullet as unassured, and 
 
 ## Resolution
 
-none
+- [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) states
+  the intended fork-specific assurance behavior.
+- [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md)
+  orders its implementation and requires retained PASS Witnesses before
+  completion.
 
 ## References
 
