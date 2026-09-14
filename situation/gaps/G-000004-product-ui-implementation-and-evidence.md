@@ -19,6 +19,7 @@ The selected rendering, native-assistance, artifact, host-extension and preview 
 - `packages/module-api/src/api/navigation.ts`, `packages/module-api/src/api/builtins.ts` and `packages/shared-components/.storybook/main.ts` expose current public source mechanisms. Their existence is not an observation of the new product behavior.
 - [G-000001](situation/gaps/G-000001-fork-assurance-route.md) separately retains the absent fork-owned assurance route. Inherited tests and source references do not close it.
 - [D-000007](situation/decisions/D-000007-visual-first-element-alignment.md), [I-000003](situation/invariants/I-000003-element-native-capability-boundary.md) and [PLAN-000002](situation/plans/active/PLAN-000002-poda-element-visual-alignment.md) retain the active first-migration visual/native-capability boundary. [G-000002](situation/gaps/G-000002-poda-visual-acceptance-contract.md) retains visual acceptance work; this product Gap neither replaces nor resolves it.
+- Closer observation for run `20260914T145709Z-0afde435d3353cd007b599a398104faa26008dc4`: [C-000002](situation/candidates/C-000002-qualify-product-ui-boundaries.md) remains `proposed`, with no promotion transaction; root `AGENTS.md` now names it in its unassured Verification projection. This preserves the absence described here rather than turning qualification into a commitment.
 
 ## Impact
 
