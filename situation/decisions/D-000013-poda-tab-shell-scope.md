@@ -58,8 +58,9 @@ Build a Poda tab shell and module pages as the next slice:
    and a creators directory.
 3. **Typed mock-data adapter** — all page data flows through a
    `PodaDataAdapter` TypeScript interface implemented by an in-memory mock
-   seeded from typed fixtures. Fixtures model a defined Podcasting 2.0
-   channel/item field subset and the donor's creator-profile fields. No
+   seeded from typed fixtures. Fixtures model the donor's complete profile,
+   podcast, and episode field inventory (all visible and hidden fields),
+   tiered into editable, display-only, and model-only groups. No
    network, no Matrix custom events, no persistence across reloads.
 4. **Scope expansion** — this slice deliberately adds routes, pages, and
    in-session form editing beyond I-000002's chat-only boundary. Chat behavior

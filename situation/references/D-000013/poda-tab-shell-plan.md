@@ -45,7 +45,7 @@ Chat behaves exactly as upstream Element.
 | Chat tab lands on the last active chat screen, else `#/home`                              | PLANNING DEFAULT                           |
 | Module pages suppress chat chrome (space rail, room list); tab bar persists on every tab  | PLANNING DEFAULT                           |
 | In-session edits persist only in memory; reload resets; the UI states this                | PLANNING DEFAULT                           |
-| Podcasting 2.0 support limited to the field subset below, display + edit                  | PLANNING DEFAULT                           |
+| All donor fields (visible and hidden) carried in the typed model, tiered E/D/H below      | USER CHOICE                                |
 | Analytics are mock charts (CSS/SVG), no chart library dependency                          | PLANNING DEFAULT                           |
 
 ## Discovered constraints
@@ -144,32 +144,49 @@ interface PodaDataAdapter {
 seeded from typed fixtures, no network, no Matrix events, no storage. A future
 HTTP adapter implements the same interface without page changes.
 
-### Podcasting 2.0 field subset
+### Donor field inventory (visible and hidden)
 
-Pinned to the shelved plan's namespace revision
-(`podcast-namespace@c0ff5caa`, docs/1.0). This slice displays and edits:
+The typed model carries the donor's complete profile, podcast, and episode
+inventory, pinned to the PCC donor types
+(`Private: cleverunicornz/yeet-code@951dd74fd6cdbe050cb451dc9ab0448836728dbb#applications/pcc/pcc-native/src/lib/types/index.ts`,
+private; requires repository access). Every field is assigned a tier:
 
-- **Channel**: title, link, description, language, author, owner name/email,
-  explicit, image, Apple-taxonomy categories, type (episodic/serial), guid
-  (read-only), locked, funding {url, message}, medium (podcast), person[],
-  copyright.
-- **Item**: title, description, enclosure {url, length, type}, guid, pubDate,
-  duration, explicit, image, season, episode, episodeType, person[],
-  transcript {url, type} reference, chapters {url, type} reference, soundbite
-  {start, duration}.
-- **Value block**: display-only (no editing) with a "requires a real wallet
-  backend" note.
+- **E — editable this slice**: rendered in forms; writes to the mock adapter.
+- **D — display-only this slice**: rendered read-only (badges, detail blocks).
+- **H — model-only / hidden**: present in types and fixtures so the contract
+  is complete for a future API, but not surfaced in this slice.
 
-Explicitly excluded: feed XML serialization, publishing, GUID registry,
-transcript generation, live items, value streaming, podping, remote items,
-podroll. Unknown-namespace preservation matters only once real feeds exist.
+**Creator profile** (donor `User`):
 
-### Creator profile model (from the donor)
+| Tier | Fields                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| E    | displayName, avatarUrl, bannerUrl, headline, tagline, bio, aboutShort, topics[], slug, bookingUrl, socialLinks {website, linkedin, twitter/X, youtube, instagram, tiktok, calendly}, expertiseCards[] {id, title, description, icon, order}, customFields[] {name, value}                                                                                                                                                                 |
+| D    | isPublic, profileStatus (draft/published) as badge, sectionVisibility {public/members/collaborators/private} as badges, introVideoUrl, mediaKit[] {id, name, url, type: headshot/photo/audio/pdf/document/logo/other, size, filename, mimeType}, testimonials[] {id, name, role, quote, avatarUrl, order}, featuredAppearances[] {id, podcastName, episodeTitle, url, date, imageUrl, order, displayClass}, appearanceCount, bestFitFor[] |
+| H    | id, email (own record only), createdAt, updatedAt                                                                                                                                                                                                                                                                                                                                                                                         |
 
-displayName, avatar, banner, headline, tagline, about, topics[], socialLinks
-(website, linkedin, twitter/X, youtube, instagram, tiktok, calendly),
-expertiseCards[], customFields[], slug. Own profile is editable; directory
-profiles are read-only views.
+**Podcast** (donor `Podcast` with nested `PodcastChannel`):
+
+| Tier | Fields                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| E    | title, tagline, description, slug, coverArtUrl, categories[] (Apple taxonomy), language, explicit, author, ownerEmail, showType (episodic/serial), websiteUrl, trailerUrl, bookingUrl, socialLinks (same seven); channel: persons[] {name, role, group, href, image}, locked {owner, locked}, license {identifierOrText, url}, funding[] {title, url}, medium, copyright                                                                                                                                                                                                                                                                                                      |
+| D    | status (draft/published/active/archived) as badge, isPublic as badge, idealGuest {description, topics[], qualities[]}, guestRequirements {equipment[], preparation, scheduling, other[]}, testimonials[], mediaKit[], audienceStats {monthlyListeners, totalDownloads, avgEpisodeDownloads, topCountries[], demographics} (feeds mock Analytics), channel: guid, updateFrequency {text, complete, dtstart, rrule}, value[] (with "requires a real wallet backend" note), socialInteracts[], txt[], chat, trailers[] {title, url, pubdate, lengthBytes, mimeType, season}, locations[] {name, geo, osm, country, rel}, publisher {remoteItem}, license display, customFields[] |
+| H    | id, orgId, rssFeedUrl, sectionVisibility, createdAt, updatedAt; internals: currentness {canonicalAt, activityFreshnessAt, internalizedAt, externalizedAt}, provenance {mode: internal/external/unknown, kind, sourceEntryId, podcastGuid}, feedDiagnostics {rssFeedStatus, canonicalValidation {status, warnings[], errors[]}}; channel: blocks[], podping, liveItems[], remoteItems[], podroll                                                                                                                                                                                                                                                                               |
+
+**Episode** (donor `Episode` with `EpisodeItem`/`EpisodeMedia`):
+
+| Tier | Fields                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| E    | title, description, showNotesHtml, slug, episodeNumber, seasonNumber, duration                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| D    | status (draft/scheduled/published/archived) as badge, publishedAt, scheduledAt, item: persons[], transcripts[] {url, mimeType, language, rel}, funding[], soundbites[] {startTime, duration, title}, locations[], chapters {url, mimeType, language, rel}, license; media: primaryEnclosure and alternateEnclosures {url, mimeType, lengthBytes, durationSeconds, title, isDefault, bitrate, height, language, rel, codecs, sources[] {uri, contentType}}; guests[] {guestId, userId, name, email, role, displayClass (platform_mutual / host_added_external_guest / guest_self_attested_external_host / episode_matched / host_verified), partyKind, tagline, appearanceDescription, ctaLabel, ctaUrl, avatarUrl, profileUrl} |
+| H    | id, podcastId, createdAt, updatedAt; internals: currentness, provenance {mode, kind, sourceGuid, sourceEntryId, sourceEpisodeId}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+
+Namespace authority for the Podcasting 2.0 shapes remains the shelved plan's
+pinned revision (`podcast-namespace@c0ff5caa`, docs/1.0). The donor model has
+no item-level `image` field, so episodes carry none in this slice either.
+
+Explicitly excluded from the model: feed XML serialization, publishing, GUID
+registry, transcript generation, value streaming. Unknown-namespace
+preservation matters only once real feeds exist.
 
 ### Fixtures
 
@@ -182,8 +199,9 @@ per podcast. Every fixture passes the contract's validation.
 
 Backend/API, Matrix custom events or state, authentication changes, identity
 switching, feed serialization/publishing, real analytics, public/SEO pages,
-Podcasting 2.0 beyond the listed subset, the pending Support DM decision, and
-any change to Chat behavior.
+the pending Support DM decision, and any change to Chat behavior. Tier-D and
+tier-H donor fields are modelled but not surfaced beyond what the inventory
+assigns them.
 
 ## Delivery sequence
 
@@ -245,6 +263,10 @@ any change to Chat behavior.
 - Donor profile/editor field evidence:
   `Private: cleverunicornz/yeet-code@6bddee4dfd9fa8ee0474aa70170b79650447cbc8#apps/structured-chat-mock/native/src/lib/structured-chat/fixtures.ts`
   (private; requires repository access).
+- Donor entity field inventory:
+  `Private: cleverunicornz/yeet-code@951dd74fd6cdbe050cb451dc9ab0448836728dbb#applications/pcc/pcc-native/src/lib/types/index.ts`
+  (private; requires repository access) — complete profile/podcast/episode
+  shapes, tiered in this plan.
 - Namespace authority:
   <https://github.com/Podcastindex-org/podcast-namespace/blob/c0ff5caa3729610362ee93f8034454fa41f3c493/docs/1.0.md>
 - Module mechanism evidence: `packages/module-api/src/api/navigation.ts`,
