@@ -70,6 +70,6 @@ and narrowly scoped presentation styles. The active plan is
 
 ## Closure state
 
-- Current run: none
+- Current run: `20260914T132604Z-a79258d272a124a98501ae78dc96a0e468e506ac` (open)
 - Last completed closure: run `20260914T064256Z-af14eab5807a7290dd44ecbc075672d799fd0cf8`, opened at `afa945263aa5cf1e6e9eb9cc9f1ef67fcd402f32`
 - Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34814424869`
