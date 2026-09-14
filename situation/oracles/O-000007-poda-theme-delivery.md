@@ -17,9 +17,8 @@ implemented
 - The source assets and digests in
   [D-000008's manifest](situation/references/D-000008/brand-source-asset-manifest.md),
   the deterministic derivation command, and runtime asset digests.
-- Rendered authentication, welcome, home, room-list, timeline, composer,
-  right-panel, settings, dialog, and responsive screenshots in Poda Light and
-  Poda Dark.
+- Rendered authentication, welcome, home, and theme-selection settings in Poda
+  Light and Poda Dark.
 - Accessibility results for text/action contrast, keyboard focus, zoom,
   accessible image names, and prefers-contrast fallback.
 - A diff and bundle audit covering routes, dependencies, network destinations,
@@ -44,8 +43,9 @@ implemented
   external resource reference.
 - P5: Authentication, welcome, home, favicon/browser metadata, and web-app
   manifest use the approved Poda branding without obscuring or adding a control.
-- P6: Named rendered surfaces use the approved warm/teal semantic hierarchy in
-  both Poda themes without clipping or loss of responsive behavior.
+- P6: Within this Promise's Scope, Poda Light and Poda Dark apply their selected
+  semantic treatment to theme and branding surfaces without obscuring a control
+  or accessible name.
 - P7: The production build and relevant existing tests pass, and the diff/bundle
   adds no route, network destination, persistence key, Matrix event type,
   business model, behavior dependency, donor runtime code, or change to a
@@ -74,11 +74,11 @@ implemented
   the committed runtime assets reproduce from the admitted sources and satisfy
   the declared SVG-content boundary.
 - `node apps/web/scripts/check-poda-branding.mjs` checks the default deployment
-  configs, native bubble-layout default, browser metadata, manifest, runtime
-  asset references, Poda stylesheet scope, and coverage selectors for the
-  named native Element surfaces.
-- `apps/web/res/css/structures/_PodaTheme.pcss` applies the selected hierarchy
-  only beneath the Poda body marker maintained by `apps/web/src/theme.ts`.
+  configs, browser metadata, manifest, runtime asset references, and Poda
+  stylesheet scoping; the broader native-surface selector matrix is judged by
+  [O-000006](situation/oracles/O-000006-poda-element-visual-alignment.md).
+- `apps/web/res/css/structures/_PodaTheme.pcss` applies theme presentation only
+  beneath the Poda body marker maintained by `apps/web/src/theme.ts`.
 - The `element-web:poda:check` target runs both Node checks, and
   `element-web:build` depends on that target before producing the distribution.
 
@@ -91,6 +91,6 @@ implemented
 | P3  | Contrast fallback and rendered accessible states pass              | `apps/web/src/podaTheme.test.ts`; `apps/web/src/settings/watchers/ThemeWatcher.test.ts`; exhaustive computed and rendered states remain manual                        |
 | P4  | Runtime assets are deterministic, sanitized derivatives            | `apps/web/scripts/derive-poda-brand-assets.mjs --check`                                                                                                               |
 | P5  | Existing browser and in-app brand slots use Poda assets            | `apps/web/scripts/check-poda-branding.mjs`; `apps/web/src/components/views/auth/AuthHeaderLogo.test.tsx`; unobscured rendered placement remains manual                |
-| P6  | Declared surface matrix matches the Poda hierarchy                 | source-level scope and selector coverage are executable; complete retained light/dark room-state screenshots remain manual                                           |
+| P6  | Theme and branding surfaces within P-000007's Scope apply the configured treatment | `apps/web/src/podaTheme.test.ts`; `apps/web/scripts/check-poda-branding.mjs`; rendered control and accessible-name review remains manual |
 | P7  | Build/regressions pass and no capability boundary changes          | `element-web:build`, focused tests, and affected inherited unit contracts/snapshots; exact-head CI and diff/bundle audit remain manual until retained evidence exists |
 | F1  | Any Pass-leg contradiction fails the Oracle                        | the named checks fail on their decidable contradictions; route, permission, Matrix-operation, and state-transition review remains manual                              |
