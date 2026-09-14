@@ -102,6 +102,6 @@ identities and contracts rather than inventing them.
 
 ## Closure state
 
-- Current run: `20260914T145709Z-0afde435d3353cd007b599a398104faa26008dc4` (open)
-- Last completed closure: run `20260914T132604Z-a79258d272a124a98501ae78dc96a0e468e506ac`, opened at `9d80dc875cea2807fafaee8f476d45063ce1bb8a`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34848943825`
+- Current run: none
+- Last completed closure: run `20260914T145709Z-0afde435d3353cd007b599a398104faa26008dc4`, opened at `414662e5747dbe93b4d5047bf7c5fc3550b292cb`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34858669401`
