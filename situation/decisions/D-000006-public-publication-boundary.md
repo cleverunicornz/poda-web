@@ -22,7 +22,7 @@ a separate publication system.
 
 - The maintainer selected authenticated SPA previews and external canonical
   links rather than moving public-page ownership into this client, as retained
-  in [the integration plan](situation/references/D-000002/poda-element-integration-plan.md).
+  in [the integration plan](situation/references/D-000013/poda-element-integration-plan.md).
 - `Private: cleverunicornz/matrix-coordinator@5797be35ddb0451eba49a327cb1fe70b5d44ba0a#situation/decisions/D-000003-fenced-route-publication.md`
   (private; requires repository access) assigns public route publication to a
   fenced publication boundary.

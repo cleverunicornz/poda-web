@@ -22,7 +22,7 @@ production use.
 
 - The maintainer selected a new web API and realistic contract fixtures rather
   than waiting for the backend or adapting the native bridge, as retained in
-  [the integration plan](situation/references/D-000002/poda-element-integration-plan.md).
+  [the integration plan](situation/references/D-000013/poda-element-integration-plan.md).
 - `Private: cleverunicornz/yeet-code@951dd74fd6cdbe050cb451dc9ab0448836728dbb#applications/pcc/pcc-native`
   is access-controlled and supplies behavior to model, not a forward-valid
   browser transport.

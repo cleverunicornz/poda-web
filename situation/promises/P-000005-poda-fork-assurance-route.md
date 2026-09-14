@@ -34,4 +34,4 @@ assurance owned by other repositories are outside this promise.
 
 ## References
 
-- [Poda and Element integration plan](situation/references/D-000002/poda-element-integration-plan.md)
+- [Poda and Element integration plan](situation/references/D-000013/poda-element-integration-plan.md)

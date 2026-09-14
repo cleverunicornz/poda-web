@@ -25,7 +25,7 @@ notifications, settings, and Poda workflow cards in `apps/web/`.
 
 ## State evidence
 
-- [D-000002](situation/decisions/D-000002-poda-product-composition.md) selects
+- [D-000013](situation/decisions/D-000013-poda-product-composition.md) selects
   Matrix as the communication surface.
 - [D-000003](situation/decisions/D-000003-platform-matrix-authority.md) selects
   the current authority and identity baseline.
@@ -42,4 +42,4 @@ promise.
 
 ## References
 
-- [Poda and Element integration plan](situation/references/D-000002/poda-element-integration-plan.md)
+- [Poda and Element integration plan](situation/references/D-000013/poda-element-integration-plan.md)

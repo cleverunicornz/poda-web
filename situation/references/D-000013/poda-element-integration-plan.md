@@ -5,7 +5,7 @@
 - Recorded: 2026-09-09
 - Product: Poda Web
 - Delivery state: planned, not implemented
-- Owning decision: [D-000002](situation/decisions/D-000002-poda-product-composition.md)
+- Owning decision: [D-000013](situation/decisions/D-000013-poda-product-composition.md)
 - Superseded plan: [PLAN-000001](situation/plans/abandoned/PLAN-000001-poda-element-integration.md)
 
 This reference preserves the complete product and implementation intent behind

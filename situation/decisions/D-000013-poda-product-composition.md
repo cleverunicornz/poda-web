@@ -22,7 +22,7 @@ beside each other.
 ## Evidence
 
 - Maintainer choices and the compared alternatives are retained in
-  [the integration plan](situation/references/D-000002/poda-element-integration-plan.md).
+  [the integration plan](situation/references/D-000013/poda-element-integration-plan.md).
 - `Private: cleverunicornz/yeet-code@951dd74fd6cdbe050cb451dc9ab0448836728dbb#applications/pcc/pcc-native`
   is the access-controlled behavioral and visual donor.
 - `apps/web/` is the inherited React web client in which the integrated product
@@ -62,6 +62,9 @@ avoids coupling the browser product to Svelte, Tauri, or a nested web client.
 - Product routes hide Matrix navigation panels; Matrix routes retain the full
   Matrix layout and existing deep-link behavior.
 - The donor is a behavioral reference, not a source-code dependency.
+- Renumbered from D-000002 on 2026-09-14: `internal/main` landed its own
+  D-000002 while this branch held the identifier, so the branch's record and
+  its reference directory moved to the next free identifier.
 - [P-000001](situation/promises/P-000001-poda-web-shell.md),
   [P-000002](situation/promises/P-000002-poda-podcast-product.md), and
   [P-000003](situation/promises/P-000003-contextual-matrix-communications.md)

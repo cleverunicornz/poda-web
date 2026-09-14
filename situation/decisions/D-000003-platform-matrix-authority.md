@@ -33,7 +33,7 @@ choices.
   authorization at their respective service boundaries.
 - The distinction between the maintainer's selected behavior and this pending
   external confirmation is retained in
-  [the integration plan](situation/references/D-000002/poda-element-integration-plan.md).
+  [the integration plan](situation/references/D-000013/poda-element-integration-plan.md).
 
 ## Decision
 
@@ -67,10 +67,11 @@ pending.
 
 ## Consequences
 
-- The draft authority invariant originally allocated as I-000002 was corrected
-  before closure; [I-000002](situation/invariants/I-000002-element-native-capability-boundary.md)
-  now binds the narrower Element-native capability boundary selected by
-  D-000007.
+- The draft authority invariant was corrected before closure to bind the
+  narrower Element-native capability boundary selected by D-000007; the branch
+  merge renumbered it to
+  [I-000003](situation/invariants/I-000003-element-native-capability-boundary.md)
+  because the trunk already owns I-000002.
 - Matrix workflow cards refetch authoritative organization state before an
   action and cannot mutate business state solely from event contents.
 - The client runs one namespaced Matrix context at a time.

@@ -39,4 +39,4 @@ AI, and publication services are outside this web-client promise.
 
 ## References
 
-- [Poda and Element integration plan](situation/references/D-000002/poda-element-integration-plan.md)
+- [Poda and Element integration plan](situation/references/D-000013/poda-element-integration-plan.md)
