@@ -118,9 +118,9 @@ Repository-specific orientation belongs in the repository block that follows.
 
 ### How we work
 
-- Code is a possibility space: a surface does everything it can do, not what
-  its author meant. A green test proves a behavior exists, never that nothing
-  else happens. Declare what was not collapsed.
+- Judge what code can do under the Promise's supported conditions, not what its
+  author intended. Establish its declared behavior and relevant failure
+  behavior at that boundary; record the meaningful limits of the evidence.
 - A gap has three suspects: the code, the requirement, or the instrument.
   Interrogate in the open before displacing any of them.
 - Situate before acting; re-situate after. Interrogate a contradiction before
@@ -136,9 +136,20 @@ Repository-specific orientation belongs in the repository block that follows.
 - The dependency boundary is the assurance boundary. Pinned versions are
   assured versions and bumps are deliberate acts. A missing capability at a
   consumed boundary is blocking: stop and escalate rather than work around it.
+  Distinguish missing capability from limitations of evidence or the execution
+  environment. New product responsibilities need a behavioral justification
+  and a Decision; uncertainty in a Witness supplies neither.
 - Public-first: before building inside, ask why it cannot be a public crate or
   repository.
 - Decisions are append-only: supersede, never edit.
+- Orchestration-only actors own scheduling and administrative reporting;
+  specialists own substantive work and validation. A returned completion advances
+  the assignment, with reporting defects soft-corrected from known facts. An
+  interrupted invocation without a completed return gets a fresh invocation of
+  the same role and original assignment within its retry bound; the replacement
+  worker owns the existing work and its interpretation. PR workflows retain the
+  assigned PR and branch throughout. Returned meaning establishes role completion;
+  publication evidence and machine receipts serve administrative bookkeeping.
 
 ### Git and workflows
 
@@ -154,8 +165,10 @@ Repository-specific orientation belongs in the repository block that follows.
   Bedrock request. Branches carry no `push` trigger; `push` to main exists only
   for release and deployment witnesses. CI runs once when a pull request opens
   and once on its final head by dispatch before merge.
-- Linux and platform-neutral jobs run on the owned automation fleet through
-  logical labels; WarpBuild only for native macOS and Windows artifacts. Fork
+- All agent-driven build and test work runs on Linux through the five logical
+  runner labels documented by the select-runner plugin skill; no other platform
+  or label is valid for agents. Missing runner capabilities are requested by
+  issue to the infrastructure repository, never by modifying runners. Fork
   pull requests never reach the fleet. A missing host tool is a P0 defect,
   never a hidden substitute. CI runs the real suite.
 - One fixed toolchain per repository with canonical task names.
@@ -163,12 +176,19 @@ Repository-specific orientation belongs in the repository block that follows.
   never a squash or rebase, so its checkpoint commits stay reachable from the
   trunk.
 
-- Every pull request into a Bedrock-enrolled trunk requires a completed
-  Bedrock closure before it can merge. Request the closure with the exact
-  Integrity phrase when the pull request is ready for it, and never merge
-  before the closing checkpoint; branch protection enforces the same gate
-  through the Bedrock review.
-- All internal reach rides the tailnet. Public-IP access is break-glass only.
+- When a pull request into an active repository's working trunk is ready for
+  review, agents must request Bedrock before final handoff: post exactly
+  `@unicornz-integrity bedrock requested` as the whole PR comment. Agents have
+  authority to make this request. Monitor it until closure completes and
+  Integrity's review is published; follow an existing active run rather than
+  duplicate it. Later substantive changes require a new closure. A failed or
+  blocked closure is reported as incomplete, not ready for handoff. The
+  repositories that source Bedrock itself — the infrastructure repository and
+  the protocol source repository — are the sole exemptions; the controller
+  refuses requests there, so do not make one. Closure completion does not
+  authorize merging the PR.
+- Internal reach uses the organization's private network; exceptional access
+  follows the recorded incident procedure.
 
 ### Forks
 
@@ -194,20 +214,32 @@ Repository-specific orientation belongs in the repository block that follows.
 
 ### Tools and knowledge
 
-- Inside a repository, semantic search comes first: `semantic_index_status`,
-  then `semantic_search`, then exact reads. Grep, glob, and broad reads follow
-  semantic results. Outside the repository tree, use `rg` and exact paths.
+<!-- cvu-native-capabilities:start -->
+- Use Qualia semantic search as the default way to find code; it returns a few
+  relevant, located results instead of flooding context with raw matches.
+  Use exact-string search or a direct read only for a name, literal, or error
+  you already know exactly. Semantic coverage excludes ignored and unsupported
+  content; use normal read/search tools for those, and do not hunt for or
+  install replacements when a capability is absent.
+- Native LSP integration is disabled by user decision; there is no lsp tool,
+  automatic formatting, or diagnostic feedback. Ordinary repository compiler
+  and test checks establish correctness. Ordinary internal tasks isolate by
+  default on the supported copy-on-write substrate, and child changes reach
+  the parent through report merge; explicit shared-checkout workflows such as
+  Bedrock retain their declared exception.
+<!-- cvu-native-capabilities:end -->
+
 - Tool-specific skills live at the harness user level and install with their
   plugin. Managed repositories carry no skills directory. A repository procedure
   is a Reference owned by the Invariant that requires it or the Promise it
   satisfies. Fleet-wide procedures are named plugin skills invoked by exact
   name and never restated.
-- Scratch work lives under `/Volumes/code/temp/` on the home server and under
-  the job home on a fleet runner. Remove it when the task completes.
-- Bedrock run transcripts are archived outside the repository at
-  `s3://cvu-automation-runs-uk/bedrock/<owner>/<repo>/pr-<number>/<run-id>/` on OVH
-  Object Storage in the UK region. Each closure's opening and closing
-  checkpoint commits carry that URI in a `Bedrock-Transcript` trailer.
+- Keep scratch work outside the repository in the environment's designated
+  temporary location; remove it when the task completes.
+- Bedrock run evidence is retained outside the repository. Each closure's
+  opening and closing checkpoints and its closure state carry that run's
+  evidence reference; storage and retrieval procedures belong to
+  infrastructure operations.
 </bedrock-organization>
 
 <bedrock-repository>
