@@ -9,8 +9,7 @@ Before changing code, behavior, architecture, repository policy, documentation,
 or planned work:
 
 1. Read `situation/AGENTS.md`.
-2. Read the relevant situation records, related open Gaps, and qualifying
-   Candidates.
+2. Read the relevant situation records, related Gaps, and qualifying Candidates.
 3. Read the nested `AGENTS.md` governing every situation namespace you will
    modify.
 4. Update affected records in the same work as the repository change.
@@ -25,10 +24,16 @@ The record classes are:
 - **Witnesses** retain immutable observations from actual runs.
 - **Decisions** preserve why choices were selected or rejected.
 - **Invariants** state binding repository rules.
-- **Gaps** record bounded, repository-relevant absences.
+- **Gaps** preserve encountered absences, concerns, and uncertainties.
 - **Candidates** record evidence-derived possibilities, not commitments.
 - **Plans** group Candidates and Promises into work without restating them.
 - **References** retain supporting depth.
+
+Record concerns and uncertainties encountered during the work as Gaps, even
+when minor or tentative. Follow `situation/gaps/AGENTS.md` to relate them to
+existing Gaps and supporting records. Surfacing a Gap does not assign its
+investigation or resolution to this task; continue the assigned
+Promise/Oracle/Witness work.
 
 Git is the run's append-only event log. A run performs one closure on one pull
 request branch, bounded by an opening checkpoint commit and a closing checkpoint
@@ -49,24 +54,29 @@ the repository; both checkpoint commits carry the archive URI in a
 `Bedrock-Transcript` trailer alongside their other trailers. The checkpoint
 commits are the only writers of the closure state in `situation/context.md`.
 
-A failed run is never resumed. An opening checkpoint with no closing checkpoint
-marks a failed closure: the pull request is closed with a pointer to its rerun,
-and the rerun starts on a new branch from the head admitted before the failed
-run. The failed branch and its comments remain the record.
+A failed run is never resumed. The orchestrator retries an invoked agent that
+died by restarting that same agent with the same prompt, at most three times,
+and never adjudicates or finishes that agent's work itself. A run that still
+fails leaves its pull request open and its branch untouched: Bedrock never
+opens, closes, merges, or rebranches a pull request under any circumstance.
+Re-requesting Bedrock on the same pull request starts a new run; an opening
+checkpoint with no closing checkpoint marks a failed closure and is superseded
+by the next run's opening checkpoint.
 
 A record is immutable from the first closing checkpoint that follows its
 creation or change. Until then, on the open pull request, it may be corrected
 in place by a forward commit.
+Gaps permit append-only observations and separately assigned State/Resolution
+updates under `situation/gaps/AGENTS.md`; earlier observations remain unchanged.
 
 Every assured Promise is invariant behavior. Changing it requires a superseding
 Promise, a Decision explaining the change, a replacement Oracle, and new
 Witnesses.
 
-Gaps record what relevant capability, evidence, decision, implementation, or
-instrument is absent. Candidates are possible responses derived from evidence.
-A Candidate becomes behavior only through a Decision that promotes it into a
-falsifiable Promise with an Oracle. Plans qualify Candidates and implement or
-assure Promises.
+Candidates are possible responses derived from evidence. A Candidate becomes
+behavior only through a Decision that promotes it into a falsifiable Promise
+with an Oracle. Plans qualify Candidates and implement or assure Promises;
+recording a Gap does not assign that subsequent work.
 
 The learning loop is:
 
