@@ -56,6 +56,22 @@ remaining visual contract is qualified.
 - D-000010 addresses the demonstrated authenticated-surface mismatch; the gap
   remains open until retained light/dark room-state references are reviewed.
 
+## Audit evidence (2026-09-14)
+
+A signed-in audit of the corrective build found that the Poda Compound token
+overrides never applied at runtime: `setCustomThemeVars` generated its
+override `<style>` elements with a `title` attribute, which enrolls them in
+the HTML style sheet set mechanism and leaves them inert.
+[D-000011](situation/decisions/D-000011-custom-theme-cascade-repair.md)
+records the root cause, the repair, and the audit-driven surface corrections
+(Space hover contrast, always-visible native Join/View actions, mask-tinted
+search icon, narrow-width padding and header treatment). Post-fix measurements
+confirm the Poda tokens now compute in both modes, narrow overflow is zero,
+and the demo Space carries the supplied mark as its native `m.room.avatar`.
+Retained light/dark desktop and narrow screenshots exist from the verification
+runs, but they remain unapproved run artifacts rather than an approved
+baseline.
+
 ## References
 
 - [Poda Element visual alignment plan](situation/references/D-000007/poda-element-visual-alignment-plan.md)

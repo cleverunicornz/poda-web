@@ -147,9 +147,11 @@ function clearCustomTheme(): void {
         }
     }
 
-    // remove the custom style sheets
-    document.querySelector("head > style[title='custom-theme-font-faces']")?.remove();
-    document.querySelector("head > style[title='custom-theme-compound']")?.remove();
+    // remove the custom style sheets. These are identified by a data attribute rather
+    // than `title`: a non-empty title enrolls the element in the HTML style sheet set
+    // mechanism, which leaves it unselected and therefore inert.
+    document.querySelector("head > style[data-mx-custom-theme='font-faces']")?.remove();
+    document.querySelector("head > style[data-mx-custom-theme='compound']")?.remove();
 }
 
 const allowedFontFaceProps = [
@@ -282,7 +284,9 @@ function setCustomThemeVars(customTheme: CustomTheme): void {
         if (fonts.faces) {
             const css = generateCustomFontFaceCSS(fonts.faces);
             const style = document.createElement("style");
-            style.setAttribute("title", "custom-theme-font-faces");
+            // No `title` attribute: a titled style element joins a named style sheet
+            // set and stays inert until that set is selected.
+            style.setAttribute("data-mx-custom-theme", "font-faces");
             style.setAttribute("type", "text/css");
             style.appendChild(document.createTextNode(css));
             document.head.appendChild(style);
@@ -297,7 +301,7 @@ function setCustomThemeVars(customTheme: CustomTheme): void {
     if (customTheme.compound) {
         const css = generateCustomCompoundCSS(customTheme.compound);
         const style = document.createElement("style");
-        style.setAttribute("title", "custom-theme-compound");
+        style.setAttribute("data-mx-custom-theme", "compound");
         style.setAttribute("type", "text/css");
         style.appendChild(document.createTextNode(css));
         document.head.appendChild(style);
