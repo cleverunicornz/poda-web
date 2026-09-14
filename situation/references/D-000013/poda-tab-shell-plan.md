@@ -33,20 +33,23 @@ Chat behaves exactly as upstream Element.
 
 ## Choices and defaults
 
-| Choice                                                                                    | Status                                     |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------ |
-| Four primary tabs: Chat / Studio / Profile / Settings                                     | USER CHOICE                                |
-| Studio contains Podcasts, Episodes, Analytics                                             | USER CHOICE                                |
-| All Studio/Profile data strictly mocked                                                   | USER CHOICE                                |
-| Module pages (not fork routes, not widgets) carry Studio/Profile/Creators                 | USER CHOICE                                |
-| Chat tab is native Element, unmodified beyond the existing Poda skin                      | DISCOVERED CONSTRAINT (standing direction) |
-| Settings tab routes to Element's native settings, no Poda rebuild                         | PLANNING DEFAULT                           |
-| Creators directory lives inside the Profile tab (`#/creators`), keeping four primary tabs | PLANNING DEFAULT                           |
-| Chat tab lands on the last active chat screen, else `#/home`                              | PLANNING DEFAULT                           |
-| Module pages suppress chat chrome (space rail, room list); tab bar persists on every tab  | PLANNING DEFAULT                           |
-| In-session edits persist only in memory; reload resets; the UI states this                | PLANNING DEFAULT                           |
-| All donor fields (visible and hidden) carried in the typed model, tiered E/D/H below      | USER CHOICE                                |
-| Analytics are mock charts (CSS/SVG), no chart library dependency                          | PLANNING DEFAULT                           |
+| Choice                                                                                          | Status                                     |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Four primary tabs: Chat / Studio / Profile / Settings                                           | USER CHOICE                                |
+| Studio contains Podcasts, Episodes, Analytics                                                   | USER CHOICE                                |
+| All Studio/Profile data strictly mocked                                                         | USER CHOICE                                |
+| Module pages (not fork routes, not widgets) carry Studio/Profile/Creators                       | USER CHOICE                                |
+| Chat tab is native Element, unmodified beyond the existing Poda skin                            | DISCOVERED CONSTRAINT (standing direction) |
+| Settings tab routes to Element's native settings, no Poda rebuild                               | PLANNING DEFAULT                           |
+| Creators directory lives inside the Profile tab (`#/creators`), keeping four primary tabs       | PLANNING DEFAULT                           |
+| Chat tab lands on the last active chat screen, else `#/home`                                    | PLANNING DEFAULT                           |
+| Module pages suppress chat chrome (space rail, room list); tab bar persists on every tab        | PLANNING DEFAULT                           |
+| In-session edits persist only in memory; reload resets; the UI states this                      | PLANNING DEFAULT                           |
+| All donor fields (visible and hidden) carried in the typed model, tiered E/D/H below            | USER CHOICE                                |
+| Analytics are mock charts (CSS/SVG), no chart library dependency                                | PLANNING DEFAULT                           |
+| Page and tab-bar visual design follows the donor app's actual shell and pages (evidence-linked) | USER CHOICE                                |
+| Tab bar right side stays empty this slice (no notifications/org switcher duplication)           | PLANNING DEFAULT                           |
+| Tab bar collapses to icon-only at ≤700px; no hamburger menu this slice                          | PLANNING DEFAULT                           |
 
 ## Discovered constraints
 
@@ -195,6 +198,112 @@ narrative), nine episodes across them, four creator profiles (one marked as
 the signed-in creator), and 90-day mock analytics series (plays, subscribers)
 per podcast. Every fixture passes the contract's validation.
 
+## Visual design (from the donor app)
+
+Layout and treatment follow the PCC app's actual shell and pages
+(`Private: cleverunicornz/yeet-code@951dd74fd6cdbe050cb451dc9ab0448836728dbb#applications/pcc/pcc-native/src`,
+private; requires repository access), translated to Poda-scoped pcss with
+Compound tokens — never Tailwind classes verbatim. The donor's dark tokens
+(#1a1410 background, #2c2018 card, #3a2d20 muted) already match the fork's
+Poda themes, so pages inherit both themes automatically.
+
+### Signature treatments
+
+- **poda-gradient**: radial gold→orange gradient for the active tab pill,
+  logo tiles, and avatar fallbacks (donor `bg-poda-gradient`).
+- **CTA gradient**: amber→orange linear gradient for primary actions ("New
+  podcast", "New episode", "Save").
+- **shadow-poda**: soft amber-tinted shadow on active/elevated elements.
+- **Cards**: rounded-xl border bg-card, hover border-primary/40 + shadow.
+- **Badge pills**: rounded-full primary/10 text-primary for status and
+  medium; muted pill for meta.
+- **Section cards**: bg-card rounded-xl border p-6 with `text-xl font-semibold`
+  headings; fields in two-column `sm:grid-cols-2 gap-4` grids.
+- **Info boxes**: amber boxes for draft/onboarding state, blue boxes for
+  hints (donor pattern).
+- **Segmented controls**: rounded-xl border bg-card/50 p-1 pill groups, used
+  for the tab bar and the Studio sub-nav.
+
+### Top tab bar (from the donor TopNavBar)
+
+Sticky top, 56px, bottom border, backdrop-blurred background — mirroring the
+donor shell.
+
+- **Left**: the Poda mark in a 36px rounded-lg gradient tile, with the active
+  tab's title beside it.
+- **Center**: the four tabs — **Chat, Studio, Profile, Settings** — as a
+  centered segmented pill. Active tab: poda-gradient background, white icon,
+  shadow-poda, icon-only (donor behavior). Inactive tabs: muted text, icon +
+  label, hover to foreground/accent. Icons come from Compound's set
+  (MessageSquare, Mic, User, Settings equivalents).
+- **Right**: empty/reserved in this slice. Notifications, organization
+  switcher, and account controls stay where Element already puts them (quick
+  settings on the Chat tab); duplicating them is later work.
+- **Narrow (≤700px)**: tabs shrink to icon-only; no hamburger menu in this
+  slice. The Chat tab keeps Element's own responsive collapse.
+
+### Studio — Podcasts
+
+Page header (3xl bold title, muted subtitle, gradient "New podcast" CTA),
+then a vertical list of full-width cards: 48px rounded-xl cover art
+(gradient mic fallback), title + slug, two-line description, badge row
+(medium pill, people pill), status + updated date, and a trailing arrow that
+shifts on hover.
+
+### Studio — Podcast detail/editor
+
+Two-column `lg:grid-cols-3`: the main column stacks section cards —
+Details, Identity & Rights, People, Feed extras, Guest booking (tier-D
+read-only), Audience (tier-D, links Analytics) — and the sidebar carries the
+cover-art tile (mock: URL field), status and visibility badges, timestamps,
+and the amber "session-only mock data" notice. Autosave-on-focusout (donor
+pattern) writes through the mock adapter with a saved indicator.
+
+### Studio — Episodes
+
+Same header pattern with a podcast filter chip and status filter pills.
+Episode cards follow the podcast card pattern (title, podcast name, status
+badge, duration/date, enclosure pill). The episode editor mirrors the podcast
+editor grid: a Media section renders the primary enclosure card with
+alternate enclosures listed (tier-D), and a Guests section renders read-only
+guest mini-cards with appearance display-class badges (tier-D).
+
+### Studio — Analytics
+
+Stat cards (muted label + 3xl number: total downloads, unique listeners,
+episodes, subscribers) in a responsive grid, then chart cards using the
+donor's chart-1..5 gold/brown scale as pure CSS/SVG bars and simple
+geography/source tables. No chart library.
+
+### Profile (own)
+
+Amber draft banner while there are unsaved in-session changes. Hero: 128–176px
+rounded-xl avatar with 4px background-colored border, shadow, gradient-initial
+fallback, and a hover overlay revealing the avatar URL field (mock). Main
+`lg:grid-cols-[1fr_340px]`: name/headline/tagline/bio/aboutShort sections,
+topic pills, social-link rows, expertise-card and custom-field editors
+(tier-E); sidebar: status/visibility badges, booking URL, and read-only
+media-kit/testimonial/featured-appearance lists (tier-D).
+
+### Creators
+
+Directory: responsive card grid (avatar, name, headline, topic pills,
+appearance-count badge). Creator detail: the same layout as the own-profile
+page, fully read-only.
+
+### Empty, loading, and error states
+
+Donor patterns: empty states are centered cards (large muted icon, h2, muted
+text, gradient CTA); loading is a centered spinner; errors are a centered
+alert icon with message and retry.
+
+### Explicitly not carried over
+
+Tailwind itself, the donor's mini/full audio player (later slice),
+notifications dropdown and organization switcher in the tab bar (later
+slices), the donor dashboard/listening-home (this slice's Home is Chat), and
+Svelte/Lucide specifics (Compound icons and pcss instead).
+
 ## Out of scope
 
 Backend/API, Matrix custom events or state, authentication changes, identity
@@ -242,7 +351,10 @@ assigns them.
 4. Settings opens Element's native settings.
 5. All Poda pages render correctly in both Poda themes and at narrow width;
    unknown screens still fall back to home; Matrix deep links are unaffected.
-6. Production build, Vitest suites, and the Poda branding gate pass on the
+6. Pages and the tab bar visibly match the donor-derived visual design
+   section: segmented pill navigation with the gradient active tab, card and
+   badge treatments, section-card editors, and the donor empty/error patterns.
+7. Production build, Vitest suites, and the Poda branding gate pass on the
    exact head.
 
 ## Risks
