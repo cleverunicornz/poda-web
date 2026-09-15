@@ -106,7 +106,7 @@ unchanged upstream suites do not assure unobserved native behavior.
   the revised preview direction; its
   [Reference](situation/references/D-000019/member-workspace-preview-plan.md)
   retains the design and qualification questions.
-- This unclosed proposal remains a hypothesis. No feasibility or runtime
+- This proposal remains a hypothesis. No feasibility or runtime
   Witness, implementation, assurance promotion or execution authorization is
   supplied by this knowledge-only revision.
 - [G-000004](situation/gaps/G-000004-product-ui-implementation-and-evidence.md)
