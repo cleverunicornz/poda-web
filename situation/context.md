@@ -138,6 +138,6 @@ publication concern is retained in
 
 ## Closure state
 
-- Current run: none
+- Current run: `20260915T090346Z-ff7b4bc9214a279cfc05f3ee4ab4d97757f79ff5` (open)
 - Last completed closure: run `20260914T145709Z-0afde435d3353cd007b599a398104faa26008dc4`, opened at `414662e5747dbe93b4d5047bf7c5fc3550b292cb`
 - Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34858669401`
