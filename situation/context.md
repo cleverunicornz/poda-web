@@ -170,6 +170,6 @@ product direction remains distinct from the bounded navigation mechanism probe.
 
 ## Closure state
 
-- Current run: none
+- Current run: `20260915T203639Z-64a02fc52b81eb5fe6229d9d87963c74cb7b1f04` (open)
 - Last completed closure: run `20260915T101355Z-b42002f89cffba366888756030cb53a1f48f2981`, opened at `f1a9cf20cf17adb4346c929d25cf4cae95b98137`
 - Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34956604196`
