@@ -67,7 +67,7 @@ collaboration, artifact, or safety behavior exists in Matrix.
 
 ## Consequences
 
-- [I-000002](situation/invariants/I-000002-element-native-capability-boundary.md)
+- [I-000003](situation/invariants/I-000003-element-native-capability-boundary.md)
   binds the no-new-capabilities boundary.
 - [P-000006](situation/promises/P-000006-poda-element-visual-alignment.md)
   states the new behavior and is judged by
@@ -75,7 +75,7 @@ collaboration, artifact, or safety behavior exists in Matrix.
 - The earlier integration [PLAN-000001](situation/plans/abandoned/PLAN-000001-poda-element-integration.md)
   is abandoned before implementation; its product Promises are superseded or
   withdrawn.
-- [D-000002](situation/decisions/D-000002-poda-product-composition.md),
+- [D-000013](situation/decisions/D-000013-poda-product-composition.md),
   [D-000003](situation/decisions/D-000003-platform-matrix-authority.md),
   [D-000004](situation/decisions/D-000004-contract-first-web-delivery.md), and
   [D-000006](situation/decisions/D-000006-public-publication-boundary.md) are
@@ -86,7 +86,7 @@ collaboration, artifact, or safety behavior exists in Matrix.
 
 ## Supersedes
 
-- [D-000002](situation/decisions/D-000002-poda-product-composition.md)
+- [D-000013](situation/decisions/D-000013-poda-product-composition.md)
 - [D-000003](situation/decisions/D-000003-platform-matrix-authority.md)
 - [D-000004](situation/decisions/D-000004-contract-first-web-delivery.md)
 - [D-000005](situation/decisions/D-000005-poda-product-branding.md)

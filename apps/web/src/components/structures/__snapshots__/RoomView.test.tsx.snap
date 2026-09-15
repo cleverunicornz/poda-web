@@ -1138,7 +1138,7 @@ exports[`RoomView > should hide the composer when hideComposer=true 1`] = `
     >
       <div
         class="mx_RoomView_body mx_MainSplit_timeline"
-        data-layout="group"
+        data-layout="bubble"
       >
         <header
           class="_flex_4dswl_9 mx_RoomHeader light-panel"
@@ -1374,7 +1374,7 @@ exports[`RoomView > should hide the header when hideHeader=true 1`] = `
     >
       <div
         class="mx_RoomView_body mx_MainSplit_timeline"
-        data-layout="group"
+        data-layout="bubble"
       >
         <div
           class="_scrollbar_1d5jg_8 mx_AutoHideScrollbar mx_AuxPanel"
@@ -1693,7 +1693,7 @@ exports[`RoomView > should hide the pinned message banner when hidePinnedMessage
     >
       <div
         class="mx_RoomView_body mx_MainSplit_timeline"
-        data-layout="group"
+        data-layout="bubble"
       >
         <header
           class="_flex_4dswl_9 mx_RoomHeader light-panel"
@@ -2178,7 +2178,7 @@ exports[`RoomView > should hide the right panel when hideRightPanel=true 1`] = `
     >
       <div
         class="mx_RoomView_body mx_MainSplit_timeline"
-        data-layout="group"
+        data-layout="bubble"
       >
         <header
           class="_flex_4dswl_9 mx_RoomHeader light-panel"
@@ -2663,7 +2663,7 @@ exports[`RoomView > should not display the timeline when the room encryption is 
     >
       <div
         class="mx_RoomView_body mx_MainSplit_timeline"
-        data-layout="group"
+        data-layout="bubble"
       >
         <header
           class="_flex_4dswl_9 mx_RoomHeader light-panel"
@@ -2884,7 +2884,7 @@ exports[`RoomView > should not display the timeline when the room encryption is 
     >
       <div
         class="mx_RoomView_body mx_MainSplit_timeline"
-        data-layout="group"
+        data-layout="bubble"
       >
         <header
           class="_flex_4dswl_9 mx_RoomHeader light-panel"
@@ -3427,7 +3427,7 @@ exports[`RoomView > video rooms > should render joined video room view 1`] = `
     >
       <div
         class="mx_RoomView_body mx_MainSplit_call"
-        data-layout="group"
+        data-layout="bubble"
       >
         <header
           class="_flex_4dswl_9 mx_RoomHeader light-panel"

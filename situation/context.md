@@ -68,15 +68,47 @@ shelved D-000002 integration plan. The active plan is
 
 ## Intended state
 
-The responsive web client retains Element's existing information architecture,
+For the active first visual migration, the responsive web client retains Element's existing information architecture,
 Matrix data model, routes, stores, permissions, and actions while presenting an
 approved Poda visual treatment through Element's theme and branding mechanisms
 and narrowly scoped presentation styles. The active plans are
 `situation/plans/active/PLAN-000002-poda-element-visual-alignment.md` and
 `situation/plans/active/PLAN-000003-poda-tab-shell.md`.
 
+## Prospective product frontend guardrails
+
+The maintainer separately selected repository-level constraints for later product
+UI work. [D-000015](situation/decisions/D-000015-public-and-member-rendering-ownership.md)
+assigns designated public-page generation to Astro and member routing/lifecycle
+to the Element-derived SPA within one frontend workspace and delivery boundary.
+This does not require Astro to own or remount the member document.
+[D-000016](situation/decisions/D-000016-native-assistance-and-shared-artifacts.md)
+requires native Matrix assistant conversations and one artifact/form contract
+across manual/assisted and module/widget presentations.
+[D-000017](situation/decisions/D-000017-explicit-ui-extension-boundaries.md) and
+[D-000018](situation/decisions/D-000018-shared-preview-and-fixture-workflow.md)
+distinguish exported extension surfaces and deliberate host changes, and preserve
+one preview/fixture workflow without production mock fallback.
+
+I-000004 through I-000010 are explicitly critical and projected in root
+`AGENTS.md`; I-000011 is the standard shared Storybook/fixture rule. P-000009
+through P-000014 are new hypotheses with designed, unexecuted Oracles. Their
+implementation/evidence and unresolved policy boundaries remain in
+[G-000004](situation/gaps/G-000004-product-ui-implementation-and-evidence.md) and
+[G-000005](situation/gaps/G-000005-unselected-product-ui-contracts.md).
+The UI extension and preview procedures are owned References, not new
+implementation or an assured gate.
+
+This knowledge change preserves D-000007, I-000003 and the active visual plan.
+It neither activates later product code nor revives the abandoned integration
+plan or withdrawn product Promises. Other open planning work must be reconciled
+and separately accepted on its own branch. Personal-assistant provisioning,
+personalization, room participation and artifact/tool authorization remain at
+their owning product/backend/Matrix boundaries; the frontend consumes explicit
+identities and contracts rather than inventing them.
+
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260907T093249Z-b53af60d7e2ae8c9021e94dd628d478dbc65c37e`, opened at `51ccbf3c36fc160066424b656456b115994309b5`
-- Transcript: `s3://cvu-automation-runs-uk/bedrock/cleverunicornz/poda-web/pr-1/20260907T093249Z-b53af60d7e2ae8c9021e94dd628d478dbc65c37e/`
+- Last completed closure: run `20260914T145709Z-0afde435d3353cd007b599a398104faa26008dc4`, opened at `414662e5747dbe93b4d5047bf7c5fc3550b292cb`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34858669401`

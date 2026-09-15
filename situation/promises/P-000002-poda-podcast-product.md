@@ -24,7 +24,7 @@ and the Podcast Namespace 1.0 revision pinned by the owning plan.
 
 ## State evidence
 
-- [D-000002](situation/decisions/D-000002-poda-product-composition.md) selects
+- [D-000013](situation/decisions/D-000013-poda-product-composition.md) selects
   the donor-derived product behavior.
 - [D-000006](situation/decisions/D-000006-public-publication-boundary.md)
   selects the authenticated/public division.
@@ -40,4 +40,4 @@ are outside this promise.
 
 ## References
 
-- [Poda and Element integration plan](situation/references/D-000002/poda-element-integration-plan.md)
+- [Poda and Element integration plan](situation/references/D-000013/poda-element-integration-plan.md)

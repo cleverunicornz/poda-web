@@ -67,7 +67,7 @@ win; a data attribute preserves clearCustomTheme identification without
 enrolling the sheet in a set. The CSS corrections restyle only presentation of
 native Element actions (the Join/View buttons remain Element's own join/view
 operations), consistent with
-[I-000002](situation/invariants/I-000002-element-native-capability-boundary.md).
+[I-000003](situation/invariants/I-000003-element-native-capability-boundary.md).
 Suggested children and the space avatar are native Matrix room state, not
 client behavior.
 

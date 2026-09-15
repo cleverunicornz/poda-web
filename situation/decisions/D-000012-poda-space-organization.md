@@ -67,7 +67,7 @@ join rules keep rooms closed to outsiders while removing invitation friction
 for members. Read-only Announcements uses Matrix power levels, so the
 read-only composer and permission errors are Element's own behavior, not a
 Poda invention. All of this is Matrix room state — zero client behavior
-change, fully inside I-000002.
+change, fully inside I-000003.
 
 ## Rejected alternatives
 

@@ -23,7 +23,7 @@ license provenance.
 
 - The maintainer selected the orange microphone identity and complete
   user-facing Poda branding, as retained in
-  [the integration plan](situation/references/D-000002/poda-element-integration-plan.md).
+  [the integration plan](situation/references/D-000013/poda-element-integration-plan.md).
 - https://element.io/en/legal/trademark-policy directs modified open-source
   products to use a distinct brand.
 - The upstream license files retain the terms that the fork must honor:

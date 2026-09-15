@@ -38,6 +38,11 @@ mock.
   light/dark renders establish improved empty-home and native-dialog evidence,
   but they are not a retained approved baseline and the account had no joined
   room with which to render the remaining room-state matrix.
+- DELTA observation for run `20260914T132604Z-a79258d272a124a98501ae78dc96a0e468e506ac`:
+  [D-000012](situation/decisions/D-000012-poda-space-organization.md) retains
+  the demo Space topology as external native Matrix state and identifies
+  production provisioning as future work. That demo state cannot supply the
+  retained, approved reference baseline required to close this Gap.
 
 ## Impact
 

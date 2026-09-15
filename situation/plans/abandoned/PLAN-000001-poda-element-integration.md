@@ -1,5 +1,9 @@
 # Poda and Element integration
 
+## Candidates
+
+none
+
 ## Promises
 
 - [P-000004](situation/promises/P-000004-contract-and-capability-safety.md),
@@ -21,9 +25,9 @@
   P-000003.
 - P-000002 and P-000003 may proceed in parallel after their shared contract and
   shell boundaries exist.
-- P-000005 is implemented early enough to exercise each slice, but it can be
-  assured only after its exact-head run covers the other four Promises and a
-  retained PASS Witness exists for every claimed Promise.
+- P-000005 must be implemented early enough to exercise each slice, but it can
+  become assured only after its exact-head run covers the other four Promises and
+  a retained PASS Witness exists for every claimed Promise.
 
 ## Completion
 
