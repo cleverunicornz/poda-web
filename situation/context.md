@@ -136,6 +136,27 @@ unselected policies remain separate. The original submitted donor-coverage
 publication concern is retained in
 [G-000006](situation/gaps/G-000006-submitted-donor-publication-review.md).
 
+## Navigation qualification
+
+[C-000003](situation/candidates/C-000003-qualify-member-navigation.md) now
+records the specific navigation alternatives as proposed approaches: a
+module-owned header using the supported banner mounting pattern, native
+SpacePanel workspace entries as a different UX, and a narrow host extension
+only for a demonstrated missing capability. The module header is preferred
+for investigation, not selected or proven for delivery.
+
+The exported root/sibling APIs and banner source are observed capabilities;
+complete Poda navigation without a core-source change remains unqualified.
+The [qualification dossier](situation/references/C-000003/member-navigation-qualification.md)
+predeclares routing, active state, session visibility, native dialog/focus,
+responsive/theme, retained chrome and lifecycle cases. Draft
+[PLAN-000004](situation/plans/draft/PLAN-000004-qualify-member-navigation.md)
+groups that Candidate as separate qualification work feeding PLAN-000003's
+existing host-qualification prerequisite. It does not reopen or rewrite the
+closed preview records, activate either Plan, promote a Candidate, or claim
+a prototype or runtime result. D-000019's selected product direction remains
+distinct from the unproven navigation mechanisms.
+
 ## Closure state
 
 - Current run: none
