@@ -39,10 +39,13 @@ function routeUrl(location: Location): void {
 }
 
 function onHashChange(): void {
-    if (decodeURIComponent(window.location.hash) === lastLocationHashSet) {
-        // we just set this: no need to route it!
-        return;
-    }
+    const isApplicationGenerated = decodeURIComponent(window.location.hash) === lastLocationHashSet;
+
+    // This is an echo guard for one hashchange, not durable route state. Consume it
+    // before routing because showScreen may synchronously install its successor.
+    lastLocationHashSet = null;
+    if (isApplicationGenerated) return;
+
     routeUrl(window.location);
 }
 
