@@ -1,5 +1,9 @@
 # Member-workspace preview
 
+## Candidates
+
+none
+
 ## Promises
 
 - [P-000008](situation/promises/P-000008-member-workspace-preview.md), judged
