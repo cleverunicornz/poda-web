@@ -45,7 +45,7 @@ A public native-screen API may still be justified by a different accepted use ca
 
 ## Consequences
 
-- [P-000017](situation/promises/P-000017-seamless-module-native-return.md) and [O-000017](situation/oracles/O-000017-seamless-module-native-return.md) define the exact implementation and judgment boundary under active [PLAN-000005](situation/plans/active/PLAN-000005-seamless-module-native-return.md).
+- [P-000017](situation/promises/P-000017-seamless-module-native-return.md) and [O-000017](situation/oracles/O-000017-seamless-module-native-return.md) define the exact implementation and judgment boundary under completed [PLAN-000005](situation/plans/done/PLAN-000005-seamless-module-native-return.md).
 - [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) moves to `addressing` while the Oracle is applied; only a complete PASS and disposition update can close it at this bounded route.
 - The source delta intentionally touches Element-owned `apps/web/src/vector/routing.ts`; review must identify it as a core correction rather than describe the module as API-only.
 - P-000016 remains immutable assurance of the earlier reload-based gate. This Decision does not retroactively alter its Scope or Witness.

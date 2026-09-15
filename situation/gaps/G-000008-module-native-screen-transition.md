@@ -2,7 +2,7 @@
 
 ## State
 
-addressing
+closed
 
 ## Gap
 
@@ -24,6 +24,7 @@ A same-document `#/home` link from a registered module location can therefore be
 - On 2026-09-15 at pre-fix head `4732e2a112d4c58f8aff6e98d9bb2f90683df938`, a decision-complete retry in default Chrome 150 reached the Forward `#/home` history entry through Chromium's back-forward cache, but Element presented its session-lock-stolen view instead of native Home. The same exact browser and session then completed room → Diagnostic → Chat/home → Back → Forward with the expected current controls when a throwaway observation hook refreshed only a marked back-forward-cache restoration. This identifies a second consequence of the reload workaround and supports qualifying a source-owned, marker-scoped restoration under P-000016; it does not supply the missing seamless exported native-screen contract.
 - At exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7`, the bounded source marks only the reload transition's source and target entries and reloads a marked `pageshow.persisted` restoration. [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) records Back at Diagnostic with only its control current and Navigation Timing `back_forward`, then Forward at native Home with only Chat current and Navigation Timing `reload`, the same Matrix user, and no session-lock-stolen view. This assures P-000016's finite workaround without supplying or qualifying a seamless exported native-screen transition.
 - On 2026-09-15, the maintainer assigned the smaller no-API host correction for implementation and qualification on a new branch. [D-000020](situation/decisions/D-000020-consume-hash-suppression-once.md) promotes [C-000004](situation/candidates/C-000004-consume-hash-suppression-once.md) into [P-000017](situation/promises/P-000017-seamless-module-native-return.md) and [O-000017](situation/oracles/O-000017-seamless-module-native-return.md). This changes the Gap to `addressing`; no resolution or PASS is claimed before the Oracle runs.
+- At exact head `5f5aebcda2c829a6ff7489a4e05fd454352c17e5`, [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md) records the focused generic router regression and Chrome 150 completing direct/query entry, explicit refresh, same-document Home → Diagnostic → Home, Back and Forward with exact destinations/current controls and one unchanged authenticated Matrix user. The same document UUID and sole `navigate` timing entry survive every non-refresh transition; no reload marker, module lifecycle handler or public Module API is present.
 
 ## Impact
 
@@ -31,7 +32,7 @@ A production module-owned header may require a deliberately exported native-scre
 
 ## Resolution
 
-Qualification is active under [PLAN-000005](situation/plans/active/PLAN-000005-seamless-module-native-return.md). Closure requires a complete PASS Witness for P-000017/O-000017; until then the seamless transition remains unassured.
+[P-000017](situation/promises/P-000017-seamless-module-native-return.md) is assured by [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md) under [O-000017](situation/oracles/O-000017-seamless-module-native-return.md), closing the observed stale-suppression and reload requirement at the declared Home/Diagnostic boundary. [C-000005](situation/candidates/C-000005-export-native-screen-navigation.md) retains a public native-navigation API only as an unselected response to a future demonstrated capability need; its absence is not unresolved for this URL-driven transition.
 
 ## References
 
@@ -45,3 +46,4 @@ Qualification is active under [PLAN-000005](situation/plans/active/PLAN-000005-s
 - [Public native-navigation API Candidate](situation/candidates/C-000005-export-native-screen-navigation.md)
 - [Same-document return Promise](situation/promises/P-000017-seamless-module-native-return.md)
 - [Same-document return Oracle](situation/oracles/O-000017-seamless-module-native-return.md)
+- [Passing same-document Witness](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md)

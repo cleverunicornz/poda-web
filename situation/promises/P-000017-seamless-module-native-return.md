@@ -2,7 +2,7 @@
 
 ## State
 
-implemented
+assured
 
 ## Promise
 
@@ -28,7 +28,8 @@ The history sequence starts at native Home, activates Diagnostic, activates Chat
 
 - [D-000020](situation/decisions/D-000020-consume-hash-suppression-once.md) promotes [C-000004](situation/candidates/C-000004-consume-hash-suppression-once.md) and authorizes the bounded implementation and qualification.
 - [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) retains the pre-change failure and reload-limited baseline.
-- Commit `7c367aa5f7` implements the generic one-event router guard, focused regression, module workaround removal and same-document browser-specification assertions. The focused regression, module/module-harness type checks, module production build and Playwright specification compilation pass; assurance evidence remains pending.
+- Commit `7c367aa5f7` implements the generic one-event router guard, focused regression, module workaround removal and same-document browser-specification assertions. The focused regression, module/module-harness type checks, module production build and Playwright specification compilation pass.
+- [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md) applies every O-000017 leg at exact head `5f5aebcda2c829a6ff7489a4e05fd454352c17e5` and passes, so this Promise is assured within Scope.
 
 ## Residual
 
@@ -40,3 +41,4 @@ This Promise does not select production Poda navigation; assure Studio/Profile/S
 - [Promoted Candidate](situation/candidates/C-000004-consume-hash-suppression-once.md)
 - [Existing reload-based assurance](situation/promises/P-000016-decision-complete-module-navigation-gate.md)
 - [Explicit extension boundary](situation/invariants/I-000010-explicit-host-extension-boundaries.md)
+- [Passing exact-head Witness](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md)

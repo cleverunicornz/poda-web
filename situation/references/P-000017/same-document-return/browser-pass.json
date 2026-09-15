@@ -1,0 +1,385 @@
+{
+    "schema": "poda-module-native-return-browser-observation/v1",
+    "promise": "P-000017",
+    "oracle": "O-000017",
+    "head": "5f5aebcda2c829a6ff7489a4e05fd454352c17e5",
+    "observedAt": "2026-09-15T23:28:12.419Z",
+    "result": "PASS",
+    "environment": {
+        "browser": "Chrome/150.0.7871.24",
+        "viewport": {
+            "width": 1440,
+            "height": 900
+        },
+        "theme": "custom-Poda Light",
+        "servedOrigin": "http://127.0.0.1:8080",
+        "fixture": {
+            "type": "SynapseContainer",
+            "implementation": "packages/playwright-common/lib/testcontainers/synapse.js",
+            "baseUrl": "http://localhost:37981",
+            "userId": "@poda_navigation_routing:localhost",
+            "secretsRetained": false
+        }
+    },
+    "artifacts": {
+        "moduleBuild": {
+            "path": "modules/poda-navigation-spike/lib/index.js",
+            "sha256": "59239d5c5dbe122757d084241d94547a16df1fcd4bedecafb71fa1149cd51968"
+        },
+        "servedModule": {
+            "path": "apps/web/webapp/modules/poda-navigation-spike/index.js",
+            "sha256": "59239d5c5dbe122757d084241d94547a16df1fcd4bedecafb71fa1149cd51968"
+        },
+        "servedApplication": {
+            "path": "apps/web/webapp/index.html",
+            "sha256": "ad1a6355b2383cb2177db8e098f9ccecb0c9403afb4d5e1246f392b024a0c487"
+        },
+        "generatedConfig": {
+            "path": "apps/web/webapp/config.json",
+            "sha256": "edccdb1e7a91028ed090c96b4a9f28b6f3d4075f7360ea9fce7906d577d98c49",
+            "moduleEntry": "/modules/poda-navigation-spike/index.js",
+            "generatedAndUntracked": true
+        },
+        "screenshot": {
+            "path": "situation/references/P-000017/same-document-return/diagnostic-workspace.png",
+            "sha256": "2441bdf2ab4305dedf2f56171b2e8d3a0c322051d58e425cb4e741a4bdcac73f"
+        }
+    },
+    "commands": [
+        {
+            "command": "corepack pnpm --filter element-web exec vitest run src/vector/routing.test.ts",
+            "result": "PASS",
+            "detail": "8 tests passed at the exact implementation head, including matching-echo suppression and the external module-hash/native-hash return regression."
+        },
+        {
+            "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter @poda/web-module-navigation-spike lint:types",
+            "result": "PASS",
+            "detail": "tsc --noEmit completed."
+        },
+        {
+            "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter element-web-modules lint:types",
+            "result": "PASS",
+            "detail": "The module Playwright harness TypeScript check completed."
+        },
+        {
+            "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter @poda/web-module-navigation-spike build",
+            "result": "PASS",
+            "detail": "Vite 8.2.2 emitted lib/index.js at 7.52 kB, gzip 2.33 kB."
+        },
+        {
+            "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm exec playwright test --list --project=@poda/web-module-navigation-spike",
+            "result": "PASS_LIST_ONLY",
+            "detail": "Both navigation specifications compiled and were discovered. Runtime execution remains unavailable because the repository-pinned Chromium revision is absent; direct Chrome 150 evidence supplies the manual legs."
+        },
+        {
+            "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm exec nx run @element-hq/element-web-shared-utils:build && PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter element-web build",
+            "result": "PASS_WITH_EXISTING_WARNINGS",
+            "detail": "The exact-head production build completed; webpack reported the existing Element Call postcss-calc and bundle-size warnings."
+        }
+    ],
+    "sourceReview": {
+        "base": "dbdafb69a6efab2540667dcae22e716738d41686",
+        "changedNonRecordPaths": [
+            "apps/web/src/vector/routing.ts",
+            "apps/web/src/vector/routing.test.ts",
+            "modules/poda-navigation-spike/src/Navigation.tsx",
+            "modules/poda-navigation-spike/e2e/navigation.spec.ts"
+        ],
+        "elementCorePaths": ["apps/web/src/vector/routing.ts", "apps/web/src/vector/routing.test.ts"],
+        "publicModuleApiPaths": [],
+        "stableConfigurationPaths": [],
+        "moduleReloadMarkerMatches": [],
+        "moduleLocationSpecificCoreMatches": [],
+        "finding": "The core change consumes the generic app-generated hash echo guard before routing. The module removes its reload marker, location.assign override, and pageshow/BFCache handler. No Module API or stable configuration changed."
+    },
+    "declaredQuery": "case=direct%20query",
+    "dismissedAlerts": ["Dismiss", "Later"],
+    "direct": {
+        "beforeRefresh": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-direct#/io.poda.navigation-spike.diagnostic?case=direct%20query",
+            "hash": "#/io.poda.navigation-spike.diagnostic?case=direct%20query",
+            "controls": {
+                "chatCurrent": null,
+                "diagnosticCurrent": "page"
+            },
+            "nativeHomeVisible": false,
+            "diagnosticVisible": true,
+            "diagnosticFocused": true,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": null,
+            "refreshSourceId": "b329be07-2e32-4b5f-9e0c-0004aa943f92",
+            "navigationEntries": [
+                {
+                    "type": "navigate",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        },
+        "afterRefresh": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-direct#/io.poda.navigation-spike.diagnostic?case=direct%20query",
+            "hash": "#/io.poda.navigation-spike.diagnostic?case=direct%20query",
+            "controls": {
+                "chatCurrent": null,
+                "diagnosticCurrent": "page"
+            },
+            "nativeHomeVisible": false,
+            "diagnosticVisible": true,
+            "diagnosticFocused": true,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": null,
+            "refreshSourceId": null,
+            "navigationEntries": [
+                {
+                    "type": "reload",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        }
+    },
+    "sequence": {
+        "initial": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-sequence#/home",
+            "hash": "#/home",
+            "controls": {
+                "chatCurrent": "page",
+                "diagnosticCurrent": null
+            },
+            "nativeHomeVisible": true,
+            "diagnosticVisible": false,
+            "diagnosticFocused": false,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": "5b9165de-1e7b-4dae-b748-2721bf935c5c",
+            "refreshSourceId": null,
+            "navigationEntries": [
+                {
+                    "type": "navigate",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        },
+        "diagnostic": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-sequence#/io.poda.navigation-spike.diagnostic",
+            "hash": "#/io.poda.navigation-spike.diagnostic",
+            "controls": {
+                "chatCurrent": null,
+                "diagnosticCurrent": "page"
+            },
+            "nativeHomeVisible": false,
+            "diagnosticVisible": true,
+            "diagnosticFocused": true,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": "5b9165de-1e7b-4dae-b748-2721bf935c5c",
+            "refreshSourceId": null,
+            "navigationEntries": [
+                {
+                    "type": "navigate",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        },
+        "returnedHome": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-sequence#/home",
+            "hash": "#/home",
+            "controls": {
+                "chatCurrent": "page",
+                "diagnosticCurrent": null
+            },
+            "nativeHomeVisible": true,
+            "diagnosticVisible": false,
+            "diagnosticFocused": false,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": "5b9165de-1e7b-4dae-b748-2721bf935c5c",
+            "refreshSourceId": null,
+            "navigationEntries": [
+                {
+                    "type": "navigate",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        },
+        "back": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-sequence#/io.poda.navigation-spike.diagnostic",
+            "hash": "#/io.poda.navigation-spike.diagnostic",
+            "controls": {
+                "chatCurrent": null,
+                "diagnosticCurrent": "page"
+            },
+            "nativeHomeVisible": false,
+            "diagnosticVisible": true,
+            "diagnosticFocused": true,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": "5b9165de-1e7b-4dae-b748-2721bf935c5c",
+            "refreshSourceId": null,
+            "navigationEntries": [
+                {
+                    "type": "navigate",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        },
+        "forward": {
+            "url": "http://127.0.0.1:8080/?oracle=p17-sequence#/home",
+            "hash": "#/home",
+            "controls": {
+                "chatCurrent": "page",
+                "diagnosticCurrent": null
+            },
+            "nativeHomeVisible": true,
+            "diagnosticVisible": false,
+            "diagnosticFocused": false,
+            "localUserId": "@poda_navigation_routing:localhost",
+            "clientUserId": null,
+            "documentId": "5b9165de-1e7b-4dae-b748-2721bf935c5c",
+            "refreshSourceId": null,
+            "navigationEntries": [
+                {
+                    "type": "navigate",
+                    "startTime": 0
+                }
+            ],
+            "reloadMarker": null,
+            "moduleHostImmediatelyBeforeMatrixchat": true,
+            "sessionLockStolen": false
+        }
+    },
+    "matrixWhoami": {
+        "status": 200,
+        "body": {
+            "user_id": "@poda_navigation_routing:localhost",
+            "is_guest": false,
+            "device_id": "UAAAIPEZMP"
+        }
+    },
+    "moduleResponses": [
+        {
+            "url": "http://127.0.0.1:8080/modules/poda-navigation-spike/index.js",
+            "status": 304
+        },
+        {
+            "url": "http://127.0.0.1:8080/modules/poda-navigation-spike/index.js",
+            "status": 304
+        },
+        {
+            "url": "http://127.0.0.1:8080/modules/poda-navigation-spike/index.js",
+            "status": 304
+        }
+    ],
+    "pageErrors": [],
+    "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Permissions policy violation: unload is not allowed in this document.",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Permissions policy violation: unload is not allowed in this document.",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Permissions policy violation: unload is not allowed in this document.",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "failedRequests": [
+        {
+            "url": "https://localhost/.well-known/matrix/client",
+            "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+            "url": "https://localhost/.well-known/matrix/client",
+            "error": "net::ERR_CONNECTION_REFUSED"
+        },
+        {
+            "url": "https://localhost/.well-known/matrix/client",
+            "error": "net::ERR_CONNECTION_REFUSED"
+        }
+    ],
+    "failedResponses": [
+        {
+            "url": "http://127.0.0.1:8080/config.127.0.0.1.json?cachebuster=1789514890843",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/v3/room_keys/version",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/unstable/org.matrix.msc3814.v1/dehydrated_device",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/unstable/org.matrix.msc4143/rtc/transports",
+            "status": 404
+        },
+        {
+            "url": "http://127.0.0.1:8080/config.127.0.0.1.json?cachebuster=1789514891673",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/v3/room_keys/version",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/unstable/org.matrix.msc3814.v1/dehydrated_device",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/unstable/org.matrix.msc4143/rtc/transports",
+            "status": 404
+        },
+        {
+            "url": "http://127.0.0.1:8080/config.127.0.0.1.json?cachebuster=1789514891996",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/v3/room_keys/version",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/unstable/org.matrix.msc3814.v1/dehydrated_device",
+            "status": 404
+        },
+        {
+            "url": "http://localhost:37981/_matrix/client/unstable/org.matrix.msc4143/rtc/transports",
+            "status": 404
+        }
+    ],
+    "runtimeTrafficClassification": {
+        "moduleFailures": [],
+        "unrelated": [
+            "The host-specific config.127.0.0.1.json probe returned 404 before normal config.json fallback.",
+            "The empty Synapse fixture returned 404 for absent key-backup, dehydrated-device, and experimental RTC transport endpoints.",
+            "The localhost Matrix well-known discovery probe was refused; the authenticated client continued against the explicit fixture homeserver.",
+            "Chrome reported that unload is disallowed by the document permissions policy."
+        ]
+    }
+}
