@@ -23,6 +23,7 @@ Semantic discovery is the default repository lookup path. This closure instead u
 
 - Closer observation for run `20260915T203639Z-64a02fc52b81eb5fe6229d9d87963c74cb7b1f04` at opening checkpoint `040ec7e35e30173daa3b9f32f23887e21ad61d06`: focused `semantic_search` calls returned the same unsafe-path rejection naming `control/`; native exact-diff and current-record reads remained available for `git diff 3b190d1dfad7dafc398423784414e8d260ee98c8..64a02fc52b81eb5fe6229d9d87963c74cb7b1f04`, the declared substantive review surface.
 - Validator observation for run `20260915T203639Z-64a02fc52b81eb5fe6229d9d87963c74cb7b1f04` at reviewed head `af195851ef4d3e7c07d264ed1ec9231c213e1aa8`: `semantic_index_status` and focused `semantic_search` calls independently returned the same unsafe-path rejection naming `control/`; exact Git and direct record/source reads remained available for the assigned interval `040ec7e35e30173daa3b9f32f23887e21ad61d06..af195851ef4d3e7c07d264ed1ec9231c213e1aa8`.
+- Validator observation for run `20260915T214745Z-92db4fcae2fa3bee57b9f15994d238dcd4a95c30` at reviewed head `b4e62cfa37acd2e5a74b60d9befcc58daff64d94`: `semantic_index_status` and focused `semantic_search` calls independently returned the same unsafe-path rejection naming `control/`; exact Git and direct record/source reads remained available for the assigned interval `ab4847bdd346c64586fa112cdfd2a4d904d3ca3a..b4e62cfa37acd2e5a74b60d9befcc58daff64d94`.
 
 ## Impact
 
