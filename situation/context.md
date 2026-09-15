@@ -159,6 +159,6 @@ distinct from the unproven navigation mechanisms.
 
 ## Closure state
 
-- Current run: none
+- Current run: `20260915T101355Z-b42002f89cffba366888756030cb53a1f48f2981` (open)
 - Last completed closure: run `20260915T090346Z-ff7b4bc9214a279cfc05f3ee4ab4d97757f79ff5`, opened at `4c5b824eae2761e318aebcebeba0246f85635307`
 - Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34950174185`
