@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
 Please see LICENSE files in the repository root for full details.
 */
 
-import { type FC, useEffect, useRef, useState } from "react";
+import { type FC, type MouseEvent, useEffect, useRef, useState } from "react";
 
 export const DIAGNOSTIC_LOCATION = "io.poda.navigation-spike.diagnostic";
 
@@ -25,17 +25,29 @@ export const NavigationHeader: FC = () => {
     }, []);
 
     const diagnosticActive = location === DIAGNOSTIC_LOCATION;
+    const onChatClick = (event: MouseEvent<HTMLAnchorElement>): void => {
+        if (!diagnosticActive) return;
+
+        event.preventDefault();
+        window.location.hash = "/home";
+        window.location.reload();
+    };
 
     return (
         <header className="podaNavigation" data-testid="poda-navigation-header">
-            <div className="podaNavigation_brand" aria-label="Poda">
+            <div className="podaNavigation_brand">
                 <span className="podaNavigation_mark" aria-hidden="true">
                     P
                 </span>
                 <span>Poda</span>
             </div>
             <nav className="podaNavigation_links" aria-label="Poda member">
-                <a className="podaNavigation_link" href="#/home" aria-current={!diagnosticActive ? "page" : undefined}>
+                <a
+                    className="podaNavigation_link"
+                    href="#/home"
+                    aria-current={!diagnosticActive ? "page" : undefined}
+                    onClick={onChatClick}
+                >
                     Chat
                 </a>
                 <a

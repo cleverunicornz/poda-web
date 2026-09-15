@@ -31,7 +31,7 @@ The declared history sequence is native home → diagnostic → refresh diagnost
 
 ## Residual
 
-This gate does not qualify or select production Chat/Studio/Profile/Settings navigation, nested product routes, native Settings behavior, signed-out transitions, room-return semantics, call/PiP behavior, product data, persistence, assistants, widgets, deployment, browsers other than the named Chromium run, other viewport sizes, or accessibility beyond the named focus and labelled-control observations. It does not assure [P-000008](situation/promises/P-000008-member-workspace-preview.md), complete [PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md), or promote C-000003.
+This gate does not qualify or select production Chat/Studio/Profile/Settings navigation, nested product routes, seamless native-screen transitions, native Settings behavior, signed-out transitions, room-return semantics, call/PiP behavior, product data, persistence, assistants, widgets, deployment, browsers other than the named Chromium run, other viewport sizes, or accessibility beyond the named focus and labelled-control observations. [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) retains the observed absence of an exported generic native-screen transition and the bounded probe's reload requirement. This gate does not assure [P-000008](situation/promises/P-000008-member-workspace-preview.md), complete [PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md), or promote C-000003.
 
 ## References
 
@@ -39,3 +39,4 @@ This gate does not qualify or select production Chat/Studio/Profile/Settings nav
 - [Navigation qualification dossier](situation/references/C-000003/member-navigation-qualification.md)
 - [Explicit extension boundary](situation/invariants/I-000010-explicit-host-extension-boundaries.md)
 - [Shared member workspaces](situation/invariants/I-000012-shared-member-workspaces.md)
+- [Native-screen transition gap](situation/gaps/G-000008-module-native-screen-transition.md)
