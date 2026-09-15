@@ -215,7 +215,6 @@ Repository-specific orientation belongs in the repository block that follows.
 ### Tools and knowledge
 
 <!-- cvu-native-capabilities:start -->
-
 - Use Qualia semantic search as the default way to find code; it returns a few
   relevant, located results instead of flooding context with raw matches.
   Use exact-string search or a direct read only for a name, literal, or error
@@ -228,7 +227,6 @@ Repository-specific orientation belongs in the repository block that follows.
   default on the supported copy-on-write substrate, and child changes reach
   the parent through report merge; explicit shared-checkout workflows such as
   Bedrock retain their declared exception.
-
 <!-- cvu-native-capabilities:end -->
 
 - Tool-specific skills live at the harness user level and install with their
@@ -239,10 +237,10 @@ Repository-specific orientation belongs in the repository block that follows.
 - Keep scratch work outside the repository in the environment's designated
   temporary location; remove it when the task completes.
 - Bedrock run evidence is retained outside the repository. Each closure's
-opening and closing checkpoints and its closure state carry that run's
-evidence reference; storage and retrieval procedures belong to
-infrastructure operations.
-  </bedrock-organization>
+  opening and closing checkpoints and its closure state carry that run's
+  evidence reference; storage and retrieval procedures belong to
+  infrastructure operations.
+</bedrock-organization>
 
 <bedrock-repository>
 ## poda-web
