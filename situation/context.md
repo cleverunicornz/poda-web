@@ -49,9 +49,10 @@ visibility, icon-tint, and narrow-width presentation defects. D-000011 repairs
 the cascade in `apps/web/src/theme.ts` and applies the Poda-scoped corrections;
 verified post-fix renders show the Poda tokens computing in both modes, the
 demo Space carrying the supplied mark as its native `m.room.avatar`, visible
-Join actions, and zero narrow overflow. Retained approved visual evidence and
-exact-head CI remain pending. No Poda visual or fork-specific assurance Witness
-exists yet.
+Join actions, and zero narrow overflow. Approved visual evidence and exact-head
+CI for the visual migration remain pending. The assured navigation Gate 1
+described below is a separate mechanism observation and does not assure the
+visual migration.
 
 The demo Matrix homeserver now carries the four-Space organization from
 D-000012: Poda Community (General auto-joined; Equipment and both Last Minute
@@ -154,10 +155,18 @@ refresh/history, Poda Light/Dark and desktop/narrow observations. Active
 groups that work and feeds PLAN-000003's existing host-qualification
 prerequisite.
 
-The implementation is in progress; no runtime Witness or gate disposition is
-yet recorded. C-000003 is not promoted, production navigation is not selected,
-and P-000008 and PLAN-000003 remain unchanged. D-000019's selected product
-direction remains distinct from the bounded navigation mechanism probe.
+The implementation at commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3`
+passes every manual O-000015 leg under
+[W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md);
+[P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) is
+assured only for that exact local diagnostic scope. W-000001 separately retains
+the unavailable pinned Playwright browser without treating it as product
+failure, and [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
+retains the reload-limited native-screen transition.
+
+C-000003 remains qualifying rather than promoted, production navigation is not
+selected, and P-000008 and PLAN-000003 remain unchanged. D-000019's selected
+product direction remains distinct from the bounded navigation mechanism probe.
 
 ## Closure state
 

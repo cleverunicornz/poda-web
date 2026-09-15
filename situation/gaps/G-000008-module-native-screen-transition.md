@@ -20,6 +20,7 @@ A same-document `#/home` link from a registered module location can therefore be
 - `packages/module-api/src/api/navigation.ts` exports `registerLocationRenderer`, `openRoom` and Matrix permalink navigation, but no generic native-screen navigation method.
 - `apps/web/src/vector/routing.ts` suppresses a hashchange when the decoded hash equals its private `lastLocationHashSet`; a module location transition does not update that value through an exported contract.
 - The observation does not establish that every previous native screen or sequence fails. It establishes one reproducible Home → module location → Home sequence and an API absence relevant to the preferred Candidate.
+- At commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3`, the bounded probe varied a query marker and used `window.location.assign` to force document initialization at `#/home`. [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md) records that this exact workaround preserved the Matrix user and declared Back/Forward sequence. It bounds a passing Gate 1; it does not supply or qualify the missing seamless exported transition.
 
 ## Impact
 
@@ -36,3 +37,4 @@ none
 - [Gate Oracle](situation/oracles/O-000015-module-navigation-mount-gate.md)
 - `packages/module-api/src/api/navigation.ts`
 - `apps/web/src/vector/routing.ts`
+- [Passing Gate 1 Witness](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md)

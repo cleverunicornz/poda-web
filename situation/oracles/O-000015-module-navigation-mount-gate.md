@@ -49,7 +49,7 @@ Missing credentials, unavailable Chromium, failed fixture startup, or an artifac
 
 ## Implementation coverage
 
-The checked-in browser test is not credited until it has run successfully. All legs are currently manual.
+The checked-in browser tests are not credited because [W-000001](situation/witnesses/P-000015/W-000001-playwright-chromium-unavailable.md) shows that their pinned Chromium could not launch. [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md) instead decides every leg through direct browser and source observations. The Oracle remains `designed` because no executable leg has run.
 
 | Leg     | Decision                                              | Coverage |
 | ------- | ----------------------------------------------------- | -------- |

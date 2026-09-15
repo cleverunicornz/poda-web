@@ -1,0 +1,234 @@
+{
+  "schema": "poda-navigation-gate-1-browser-pass/v1",
+  "promise": "P-000015",
+  "oracle": "O-000015",
+  "head": "78a3bb9d89b4f7a9f1196ea0e0859c934153caf3",
+  "observedAt": "2026-09-15T20:20:41Z",
+  "result": "PASS",
+  "environment": {
+    "browser": "Chrome/150.0.7871.24",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+    "servedOrigin": "http://127.0.0.1:8080",
+    "fixture": {
+      "type": "SynapseContainer",
+      "implementation": "packages/playwright-common/lib/testcontainers/synapse.js",
+      "baseUrl": "http://localhost:32821",
+      "userId": "@poda_navigation_gate:localhost",
+      "roomId": "!nQrFGIxThVupIckjqx:localhost",
+      "secretsRetained": false
+    }
+  },
+  "artifacts": {
+    "moduleBuild": {
+      "path": "modules/poda-navigation-spike/lib/index.js",
+      "sha256": "184d25f6f7865eb613a8fc1e51198cffcb10c2441c09b7680fa518e6e1ac8d57"
+    },
+    "servedModule": {
+      "path": "apps/web/webapp/modules/poda-navigation-spike/index.js",
+      "sha256": "184d25f6f7865eb613a8fc1e51198cffcb10c2441c09b7680fa518e6e1ac8d57"
+    },
+    "servedApplication": {
+      "path": "apps/web/webapp/index.html",
+      "sha256": "a31167e7e1fe8e1b22cc907aeba0303412fb4829621ab0b4ceddd69630db8cbf"
+    },
+    "enabledPreviewConfig": {
+      "path": "apps/web/webapp/config.json",
+      "sha256": "edccdb1e7a91028ed090c96b4a9f28b6f3d4075f7360ea9fce7906d577d98c49",
+      "moduleEntry": "/modules/poda-navigation-spike/index.js",
+      "generatedAndUntracked": true
+    }
+  },
+  "commands": [
+    {
+      "command": "pnpm exec nx run @element-hq/element-web-shared-utils:build && pnpm --filter element-web build",
+      "result": "PASS",
+      "detail": "Produced the served apps/web/webapp artifact. The later branch changes are confined to the dynamically loaded module and situation records."
+    },
+    {
+      "command": "pnpm --filter @poda/web-module-navigation-spike build",
+      "result": "PASS",
+      "detail": "Vite 8.2.2 emitted lib/index.js at 7.81 kB, gzip 2.44 kB."
+    },
+    {
+      "command": "pnpm --filter @poda/web-module-navigation-spike lint:types",
+      "result": "PASS",
+      "detail": "tsc --noEmit completed."
+    }
+  ],
+  "navigation": {
+    "initial": {
+      "url": "http://127.0.0.1:8080/?gate=78a3bb9d#/room/!nQrFGIxThVupIckjqx:localhost",
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "nativeRoomVisible": true,
+      "currentControl": "Chat"
+    },
+    "diagnostic": {
+      "url": "http://127.0.0.1:8080/?gate=78a3bb9d#/io.poda.navigation-spike.diagnostic",
+      "title": "Diagnostic Workspace",
+      "mainFocused": true,
+      "nativeSpacePanelVisible": true,
+      "nativeLeftPanelVisible": false,
+      "currentControl": "Diagnostic workspace"
+    },
+    "refresh": {
+      "url": "http://127.0.0.1:8080/?gate=78a3bb9d#/io.poda.navigation-spike.diagnostic",
+      "diagnosticVisible": true,
+      "currentControl": "Diagnostic workspace"
+    },
+    "chat": {
+      "url": "http://127.0.0.1:8080/?gate=78a3bb9d&poda-navigation-reload=1#/home",
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "nativeHomeVisible": true,
+      "diagnosticVisible": false,
+      "currentControl": "Chat"
+    },
+    "back": {
+      "url": "http://127.0.0.1:8080/?gate=78a3bb9d#/io.poda.navigation-spike.diagnostic",
+      "diagnosticVisible": true
+    },
+    "forward": {
+      "url": "http://127.0.0.1:8080/?gate=78a3bb9d&poda-navigation-reload=1#/home",
+      "nativeHomeVisible": true
+    }
+  },
+  "presentationPrecondition": "Host-native first-run verification and notification alerts were dismissed through their own controls before screenshots; no document or stylesheet was altered by the observation.",
+  "presentation": [
+    {
+      "theme": "Poda Light",
+      "viewport": { "width": 1440, "height": 900 },
+      "body": { "x": 0, "y": 0, "width": 1440, "height": 900, "right": 1440, "bottom": 900 },
+      "header": { "x": 0, "y": 0, "width": 1440, "height": 56, "right": 1440, "bottom": 56 },
+      "application": { "x": 0, "y": 56, "width": 1440, "height": 844, "right": 1440, "bottom": 900 },
+      "workspace": { "x": 70, "y": 56, "width": 1370, "height": 844, "right": 1440, "bottom": 900 },
+      "documentScrollWidth": 1440,
+      "headerBackground": "rgb(255, 253, 249)",
+      "headerColor": "rgb(51, 34, 22)",
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "nativeAlertPresent": false,
+      "screenshot": "situation/references/P-000015/gate-1/poda-light-1440x900.png",
+      "screenshotSha256": "cae8245f06296795131b305d4b98df4af5351ccd80607288564ee8f839e31953"
+    },
+    {
+      "theme": "Poda Dark",
+      "viewport": { "width": 1440, "height": 900 },
+      "body": { "x": 0, "y": 0, "width": 1440, "height": 900, "right": 1440, "bottom": 900 },
+      "header": { "x": 0, "y": 0, "width": 1440, "height": 56, "right": 1440, "bottom": 56 },
+      "application": { "x": 0, "y": 56, "width": 1440, "height": 844, "right": 1440, "bottom": 900 },
+      "workspace": { "x": 70, "y": 56, "width": 1370, "height": 844, "right": 1440, "bottom": 900 },
+      "documentScrollWidth": 1440,
+      "headerBackground": "rgb(26, 20, 16)",
+      "headerColor": "rgb(255, 248, 232)",
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "nativeAlertPresent": false,
+      "screenshot": "situation/references/P-000015/gate-1/poda-dark-1440x900.png",
+      "screenshotSha256": "2871784b1915e8700705dea2f5bf51c7d6b1b9c8119f0f9856371657fca2c5e5"
+    },
+    {
+      "theme": "Poda Light",
+      "viewport": { "width": 500, "height": 900 },
+      "body": { "x": 0, "y": 0, "width": 500, "height": 900, "right": 500, "bottom": 900 },
+      "header": { "x": 0, "y": 0, "width": 500, "height": 56, "right": 500, "bottom": 56 },
+      "application": { "x": 0, "y": 56, "width": 500, "height": 844, "right": 500, "bottom": 900 },
+      "workspace": { "x": 70, "y": 56, "width": 430, "height": 844, "right": 500, "bottom": 900 },
+      "documentScrollWidth": 500,
+      "headerBackground": "rgb(255, 253, 249)",
+      "headerColor": "rgb(51, 34, 22)",
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "nativeAlertPresent": false,
+      "screenshot": "situation/references/P-000015/gate-1/poda-light-500x900.png",
+      "screenshotSha256": "990a027d7d11b41ef413152d941d612fdb0f82131693bc76f00d1a84f020b6ba"
+    },
+    {
+      "theme": "Poda Dark",
+      "viewport": { "width": 500, "height": 900 },
+      "body": { "x": 0, "y": 0, "width": 500, "height": 900, "right": 500, "bottom": 900 },
+      "header": { "x": 0, "y": 0, "width": 500, "height": 56, "right": 500, "bottom": 56 },
+      "application": { "x": 0, "y": 56, "width": 500, "height": 844, "right": 500, "bottom": 900 },
+      "workspace": { "x": 70, "y": 56, "width": 430, "height": 844, "right": 500, "bottom": 900 },
+      "documentScrollWidth": 500,
+      "headerBackground": "rgb(26, 20, 16)",
+      "headerColor": "rgb(255, 248, 232)",
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "nativeAlertPresent": false,
+      "screenshot": "situation/references/P-000015/gate-1/poda-dark-500x900.png",
+      "screenshotSha256": "2b33ef0276ec66ef8c3624c56cbcae829cfa22ffa7a39422179c16ffdfe4fc19"
+    }
+  ],
+  "sourceReview": {
+    "diffCommand": "git diff --name-only internal/main...78a3bb9d89b4f7a9f1196ea0e0859c934153caf3",
+    "elementCoreSourceChanged": false,
+    "stableApplicationConfigurationChanged": false,
+    "ownedRuntimePaths": [
+      "modules/poda-navigation-spike/package.json",
+      "modules/poda-navigation-spike/project.json",
+      "modules/poda-navigation-spike/src/Navigation.tsx",
+      "modules/poda-navigation-spike/src/index.tsx",
+      "modules/poda-navigation-spike/src/style.css",
+      "modules/poda-navigation-spike/src/vite-env.d.ts",
+      "modules/poda-navigation-spike/tsconfig.json",
+      "modules/poda-navigation-spike/vite.config.ts"
+    ],
+    "workspaceMetadataPath": "pnpm-lock.yaml",
+    "forbiddenDependencyMatches": [],
+    "exportedContracts": [
+      "@element-hq/element-web-module-api Api",
+      "Api.rootNode",
+      "Api.createRoot",
+      "Api.navigation.registerLocationRenderer",
+      "React"
+    ],
+    "hostDomOperations": [
+      "create a module-owned div",
+      "place that div immediately before Api.rootNode",
+      "render the header and its style element through Api.createRoot"
+    ],
+    "secondRouter": false,
+    "secondMatrixClient": false,
+    "privateElementImport": false,
+    "privateStoreAccess": false
+  },
+  "isolation": {
+    "enabledEntry": "/modules/poda-navigation-spike/index.js",
+    "removalOutcome": {
+      "moduleRequests": [],
+      "headerPresent": false,
+      "moduleHostPresent": false,
+      "diagnosticPresent": false,
+      "directDiagnosticAttemptFinalUrl": "http://127.0.0.1:8080/?module-disabled=78a3bb9d-diagnostic#/home",
+      "nativeHomeVisible": true,
+      "sameUserId": "@poda_navigation_gate:localhost"
+    },
+    "restorationOutcome": {
+      "url": "http://127.0.0.1:8080/?preview=live#/io.poda.navigation-spike.diagnostic",
+      "headerPresent": true,
+      "diagnosticPresent": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true
+    }
+  },
+  "runtimeHealth": {
+    "moduleResponseStatuses": [200, 304, 304, 304, 304],
+    "pageErrors": [],
+    "moduleLoadRenderReactOrNavigationErrors": [],
+    "unrelatedNativeFixtureTraffic": [
+      "GET /config.127.0.0.1.json?cachebuster=* -> 404 (optional per-host config probe)",
+      "GET https://localhost/.well-known/matrix/client -> net::ERR_CONNECTION_REFUSED (fixture well-known probe)",
+      "GET /_matrix/client/v3/room_keys/version -> 404 (optional fixture endpoint)",
+      "GET /_matrix/client/unstable/org.matrix.msc3814.v1/dehydrated_device -> 404 (optional fixture endpoint)",
+      "GET /_matrix/client/unstable/org.matrix.msc4143/rtc/transports -> 404 (optional fixture endpoint)",
+      "Permissions policy violation: unload is not allowed in this document (host warning during document reload)"
+    ]
+  },
+  "limits": [
+    "This observation covers only the exact Promise scope and Chromium build named above.",
+    "The checked-in Playwright project did not run because its pinned Chromium executable was absent; see playwright-blocked.json.",
+    "The native Chat transition performs a full document load because the exported Module API has no generic native-screen transition; see G-000008.",
+    "No production product data, persistence, assistant, widget, deployment, signed-out, Settings, call, PiP, or accessibility behavior beyond the named focus and labelled controls was exercised."
+  ]
+}

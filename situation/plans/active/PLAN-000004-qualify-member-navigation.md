@@ -6,7 +6,7 @@
 
 ## Promises
 
-- [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) — bounded module-header Gate 1.
+- [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) — assured bounded module-header Gate 1; evidence for, not disposition of, C-000003.
 
 ## Dependencies
 
