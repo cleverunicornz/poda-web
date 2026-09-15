@@ -16,6 +16,8 @@ Semantic discovery is the default repository lookup path. This closure instead u
 
 - 2026-09-15 closure observation for run `20260915T090346Z-ff7b4bc9214a279cfc05f3ee4ab4d97757f79ff5`: a normal workspace semantic query returned no repository result and reported an unsafe-path rejection naming `control/`.
 - The completed review surface is `git diff fbbd9bf0ea3f50c9962800cff3cb37fb87edeadb..4c5b824eae2761e318aebcebeba0246f85635307`, as required for DELTA by `situation/AGENTS.md`.
+- Validator observation for run `20260915T090346Z-ff7b4bc9214a279cfc05f3ee4ab4d97757f79ff5` at reviewed head `dd8f2aae1e3b2d8ad2ad28319575024794722719`: `semantic_index_status` and focused `semantic_search` calls independently returned the same unsafe-path rejection naming `control/`; exact Git and current-record reads remained available.
+- Validator record-review observation for the same run and reviewed head: the preceding completed-review-surface statement ends at opening checkpoint `4c5b824eae2761e318aebcebeba0246f85635307`, while `situation/AGENTS.md` defines the DELTA endpoint as the trigger head and that checkpoint records trigger `ff7b4bc9214a279cfc05f3ee4ab4d97757f79ff5`; the provenance discrepancy remains unresolved.
 
 ## Impact
 
