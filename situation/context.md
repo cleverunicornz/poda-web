@@ -155,16 +155,25 @@ refresh/history, Poda Light/Dark and desktop/narrow observations. Active
 groups that work and feeds PLAN-000003's existing host-qualification
 prerequisite.
 
-The implementation at commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3`
-remains [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md)
-`implemented`. [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)
-is `INVALID` because its retained record lacks Back/Forward active-control
-observations and direct control-operability observations in every Poda
+The implementation retained by [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md)
+remains `implemented`, and its first [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)
+observation remains `INVALID`. The decision-complete
+[P-000016](situation/promises/P-000016-decision-complete-module-navigation-gate.md)
+is separately `assured` by [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md)
+at exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7`.
+[O-000016](situation/oracles/O-000016-decision-complete-module-navigation-gate.md)
+records Back and Forward destinations plus active controls and direct
+Home → Diagnostic → Chat → Diagnostic interaction in every Poda
 theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md)
-retains this assurance-coverage absence without asserting runtime failure.
+is closed by that complete evidence without rewriting W-000002.
+
+This is narrow manual assurance of the generated local module gate, not the
+reusable fork assurance route absent in [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
 W-000001 separately retains the unavailable pinned Playwright browser without
-treating it as product failure, and [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
-retains the reload-limited native-screen transition.
+treating it as product failure. [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
+retains the reload-limited native-screen transition and its marker-scoped
+back-forward-cache restoration; [G-000010](situation/gaps/G-000010-module-stylesheet-host-selector-scope.md)
+retains the unresolved production stylesheet ownership boundary.
 
 C-000003 remains qualifying rather than promoted, production navigation is not
 selected, and P-000008 and PLAN-000003 remain unchanged. D-000019's selected

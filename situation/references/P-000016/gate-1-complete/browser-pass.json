@@ -1,0 +1,926 @@
+{
+  "schema": "poda-navigation-gate-1-decision-complete-browser-observation/v1",
+  "promise": "P-000016",
+  "oracle": "O-000016",
+  "head": "53c290b3c62f01ae95ca74893ce3c944a1b472b7",
+  "observedAt": "2026-09-15T21:33:36.755Z",
+  "result": "PASS",
+  "environment": {
+    "browser": "Chrome/150.0.7871.24",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+    "servedOrigin": "http://127.0.0.1:8080",
+    "fixture": {
+      "type": "SynapseContainer",
+      "implementation": "packages/playwright-common/lib/testcontainers/synapse.js",
+      "baseUrl": "http://localhost:32821",
+      "userId": "@poda_navigation_gate:localhost",
+      "roomId": "!nQrFGIxThVupIckjqx:localhost",
+      "secretsRetained": false
+    }
+  },
+  "artifacts": {
+    "moduleBuild": {
+      "path": "modules/poda-navigation-spike/lib/index.js",
+      "sha256": "71db7c5ce5f83e0cd8af8ef053d1c5b32044e24be39f61e18047442c42bf7306"
+    },
+    "servedModule": {
+      "path": "apps/web/webapp/modules/poda-navigation-spike/index.js",
+      "sha256": "71db7c5ce5f83e0cd8af8ef053d1c5b32044e24be39f61e18047442c42bf7306"
+    },
+    "observedServedApplication": {
+      "path": "apps/web/webapp/index.html",
+      "sha256": "a31167e7e1fe8e1b22cc907aeba0303412fb4829621ab0b4ceddd69630db8cbf"
+    },
+    "exactHeadRebuildApplication": {
+      "path": "apps/web/webapp/index.html",
+      "sha256": "3eba003fabc722d89b22dd1c6e3bf0db97835a22f8445d8bf2a643beab56fb1f",
+      "observedByBrowser": false
+    },
+    "enabledPreviewConfig": {
+      "path": "apps/web/webapp/config.json",
+      "sha256": "edccdb1e7a91028ed090c96b4a9f28b6f3d4075f7360ea9fce7906d577d98c49",
+      "moduleEntry": "/modules/poda-navigation-spike/index.js",
+      "generatedAndUntracked": true
+    }
+  },
+  "commands": [
+    {
+      "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter @poda/web-module-navigation-spike build",
+      "result": "PASS",
+      "detail": "Vite 8.2.2 emitted lib/index.js at 8.16 kB, gzip 2.52 kB."
+    },
+    {
+      "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter @poda/web-module-navigation-spike lint:types",
+      "result": "PASS",
+      "detail": "tsc --noEmit completed."
+    },
+    {
+      "command": "PATH=/tmp/poda-corepack-bin:$PATH pnpm exec nx run @element-hq/element-web-shared-utils:build && PATH=/tmp/poda-corepack-bin:$PATH pnpm --filter element-web build",
+      "result": "PASS_WITH_EXISTING_WARNINGS",
+      "detail": "Exact-head Element web build completed; webpack reported the existing Element Call postcss-calc and bundle-size warnings."
+    }
+  ],
+  "navigation": {
+    "sequenceDismissedAlerts": [],
+    "initial": {
+      "url": "http://127.0.0.1:8080/?complete=53c290b3c6-sequence#/room/!nQrFGIxThVupIckjqx:localhost",
+      "controls": {
+        "chatCurrent": "page",
+        "diagnosticCurrent": null,
+        "chatVisible": true,
+        "diagnosticVisible": true
+      },
+      "nativeHomeVisible": false,
+      "nativeRoomVisible": true,
+      "diagnosticVisible": false,
+      "expectedKind": "room",
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sessionLockStolen": false,
+      "navigationTimingType": "navigate",
+      "reloadMarker": null
+    },
+    "diagnostic": {
+      "url": "http://127.0.0.1:8080/?complete=53c290b3c6-sequence#/io.poda.navigation-spike.diagnostic",
+      "controls": {
+        "chatCurrent": null,
+        "diagnosticCurrent": "page",
+        "chatVisible": true,
+        "diagnosticVisible": true
+      },
+      "title": "Diagnostic Workspace",
+      "diagnosticVisible": true,
+      "mainFocused": true,
+      "nativeSpacePanelVisible": true,
+      "nativeLeftPanelVisible": false,
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sessionLockStolen": false,
+      "navigationTimingType": "navigate",
+      "reloadMarker": null
+    },
+    "refresh": {
+      "url": "http://127.0.0.1:8080/?complete=53c290b3c6-sequence#/io.poda.navigation-spike.diagnostic",
+      "controls": {
+        "chatCurrent": null,
+        "diagnosticCurrent": "page",
+        "chatVisible": true,
+        "diagnosticVisible": true
+      },
+      "title": "Diagnostic Workspace",
+      "diagnosticVisible": true,
+      "mainFocused": true,
+      "nativeSpacePanelVisible": true,
+      "nativeLeftPanelVisible": false,
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sessionLockStolen": false,
+      "navigationTimingType": "reload",
+      "reloadMarker": null
+    },
+    "chat": {
+      "url": "http://127.0.0.1:8080/?complete=53c290b3c6-sequence&poda-navigation-reload=target#/home",
+      "controls": {
+        "chatCurrent": "page",
+        "diagnosticCurrent": null,
+        "chatVisible": true,
+        "diagnosticVisible": true
+      },
+      "nativeHomeVisible": true,
+      "nativeRoomVisible": false,
+      "diagnosticVisible": false,
+      "expectedKind": "home",
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sessionLockStolen": false,
+      "navigationTimingType": "navigate",
+      "reloadMarker": "target"
+    },
+    "back": {
+      "url": "http://127.0.0.1:8080/?complete=53c290b3c6-sequence&poda-navigation-reload=source#/io.poda.navigation-spike.diagnostic",
+      "controls": {
+        "chatCurrent": null,
+        "diagnosticCurrent": "page",
+        "chatVisible": true,
+        "diagnosticVisible": true
+      },
+      "title": "Diagnostic Workspace",
+      "diagnosticVisible": true,
+      "mainFocused": true,
+      "nativeSpacePanelVisible": true,
+      "nativeLeftPanelVisible": false,
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sessionLockStolen": false,
+      "navigationTimingType": "back_forward",
+      "reloadMarker": "source"
+    },
+    "forward": {
+      "url": "http://127.0.0.1:8080/?complete=53c290b3c6-sequence&poda-navigation-reload=target#/home",
+      "controls": {
+        "chatCurrent": "page",
+        "diagnosticCurrent": null,
+        "chatVisible": true,
+        "diagnosticVisible": true
+      },
+      "nativeHomeVisible": true,
+      "nativeRoomVisible": false,
+      "diagnosticVisible": false,
+      "expectedKind": "home",
+      "userId": "@poda_navigation_gate:localhost",
+      "userMatchesFixture": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sessionLockStolen": false,
+      "navigationTimingType": "reload",
+      "reloadMarker": "target"
+    }
+  },
+  "presentationPrecondition": "The existing Poda Light/Poda Dark preference was written through the host mx_local_settings contract before each document load. Only host-native Later/Dismiss controls were eligible for alert dismissal. No stylesheet or DOM geometry was altered by the observation.",
+  "presentation": [
+    {
+      "theme": "Poda Light",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "dismissedAlerts": [
+        "Later"
+      ],
+      "finalDismissedAlerts": [
+        "Later"
+      ],
+      "interactions": {
+        "start": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-0#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "diagnosticActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-0#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "chatActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-0&poda-navigation-reload=target#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        },
+        "diagnosticReturn": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-0&poda-navigation-reload=target#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        }
+      },
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "right": 1440,
+        "bottom": 900
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 56,
+        "right": 1440,
+        "bottom": 56
+      },
+      "application": {
+        "x": 0,
+        "y": 56,
+        "width": 1440,
+        "height": 844,
+        "right": 1440,
+        "bottom": 900
+      },
+      "workspace": {
+        "x": 70,
+        "y": 56,
+        "width": 1370,
+        "height": 844,
+        "right": 1440,
+        "bottom": 900
+      },
+      "documentScrollWidth": 1440,
+      "documentScrollHeight": 900,
+      "headerBackground": "rgb(255, 253, 249)",
+      "headerColor": "rgb(51, 34, 22)",
+      "requiredContent": {
+        "Diagnostic Workspace": true,
+        "Exported sibling root": true,
+        "Element location renderer": true,
+        "Owned by the host application": true,
+        "Not exercised by this gate": true
+      },
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "headerControlsVisible": true,
+      "nativeAlertPresent": false,
+      "bodyClass": "mx_PodaTheme mx_PodaTheme_light cpd-theme-light",
+      "mainFocused": true,
+      "screenshot": "situation/references/P-000016/gate-1-complete/poda-light-1440x900.png",
+      "screenshotSha256": "cae8245f06296795131b305d4b98df4af5351ccd80607288564ee8f839e31953",
+      "visualReview": "PASS: header, native rail, diagnostic title, summary and all four status cards are readable; no clipping, overlap or horizontal overflow is visible."
+    },
+    {
+      "theme": "Poda Dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "dismissedAlerts": [],
+      "finalDismissedAlerts": [
+        "Later"
+      ],
+      "interactions": {
+        "start": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-1#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "diagnosticActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-1#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "chatActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-1&poda-navigation-reload=target#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        },
+        "diagnosticReturn": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-1&poda-navigation-reload=target#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        }
+      },
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "right": 1440,
+        "bottom": 900
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 56,
+        "right": 1440,
+        "bottom": 56
+      },
+      "application": {
+        "x": 0,
+        "y": 56,
+        "width": 1440,
+        "height": 844,
+        "right": 1440,
+        "bottom": 900
+      },
+      "workspace": {
+        "x": 70,
+        "y": 56,
+        "width": 1370,
+        "height": 844,
+        "right": 1440,
+        "bottom": 900
+      },
+      "documentScrollWidth": 1440,
+      "documentScrollHeight": 900,
+      "headerBackground": "rgb(26, 20, 16)",
+      "headerColor": "rgb(255, 248, 232)",
+      "requiredContent": {
+        "Diagnostic Workspace": true,
+        "Exported sibling root": true,
+        "Element location renderer": true,
+        "Owned by the host application": true,
+        "Not exercised by this gate": true
+      },
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "headerControlsVisible": true,
+      "nativeAlertPresent": false,
+      "bodyClass": "mx_PodaTheme mx_PodaTheme_dark cpd-theme-dark",
+      "mainFocused": true,
+      "screenshot": "situation/references/P-000016/gate-1-complete/poda-dark-1440x900.png",
+      "screenshotSha256": "2871784b1915e8700705dea2f5bf51c7d6b1b9c8119f0f9856371657fca2c5e5",
+      "visualReview": "PASS: header, native rail, diagnostic title, summary and all four status cards are readable; no clipping, overlap or horizontal overflow is visible."
+    },
+    {
+      "theme": "Poda Light",
+      "viewport": {
+        "width": 500,
+        "height": 900
+      },
+      "dismissedAlerts": [],
+      "finalDismissedAlerts": [
+        "Later"
+      ],
+      "interactions": {
+        "start": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-2#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "diagnosticActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-2#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "chatActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-2&poda-navigation-reload=target#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        },
+        "diagnosticReturn": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-2&poda-navigation-reload=target#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        }
+      },
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 500,
+        "height": 900,
+        "right": 500,
+        "bottom": 900
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 500,
+        "height": 56,
+        "right": 500,
+        "bottom": 56
+      },
+      "application": {
+        "x": 0,
+        "y": 56,
+        "width": 500,
+        "height": 844,
+        "right": 500,
+        "bottom": 900
+      },
+      "workspace": {
+        "x": 70,
+        "y": 56,
+        "width": 430,
+        "height": 844,
+        "right": 500,
+        "bottom": 900
+      },
+      "documentScrollWidth": 500,
+      "documentScrollHeight": 900,
+      "headerBackground": "rgb(255, 253, 249)",
+      "headerColor": "rgb(51, 34, 22)",
+      "requiredContent": {
+        "Diagnostic Workspace": true,
+        "Exported sibling root": true,
+        "Element location renderer": true,
+        "Owned by the host application": true,
+        "Not exercised by this gate": true
+      },
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "headerControlsVisible": true,
+      "nativeAlertPresent": false,
+      "bodyClass": "mx_PodaTheme mx_PodaTheme_light cpd-theme-light",
+      "mainFocused": true,
+      "screenshot": "situation/references/P-000016/gate-1-complete/poda-light-500x900.png",
+      "screenshotSha256": "990a027d7d11b41ef413152d941d612fdb0f82131693bc76f00d1a84f020b6ba",
+      "visualReview": "PASS: header, native rail, diagnostic title, summary and all four status cards are readable; no clipping, overlap or horizontal overflow is visible."
+    },
+    {
+      "theme": "Poda Dark",
+      "viewport": {
+        "width": 500,
+        "height": 900
+      },
+      "dismissedAlerts": [],
+      "finalDismissedAlerts": [
+        "Later"
+      ],
+      "interactions": {
+        "start": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-3#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "diagnosticActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-3#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": null
+        },
+        "chatActivation": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-3&poda-navigation-reload=target#/home",
+          "controls": {
+            "chatCurrent": "page",
+            "diagnosticCurrent": null,
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "nativeHomeVisible": true,
+          "nativeRoomVisible": false,
+          "diagnosticVisible": false,
+          "expectedKind": "home",
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        },
+        "diagnosticReturn": {
+          "url": "http://127.0.0.1:8080/?complete=53c290b3c6-case-3&poda-navigation-reload=target#/io.poda.navigation-spike.diagnostic",
+          "controls": {
+            "chatCurrent": null,
+            "diagnosticCurrent": "page",
+            "chatVisible": true,
+            "diagnosticVisible": true
+          },
+          "title": "Diagnostic Workspace",
+          "diagnosticVisible": true,
+          "mainFocused": true,
+          "nativeSpacePanelVisible": true,
+          "nativeLeftPanelVisible": false,
+          "userId": "@poda_navigation_gate:localhost",
+          "userMatchesFixture": true,
+          "moduleHostImmediatelyBeforeMatrixchat": true,
+          "sessionLockStolen": false,
+          "navigationTimingType": "navigate",
+          "reloadMarker": "target"
+        }
+      },
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 500,
+        "height": 900,
+        "right": 500,
+        "bottom": 900
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 500,
+        "height": 56,
+        "right": 500,
+        "bottom": 56
+      },
+      "application": {
+        "x": 0,
+        "y": 56,
+        "width": 500,
+        "height": 844,
+        "right": 500,
+        "bottom": 900
+      },
+      "workspace": {
+        "x": 70,
+        "y": 56,
+        "width": 430,
+        "height": 844,
+        "right": 500,
+        "bottom": 900
+      },
+      "documentScrollWidth": 500,
+      "documentScrollHeight": 900,
+      "headerBackground": "rgb(26, 20, 16)",
+      "headerColor": "rgb(255, 248, 232)",
+      "requiredContent": {
+        "Diagnostic Workspace": true,
+        "Exported sibling root": true,
+        "Element location renderer": true,
+        "Owned by the host application": true,
+        "Not exercised by this gate": true
+      },
+      "requiredContentVisible": true,
+      "nativeSpacePanelVisible": true,
+      "headerControlsVisible": true,
+      "nativeAlertPresent": false,
+      "bodyClass": "mx_PodaTheme mx_PodaTheme_dark cpd-theme-dark",
+      "mainFocused": true,
+      "screenshot": "situation/references/P-000016/gate-1-complete/poda-dark-500x900.png",
+      "screenshotSha256": "7fb21b77439e59f513d72482c76affd095957dce0b5eb9b40e0194865d9cd2a1",
+      "visualReview": "PASS: header, native rail, diagnostic title, summary and all four status cards are readable; no clipping, overlap or horizontal overflow is visible."
+    }
+  ],
+  "sourceReview": {
+    "diffCommand": "git diff --name-only internal/main...53c290b3c62f01ae95ca74893ce3c944a1b472b7",
+    "changedNonRecordSourcePaths": [
+      "modules/poda-navigation-spike/e2e/navigation.spec.ts",
+      "modules/poda-navigation-spike/package.json",
+      "modules/poda-navigation-spike/project.json",
+      "modules/poda-navigation-spike/src/Navigation.tsx",
+      "modules/poda-navigation-spike/src/index.tsx",
+      "modules/poda-navigation-spike/src/style.css",
+      "modules/poda-navigation-spike/src/vite-env.d.ts",
+      "modules/poda-navigation-spike/tsconfig.json",
+      "modules/poda-navigation-spike/vite.config.ts",
+      "pnpm-lock.yaml"
+    ],
+    "elementCoreSourceChanged": false,
+    "stableApplicationConfigurationChanged": false,
+    "forbiddenDependencyMatches": [],
+    "exportedContracts": [
+      "@element-hq/element-web-module-api Api",
+      "Api.rootNode",
+      "Api.createRoot",
+      "Api.navigation.registerLocationRenderer",
+      "React"
+    ],
+    "hostOperations": [
+      "create a module-owned div",
+      "place that div immediately before Api.rootNode",
+      "render the header and owned style element through Api.createRoot",
+      "mark only reload-transition source/target URLs through history.replaceState and location.assign",
+      "reload only a marked pageshow event whose persisted flag is true"
+    ],
+    "secondRouter": false,
+    "secondMatrixClient": false,
+    "privateElementImport": false,
+    "privateStoreAccess": false,
+    "hostQuery": false
+  },
+  "isolation": {
+    "enabledEntry": "/modules/poda-navigation-spike/index.js",
+    "removalOutcome": {
+      "moduleRequests": [],
+      "headerPresent": false,
+      "moduleHostPresent": false,
+      "diagnosticPresent": false,
+      "directDiagnosticAttemptFinalUrl": "http://127.0.0.1:8080/?module-disabled=53c290b3c6-diagnostic#/home",
+      "nativeHomeVisible": true,
+      "sameUserId": "@poda_navigation_gate:localhost",
+      "sessionLockStolen": false
+    },
+    "restorationOutcome": {
+      "url": "http://127.0.0.1:8080/?preview=complete#/io.poda.navigation-spike.diagnostic",
+      "headerPresent": true,
+      "diagnosticPresent": true,
+      "diagnosticFocused": true,
+      "moduleHostImmediatelyBeforeMatrixchat": true,
+      "sameUserId": "@poda_navigation_gate:localhost",
+      "sessionLockStolen": false
+    }
+  },
+  "runtimeHealth": {
+    "moduleResponseStatuses": [
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304,
+      304
+    ],
+    "pageErrors": [],
+    "moduleLoadRenderReactOrNavigationErrors": [],
+    "consoleErrorsByMessage": [
+      {
+        "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "count": 60
+      },
+      {
+        "message": "Permissions policy violation: unload is not allowed in this document.",
+        "count": 15
+      },
+      {
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "count": 15
+      }
+    ],
+    "requestFailures": [
+      {
+        "scope": "GET https://localhost/.well-known/matrix/client -> net::ERR_CONNECTION_REFUSED (fixture well-known probe)",
+        "count": 14
+      }
+    ],
+    "failedResponses": [
+      {
+        "scope": "GET /config.127.0.0.1.json?cachebuster=* -> 404 (optional per-host config probe)",
+        "count": 14
+      },
+      {
+        "scope": "GET /_matrix/client/v3/room_keys/version -> 404 (optional fixture endpoint)",
+        "count": 14
+      },
+      {
+        "scope": "GET /_matrix/client/unstable/org.matrix.msc3814.v1/dehydrated_device -> 404 (optional fixture endpoint)",
+        "count": 14
+      },
+      {
+        "scope": "GET /_matrix/client/unstable/org.matrix.msc4143/rtc/transports -> 404 (optional fixture endpoint)",
+        "count": 14
+      }
+    ],
+    "unrelatedNativeFixtureTraffic": [
+      "GET /config.127.0.0.1.json?cachebuster=* -> 404 (optional per-host config probe); observed 14 time(s)",
+      "GET /_matrix/client/v3/room_keys/version -> 404 (optional fixture endpoint); observed 14 time(s)",
+      "GET /_matrix/client/unstable/org.matrix.msc3814.v1/dehydrated_device -> 404 (optional fixture endpoint); observed 14 time(s)",
+      "GET /_matrix/client/unstable/org.matrix.msc4143/rtc/transports -> 404 (optional fixture endpoint); observed 14 time(s)",
+      "GET https://localhost/.well-known/matrix/client -> net::ERR_CONNECTION_REFUSED (fixture well-known probe); observed 14 time(s)",
+      "Permissions policy violation: unload is not allowed in this document (host warning during document loads); observed 15 time(s)"
+    ]
+  },
+  "oracleLegs": {
+    "P1": {
+      "result": "PASS",
+      "evidence": "All 14 module responses were 304; every checked state placed the module host immediately before #matrixchat; all four geometry observations exactly filled the viewport."
+    },
+    "P2": {
+      "result": "PASS",
+      "evidence": "The core sequence plus eight matrix Diagnostic activations reached the exact location, focused the labelled main, retained SpacePanel, removed LeftPanel and marked only Diagnostic current."
+    },
+    "P3": {
+      "result": "PASS",
+      "evidence": "The core sequence plus four matrix Chat activations reached native Home, removed diagnostic content, retained the fixture user and marked only Chat current."
+    },
+    "P4": {
+      "result": "PASS",
+      "evidence": "Refresh retained Diagnostic/current. Back ended at marked Diagnostic/current with navigation type back_forward; Forward ended at marked native Home/current Chat with navigation type reload and no session-lock-stolen view."
+    },
+    "P5": {
+      "result": "PASS",
+      "evidence": "Both controls and workspace focus succeeded in each of four cases; required content, rail, geometry, no-overflow and distinct light/dark colors passed; four screenshots were visually reviewed."
+    },
+    "P6": {
+      "result": "PASS",
+      "evidence": "Exact diff/dependency/operation review found only exported Module API/React contracts, scoped browser history/lifecycle handling and the owned sibling root; no Element core change, host query, private store, second router or client."
+    },
+    "P7": {
+      "result": "PASS",
+      "evidence": "Removing the generated entry produced zero module requests and no header/host/workspace, with direct Diagnostic falling back to native Home for the same user; restoration restored the gate."
+    },
+    "P8": {
+      "result": "PASS",
+      "evidence": "No page error or module load/render/React/navigation error occurred; every non-2xx/refused request and unload warning belongs to the enumerated optional native/fixture traffic."
+    }
+  },
+  "limits": [
+    "This observation covers only P-000016 Scope and Chrome/150.0.7871.24.",
+    "The checked-in Playwright project did not run because its pinned Chromium executable is absent; the manual browser Oracle is retained instead.",
+    "The native Chat transition remains a full-document reload because the exported Module API has no generic native-screen transition; marked back-forward-cache restoration is scoped to the two transition entries.",
+    "The post-observation exact-head application rebuild changed generated content hashes but no application source; observedServedApplication names the artifact actually exercised.",
+    "No production product data, persistence, assistant, widget, deployment, signed-out, Settings, call, PiP or accessibility behavior beyond the named labels/current states/focus was exercised."
+  ]
+}

@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -18,6 +18,7 @@ The Promise contract requires cited PASS evidence for every behavior asserted by
 - [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) records the current control after refresh but records only the destinations for Back and Forward. The linked [structured observation](situation/references/P-000015/gate-1/browser-observation.json) likewise has `currentControl` for Diagnostic, refresh, and Chat, but no active-control field or equivalent observation for Back or Forward.
 - P-000015 also promises that the header and diagnostic workspace remain readable and operable in Poda Light and Poda Dark at both 1440 × 900 and 500 × 900. O-000015 P5/F5 requires visibility, geometry, overflow, theme response, and direct control/workspace operability in that matrix.
 - W-000002 and the structured presentation observations retain visibility, rectangles, overflow, and computed-color results for the four matrix cases, but no interaction observation for the other theme/viewport cases.
+- [P-000016](situation/promises/P-000016-decision-complete-module-navigation-gate.md) and predeclared [O-000016](situation/oracles/O-000016-decision-complete-module-navigation-gate.md) require both previously absent decisions directly. At exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7`, [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) records Back with only Diagnostic workspace current, Forward with only Chat current, and a direct Home → Diagnostic → Chat → Diagnostic interaction with focused workspace in every declared theme/viewport case. The [structured observation](situation/references/P-000016/gate-1-complete/browser-pass.json) retains each interaction and every O-000016 leg as PASS.
 
 ## Impact
 
@@ -25,7 +26,7 @@ The retained evidence does not establish complete assurance, so P-000015 remains
 
 ## Resolution
 
-none
+P-000016, O-000016 and W-000003 supply the two missing decisions and close this bounded assurance-coverage absence. P-000015 remains `implemented` and W-000002 remains `INVALID`; the new decision-complete Promise and Witness do not rewrite that immutable observation or select production navigation.
 
 ## References
 
@@ -36,3 +37,7 @@ none
 - [Promise contract](situation/promises/AGENTS.md)
 - [Oracle contract](situation/oracles/AGENTS.md)
 - [Witness contract](situation/witnesses/AGENTS.md)
+- [Decision-complete Gate Promise](situation/promises/P-000016-decision-complete-module-navigation-gate.md)
+- [Decision-complete Gate Oracle](situation/oracles/O-000016-decision-complete-module-navigation-gate.md)
+- [Decision-complete PASS Witness](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md)
+- [Decision-complete structured observation](situation/references/P-000016/gate-1-complete/browser-pass.json)

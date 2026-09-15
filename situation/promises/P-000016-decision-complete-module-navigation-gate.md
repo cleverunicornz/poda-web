@@ -2,7 +2,7 @@
 
 ## State
 
-assuring
+assured
 
 ## Promise
 
@@ -29,6 +29,7 @@ Operability means direct browser activation of Diagnostic workspace, Chat, and D
 - P-000015 retains the implemented source and its first incomplete observation without changing that immutable record.
 - [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) identifies the two missing retained decisions this Promise and Oracle explicitly require.
 - O-000016 is predeclared before the new exact-head observation.
+- [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) applies every O-000016 leg at exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7` and passes.
 
 ## Residual
 
