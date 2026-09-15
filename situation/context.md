@@ -60,6 +60,12 @@ Communities (empty, staff-curated), and Poda Support (read-only
 Announcements + Support Chat). All children use space-restricted join rules,
 verified live by invite-free room joins and a blocked regular-user post.
 
+The maintainer has revised the prospective member-workspace preview under
+[D-000019](situation/decisions/D-000019-shared-member-workspaces.md).
+It retains conventional product workspaces and native chat while using shared
+domain views and one UI foundation. The preview remains unimplemented and its
+delivery plan is draft, not a new active assignment.
+
 ## Intended state
 
 For the active first visual migration, the responsive web client retains Element's existing information architecture,
@@ -100,8 +106,59 @@ personalization, room participation and artifact/tool authorization remain at
 their owning product/backend/Matrix boundaries; the frontend consumes explicit
 identities and contracts rather than inventing them.
 
+## Member workspace preview
+
+[I-000012](situation/invariants/I-000012-shared-member-workspaces.md) is the
+additional critical workspace/composition boundary: the Element-derived member
+application owns the full app experience, not only Chat. The selected dedicated
+app subdomain is an architectural boundary; no real hostname, deployment or
+cookie/redirect policy is configured by this decision. Astro retains designated
+public-page generation within the coordinated frontend workspace/delivery.
+
+The proposed Chat/Studio/Profile/Settings navigation retains Podcasts, Episodes
+and Analytics in Studio, own creator-profile editing and the creators directory.
+Full workspaces and appropriate conversation contexts present shared domain
+components and view contracts, not parallel interfaces or design systems.
+Native chat and manual product work remain independently usable. Supported
+module APIs are the first integration route; any unexposed host requirement
+needs an explicit qualified extension rather than a predetermined core patch.
+
+[P-000008](situation/promises/P-000008-member-workspace-preview.md) is a
+hypothesis judged by the designed, manual
+[O-000008](situation/oracles/O-000008-member-workspace-preview.md), grouped by
+draft [PLAN-000003](situation/plans/draft/PLAN-000003-member-workspace-preview.md).
+The [delivery reference](situation/references/D-000019/member-workspace-preview-plan.md)
+retains the bounded preview and shared-scenario approach. Simulated product
+outcomes stay inside identified preview/test entrypoints; neither a preview
+nor this planning revision qualifies actual backend or assistant behavior.
+Existing production hypotheses P-000009 through P-000014, service authority and
+unselected policies remain separate. The original submitted donor-coverage
+publication concern is retained in
+[G-000006](situation/gaps/G-000006-submitted-donor-publication-review.md).
+
+## Navigation qualification
+
+[C-000003](situation/candidates/C-000003-qualify-member-navigation.md) now
+records the specific navigation alternatives as proposed approaches: a
+module-owned header using the supported banner mounting pattern, native
+SpacePanel workspace entries as a different UX, and a narrow host extension
+only for a demonstrated missing capability. The module header is preferred
+for investigation, not selected or proven for delivery.
+
+The exported root/sibling APIs and banner source are observed capabilities;
+complete Poda navigation without a core-source change remains unqualified.
+The [qualification dossier](situation/references/C-000003/member-navigation-qualification.md)
+predeclares routing, active state, session visibility, native dialog/focus,
+responsive/theme, retained chrome and lifecycle cases. Draft
+[PLAN-000004](situation/plans/draft/PLAN-000004-qualify-member-navigation.md)
+groups that Candidate as separate qualification work feeding PLAN-000003's
+existing host-qualification prerequisite. It does not reopen or rewrite the
+closed preview records, activate either Plan, promote a Candidate, or claim
+a prototype or runtime result. D-000019's selected product direction remains
+distinct from the unproven navigation mechanisms.
+
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260914T145709Z-0afde435d3353cd007b599a398104faa26008dc4`, opened at `414662e5747dbe93b4d5047bf7c5fc3550b292cb`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34858669401`
+- Last completed closure: run `20260915T101355Z-b42002f89cffba366888756030cb53a1f48f2981`, opened at `f1a9cf20cf17adb4346c929d25cf4cae95b98137`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34956604196`
