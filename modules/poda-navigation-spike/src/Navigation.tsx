@@ -29,8 +29,11 @@ export const NavigationHeader: FC = () => {
         if (!diagnosticActive) return;
 
         event.preventDefault();
-        window.location.hash = "/home";
-        window.location.reload();
+        const url = new URL(window.location.href);
+        const reloadMarker = url.searchParams.get("poda-navigation-reload");
+        url.searchParams.set("poda-navigation-reload", reloadMarker === "1" ? "0" : "1");
+        url.hash = "/home";
+        window.location.assign(url);
     };
 
     return (
