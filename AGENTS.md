@@ -215,6 +215,7 @@ Repository-specific orientation belongs in the repository block that follows.
 ### Tools and knowledge
 
 <!-- cvu-native-capabilities:start -->
+
 - Use Qualia semantic search as the default way to find code; it returns a few
   relevant, located results instead of flooding context with raw matches.
   Use exact-string search or a direct read only for a name, literal, or error
@@ -227,6 +228,7 @@ Repository-specific orientation belongs in the repository block that follows.
   default on the supported copy-on-write substrate, and child changes reach
   the parent through report merge; explicit shared-checkout workflows such as
   Bedrock retain their declared exception.
+
 <!-- cvu-native-capabilities:end -->
 
 - Tool-specific skills live at the harness user level and install with their
@@ -237,10 +239,10 @@ Repository-specific orientation belongs in the repository block that follows.
 - Keep scratch work outside the repository in the environment's designated
   temporary location; remove it when the task completes.
 - Bedrock run evidence is retained outside the repository. Each closure's
-  opening and closing checkpoints and its closure state carry that run's
-  evidence reference; storage and retrieval procedures belong to
-  infrastructure operations.
-</bedrock-organization>
+opening and closing checkpoints and its closure state carry that run's
+evidence reference; storage and retrieval procedures belong to
+infrastructure operations.
+  </bedrock-organization>
 
 <bedrock-repository>
 ## poda-web
@@ -249,16 +251,16 @@ Repository-specific orientation belongs in the repository block that follows.
 - Ownership: `UPSTREAM_FORK` of https://github.com/element-hq/element-web; synchronization and contribution follow the organization's fork rules in the root organization block.
 - Phase and implementation map: `situation/context.md`.
 - Critical invariants:
-  - [I-000001](situation/invariants/I-000001-upstream-authority-boundary.md) — Bedrock keeps the upstream-owned Element Web source, documentation, configuration, and nested `AGENTS.md` files intact; fork-specific orientation exists only in `situation/` and the root `<bedrock-repository>` block.
-  - [I-000004](situation/invariants/I-000004-one-frontend-rendering-boundary.md) — Poda Web's public and member web surfaces belong to one coordinated frontend workspace and delivery boundary: Astro owns designated public-page generation, while the Element-derived member runtime owns member navigation and application lifecycle.
-  - [I-000005](situation/invariants/I-000005-native-matrix-assistant-views.md) — Production personal-assistant conversations in the member application use Element's native Matrix room UI and existing session context, with explicit assistant identity and conversation room.
-  - [I-000006](situation/invariants/I-000006-shared-artifact-editing-contract.md) — Manual and assisted artifact editors, including module-page and room-widget presentations, share one canonical artifact identity and form validation/mutation contract.
-  - [I-000007](situation/invariants/I-000007-server-owned-access-authority.md) — Identity, Matrix room access and artifact permissions remain authoritative at their owning services; frontend affordances and widget capabilities consume explicit authorized contracts.
-  - [I-000008](situation/invariants/I-000008-public-output-data-boundary.md) — Public Astro output contains only data explicitly designated for public delivery and remains separate from authenticated member state, credentials and private artifact content.
-  - [I-000009](situation/invariants/I-000009-production-truth-and-preview-isolation.md) — Production data and user-visible mutation/persistence claims derive from actual service outcomes; simulated data and actions are confined to explicit preview/test entrypoints.
-  - [I-000010](situation/invariants/I-000010-explicit-host-extension-boundaries.md) — Poda extension code uses exported Module/widget contracts or a deliberately defined host extension; changes to Element-owned behavior are isolated and reviewed as explicit core changes.
-  - [I-000012](situation/invariants/I-000012-shared-member-workspaces.md) — Poda's Element-derived member application presents shared domain views through first-class workspaces and suitable conversation contexts, with ordinary product workflows available without chat or assistant invocation.
-- Verification: Unassured: no assured witness route is presently recorded for this fork; [G-000001](situation/gaps/G-000001-fork-assurance-route.md) retains that absence. [G-000004](situation/gaps/G-000004-product-ui-implementation-and-evidence.md) retains missing product UI realization/evidence. [C-000002](situation/candidates/C-000002-qualify-product-ui-boundaries.md) and navigation-specific [C-000003](situation/candidates/C-000003-qualify-member-navigation.md) remain proposed qualification candidates, not promotions or proven implementations. Neither the critical guardrails nor the draft member-workspace preview implement or assure product behavior.
+    - [I-000001](situation/invariants/I-000001-upstream-authority-boundary.md) — Bedrock keeps the upstream-owned Element Web source, documentation, configuration, and nested `AGENTS.md` files intact; fork-specific orientation exists only in `situation/` and the root `<bedrock-repository>` block.
+    - [I-000004](situation/invariants/I-000004-one-frontend-rendering-boundary.md) — Poda Web's public and member web surfaces belong to one coordinated frontend workspace and delivery boundary: Astro owns designated public-page generation, while the Element-derived member runtime owns member navigation and application lifecycle.
+    - [I-000005](situation/invariants/I-000005-native-matrix-assistant-views.md) — Production personal-assistant conversations in the member application use Element's native Matrix room UI and existing session context, with explicit assistant identity and conversation room.
+    - [I-000006](situation/invariants/I-000006-shared-artifact-editing-contract.md) — Manual and assisted artifact editors, including module-page and room-widget presentations, share one canonical artifact identity and form validation/mutation contract.
+    - [I-000007](situation/invariants/I-000007-server-owned-access-authority.md) — Identity, Matrix room access and artifact permissions remain authoritative at their owning services; frontend affordances and widget capabilities consume explicit authorized contracts.
+    - [I-000008](situation/invariants/I-000008-public-output-data-boundary.md) — Public Astro output contains only data explicitly designated for public delivery and remains separate from authenticated member state, credentials and private artifact content.
+    - [I-000009](situation/invariants/I-000009-production-truth-and-preview-isolation.md) — Production data and user-visible mutation/persistence claims derive from actual service outcomes; simulated data and actions are confined to explicit preview/test entrypoints.
+    - [I-000010](situation/invariants/I-000010-explicit-host-extension-boundaries.md) — Poda extension code uses exported Module/widget contracts or a deliberately defined host extension; changes to Element-owned behavior are isolated and reviewed as explicit core changes.
+    - [I-000012](situation/invariants/I-000012-shared-member-workspaces.md) — Poda's Element-derived member application presents shared domain views through first-class workspaces and suitable conversation contexts, with ordinary product workflows available without chat or assistant invocation.
+- Verification: Unassured: no assured witness route is presently recorded for this fork; [G-000001](situation/gaps/G-000001-fork-assurance-route.md) retains that absence. [G-000004](situation/gaps/G-000004-product-ui-implementation-and-evidence.md) retains missing product UI realization/evidence. [C-000002](situation/candidates/C-000002-qualify-product-ui-boundaries.md) remains proposed. Navigation-specific [C-000003](situation/candidates/C-000003-qualify-member-navigation.md) is qualifying under active [PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md) through bounded, unassured [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) and [O-000015](situation/oracles/O-000015-module-navigation-mount-gate.md); it is not promoted or a proven production implementation. Neither the critical guardrails nor the draft member-workspace preview implement or assure product behavior.
 - Tool priority: organization defaults.
 - Donor boundary: `b53af60d7e2ae8c9021e94dd628d478dbc65c37e` (trigger tree admitted by opening checkpoint `51ccbf3c36fc160066424b656456b115994309b5`).
-</bedrock-repository>
+  </bedrock-repository>

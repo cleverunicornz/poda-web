@@ -2,7 +2,7 @@
 
 ## State
 
-proposed
+qualifying
 
 ## Candidate
 
@@ -43,6 +43,6 @@ The owned [qualification dossier](situation/references/C-000003/member-navigatio
 
 ## Disposition
 
-none
+Qualification is active under [PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md). The maintainer authorized the bounded module-header Gate 1 on 2026-09-15; direct [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) and [O-000015](situation/oracles/O-000015-module-navigation-mount-gate.md) predeclare that probe.
 
-[PLAN-000004](situation/plans/draft/PLAN-000004-qualify-member-navigation.md) is draft; C-000003 remains proposed. No prototype was executed, no approach was qualified or selected for delivery, and no Promise, Oracle, Witness or promotion transaction is created by this record. [P-000008](situation/promises/P-000008-member-workspace-preview.md) remains the separate preview hypothesis.
+C-000003 remains qualifying rather than promoted: the probe covers only one diagnostic workspace and native Chat/home lifecycle. It does not select production navigation, qualify the complete Candidate, assure [P-000008](situation/promises/P-000008-member-workspace-preview.md), or authorize a rail substitution or core extension.

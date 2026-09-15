@@ -138,24 +138,26 @@ publication concern is retained in
 
 ## Navigation qualification
 
-[C-000003](situation/candidates/C-000003-qualify-member-navigation.md) now
-records the specific navigation alternatives as proposed approaches: a
-module-owned header using the supported banner mounting pattern, native
-SpacePanel workspace entries as a different UX, and a narrow host extension
-only for a demonstrated missing capability. The module header is preferred
-for investigation, not selected or proven for delivery.
+[C-000003](situation/candidates/C-000003-qualify-member-navigation.md) is
+qualifying the specific navigation alternatives: a module-owned header using
+the supported sibling mounting pattern, native SpacePanel workspace entries as
+a different UX, and a narrow host extension only for a demonstrated missing
+capability. The module header remains the preferred first investigation rather
+than selected production navigation.
 
-The exported root/sibling APIs and banner source are observed capabilities;
-complete Poda navigation without a core-source change remains unqualified.
-The [qualification dossier](situation/references/C-000003/member-navigation-qualification.md)
-predeclares routing, active state, session visibility, native dialog/focus,
-responsive/theme, retained chrome and lifecycle cases. Draft
-[PLAN-000004](situation/plans/draft/PLAN-000004-qualify-member-navigation.md)
-groups that Candidate as separate qualification work feeding PLAN-000003's
-existing host-qualification prerequisite. It does not reopen or rewrite the
-closed preview records, activate either Plan, promote a Candidate, or claim
-a prototype or runtime result. D-000019's selected product direction remains
-distinct from the unproven navigation mechanisms.
+The maintainer authorized a bounded local Gate 1 on 2026-09-15.
+[P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) and
+[O-000015](situation/oracles/O-000015-module-navigation-mount-gate.md)
+predeclare one module-owned header, one diagnostic location, native Chat/home,
+refresh/history, Poda Light/Dark and desktop/narrow observations. Active
+[PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md)
+groups that work and feeds PLAN-000003's existing host-qualification
+prerequisite.
+
+The implementation is in progress; no runtime Witness or gate disposition is
+yet recorded. C-000003 is not promoted, production navigation is not selected,
+and P-000008 and PLAN-000003 remain unchanged. D-000019's selected product
+direction remains distinct from the bounded navigation mechanism probe.
 
 ## Closure state
 
