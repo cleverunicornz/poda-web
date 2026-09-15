@@ -165,7 +165,8 @@ at exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7`.
 records Back and Forward destinations plus active controls and direct
 Home → Diagnostic → Chat → Diagnostic interaction in every Poda
 theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md)
-is closed by that complete evidence without rewriting W-000002.
+remains open: P-000016's distinct Scope and W-000003 do not apply O-000015 to
+P-000015 or complete W-000002's invalid observation.
 
 This is narrow manual assurance of the generated local module gate, not the
 reusable fork assurance route absent in [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
