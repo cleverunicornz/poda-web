@@ -35,10 +35,14 @@ The root repository block must state whether a recorded route can support a gate
   stylesheet from the target's explicit inputs even though the checker reads
   it. Whether a future fork-owned exact-head route supplies a decision-complete,
   cache-correct scope check remains unresolved.
+- 2026-09-15 Gate 1 observation: [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) retains direct manual observations for one narrow fork-specific module gate, but is `INVALID` as complete assurance because retained evidence omits Back/Forward active-control and per-matrix control-operability observations. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) retains that absence without asserting runtime failure. [O-000015](situation/oracles/O-000015-module-navigation-mount-gate.md) remains `designed` because the checked-in Playwright project was blocked by its absent pinned Chromium. These partial observations do not implement the reusable assurance route whose absence this Gap records.
+- DELTA observation for run `20260915T214745Z-92db4fcae2fa3bee57b9f15994d238dcd4a95c30` over `4beedcb1c4109660d7547d9470b75fa82479a6d7..92db4fcae2fa3bee57b9f15994d238dcd4a95c30`: [P-000016](situation/promises/P-000016-decision-complete-module-navigation-gate.md) is `assured` by [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) at exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7`, but [O-000016](situation/oracles/O-000016-decision-complete-module-navigation-gate.md) remains `designed` with every leg manual and W-000003 retains committed local evidence rather than an exact-head fork-owned CI run URL. It assures P-000016's finite local-preview Scope but does not implement P-000005's reusable fork assurance route.
 
 ## Impact
 
 The root repository block must render its Verification bullet as unassured, and no fork-specific gate claim can cite an inherited workflow run.
+- The repository projection must distinguish P-000015's partial manual observations from the still-absent implemented, reusable fork route; a blanket statement that no fork-specific Witness exists is no longer accurate.
+- The repository projection must distinguish P-000016's separately assured manual local gate from the still-absent reusable run-URL route.
 
 ## Resolution
 
@@ -52,3 +56,4 @@ The root repository block must render its Verification bullet as unassured, and 
 
 - `situation/decisions/D-000001-upstream-authority.md`
 - `situation/invariants/I-000001-upstream-authority-boundary.md`
+- [Gate 1 Chromium Witness](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)

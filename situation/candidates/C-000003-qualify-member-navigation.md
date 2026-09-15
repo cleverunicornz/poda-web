@@ -2,7 +2,7 @@
 
 ## State
 
-proposed
+qualifying
 
 ## Candidate
 
@@ -17,6 +17,9 @@ The module header is the preferred first qualification approach, not a selected 
 - [G-000005](situation/gaps/G-000005-unselected-product-ui-contracts.md) retains the unselected navigation/host contract; [G-000004](situation/gaps/G-000004-product-ui-implementation-and-evidence.md) retains missing implementation and evidence.
 - Source inspection found public `rootNode`/`createRoot` contracts in `e4856fa4e80102c735642d1112f3c1c2a4ae0603:packages/module-api/src/api/index.ts`; `e4856fa4e80102c735642d1112f3c1c2a4ae0603:modules/banner/src/index.tsx` mounts a sibling before the application root, `e4856fa4e80102c735642d1112f3c1c2a4ae0603:modules/banner/src/Banner.tsx` renders navigation, and `e4856fa4e80102c735642d1112f3c1c2a4ae0603:modules/banner/src/style.css` arranges the header and application viewport. These are source observations, not a Poda-header runtime result.
 - `e4856fa4e80102c735642d1112f3c1c2a4ae0603:packages/module-api/src/api/navigation.ts` exposes alpha exact-location renderers and native room navigation; `e4856fa4e80102c735642d1112f3c1c2a4ae0603:apps/web/src/vector/routing.ts` handles native URL/hash navigation. `e4856fa4e80102c735642d1112f3c1c2a4ae0603:packages/module-api/src/api/extras.ts` exposes alpha space-like entries. Those facts support investigation, not arbitrary host-chrome ownership or a complete current-workspace subscription contract.
+- [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) retains Gate 1's observed native-screen transition limit: after a registered location, a plain `#/home` hash can be suppressed by host router state, and the exported Module navigation API has no generic native-screen transition.
+- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) retains direct Chromium observations of the finite module-header Gate 1 at exact head `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3`, including the diagnostic mount and native Chat/home sequence. It is `INVALID` as a complete Gate 1 result because it lacks retained Back/Forward active-control and per-matrix control-operability observations; [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) retains that evidence gap without asserting runtime failure. It therefore does not establish P-000015 assurance or the complete production navigation Candidate; G-000008 retains the reload-limited native transition.
+- [P-000016](situation/promises/P-000016-decision-complete-module-navigation-gate.md) is separately `assured` by [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) at exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7` for the generated local module gate's declared diagnostic/Chat history and theme/viewport interactions. This finite evidence is bounded to P-000016 Scope; it does not resolve the remaining Candidate questions or promote C-000003.
 
 ## Why consider it
 
@@ -43,6 +46,6 @@ The owned [qualification dossier](situation/references/C-000003/member-navigatio
 
 ## Disposition
 
-none
+Qualification remains active under [PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md). The maintainer authorized the bounded module-header Gate 1 on 2026-09-15; [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) remains `implemented`, and [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) is `INVALID` rather than a complete PASS, as [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) records.
 
-[PLAN-000004](situation/plans/draft/PLAN-000004-qualify-member-navigation.md) is draft; C-000003 remains proposed. No prototype was executed, no approach was qualified or selected for delivery, and no Promise, Oracle, Witness or promotion transaction is created by this record. [P-000008](situation/promises/P-000008-member-workspace-preview.md) remains the separate preview hypothesis.
+C-000003 remains qualifying rather than promoted: P-000015's incomplete probe and P-000016's separately assured local gate cover only one diagnostic workspace and a reload-based native Chat/home lifecycle. They do not select production navigation, qualify the complete Candidate, assure [P-000008](situation/promises/P-000008-member-workspace-preview.md), or authorize a rail substitution or core extension.

@@ -49,9 +49,10 @@ visibility, icon-tint, and narrow-width presentation defects. D-000011 repairs
 the cascade in `apps/web/src/theme.ts` and applies the Poda-scoped corrections;
 verified post-fix renders show the Poda tokens computing in both modes, the
 demo Space carrying the supplied mark as its native `m.room.avatar`, visible
-Join actions, and zero narrow overflow. Retained approved visual evidence and
-exact-head CI remain pending. No Poda visual or fork-specific assurance Witness
-exists yet.
+Join actions, and zero narrow overflow. Approved visual evidence and exact-head
+CI for the visual migration remain pending. The assured navigation Gate 1
+described below is a separate mechanism observation and does not assure the
+visual migration.
 
 The demo Matrix homeserver now carries the four-Space organization from
 D-000012: Poda Community (General auto-joined; Equipment and both Last Minute
@@ -138,27 +139,49 @@ publication concern is retained in
 
 ## Navigation qualification
 
-[C-000003](situation/candidates/C-000003-qualify-member-navigation.md) now
-records the specific navigation alternatives as proposed approaches: a
-module-owned header using the supported banner mounting pattern, native
-SpacePanel workspace entries as a different UX, and a narrow host extension
-only for a demonstrated missing capability. The module header is preferred
-for investigation, not selected or proven for delivery.
+[C-000003](situation/candidates/C-000003-qualify-member-navigation.md) is
+qualifying the specific navigation alternatives: a module-owned header using
+the supported sibling mounting pattern, native SpacePanel workspace entries as
+a different UX, and a narrow host extension only for a demonstrated missing
+capability. The module header remains the preferred first investigation rather
+than selected production navigation.
 
-The exported root/sibling APIs and banner source are observed capabilities;
-complete Poda navigation without a core-source change remains unqualified.
-The [qualification dossier](situation/references/C-000003/member-navigation-qualification.md)
-predeclares routing, active state, session visibility, native dialog/focus,
-responsive/theme, retained chrome and lifecycle cases. Draft
-[PLAN-000004](situation/plans/draft/PLAN-000004-qualify-member-navigation.md)
-groups that Candidate as separate qualification work feeding PLAN-000003's
-existing host-qualification prerequisite. It does not reopen or rewrite the
-closed preview records, activate either Plan, promote a Candidate, or claim
-a prototype or runtime result. D-000019's selected product direction remains
-distinct from the unproven navigation mechanisms.
+The maintainer authorized a bounded local Gate 1 on 2026-09-15.
+[P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) and
+[O-000015](situation/oracles/O-000015-module-navigation-mount-gate.md)
+predeclare one module-owned header, one diagnostic location, native Chat/home,
+refresh/history, Poda Light/Dark and desktop/narrow observations. Active
+[PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md)
+groups that work and feeds PLAN-000003's existing host-qualification
+prerequisite.
+
+The implementation retained by [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md)
+remains `implemented`, and its first [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)
+observation remains `INVALID`. The decision-complete
+[P-000016](situation/promises/P-000016-decision-complete-module-navigation-gate.md)
+is separately `assured` by [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md)
+at exact head `53c290b3c62f01ae95ca74893ce3c944a1b472b7`.
+[O-000016](situation/oracles/O-000016-decision-complete-module-navigation-gate.md)
+records Back and Forward destinations plus active controls and direct
+Home → Diagnostic → Chat → Diagnostic interaction in every Poda
+theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md)
+remains open: P-000016's distinct Scope and W-000003 do not apply O-000015 to
+P-000015 or complete W-000002's invalid observation.
+
+This is narrow manual assurance of the generated local module gate, not the
+reusable fork assurance route absent in [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
+W-000001 separately retains the unavailable pinned Playwright browser without
+treating it as product failure. [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
+retains the reload-limited native-screen transition and its marker-scoped
+back-forward-cache restoration; [G-000010](situation/gaps/G-000010-module-stylesheet-host-selector-scope.md)
+retains the unresolved production stylesheet ownership boundary.
+
+C-000003 remains qualifying rather than promoted, production navigation is not
+selected, and P-000008 and PLAN-000003 remain unchanged. D-000019's selected
+product direction remains distinct from the bounded navigation mechanism probe.
 
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260915T101355Z-b42002f89cffba366888756030cb53a1f48f2981`, opened at `f1a9cf20cf17adb4346c929d25cf4cae95b98137`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/34956604196`
+- Last completed closure: run `20260915T214745Z-92db4fcae2fa3bee57b9f15994d238dcd4a95c30`, opened at `ab4847bdd346c64586fa112cdfd2a4d904d3ca3a`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35027357320`

@@ -1,0 +1,176 @@
+/*
+Copyright 2026 Poda contributors
+
+SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#matrixchat {
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+[data-poda-navigation="gate-1"] {
+    flex: 0 0 auto;
+}
+
+.podaNavigation {
+    box-sizing: border-box;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    gap: var(--cpd-space-4x);
+    padding: var(--cpd-space-2x) var(--cpd-space-4x);
+    color: var(--cpd-color-text-primary);
+    background: var(--cpd-color-bg-canvas-default);
+    border-bottom: var(--cpd-border-width-1) solid var(--cpd-color-border-interactive-secondary);
+    font: var(--cpd-font-body-md-medium);
+}
+
+.podaNavigation_brand {
+    display: flex;
+    align-items: center;
+    gap: var(--cpd-space-2x);
+    flex: 0 0 auto;
+    font: var(--cpd-font-heading-sm-semibold);
+}
+
+.podaNavigation_mark {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    color: var(--cpd-color-text-on-solid-primary);
+    background: var(--cpd-color-bg-action-primary-rest);
+    font-weight: var(--cpd-font-weight-semibold);
+}
+
+.podaNavigation_links {
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    gap: var(--cpd-space-1x);
+    overflow-x: auto;
+}
+
+.podaNavigation_link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 var(--cpd-space-3x);
+    border-radius: 10px;
+    color: var(--cpd-color-text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.podaNavigation_link:hover {
+    background: var(--cpd-color-bg-action-secondary-hovered);
+}
+
+.podaNavigation_link:focus-visible {
+    outline: 2px solid var(--cpd-color-border-interactive-primary);
+    outline-offset: 2px;
+}
+
+.podaNavigation_link[aria-current="page"] {
+    background: var(--cpd-color-bg-subtle-secondary);
+    box-shadow: inset 0 -3px var(--cpd-color-bg-action-primary-rest);
+}
+
+.podaDiagnostic {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: clamp(24px, 6vw, 72px);
+    color: var(--cpd-color-text-primary);
+    background: var(--cpd-color-bg-subtle-primary);
+    outline: none;
+}
+
+.podaDiagnostic_content {
+    box-sizing: border-box;
+    width: min(760px, 100%);
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 56px);
+    border: var(--cpd-border-width-1) solid var(--cpd-color-border-interactive-secondary);
+    border-radius: 24px;
+    background: var(--cpd-color-bg-canvas-default);
+    box-shadow: 0 18px 48px color-mix(in srgb, var(--cpd-color-text-primary) 10%, transparent);
+}
+
+.podaDiagnostic_eyebrow {
+    margin: 0 0 var(--cpd-space-3x);
+    color: var(--cpd-color-text-secondary);
+    font: var(--cpd-font-body-sm-medium);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.podaDiagnostic h1 {
+    margin: 0;
+    font: var(--cpd-font-heading-xl-semibold);
+}
+
+.podaDiagnostic_summary {
+    max-width: 56ch;
+    margin: var(--cpd-space-4x) 0 var(--cpd-space-8x);
+    color: var(--cpd-color-text-secondary);
+    font: var(--cpd-font-body-lg-regular);
+}
+
+.podaDiagnostic_checks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cpd-space-3x);
+    margin: 0;
+}
+
+.podaDiagnostic_checks div {
+    min-width: 0;
+    padding: var(--cpd-space-4x);
+    border-radius: 16px;
+    background: var(--cpd-color-bg-subtle-secondary);
+}
+
+.podaDiagnostic_checks dt {
+    margin-bottom: var(--cpd-space-1x);
+    color: var(--cpd-color-text-secondary);
+    font: var(--cpd-font-body-sm-medium);
+}
+
+.podaDiagnostic_checks dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font: var(--cpd-font-body-md-semibold);
+}
+
+@media (max-width: 600px) {
+    .podaNavigation {
+        gap: var(--cpd-space-2x);
+        padding-inline: var(--cpd-space-2x);
+    }
+
+    .podaNavigation_brand > :last-child {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .podaNavigation_link {
+        padding-inline: var(--cpd-space-2x);
+    }
+
+    .podaDiagnostic_checks {
+        grid-template-columns: 1fr;
+    }
+}

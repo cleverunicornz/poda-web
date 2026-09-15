@@ -1,0 +1,15 @@
+{
+  "schema": "poda-navigation-gate-1-playwright-blocked/v1",
+  "promise": "P-000015",
+  "oracle": "O-000015",
+  "head": "4b160cdc8f489e901da657def66118747453b34d",
+  "observed": "2026-09-15",
+  "result": "BLOCKED",
+  "command": "WEBAPP_PATH=apps/web/webapp pnpm exec playwright test --config modules/playwright.config.ts --project @poda/web-module-navigation-spike",
+  "invocation": "/tmp/poda-corepack-bin/pnpm exec playwright test --config modules/playwright.config.ts --project @poda/web-module-navigation-spike",
+  "discoveredTests": 2,
+  "assertionsStarted": false,
+  "error": "browserType.launch: Executable doesn't exist at /home/dev1/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
+  "interpretation": "The Playwright instrument was unavailable; this is not an observation of product behavior.",
+  "capabilityRequest": "https://github.com/cleverunicornz/infrastructure/issues/566"
+}
