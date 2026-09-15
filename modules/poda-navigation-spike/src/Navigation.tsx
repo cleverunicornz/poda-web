@@ -9,6 +9,10 @@ import { type FC, type MouseEvent, useEffect, useRef, useState } from "react";
 
 export const DIAGNOSTIC_LOCATION = "io.poda.navigation-spike.diagnostic";
 
+const RELOAD_MARKER = "poda-navigation-reload";
+const RELOAD_SOURCE = "source";
+const RELOAD_TARGET = "target";
+
 function getLocation(): string {
     const hashLocation = window.location.hash.replace(/^#\//, "");
     const [location] = hashLocation.split("?");
@@ -24,16 +28,29 @@ export const NavigationHeader: FC = () => {
         return () => window.removeEventListener("hashchange", onHashChange);
     }, []);
 
+    useEffect(() => {
+        const onPageShow = (event: PageTransitionEvent): void => {
+            const reloadTransition = new URL(window.location.href).searchParams.has(RELOAD_MARKER);
+            if (event.persisted && reloadTransition) window.location.reload();
+        };
+
+        window.addEventListener("pageshow", onPageShow);
+        return () => window.removeEventListener("pageshow", onPageShow);
+    }, []);
+
     const diagnosticActive = location === DIAGNOSTIC_LOCATION;
     const onChatClick = (event: MouseEvent<HTMLAnchorElement>): void => {
         if (!diagnosticActive) return;
 
         event.preventDefault();
-        const url = new URL(window.location.href);
-        const reloadMarker = url.searchParams.get("poda-navigation-reload");
-        url.searchParams.set("poda-navigation-reload", reloadMarker === "1" ? "0" : "1");
-        url.hash = "/home";
-        window.location.assign(url);
+        const sourceUrl = new URL(window.location.href);
+        sourceUrl.searchParams.set(RELOAD_MARKER, RELOAD_SOURCE);
+        window.history.replaceState(window.history.state, "", sourceUrl);
+
+        const targetUrl = new URL(sourceUrl);
+        targetUrl.searchParams.set(RELOAD_MARKER, RELOAD_TARGET);
+        targetUrl.hash = "/home";
+        window.location.assign(targetUrl);
     };
 
     return (

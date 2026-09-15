@@ -15,7 +15,7 @@ Within the finite local-preview conditions in Scope:
 
 ## Scope
 
-The gate reuses the implementation recorded by [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md): diagnostic location `io.poda.navigation-spike.diagnostic`, native `#/home`, and the reload-based native-screen transition retained by [G-000008](situation/gaps/G-000008-module-native-screen-transition.md). A Witness names the exact Git head, built module and served application/configuration digests, temporary Synapse fixture user and room, Chromium build, observation date, and all four theme/viewport cases.
+The gate reuses the implementation recorded by [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md): diagnostic location `io.poda.navigation-spike.diagnostic`, native `#/home`, and the reload-based native-screen transition retained by [G-000008](situation/gaps/G-000008-module-native-screen-transition.md). The bounded transition marks only its source and target history entries and refreshes a marked entry restored from Chromium's back-forward cache so Element's single-tab session lock can initialize that document. A Witness names the exact Git head, built module and served application/configuration digests, temporary Synapse fixture user and room, Chromium build, observation date, and all four theme/viewport cases.
 
 Operability means direct browser activation of Diagnostic workspace, Chat, and Diagnostic workspace again succeeds in every matrix case; the matching current control, native destination, same fixture user, and focused labelled diagnostic main are observed rather than inferred from visibility. The separate declared history sequence records both destination and current-control state after Refresh, Back, and Forward.
 
@@ -32,7 +32,7 @@ Operability means direct browser activation of Diagnostic workspace, Chat, and D
 
 ## Residual
 
-This gate does not select or qualify production Chat/Studio/Profile/Settings navigation, native Settings behavior, signed-out transitions, room-return semantics, call/PiP behavior, product data, persistence, assistants, widgets, deployment, browsers or viewport sizes outside Scope, or accessibility beyond the named labels, current states and focus observations. [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) retains the reload requirement. [G-000010](situation/gaps/G-000010-module-stylesheet-host-selector-scope.md) retains the unresolved production ownership question for the diagnostic stylesheet's host selectors. This gate does not assure P-000008 or dispose C-000003.
+This gate does not select or qualify production Chat/Studio/Profile/Settings navigation, native Settings behavior, signed-out transitions, room-return semantics, call/PiP behavior, product data, persistence, assistants, widgets, deployment, browsers or viewport sizes outside Scope, or accessibility beyond the named labels, current states and focus observations. [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) retains both the absence of a seamless exported native-screen transition and this gate's scoped reload requirement. [G-000010](situation/gaps/G-000010-module-stylesheet-host-selector-scope.md) retains the unresolved production ownership question for the diagnostic stylesheet's host selectors. This gate does not assure P-000008 or dispose C-000003.
 
 ## References
 
