@@ -1,10 +1,14 @@
 {
-  "schema": "poda-navigation-gate-1-browser-pass/v1",
+  "schema": "poda-navigation-gate-1-browser-observation/v1",
   "promise": "P-000015",
   "oracle": "O-000015",
   "head": "78a3bb9d89b4f7a9f1196ea0e0859c934153caf3",
   "observedAt": "2026-09-15T20:20:41Z",
-  "result": "PASS",
+  "result": "INVALID",
+  "invalidation": {
+    "reason": "No active-control observation after Back or Forward, and no direct control-operability interaction in every declared theme/viewport case.",
+    "runtimeFailureAsserted": false
+  },
   "environment": {
     "browser": "Chrome/150.0.7871.24",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
@@ -229,6 +233,7 @@
     "This observation covers only the exact Promise scope and Chromium build named above.",
     "The checked-in Playwright project did not run because its pinned Chromium executable was absent; see playwright-blocked.json.",
     "The native Chat transition performs a full document load because the exported Module API has no generic native-screen transition; see G-000008.",
-    "No production product data, persistence, assistant, widget, deployment, signed-out, Settings, call, PiP, or accessibility behavior beyond the named focus and labelled controls was exercised."
+    "No production product data, persistence, assistant, widget, deployment, signed-out, Settings, call, PiP, or accessibility behavior beyond the named focus and labelled controls was exercised.",
+    "This observation is INVALID as a complete Oracle result: it retains no active control after Back or Forward and no direct control-operability interaction in every declared theme/viewport case. These omissions do not establish a runtime failure."
   ]
 }

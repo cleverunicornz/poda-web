@@ -156,12 +156,14 @@ groups that work and feeds PLAN-000003's existing host-qualification
 prerequisite.
 
 The implementation at commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3`
-passes every manual O-000015 leg under
-[W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md);
-[P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) is
-assured only for that exact local diagnostic scope. W-000001 separately retains
-the unavailable pinned Playwright browser without treating it as product
-failure, and [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
+remains [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md)
+`implemented`. [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)
+is `INVALID` because its retained record lacks Back/Forward active-control
+observations and direct control-operability observations in every Poda
+theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md)
+retains this assurance-coverage absence without asserting runtime failure.
+W-000001 separately retains the unavailable pinned Playwright browser without
+treating it as product failure, and [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
 retains the reload-limited native-screen transition.
 
 C-000003 remains qualifying rather than promoted, production navigation is not

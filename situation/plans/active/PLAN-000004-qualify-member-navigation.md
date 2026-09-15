@@ -6,7 +6,7 @@
 
 ## Promises
 
-- [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) — assured bounded module-header Gate 1; evidence for, not disposition of, C-000003.
+- [P-000015](situation/promises/P-000015-module-navigation-mount-gate.md) — implemented bounded module-header Gate 1; [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) retains the missing evidence needed for assurance. This is evidence for, not disposition of, C-000003.
 
 ## Dependencies
 

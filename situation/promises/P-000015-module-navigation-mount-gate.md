@@ -2,7 +2,7 @@
 
 ## State
 
-assured
+implemented
 
 ## Promise
 
@@ -30,7 +30,7 @@ The declared history sequence is native home → diagnostic → refresh diagnost
 - Active [PLAN-000004](situation/plans/active/PLAN-000004-qualify-member-navigation.md) groups this implementation with the still-qualifying navigation Candidate.
 - Commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3` implements the final exported-boundary module artifact.
 - [W-000001](situation/witnesses/P-000015/W-000001-playwright-chromium-unavailable.md) retains the blocked checked-in Playwright run without treating instrument absence as product failure.
-- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md) applies every O-000015 leg to the exact final head and records PASS.
+- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) retains direct observations at the exact final head but is `INVALID` for a complete PASS because it omits Back/Forward active-control observations and control-operability observations in every Poda theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) retains that absence without asserting runtime failure.
 
 ## Residual
 
@@ -43,5 +43,6 @@ This gate does not qualify or select production Chat/Studio/Profile/Settings nav
 - [Explicit extension boundary](situation/invariants/I-000010-explicit-host-extension-boundaries.md)
 - [Shared member workspaces](situation/invariants/I-000012-shared-member-workspaces.md)
 - [Native-screen transition gap](situation/gaps/G-000008-module-native-screen-transition.md)
-- [Gate 1 structured browser observation](situation/references/P-000015/gate-1/browser-pass.json)
-- [Passing Gate 1 Witness](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md)
+- [Gate 1 structured browser observation](situation/references/P-000015/gate-1/browser-observation.json)
+- [Incomplete Gate 1 Witness](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)
+- [Assurance coverage gap](situation/gaps/G-000011-navigation-gate-assurance-coverage.md)

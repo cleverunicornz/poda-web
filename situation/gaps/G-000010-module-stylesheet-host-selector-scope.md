@@ -16,12 +16,12 @@ The final Gate 1 stylesheet is rendered through a module-owned root but includes
 
 - `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3:modules/poda-navigation-spike/src/index.tsx` creates and places the sibling root through `Api.rootNode` and renders the stylesheet through `Api.createRoot` inside that root.
 - `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3:modules/poda-navigation-spike/src/style.css` contains `body` flex-layout rules and `#matrixchat` flex-sizing rules, so the stylesheet affects host-owned layout elements even though its `<style>` node is owned by the module root.
-- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md) and its [structured observation](situation/references/P-000015/gate-1/browser-pass.json) record the P6/F6 review as direct DOM operations limited to creating, placing, and rendering the sibling root; they do not decide the broader CSS-selector ownership question.
+- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) and its [structured observation](situation/references/P-000015/gate-1/browser-observation.json) retain the P6/F6 review as direct DOM operations limited to creating, placing, and rendering the sibling root; W-000002 is `INVALID` for separate P4/F4 and P5/F5 evidence omissions, not because this retained P6/F6 observation is absent. They do not decide the broader CSS-selector ownership question.
 - [G-000009](situation/gaps/G-000009-module-stylesheet-host-mutation.md) closes the distinct earlier `document.adoptedStyleSheets` mutation after the final head moved the `<style>` node into the module-owned root.
 
 ## Impact
 
-This does not contradict P-000015's bounded manual P6/F6 observation or change its assured state: the Oracle names direct host-DOM manipulation, and the witness retains the exact observed source boundary. A future production navigation decision may need to distinguish supported module styling from an explicit host-layout extension rather than treating the current diagnostic stylesheet as proof of either interpretation.
+This does not contradict P-000015's bounded manual P6/F6 observation or settle its currently `implemented` assurance state: the Oracle names direct host-DOM manipulation, and the witness retains the exact observed source boundary. A future production navigation decision may need to distinguish supported module styling from an explicit host-layout extension rather than treating the current diagnostic stylesheet as proof of either interpretation.
 
 ## Resolution
 
@@ -32,6 +32,6 @@ none
 - [Navigation qualification Candidate](situation/candidates/C-000003-qualify-member-navigation.md)
 - [Gate Promise](situation/promises/P-000015-module-navigation-mount-gate.md)
 - [Gate Oracle](situation/oracles/O-000015-module-navigation-mount-gate.md)
-- [Passing Gate 1 Witness](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md)
+- [Gate 1 Chromium Witness](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md)
 - [Earlier stylesheet mutation Gap](situation/gaps/G-000009-module-stylesheet-host-mutation.md)
 - [Explicit host extension boundary](situation/invariants/I-000010-explicit-host-extension-boundaries.md)

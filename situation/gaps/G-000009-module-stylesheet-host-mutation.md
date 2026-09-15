@@ -16,7 +16,7 @@ The first Gate 1 implementation appended its stylesheet to `document.adoptedStyl
 
 - `4b160cdc8f489e901da657def66118747453b34d:modules/poda-navigation-spike/src/index.tsx` read and appended `document.adoptedStyleSheets` before the final Oracle observation.
 - Commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3` instead bundles the CSS as text and renders its `<style>` element through `Api.createRoot` inside the module-owned sibling host.
-- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-pass.md) applies P6/F6 to that corrected head and records the exact source-boundary review.
+- [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) applies P6/F6 to that corrected head and records the exact source-boundary review.
 
 ## Impact
 
@@ -28,4 +28,4 @@ Closed by commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3` and the P6/F6 observ
 
 ## References
 
-- [Structured Gate 1 observation](situation/references/P-000015/gate-1/browser-pass.json)
+- [Structured Gate 1 observation](situation/references/P-000015/gate-1/browser-observation.json)
