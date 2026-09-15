@@ -6,3 +6,8 @@ Please see LICENSE files in the repository root for full details.
 */
 
 /// <reference types="@arcmantle/vite-plugin-import-css-sheet/client" />
+
+declare module "*.css?inline" {
+    const css: string;
+    export default css;
+}
