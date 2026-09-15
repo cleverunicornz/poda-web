@@ -60,20 +60,19 @@ Communities (empty, staff-curated), and Poda Support (read-only
 Announcements + Support Chat). All children use space-restricted join rules,
 verified live by invite-free room joins and a blocked regular-user post.
 
-The next slice is planned but not implemented: D-000013 selects a Poda tab
-shell (Chat/Studio/Profile/Settings) with module pages fed by a typed
-in-memory mock adapter, reviving only the shell and field models of the
-shelved D-000002 integration plan. The active plan is
-`situation/plans/active/PLAN-000003-poda-tab-shell.md`.
+The maintainer has revised the prospective member-workspace preview under
+[D-000019](situation/decisions/D-000019-shared-member-workspaces.md).
+It retains conventional product workspaces and native chat while using shared
+domain views and one UI foundation. The preview remains unimplemented and its
+delivery plan is draft, not a new active assignment.
 
 ## Intended state
 
 For the active first visual migration, the responsive web client retains Element's existing information architecture,
 Matrix data model, routes, stores, permissions, and actions while presenting an
 approved Poda visual treatment through Element's theme and branding mechanisms
-and narrowly scoped presentation styles. The active plans are
-`situation/plans/active/PLAN-000002-poda-element-visual-alignment.md` and
-`situation/plans/active/PLAN-000003-poda-tab-shell.md`.
+and narrowly scoped presentation styles. The active plan is
+`situation/plans/active/PLAN-000002-poda-element-visual-alignment.md`.
 
 ## Prospective product frontend guardrails
 
@@ -106,6 +105,36 @@ and separately accepted on its own branch. Personal-assistant provisioning,
 personalization, room participation and artifact/tool authorization remain at
 their owning product/backend/Matrix boundaries; the frontend consumes explicit
 identities and contracts rather than inventing them.
+
+## Member workspace preview
+
+[I-000012](situation/invariants/I-000012-shared-member-workspaces.md) is the
+additional critical workspace/composition boundary: the Element-derived member
+application owns the full app experience, not only Chat. The selected dedicated
+app subdomain is an architectural boundary; no real hostname, deployment or
+cookie/redirect policy is configured by this decision. Astro retains designated
+public-page generation within the coordinated frontend workspace/delivery.
+
+The proposed Chat/Studio/Profile/Settings navigation retains Podcasts, Episodes
+and Analytics in Studio, own creator-profile editing and the creators directory.
+Full workspaces and appropriate conversation contexts present shared domain
+components and view contracts, not parallel interfaces or design systems.
+Native chat and manual product work remain independently usable. Supported
+module APIs are the first integration route; any unexposed host requirement
+needs an explicit qualified extension rather than a predetermined core patch.
+
+[P-000008](situation/promises/P-000008-member-workspace-preview.md) is a
+hypothesis judged by the designed, manual
+[O-000008](situation/oracles/O-000008-member-workspace-preview.md), grouped by
+draft [PLAN-000003](situation/plans/draft/PLAN-000003-member-workspace-preview.md).
+The [delivery reference](situation/references/D-000019/member-workspace-preview-plan.md)
+retains the bounded preview and shared-scenario approach. Simulated product
+outcomes stay inside identified preview/test entrypoints; neither a preview
+nor this planning revision qualifies actual backend or assistant behavior.
+Existing production hypotheses P-000009 through P-000014, service authority and
+unselected policies remain separate. The original submitted donor-coverage
+publication concern is retained in
+[G-000006](situation/gaps/G-000006-submitted-donor-publication-review.md).
 
 ## Closure state
 
