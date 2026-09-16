@@ -25,6 +25,8 @@ export const NavigationHeader: FC = () => {
     }, []);
 
     const diagnosticActive = location === DIAGNOSTIC_LOCATION;
+    const profileActive = location === "io.poda.profile-spike.profile";
+    const chatActive = !diagnosticActive && !profileActive;
 
     return (
         <header className="podaNavigation" data-testid="poda-navigation-header">
@@ -35,8 +37,15 @@ export const NavigationHeader: FC = () => {
                 <span>Poda</span>
             </div>
             <nav className="podaNavigation_links" aria-label="Poda member">
-                <a className="podaNavigation_link" href="#/home" aria-current={!diagnosticActive ? "page" : undefined}>
+                <a className="podaNavigation_link" href="#/home" aria-current={chatActive ? "page" : undefined}>
                     Chat
+                </a>
+                <a
+                    className="podaNavigation_link"
+                    href="#/io.poda.profile-spike.profile"
+                    aria-current={profileActive ? "page" : undefined}
+                >
+                    Profile
                 </a>
                 <a
                     className="podaNavigation_link"
