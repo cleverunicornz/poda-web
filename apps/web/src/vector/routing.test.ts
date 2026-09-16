@@ -107,20 +107,38 @@ describe("init", () => {
         delete window.matrixChat;
     });
 
-    it("should call showScreen on MatrixChat on hashchange", () => {
+    it("consumes app-set hash suppression before routing later external changes", () => {
+        const location = {
+            hash: "#/room/!room:server?via=abc",
+            assign: vi.fn(),
+            replace: vi.fn(),
+        };
         Object.defineProperty(window, "location", {
-            value: {
-                hash: "#/room/!room:server?via=abc",
-            },
+            value: location,
+            writable: true,
         });
 
+        const showScreen = vi.fn();
         window.matrixChat = {
-            showScreen: vi.fn(),
+            showScreen,
         } as unknown as MatrixChat;
 
         init();
         window.dispatchEvent(new HashChangeEvent("hashchange"));
+        expect(showScreen).toHaveBeenLastCalledWith("room/!room:server", { via: "abc" });
 
-        expect(window.matrixChat.showScreen).toHaveBeenCalledWith("room/!room:server", { via: "abc" });
+        onNewScreen("home");
+        location.hash = "#/home";
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        expect(showScreen).toHaveBeenCalledTimes(1);
+
+        location.hash = "#/io.element.test_module";
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        expect(showScreen).toHaveBeenLastCalledWith("io.element.test_module", {});
+
+        location.hash = "#/home";
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        expect(showScreen).toHaveBeenLastCalledWith("home", {});
+        expect(showScreen).toHaveBeenCalledTimes(3);
     });
 });

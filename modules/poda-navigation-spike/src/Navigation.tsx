@@ -5,13 +5,9 @@ SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
 Please see LICENSE files in the repository root for full details.
 */
 
-import { type FC, type MouseEvent, useEffect, useRef, useState } from "react";
+import { type FC, useEffect, useRef, useState } from "react";
 
 export const DIAGNOSTIC_LOCATION = "io.poda.navigation-spike.diagnostic";
-
-const RELOAD_MARKER = "poda-navigation-reload";
-const RELOAD_SOURCE = "source";
-const RELOAD_TARGET = "target";
 
 function getLocation(): string {
     const hashLocation = window.location.hash.replace(/^#\//, "");
@@ -28,30 +24,7 @@ export const NavigationHeader: FC = () => {
         return () => window.removeEventListener("hashchange", onHashChange);
     }, []);
 
-    useEffect(() => {
-        const onPageShow = (event: PageTransitionEvent): void => {
-            const reloadTransition = new URL(window.location.href).searchParams.has(RELOAD_MARKER);
-            if (event.persisted && reloadTransition) window.location.reload();
-        };
-
-        window.addEventListener("pageshow", onPageShow);
-        return () => window.removeEventListener("pageshow", onPageShow);
-    }, []);
-
     const diagnosticActive = location === DIAGNOSTIC_LOCATION;
-    const onChatClick = (event: MouseEvent<HTMLAnchorElement>): void => {
-        if (!diagnosticActive) return;
-
-        event.preventDefault();
-        const sourceUrl = new URL(window.location.href);
-        sourceUrl.searchParams.set(RELOAD_MARKER, RELOAD_SOURCE);
-        window.history.replaceState(window.history.state, "", sourceUrl);
-
-        const targetUrl = new URL(sourceUrl);
-        targetUrl.searchParams.set(RELOAD_MARKER, RELOAD_TARGET);
-        targetUrl.hash = "/home";
-        window.location.assign(targetUrl);
-    };
 
     return (
         <header className="podaNavigation" data-testid="poda-navigation-header">
@@ -62,12 +35,7 @@ export const NavigationHeader: FC = () => {
                 <span>Poda</span>
             </div>
             <nav className="podaNavigation_links" aria-label="Poda member">
-                <a
-                    className="podaNavigation_link"
-                    href="#/home"
-                    aria-current={!diagnosticActive ? "page" : undefined}
-                    onClick={onChatClick}
-                >
+                <a className="podaNavigation_link" href="#/home" aria-current={!diagnosticActive ? "page" : undefined}>
                     Chat
                 </a>
                 <a

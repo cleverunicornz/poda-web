@@ -55,18 +55,30 @@ test("mounts above Element and uses its signed-in navigation lifecycle", async (
     await page.reload();
     await expect(page.getByTestId("poda-diagnostic-workspace")).toBeVisible();
     await expect(diagnosticLink).toHaveAttribute("aria-current", "page");
+    const documentId = await page.evaluate(() => {
+        const id = crypto.randomUUID();
+        Reflect.set(window, "__podaNavigationDocumentId", id);
+        return id;
+    });
 
     await chatLink.click();
     await expect(page).toHaveURL(/#\/home$/);
     await expect(page.getByTestId("poda-diagnostic-workspace")).not.toBeVisible();
     await expect(chatLink).toHaveAttribute("aria-current", "page");
     expect(await page.evaluate(() => window.localStorage.getItem("mx_user_id"))).toBe(userId);
+    expect(await page.evaluate(() => Reflect.get(window, "__podaNavigationDocumentId"))).toBe(documentId);
 
     await page.goBack();
     await expect(page.getByTestId("poda-diagnostic-workspace")).toBeVisible();
+    await expect(diagnosticLink).toHaveAttribute("aria-current", "page");
+    await expect(chatLink).not.toHaveAttribute("aria-current", "page");
+    expect(await page.evaluate(() => Reflect.get(window, "__podaNavigationDocumentId"))).toBe(documentId);
     await page.goForward();
     await expect(page).toHaveURL(/#\/home$/);
     await expect(page.getByTestId("poda-diagnostic-workspace")).not.toBeVisible();
+    await expect(chatLink).toHaveAttribute("aria-current", "page");
+    await expect(diagnosticLink).not.toHaveAttribute("aria-current", "page");
+    expect(await page.evaluate(() => Reflect.get(window, "__podaNavigationDocumentId"))).toBe(documentId);
 });
 
 test("fits the Poda light and dark presentation matrix", async ({ page, user }) => {
