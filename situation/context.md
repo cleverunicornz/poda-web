@@ -192,6 +192,6 @@ PLAN-000003 remain unchanged.
 
 ## Closure state
 
-- Current run: none
+- Current run: `20260916T205845Z-8a3e26995da2637b9d75383b16e1ed9bf56950ca` (open)
 - Last completed closure: run `20260915T233819Z-5d03ad57ac0b241e6ccbc04db4bc42cc8ae8ab13`, opened at `cfce2a610e3870e55f1dda1c5454c76ccdec2ab0`
 - Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35036364298`
