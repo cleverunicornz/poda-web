@@ -168,20 +168,30 @@ theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assuranc
 remains open: P-000016's distinct Scope and W-000003 do not apply O-000015 to
 P-000015 or complete W-000002's invalid observation.
 
-This is narrow manual assurance of the generated local module gate, not the
-reusable fork assurance route absent in [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
-W-000001 separately retains the unavailable pinned Playwright browser without
-treating it as product failure. [G-000008](situation/gaps/G-000008-module-native-screen-transition.md)
-retains the reload-limited native-screen transition and its marker-scoped
-back-forward-cache restoration; [G-000010](situation/gaps/G-000010-module-stylesheet-host-selector-scope.md)
-retains the unresolved production stylesheet ownership boundary.
+[D-000020](situation/decisions/D-000020-consume-hash-suppression-once.md)
+subsequently promoted the generic one-event hash-suppression correction in
+[C-000004](situation/candidates/C-000004-consume-hash-suppression-once.md).
+[P-000017](situation/promises/P-000017-seamless-module-native-return.md) is
+assured by [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md)
+at exact head `5f5aebcda2c829a6ff7489a4e05fd454352c17e5`. Chrome 150 retained one
+document through Home → Diagnostic → Home → Back → Forward, with matching
+content/current controls and Matrix user. The module no longer owns reload
+query markers or back-forward-cache handling, no public Module API changed, and
+[G-000008](situation/gaps/G-000008-module-native-screen-transition.md) is closed
+at that declared boundary. [C-000005](situation/candidates/C-000005-export-native-screen-navigation.md)
+retains a public native-navigation API only as an unselected fallback.
 
-C-000003 remains qualifying rather than promoted, production navigation is not
-selected, and P-000008 and PLAN-000003 remain unchanged. D-000019's selected
-product direction remains distinct from the bounded navigation mechanism probe.
+This remains narrow manual assurance of the generated local module gate, not
+the reusable fork assurance route absent in
+[G-000001](situation/gaps/G-000001-fork-assurance-route.md). W-000001 retains
+the unavailable pinned Playwright browser without treating it as product
+failure; [G-000010](situation/gaps/G-000010-module-stylesheet-host-selector-scope.md)
+retains the unresolved production stylesheet ownership boundary. C-000003
+remains qualifying, production navigation is not selected, and P-000008 and
+PLAN-000003 remain unchanged.
 
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260915T214745Z-92db4fcae2fa3bee57b9f15994d238dcd4a95c30`, opened at `ab4847bdd346c64586fa112cdfd2a4d904d3ca3a`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35027357320`
+- Last completed closure: run `20260915T233819Z-5d03ad57ac0b241e6ccbc04db4bc42cc8ae8ab13`, opened at `cfce2a610e3870e55f1dda1c5454c76ccdec2ab0`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35036364298`
