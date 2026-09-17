@@ -41,6 +41,16 @@ The root repository block must state whether a recorded route can support a gate
 - DELTA observation for run `20260915T233819Z-5d03ad57ac0b241e6ccbc04db4bc42cc8ae8ab13` over `dbdafb69a6efab2540667dcae22e716738d41686..5d03ad57ac0b241e6ccbc04db4bc42cc8ae8ab13`: [P-000017](situation/promises/P-000017-seamless-module-native-return.md) is assured by [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md) under implemented [O-000017](situation/oracles/O-000017-seamless-module-native-return.md) at source head `5f5aebcda2c829a6ff7489a4e05fd454352c17e5`, but W-000004 retains a local Chrome/source observation rather than an exact-pull-request-head fork-owned CI run URL and covers only P-000017's local-preview Scope. [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) remains `hypothesis` and [O-000005](situation/oracles/O-000005-poda-fork-assurance-route.md) remains `designed`; P-000017 does not implement the reusable route this Gap retains.
 - Validator record-shape observation for run `20260915T233819Z-5d03ad57ac0b241e6ccbc04db4bc42cc8ae8ab13` at reviewed head `b857aaa4844fc9b51f4d9f901bff378cc49eec51`: [O-000005](situation/oracles/O-000005-poda-fork-assurance-route.md) states Inputs and Pass/Fail conditions but omits the `Implementation coverage` mapping required by `situation/oracles/AGENTS.md`. No Witness relies on O-000005, so this reinforces the unassured projection without changing the Gap's State or Resolution.
 
+- DELTA observation for run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe` over
+  `dc91956b709b24909d3024afd405ded5a4453c44..4065222c219a646d35031d0295df025b0d482cbe`:
+  [P-000018](situation/promises/P-000018-poda-creation-flows.md) is
+  `implementing` under designed
+  [O-000018](situation/oracles/O-000018-poda-creation-flows.md). The new
+  `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.test.js`
+  is source evidence only; the interval adds no P-000018 Witness or retained
+  exact-head fork-owned CI run URL, so it does not establish the reusable
+  assurance route this Gap retains.
+
 ## Impact
 
 The root repository block must render its Verification bullet as unassured, and no fork-specific gate claim can cite an inherited workflow run.
