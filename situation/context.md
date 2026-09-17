@@ -197,6 +197,15 @@ retains the unresolved production stylesheet ownership boundary. C-000003
 remains qualifying, production navigation is not selected, and P-000008 and
 PLAN-000003 remain unchanged.
 
+## Next product slice
+
+[D-000021](situation/decisions/D-000021-poda-creation-flows.md) selects
+podcast creation, episode creation, Studio collection completion, and a mock
+Analytics page as the next module slice over one typed in-memory adapter,
+with a donor-route placement map. Active
+[PLAN-000006](situation/plans/active/PLAN-000006-poda-creation-flows.md)
+groups that work; it is planned, not implemented, and remains mock-only.
+
 ## Closure state
 
 - Current run: none
