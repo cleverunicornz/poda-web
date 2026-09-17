@@ -208,6 +208,6 @@ groups that work; it is planned, not implemented, and remains mock-only.
 
 ## Closure state
 
-- Current run: none
+- Current run: `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe` (open)
 - Last completed closure: run `20260917T110444Z-6f60ab04198fcf105baab5bd4f0cadb5d48d9f90`, opened at `630881ba49928738167ed45f4f2afc6d5e7446bf`
 - Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35213534416`
