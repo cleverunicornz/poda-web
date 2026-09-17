@@ -1,0 +1,28 @@
+{
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "targets": {
+        "build": {
+            "cache": true,
+            "command": "vite build",
+            "inputs": ["src"],
+            "outputs": ["{projectRoot}/lib"],
+            "options": { "cwd": "modules/poda-profile-spike" },
+            "dependsOn": ["^build"]
+        },
+        "build:widget": {
+            "cache": true,
+            "inputs": ["{projectRoot}/widget", "{projectRoot}/src/shared"],
+            "outputs": ["{projectRoot}/lib-widget"],
+            "options": { "cwd": "modules/poda-profile-spike" },
+            "dependsOn": ["^build"]
+        },
+        "lint:types": {
+            "command": "tsc --noEmit",
+            "options": {
+                "cwd": "modules/poda-profile-spike"
+            },
+            "dependsOn": ["^build"]
+        }
+    }
+}
