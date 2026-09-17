@@ -4,7 +4,10 @@
 
 - Recorded: 2026-09-17
 - Product: Poda Web
-- Delivery state: planned, not implemented
+- Delivery state: implementation in progress. At `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`,
+  `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/studioList.js`, and
+  `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/podcastCreate.js`, the adapter, Podcast
+  collection, and podcast creation form are present; episode flows, Analytics, and completion evidence remain pending.
 - Owning decision: [D-000021](situation/decisions/D-000021-poda-creation-flows.md)
 
 Statements labelled **USER CHOICE** are selections made by the maintainer.
