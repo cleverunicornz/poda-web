@@ -1,0 +1,85 @@
+// Complete donor creator-profile fixtures (donor `User` entity, pinned
+// inventory). Mock data only — E/D/H tiers per the plan's coverage vocabulary.
+
+export const PROFILE_FIXTURE_MIRA = {
+    id: "user-mira",
+    email: "mira@example.com",
+    displayName: "Mira Chen",
+    avatarUrl: null,
+    bannerUrl: null,
+    bio: "Mira Chen advises early-stage and growth teams on launch operations, AI-assisted research loops, and founder communications. Her best interviews are practical and specific: what broke, what worked, and how the team made the next launch less chaotic.",
+    headline: "Founder ops strategist and launch systems advisor",
+    tagline: "Turns messy launches into calm repeatable systems.",
+    aboutShort: "Helps founder-led teams run high-stakes product launches without burning out the humans doing the work.",
+    slug: "mira-chen",
+    isPublic: true,
+    profileStatus: "published",
+    socialLinks: {
+        website: "https://example.com/mira",
+        linkedin: "https://linkedin.com/in/mira-chen",
+        twitter: "https://x.com/mirachen",
+        calendly: "https://calendly.com/mira/intro",
+        youtube: "",
+        instagram: "",
+        tiktok: "",
+    },
+    topics: ["Founder operations", "Launch systems", "AI workflows", "Team rituals", "Calm execution"],
+    expertiseCards: [
+        { id: "exp-1", title: "Launch operating systems", description: "Runbooks, checklists, and team rhythms for launch weeks.", icon: "Target", order: 1 },
+        { id: "exp-2", title: "AI research loops", description: "Practical agent-assisted briefing and synthesis workflows.", icon: "Sparkles", order: 2 },
+    ],
+    customFields: [
+        { name: "Location", value: "Toronto, Canada" },
+        { name: "Typical format", value: "45-min deep dive + async prep doc" },
+    ],
+    introVideoUrl: "https://example.com/mira/intro.mp4",
+    mediaKit: [
+        { id: "mk-1", name: "Headshots pack", url: "https://example.com/mk/headshots.zip", type: "headshot", size: 2411724, filename: "mira-headshots.zip", mimeType: "application/zip" },
+        { id: "mk-2", name: "One-sheet PDF", url: "https://example.com/mk/onesheet.pdf", type: "pdf", size: 184320, filename: "mira-onesheet.pdf", mimeType: "application/pdf" },
+    ],
+    testimonials: [
+        { id: "t-1", name: "Jordan Park", role: "Host, Ship It Weekly", quote: "Mira turned our chaos into a checklist our whole team actually uses.", order: 1 },
+        { id: "t-2", name: "Sam Rivera", role: "CTO, Northbeam", quote: "The calmest launch we have ever run. Twice.", order: 2 },
+    ],
+    featuredAppearances: [
+        { id: "fa-1", podcastName: "Launch Notes", episodeTitle: "Systems that do not collapse", url: "https://example.com/ep/42", date: "2026-05-14", imageUrl: null, order: 1, displayClass: "host_verified" },
+        { id: "fa-2", podcastName: "Founder Office Hours", episodeTitle: "Research loops with agents", url: "https://example.com/ep/18", date: "2026-03-02", imageUrl: null, order: 2, displayClass: "platform_mutual" },
+    ],
+    appearanceCount: 12,
+    bestFitFor: ["Technical founders", "Launch retrospectives", "Ops deep dives"],
+    sectionVisibility: { introVideo: "public", appearances: "public", testimonials: "members", mediaKit: "collaborators" },
+    bookingUrl: "https://calendly.com/mira/intro",
+    createdAt: "2026-01-11T09:00:00Z",
+    updatedAt: "2026-06-08T14:30:00Z",
+};
+
+export const EMPTY_CREATOR_FIELDS = {
+    id: "user-self",
+    email: "",
+    displayName: "",
+    avatarUrl: null,
+    bannerUrl: null,
+    bio: "",
+    headline: "",
+    tagline: "",
+    aboutShort: "",
+    slug: "",
+    isPublic: false,
+    profileStatus: "draft",
+    socialLinks: { website: "", linkedin: "", twitter: "", youtube: "", instagram: "", tiktok: "", calendly: "" },
+    topics: [],
+    expertiseCards: [],
+    customFields: [],
+    introVideoUrl: "",
+    mediaKit: [],
+    testimonials: [],
+    featuredAppearances: [],
+    appearanceCount: 0,
+    bestFitFor: [],
+    sectionVisibility: {},
+    bookingUrl: "",
+    createdAt: null,
+    updatedAt: null,
+};
+
+export const SOCIAL_SERVICES = ["website", "linkedin", "twitter", "youtube", "instagram", "tiktok", "calendly"];

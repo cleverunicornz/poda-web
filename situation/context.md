@@ -64,8 +64,15 @@ verified live by invite-free room joins and a blocked regular-user post.
 The maintainer has revised the prospective member-workspace preview under
 [D-000019](situation/decisions/D-000019-shared-member-workspaces.md).
 It retains conventional product workspaces and native chat while using shared
-domain views and one UI foundation. The preview remains unimplemented and its
-delivery plan is draft, not a new active assignment.
+domain views and one UI foundation. The tracked
+[`modules/poda-profile-spike/`](modules/poda-profile-spike/) package is a
+diagnostic, mock/session-only module/widget spike: it supplies source-bound host
+mechanics, not an implementation of P-000008, execution of O-000008, a selected
+product contract, or a runtime Witness. [G-000004](situation/gaps/G-000004-product-ui-implementation-and-evidence.md),
+[G-000005](situation/gaps/G-000005-unselected-product-ui-contracts.md) and
+[G-000006](situation/gaps/G-000006-submitted-donor-publication-review.md) retain
+those boundaries. The preview remains unimplemented and its delivery plan is
+draft, not a new active assignment.
 
 ## Intended state
 
@@ -193,5 +200,5 @@ PLAN-000003 remain unchanged.
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260916T205845Z-8a3e26995da2637b9d75383b16e1ed9bf56950ca`, opened at `1bcf41079fdf062ed8086b0c265e74db0a4515d1`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35149455764`
+- Last completed closure: run `20260917T110444Z-6f60ab04198fcf105baab5bd4f0cadb5d48d9f90`, opened at `630881ba49928738167ed45f4f2afc6d5e7446bf`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35213534416`
