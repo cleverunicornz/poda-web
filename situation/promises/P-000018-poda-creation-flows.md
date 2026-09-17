@@ -8,9 +8,9 @@ implementing
 
 In Poda Web, a signed-in user can create a podcast through a validated form,
 create episodes for it through a validated form, and browse Studio Podcasts,
-Episodes, and Analytics collections — all through the module pages, all fed
-exclusively by one typed in-memory `MockPodaDataAdapter`, in both Poda
-themes, with Chat unchanged.
+Episodes, and Analytics collections through module pages. All of those flows use
+one session-only in-memory data boundary, render in both Poda themes, and leave
+Chat unchanged.
 
 ## Scope
 
