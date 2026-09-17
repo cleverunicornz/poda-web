@@ -19,7 +19,7 @@ host comparison and verdict (module-first; widget as a separate later embed).
 
 ```sh
 nx build @poda/web-module-profile-spike                 # → lib/index.js
-nx run @poda/web-module-profile-spike:build:widget      # → lib-widget/widget.bundle.js
+nx run @poda/web-module-profile-spike:build:widget      # → lib/widget/widget.bundle.js
 ```
 
 ## Demo wiring
@@ -27,7 +27,7 @@ nx run @poda/web-module-profile-spike:build:widget      # → lib-widget/widget.
 1. Copy `lib/index.js` to `apps/web/webapp/modules/poda-profile-spike/index.js`
    and list `"/modules/poda-profile-spike/index.js"` in the served
    `config.json` `modules` array.
-2. Copy `widget/index.html` and `lib-widget/widget.bundle.js` to
+2. Copy `widget/index.html` and `lib/widget/widget.bundle.js` to
    `apps/web/webapp/widgets/poda-profile/` (the HTML references
    `widget.bundle.js`).
 3. Register the widget on a room with
