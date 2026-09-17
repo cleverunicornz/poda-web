@@ -201,10 +201,16 @@ PLAN-000003 remain unchanged.
 
 [D-000021](situation/decisions/D-000021-poda-creation-flows.md) selects
 podcast creation, episode creation, Studio collection completion, and a mock
-Analytics page as the next module slice over one typed in-memory adapter,
-with a donor-route placement map. Active
+Analytics page as the next module slice over one in-memory adapter, with a
+donor-route placement map. Active
 [PLAN-000006](situation/plans/active/PLAN-000006-poda-creation-flows.md)
-groups that work; it is planned, not implemented, and remains mock-only.
+groups [P-000018](situation/promises/P-000018-poda-creation-flows.md), now
+`implementing`. At
+`4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`,
+`4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/studioList.js`,
+and `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/podcastCreate.js`,
+the adapter, Podcast collection, and podcast creation form are present; episode
+flows and Analytics remain active work. The slice remains mock-only.
 
 ## Closure state
 
