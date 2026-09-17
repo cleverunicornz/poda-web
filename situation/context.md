@@ -214,6 +214,6 @@ flows and Analytics remain active work. The slice remains mock-only.
 
 ## Closure state
 
-- Current run: `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe` (open)
-- Last completed closure: run `20260917T110444Z-6f60ab04198fcf105baab5bd4f0cadb5d48d9f90`, opened at `630881ba49928738167ed45f4f2afc6d5e7446bf`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35213534416`
+- Current run: none
+- Last completed closure: run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe`, opened at `68a9e5df760dd82292cf19fb38880504f40b9be5`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35236134892`
