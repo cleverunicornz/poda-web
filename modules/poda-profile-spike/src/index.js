@@ -6,8 +6,9 @@ import { renderFullProfileView } from "./shared/profileFullView.js";
 import { PROFILE_FIXTURE_MIRA, EMPTY_CREATOR_FIELDS, SOCIAL_SERVICES } from "./shared/profileFixtures.js";
 
 export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
+
 import { renderStudioView } from "./shared/podcastFullView.js";
-import { PODCAST_FIXTURE, EPISODES_FIXTURE } from "./shared/podcastFixtures.js";
+import { podaData } from "./data/mockAdapter.js";
 
 export const STUDIO_LOCATION = "io.poda.profile-spike.studio";
 
@@ -175,21 +176,68 @@ function ProfilePage({ api }) {
     return React.createElement("div", { ref, className: "podaProfilePageHost" });
 }
 
+function studioRoute() {
+    const hash = window.location.hash;
+    const query = hash.includes("?") ? hash.slice(hash.indexOf("?") + 1) : "";
+    const params = new URLSearchParams(query);
+    if (params.get("new") === "podcast") return { view: "new" };
+    if (params.get("podcast")) return { view: "detail", id: params.get("podcast") };
+    return { view: "list" };
+}
+
+function studioNavigate(route) {
+    const query = new URLSearchParams();
+    if (route.view === "new") query.set("new", "podcast");
+    if (route.view === "detail") query.set("podcast", route.id);
+    window.location.hash = `/${STUDIO_LOCATION}${query.toString() ? `?${query.toString()}` : ""}`;
+}
+
 function StudioPage() {
     const React = window.React;
     const ref = React.useRef(null);
+    const [route, setRoute] = React.useState(studioRoute());
+    React.useEffect(() => {
+        const onHashChange = () => setRoute(studioRoute());
+        window.addEventListener("hashchange", onHashChange);
+        return () => window.removeEventListener("hashchange", onHashChange);
+    }, []);
     React.useEffect(() => {
         if (!ref.current) return;
         ref.current.style.display = "flex";
         ref.current.style.flexDirection = "column";
         ref.current.style.flex = "1 1 auto";
         ref.current.style.minHeight = "0";
-        renderStudioView(ref.current, {
-            podcast: PODCAST_FIXTURE,
-            episodes: EPISODES_FIXTURE,
-            hostLabel: "module (app page)",
-        });
-    }, []);
+        (async () => {
+            if (route.view === "new") {
+                const { renderPodcastCreateView } = await import("./studio/podcastCreate.js");
+                renderPodcastCreateView(ref.current, {
+                    onSubmit: async (draft) => {
+                        const created = await podaData.savePodcast(draft);
+                        studioNavigate({ view: "detail", id: created.id });
+                    },
+                    onCancel: () => studioNavigate({ view: "list" }),
+                });
+                return;
+            }
+            if (route.view === "detail") {
+                const podcast = await podaData.getPodcast(route.id).catch(() => null);
+                if (!podcast) {
+                    studioNavigate({ view: "list" });
+                    return;
+                }
+                const episodes = await podaData.listEpisodes(route.id);
+                renderStudioView(ref.current, { podcast, episodes, hostLabel: "module (app page)" });
+                return;
+            }
+            const { renderStudioListView } = await import("./studio/studioList.js");
+            const podcasts = await podaData.listPodcasts();
+            renderStudioListView(ref.current, {
+                podcasts,
+                onOpen: (id) => studioNavigate({ view: "detail", id }),
+                onCreate: () => studioNavigate({ view: "new" }),
+            });
+        })();
+    }, [route]);
     return React.createElement("div", { ref });
 }
 

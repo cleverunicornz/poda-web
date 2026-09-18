@@ -197,8 +197,23 @@ retains the unresolved production stylesheet ownership boundary. C-000003
 remains qualifying, production navigation is not selected, and P-000008 and
 PLAN-000003 remain unchanged.
 
+## Next product slice
+
+[D-000021](situation/decisions/D-000021-poda-creation-flows.md) selects
+podcast creation, episode creation, Studio collection completion, and a mock
+Analytics page as the next module slice over one in-memory adapter, with a
+donor-route placement map. Active
+[PLAN-000006](situation/plans/active/PLAN-000006-poda-creation-flows.md)
+groups [P-000018](situation/promises/P-000018-poda-creation-flows.md), now
+`implementing`. At
+`4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`,
+`4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/studioList.js`,
+and `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/podcastCreate.js`,
+the adapter, Podcast collection, and podcast creation form are present; episode
+flows and Analytics remain active work. The slice remains mock-only.
+
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260917T110444Z-6f60ab04198fcf105baab5bd4f0cadb5d48d9f90`, opened at `630881ba49928738167ed45f4f2afc6d5e7446bf`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35213534416`
+- Last completed closure: run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe`, opened at `68a9e5df760dd82292cf19fb38880504f40b9be5`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35236134892`

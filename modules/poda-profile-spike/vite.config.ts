@@ -19,6 +19,8 @@ export default mergeConfig(baseConfig, {
             fileName: "index",
             formats: ["es"],
         },
+        // Runtime module loading fetches one bundle URL; keep dynamic imports inline.
+        rollupOptions: { output: { inlineDynamicImports: true } },
     },
     plugins: [importCSSSheet(), react()],
 });

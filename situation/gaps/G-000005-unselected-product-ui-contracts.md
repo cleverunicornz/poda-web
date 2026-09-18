@@ -32,6 +32,14 @@ P-000009 through P-000014 require bounded supplied contracts and scenario inputs
 - DELTA observation for run `20260916T205845Z-8a3e26995da2637b9d75383b16e1ed9bf56950ca` over `c2356c63f50c23fa95842ae6db76387319a75231..8a3e26995da2637b9d75383b16e1ed9bf56950ca`: `modules/poda-navigation-spike/src/Navigation.tsx` adds Profile and Studio controls with their own active-state checks to the local navigation spike. The [module-vs-widget host discovery](situation/references/G-000005/module-vs-widget-host-discovery.md) reports bounded spike mechanics only: the module retains the existing session and its public profile seam lacks `avatarUrl`, while a widget uses URL parameters/OpenID, has iframe-local navigation, and lacks host-session access. These observations neither select the product's host, navigation, or identity contracts nor supply P-000008 implementation or an O-000008 Witness.
 - DELTA observation for run `20260917T110444Z-6f60ab04198fcf105baab5bd4f0cadb5d48d9f90` over `9dd4ae7519c2b3e191a5fc2c1b5c2d0b41ccc3eb..6f60ab04198fcf105baab5bd4f0cadb5d48d9f90`: `modules/poda-profile-spike/src/index.js` uses `api.profile` only for identity, keeps creator edits session-only, and parses its own `view`/`who` hash query; `modules/poda-profile-spike/widget/widget.js` receives viewer identity from URL parameters and can ask its host to open only a Matrix-room permalink. These source facts show separate bounded hosts, not a selected product data/persistence contract, shared artifact contract, production navigation/placement, target room, or identity/authorization policy. They do not promote C-000003 or P-000008.
 
+- DELTA observation for run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe` over
+  `dc91956b709b24909d3024afd405ded5a4453c44..4065222c219a646d35031d0295df025b0d482cbe`:
+  `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`
+  adds a session-only in-memory adapter and the changed path set adds no stable
+  application configuration or production entrypoint. This source evidence does
+  not select a production data, persistence, Analytics, or activation contract,
+  and does not itself assure preview/production isolation.
+
 ## Impact
 
 An implementation that guesses these choices could lose drafts, cross an access/data boundary or claim product support without a decidable contract. A qualification dossier must identify which choices its bounded scenario needs; missing choices stay open rather than being hidden in fixtures or generalized from upstream examples.
