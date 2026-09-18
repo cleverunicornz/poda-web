@@ -213,3 +213,23 @@ export function renderStudioView(container, { podcast, episodes, hostLabel }) {
         ${internalsSection(podcast)}
     </div>`;
 }
+
+// Episode detail page: the same episode inventory expanded, wrapped in the
+// studio page chrome, for the Episodes collection's detail route.
+export function renderEpisodeDetailView(container, episode) {
+    const holder = document.createElement("div");
+    holder.innerHTML = episodeCard(episode);
+    const details = holder.firstElementChild;
+    details.open = true;
+    container.innerHTML = `<style>${POD_STYLES}</style><div class="podaStudio" data-host="module (app page)">
+        <div class="podaStudio_hero">
+            <div class="podaStudio_cover" aria-hidden="true">EP</div>
+            <div style="min-width:0">
+                <h2 class="podaStudio_title">${esc(episode.title)}</h2>
+                <p class="podaStudio_tagline">S${episode.seasonNumber ?? "?"}E${episode.episodeNumber ?? "?"} · ${esc(episode.status ?? "?")}</p>
+            </div>
+        </div>
+        <section class="podaStudio_section"><h3>Episode inventory</h3><div data-episode-detail></div></section>
+    </div>`;
+    container.querySelector("[data-episode-detail]").appendChild(details);
+}
