@@ -221,6 +221,6 @@ work. The slice remains mock-only.
 
 ## Closure state
 
-- Current run: `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345` (open)
-- Last completed closure: run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe`, opened at `68a9e5df760dd82292cf19fb38880504f40b9be5`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35236134892`
+- Current run: none
+- Last completed closure: run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345`, opened at `b57c31634d01170833c277b4e08d03623b094d0f`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35579404386`
