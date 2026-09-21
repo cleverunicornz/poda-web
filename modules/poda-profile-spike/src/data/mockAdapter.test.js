@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { MockPodaDataAdapter } from "../data/mockAdapter.js";
 import { validatePodcastDraft } from "../studio/podcastCreate.js";
+import { validateEpisodeDraft } from "../studio/episodeCreate.js";
 
 const baseDraft = {
     title: "Ship It Weekly",
@@ -89,5 +90,33 @@ describe("validatePodcastDraft", () => {
         const errors = validatePodcastDraft({ ...baseDraft, websiteUrl: "example.com", socialLinks: { twitter: "x.com/me" } });
         expect(errors.websiteUrl).toBeTruthy();
         expect(errors.social_twitter).toBeTruthy();
+    });
+});
+
+
+describe("validateEpisodeDraft", () => {
+    const baseEpisode = { podcastId: "pod-field-notes", title: "Pilot", status: "draft" };
+
+    it("passes a minimal valid draft", () => {
+        expect(validateEpisodeDraft(baseEpisode)).toEqual({});
+    });
+
+    it("requires a parent podcast and a title", () => {
+        const errors = validateEpisodeDraft({ podcastId: "", title: "" });
+        expect(errors.podcastId).toBeTruthy();
+        expect(errors.title).toBeTruthy();
+    });
+
+    it("requires scheduledAt when scheduled and rejects bad numbers", () => {
+        const errors = validateEpisodeDraft({ ...baseEpisode, status: "scheduled", scheduledAt: null, duration: -4, episodeNumber: 1.5 });
+        expect(errors.scheduledAt).toBeTruthy();
+        expect(errors.duration).toBeTruthy();
+        expect(errors.episodeNumber).toBeTruthy();
+    });
+
+    it("rejects non-http enclosure urls and bad slugs", () => {
+        const errors = validateEpisodeDraft({ ...baseEpisode, enclosureUrl: "cdn.example.com/ep.mp3", slug: "Bad Slug" });
+        expect(errors.enclosureUrl).toBeTruthy();
+        expect(errors.slug).toBeTruthy();
     });
 });

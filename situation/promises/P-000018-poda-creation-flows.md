@@ -25,7 +25,20 @@ resets.
 
 ## State evidence
 
-- `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`, `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/podcastCreate.js`, and `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/studioList.js` implement the adapter, Podcast collection, and validated podcast-creation portion; episode collection/creation and Analytics work remain active.
+- `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`,
+  `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/podcastCreate.js`, and
+  `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/studioList.js`
+  establish the adapter, Podcast collection, and validated podcast-creation
+  portion.
+- `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/studio/episodeCreate.js`,
+  `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/studio/episodeList.js`,
+  `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/shared/podcastFullView.js`, and
+  `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/index.js`
+  add the validated episode form, Episode collection and filter, episode detail,
+  and routes; the changed
+  `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/data/mockAdapter.test.js`
+  covers draft validation. Analytics and complete Oracle evidence remain active,
+  so this Promise remains `implementing`.
 - [D-000021](situation/decisions/D-000021-poda-creation-flows.md) selects the
   slice and records the donor wizard evidence.
 - [Plan document](situation/references/D-000021/poda-creation-flows-plan.md).

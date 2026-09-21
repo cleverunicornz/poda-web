@@ -209,11 +209,18 @@ groups [P-000018](situation/promises/P-000018-poda-creation-flows.md), now
 `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.js`,
 `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/studioList.js`,
 and `4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/studio/podcastCreate.js`,
-the adapter, Podcast collection, and podcast creation form are present; episode
-flows and Analytics remain active work. The slice remains mock-only.
+the adapter, Podcast collection, and podcast creation form are present. At
+`b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/studio/episodeCreate.js`,
+`b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/studio/episodeList.js`,
+`b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/shared/podcastFullView.js`,
+and `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/index.js`,
+validated episode creation, collection/filter, detail, and routes are present;
+the changed `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/data/mockAdapter.test.js`
+covers draft validation. Analytics and complete Oracle evidence remain active
+work. The slice remains mock-only.
 
 ## Closure state
 
 - Current run: none
-- Last completed closure: run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe`, opened at `68a9e5df760dd82292cf19fb38880504f40b9be5`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35236134892`
+- Last completed closure: run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345`, opened at `b57c31634d01170833c277b4e08d03623b094d0f`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35579404386`

@@ -37,6 +37,25 @@ Semantic discovery is the default repository lookup path. This closure instead u
 - Corrector observation for run `20260917T110444Z-6f60ab04198fcf105baab5bd4f0cadb5d48d9f90` at correction base `1acaf915f475db051d3a67b404f35c7838d18b34`: a focused `semantic_search` query for the docketed DELTA endpoint was rejected because the workspace tree contained the unsafe `control/` path, without returning repository results. Native exact target search and current-record reads remained available for this correction.
 - Validator observation for run `20260917T145211Z-4065222c219a646d35031d0295df025b0d482cbe` at reviewed head `fb6c43954e51fa7970a97dab0f44e092cb9af0f0`: `semantic_index_status` and a focused `semantic_search` request independently returned the same unsafe-path rejection naming `control/`; exact Git and direct record/source reads remained available for the assigned interval `68a9e5df760dd82292cf19fb38880504f40b9be5..fb6c43954e51fa7970a97dab0f44e092cb9af0f0`.
 
+- Closer observation for run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345` at opening checkpoint `b57c31634d01170833c277b4e08d03623b094d0f`: `semantic_index_status` and a focused `semantic_search` request independently returned the same unsafe-path rejection naming `control/`; the bounded `git diff 9690f539babc630551bcac6e58b7e11b69e61700..9a1c0880b27a002b5b9350e81c94d520aac51345` review and direct current-record reads remained available.
+- Validator observation for run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345`
+  at reviewed head `2c13c876d5489aad18e2486257940950e239bf7e`:
+  `semantic_index_status` and a focused `semantic_search` request independently
+  returned the same unsafe-path rejection naming `control/`; exact Git and direct
+  record/source reads remained available for the assigned interval
+  `b57c31634d01170833c277b4e08d03623b094d0f..2c13c876d5489aad18e2486257940950e239bf7e`.
+- Validator record-provenance observation for the same run and reviewed head:
+  the new Evidence observations in
+  `situation/gaps/G-000005-unselected-product-ui-contracts.md` and this Gap
+  describe `9690f539babc630551bcac6e58b7e11b69e61700..b57c31634d01170833c277b4e08d03623b094d0f`
+  as the DELTA or bounded review surface. `situation/AGENTS.md` defines the
+  DELTA endpoint as trigger head
+  `9a1c0880b27a002b5b9350e81c94d520aac51345`; opening checkpoint
+  `b57c31634d01170833c277b4e08d03623b094d0f` is its child and additionally
+  changes the checkpoint-owned closure-state line in `situation/context.md`.
+  The provenance discrepancy remains unresolved.
+- Corrector observation for run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345` at correction base `edb7122bb4ab1a749177a7d9f563d6ecafa33c00`: a focused `semantic_search` query for the docketed DELTA coordinate returned an unsafe-path rejection naming `control/` without returning repository results. Exact Git and direct current-record reads remained available for this correction.
+
 ## Impact
 
 This run can retain direct Git-diff and record-read provenance, but it cannot retain the usual semantic-discovery result for the same interval. Future bounded work may encounter the same unavailable lookup until the path-handling outcome is understood.
