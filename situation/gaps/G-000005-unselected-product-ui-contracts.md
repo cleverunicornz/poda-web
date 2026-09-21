@@ -41,7 +41,7 @@ P-000009 through P-000014 require bounded supplied contracts and scenario inputs
   and does not itself assure preview/production isolation.
 
 - DELTA observation for run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345` over
-  `9690f539babc630551bcac6e58b7e11b69e61700..b57c31634d01170833c277b4e08d03623b094d0f`:
+  `9690f539babc630551bcac6e58b7e11b69e61700..9a1c0880b27a002b5b9350e81c94d520aac51345`:
   `modules/poda-profile-spike/src/studio/episodeCreate.js`,
   `modules/poda-profile-spike/src/studio/episodeList.js`, and
   `modules/poda-profile-spike/src/index.js` add a Studio episode form, collection,
