@@ -65,7 +65,7 @@ A valid observation fails on any corresponding in-Scope contradiction:
 ## Implementation coverage
 
 This Oracle remains `designed`. The focused adapter/validation test at
-`4065222c219a646d35031d0295df025b0d482cbe:modules/poda-profile-spike/src/data/mockAdapter.test.js`
+`b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike/src/data/mockAdapter.test.js`
 is source evidence, not a credited executable decision: no exact command and
 retained result are recorded for this Oracle.
 
