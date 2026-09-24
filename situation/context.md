@@ -219,21 +219,21 @@ the changed `b57c31634d01170833c277b4e08d03623b094d0f:modules/poda-profile-spike
 covers draft validation. Analytics and complete Oracle evidence remain active
 work. The slice remains mock-only.
 
-[D-000022](situation/decisions/D-000022-pcc-native-design-transfer.md) then
-selected the maintainer's PCC native app as the design authority for these
-surfaces. Active
-[PLAN-000007](situation/plans/active/PLAN-000007-pcc-native-module-design.md)
+[D-000022](situation/decisions/D-000022-pcc-native-design-transfer.md) selected
+the maintainer's PCC native app as the design authority for these surfaces.
+Active [PLAN-000007](situation/plans/active/PLAN-000007-pcc-native-module-design.md)
 groups [P-000019](situation/promises/P-000019-pcc-native-module-design.md),
-`assured` by
+now `implemented`: the module's Profile, Studio collections, and creation
+wizards use one shared theme module, with the widget host inheriting the shared
+views. The transfer adds D-000022's selected three-category cap while retaining
+the mock/session-only boundary; donor autosave claims, the AI Polish card, and
+Podcasting 2.0 advanced creation groups remain excluded.
 [W-000001](situation/witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
-at exact head `574702d38e42776479b1c032c9c08d7bfa02d0c9`: the module's Profile,
-Studio collections, and both creation wizards render the donor design language
-through one shared theme module, with the widget host inheriting the shared
-views. The transfer is presentation-only over the unchanged mock adapter;
-donor autosave claims, the AI Polish card, and Podcasting 2.0 advanced
-creation groups were deliberately excluded.
-[G-000014](situation/gaps/G-000014-module-package-lint-debt.md) retains six
-pre-existing lint errors in the module's untouched data/fixture files.
+is `INVALID` and does not assure P-000019 because its retained browser
+observation does not decide the existing episode-detail field projection.
+[G-000015](situation/gaps/G-000015-episode-create-field-projection.md) retains
+the current source/smoke contradiction. [G-000014](situation/gaps/G-000014-module-package-lint-debt.md)
+retains separate module lint debt.
 
 ## Closure state
 
