@@ -6,33 +6,37 @@ open
 
 ## Gap
 
-Five `modules/poda-profile-spike/` data/fixture files predate the repository's
-current oxlint/oxfmt rules: `data/appleCategories.js`, `data/mockAdapter.js`,
-`data/mockAdapter.test.js`, `shared/podcastFixtures.js`, and
-`shared/profileFixtures.js` lack the required copyright header, and
-`mockAdapter.js` carries an `eslint(no-dupe-keys)` error at line 138
-(`savePodcast`'s object literal sets `id` twice).
+Five `modules/poda-profile-spike/` data/fixture files —
+`data/appleCategories.js`, `data/mockAdapter.js`, `data/mockAdapter.test.js`,
+`shared/podcastFixtures.js`, and `shared/profileFixtures.js` — do not carry the
+copyright/SPDX preamble used by the transfer's view/theme files. In addition,
+`saveEpisode`'s object literal in `data/mockAdapter.js` assigns `id` before and
+after `...clone(draft)`, leaving the first generated ID overwritten.
 
 ## Relevance
 
-Raised during the PCC native design transfer (D-000022), which brought the
-module's nine view/theme files to zero oxlint errors. The remaining six errors
-sit in files that transfer did not need to modify; fixing the duplicate key
-touches adapter seed behavior and belongs to separately assigned work.
+Raised during the PCC native design transfer (D-000022). The transfer also
+changed four named data/fixture files, so this is not an untouched-file claim.
+Adding headers and choosing the intended episode-ID assignment are separately
+assigned work; this closure does not change adapter behavior.
 
 ## Evidence
 
-- `oxlint modules/poda-profile-spike/src` reports exactly these 6 errors on the
-  `internal/poda-native-design` head; the same run on `origin/internal/main`
-  reports 46 errors, of which the design transfer removed the 42 in
-  view/theme files and left these 6 untouched.
-- The duplicate `id` key is masked by JavaScript's last-wins object semantics,
-  so the adapter's current behavior is unaffected.
+- Direct source review at
+  `modules/poda-profile-spike/src/data/appleCategories.js:1`,
+  `modules/poda-profile-spike/src/data/mockAdapter.js:1`,
+  `modules/poda-profile-spike/src/data/mockAdapter.test.js:1`,
+  `modules/poda-profile-spike/src/shared/podcastFixtures.js:1`, and
+  `modules/poda-profile-spike/src/shared/profileFixtures.js:1` finds no
+  copyright/SPDX preamble in the five named files.
+- `modules/poda-profile-spike/src/data/mockAdapter.js:137-179` has `id:
+  mockGuid("ep")` at object construction and again after `...clone(draft)`.
+  JavaScript's later property assignment determines the returned episode ID.
 
 ## Impact
 
-Repo-wide `lint:js`/`lint:fmt` runs flag the module package; the duplication
-hides which `id` expression was intended at `mockAdapter.js:138`.
+Module lint can flag the missing preambles and duplicate property source. The
+double ID assignment hides which generated ID was intended for a new episode.
 
 ## Resolution
 
