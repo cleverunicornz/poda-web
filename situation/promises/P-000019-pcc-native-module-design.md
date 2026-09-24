@@ -2,7 +2,7 @@
 
 ## State
 
-implemented
+assured
 
 ## Promise
 
@@ -43,15 +43,20 @@ and required/format validation contracts. Mock data only; reload resets.
   O-000019 P4's existing episode detail-field and scheduled-time projection.
   The direct source/smoke contradiction is retained in
   [G-000015](situation/gaps/G-000015-episode-create-field-projection.md).
+  Commit `29a6ddf174689f679f22b8e616db0ee3ef27396d` restored the projection,
+  and [W-000002](situation/witnesses/P-000019/W-000002-pcc-native-module-design-corrected-pass.md)
+  PASSes all O-000019 legs at corrected head
+  `81c5fc21b6007c4affac924e5242f7c0f0aa7e99`.
 
 ## Residual
 
 This promise does not assure: donor i18n wiring, donor Podcasting 2.0 advanced
 repeater groups in creation forms, autosave, real uploads, the AI Polish card,
-guest attachment, or any persistence beyond the session. It does not yet
-assure the episode detail-field and scheduled-time projection retained in
-[G-000015](situation/gaps/G-000015-episode-create-field-projection.md), the
-unimplemented Analytics leg of P-000018, or any change to P-000018's state.
+guest attachment, or any persistence beyond the session. The episode
+detail-field and scheduled-time projection retained in
+[G-000015](situation/gaps/G-000015-episode-create-field-projection.md) is
+repaired at the W-000002 head. This promise does not assure the unimplemented
+Analytics leg of P-000018, or any change to P-000018's state.
 
 ## References
 
