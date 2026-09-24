@@ -13,9 +13,10 @@ transferred per [D-000022](situation/decisions/D-000022-pcc-native-design-transf
 donor token triples in both Poda themes, native list/table anatomies, guided
 wizard frames with hero cards and live readiness rails, and the profile hero
 with segmented visibility control and stats/share/At-a-Glance rail. Podcast
-creation applies the selected three-category cap while retaining its existing
-required/format validation; creation routes, the session-only adapter boundary,
-and native Chat remain unchanged. Episode creation preserves its existing
+creation applies the selected three-category cap and the declared `Save Draft`
+to collection / `Create Podcast` to detail outcomes while retaining its
+existing required/format validation. The session-only adapter boundary and
+native Chat remain unchanged. Episode creation preserves its existing
 show-notes and enclosure projection into the rendered detail model.
 
 ## Scope
@@ -23,10 +24,10 @@ show-notes and enclosure projection into the rendered detail model.
 The `modules/poda-profile-spike/` package: one shared native theme module
 (`src/shared/nativeTheme.js`), the studio collection views, both creation
 wizards, the shared profile and podcast detail views, and the module host
-shell. The transfer changes presentation and adds the selected three-category
-cap while preserving the `MockPodaDataAdapter`, fixtures, routes, existing
-creation-field projection, and required/format validation contracts. Mock data
-only; reload resets.
+shell. The transfer changes presentation plus the selected three-category and
+podcast post-submit behaviors while preserving the `MockPodaDataAdapter`,
+fixtures, existing episode creation-field projection, and required/format
+validation contracts. Mock data only; reload resets.
 
 ## Oracle
 
