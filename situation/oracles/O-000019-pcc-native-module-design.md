@@ -37,8 +37,9 @@ A complete PASS requires every leg:
   tiles in both Poda themes; no surface keeps the superseded ad-hoc palette.
 - **P2 — Wizard transfer.** Both creation flows present the donor wizard frame
   (hero card with chips, section cards with guidance notes, readiness rail with
-  live percent/checklist), enforce the three-category cap, reject invalid
-  drafts inline, and reach the correct post-submit route.
+  live percent/checklist); podcast creation enforces the three-category cap,
+  both flows reject invalid drafts inline, and each reaches its correct
+  post-submit route.
 - **P3 — Profile transfer.** The profile page shows the publish pill, hero with
   avatar tile and topic chips, the visibility segmented control (own profile
   interactive), and the right rail with stats, share, and At-a-Glance strength;
