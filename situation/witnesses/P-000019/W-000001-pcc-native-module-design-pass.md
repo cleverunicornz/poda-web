@@ -37,11 +37,9 @@ INVALID
 - [Native Chat unchanged](situation/references/P-000019/native-design-transfer/chat-unchanged-light.webp)
 
 A signed-in demo session exercised O-000019 against the exact head's module
-bundle deployed into the served local preview (`http://localhost:8082/`) backed
-by the persistent demo Synapse. Adapter contract tests passed 12/12, the module
-bundle and widget bundle built, and `tsc --noEmit` passed at the exact head.
-The nine rewritten module view/theme files pass `oxlint` and `oxfmt` with zero
-errors; six pre-existing errors in untouched data/fixture files are retained in
+bundle in a local preview. The retained observation reports focused adapter
+contract testing and module and widget bundle builds at that head. Separate
+module source hygiene is retained in
 [G-000014](situation/gaps/G-000014-module-package-lint-debt.md).
 
 ## Oracle legs
