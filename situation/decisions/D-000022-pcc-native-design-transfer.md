@@ -42,18 +42,19 @@ with chips and draft-pulse panel, section cards with guidance and blue info
 notes, category checkbox grid capped at three, dashed upload areas, live
 readiness rail, and native footer actions. Profile gains the donor's publish
 pill, welcome banner, hero with topic chips and visibility segmented control,
-and the stats/share/At-a-Glance rail. Data, routing, and validation contracts
-stay unchanged; everything remains session-only through the declared mock
-adapter.
+and the stats/share/At-a-Glance rail. Data and routing contracts stay
+unchanged. Existing required/format validation stays unchanged except for the
+selected three-category cap; everything remains session-only through the
+declared mock adapter.
 
 ## Why
 
 The donor native app is the maintainer's selected design authority for these
 product surfaces. One shared token/component module keeps the transfer
 consistent across the module host and the widget host (I-000006) and avoids a
-second convention beside it. Keeping the module's data and validation seams
-unchanged confines the change to presentation, preserving P-000018's adapter
-boundary (P4) and the mock-only scope.
+second convention beside it. Keeping the module's data and routing seams
+unchanged, while constraining the validation change to the selected category
+cap, confines the transfer to the mock-only scope.
 
 ## Rejected alternatives
 
