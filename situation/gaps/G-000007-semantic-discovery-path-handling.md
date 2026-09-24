@@ -55,6 +55,7 @@ Semantic discovery is the default repository lookup path. This closure instead u
   changes the checkpoint-owned closure-state line in `situation/context.md`.
   The provenance discrepancy remains unresolved.
 - Corrector observation for run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345` at correction base `edb7122bb4ab1a749177a7d9f563d6ecafa33c00`: a focused `semantic_search` query for the docketed DELTA coordinate returned an unsafe-path rejection naming `control/` without returning repository results. Exact Git and direct current-record reads remained available for this correction.
+- Closer observation for run `20260924T141117Z-f187b0a0342cb1c5172d4b61d21386cbcb604ea6` at opening checkpoint `e74b706ee9c1e398dc9d2ecd38f282423c9cf995`: focused `semantic_search` and reviewed-head `semantic_snapshot_create` requests independently returned the unsafe-path rejection naming `control/`; the bounded exact diff and direct current-record/source reads remained available for this closure.
 
 ## Impact
 
