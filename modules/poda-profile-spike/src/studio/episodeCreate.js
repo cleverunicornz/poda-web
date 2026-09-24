@@ -171,7 +171,7 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
                 <p class="pnFieldError" data-error-for="podcastId"></p></div>
             ${epField("epTitle", "Title *", { placeholder: "Systems that do not collapse", counter: 200 })}
             <div class="pnGrid3">
-                ${epField("epNumber", "Episode Number *", { type: "number", placeholder: "42" })}
+                ${epField("epNumber", "Episode number", { type: "number", placeholder: "42" })}
                 ${epField("epSeason", "Season number", { type: "number", placeholder: "3" })}
                 ${epField("epSlug", "Slug", { type: "text", placeholder: "systems-that-do-not-collapse" })}
             </div>

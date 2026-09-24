@@ -44,18 +44,22 @@ module source hygiene is retained in
 
 ## Oracle legs
 
-| Leg     | Observation |
-| ------- | ----------- |
-| P1 / F1 | Every named surface renders the `.podaNative` donor tokens: computed wizard grid `736px 360px` and hero row at 1440px, single-column stacking at 500px, and correct warm-dark surfaces under `cpd-theme-dark`. The superseded palette (`#fffdf9` pages, gradient CTAs, fieldset sections) no longer appears on any module surface. |
-| P2 / F2 | Podcast wizard readiness climbed 25% → 50% → 75% → 100% live with the checklist and rail mirroring it; the third category selection disabled the 16 remaining inputs (`Selected: 3/3`); an invalid submit showed the error banner plus inline slug/owner-email messages; `Save Draft` created the draft and returned to the list; `Create Podcast` opened `pod-mufjsn32-de4ks2` at the exact head. Episode wizard readiness tracked Title-and-number and audio/notes inputs, the hero chip followed the podcast selection, publish radio cards switched the Final action rail and submit label, and creation opened `ep-mufizz06-6zq40x`. |
-| P3 / F3 | Own profile shows the Draft pill, dismissible welcome banner, inline `+ Add Topic` (added `Resilience`), the Members Only → Public segmented toggle, Your Stats fed by the session adapter, and At a Glance moving 0% → 13%. The example fixture renders Published, Public, an 88% green strength bar, and the Share Profile copy row. The room-widget host renders the same shared design. |
-| P4 / F4 | The retained browser result confirms the adapter tests, reload behavior, and unchanged Chat, but it does not observe the episode form retaining entered show notes as `showNotesHtml`, enclosure URL as `media.primaryEnclosure`, or its scheduled-time representation at detail. O-000019 P4 is therefore undecided; [G-000015](situation/gaps/G-000015-episode-create-field-projection.md) retains the source/smoke contradiction. |
+| Leg | Observation |
+| --- | --- |
+| P1 | Module-host surfaces render the `.podaNative` donor tokens: computed wizard grid `736px 360px` and hero row at 1440px, single-column stacking at 500px, and warm-dark module surfaces under `cpd-theme-dark`. The retained widget evidence is only `widget-profile-light.webp`; it neither shows the widget in Poda Dark nor exercises an initial theme template or later host update. P1 is undecided. |
+| P2 | Podcast wizard readiness climbed 25% → 50% → 75% → 100% live with the checklist and rail mirroring it; the third category selection disabled the 16 remaining inputs (`Selected: 3/3`); an invalid submit showed the error banner plus inline slug/owner-email messages; `Save Draft` created the draft and returned to the list; `Create Podcast` opened `pod-mufjsn32-de4ks2` at the exact head. Episode wizard readiness tracked Title-and-number and audio/notes inputs, the hero chip followed the podcast selection, publish radio cards switched the Final action rail and submit label, and creation opened `ep-mufizz06-6zq40x`. |
+| P3 | Own profile shows the Draft pill, dismissible welcome banner, inline `+ Add Topic` (added `Resilience`), the Members Only → Public segmented toggle, Your Stats fed by the session adapter, and At a Glance moving 0% → 13%. The example fixture renders Published, Public, an 88% green strength bar, and the Share Profile copy row. The room widget renders the shared design in its retained light observation. This did not submit Edit Profile or decide its creator-field projection. P3 is undecided. |
+| P4 | The retained browser result confirms the adapter tests, reload behavior, and unchanged Chat, but it does not observe the episode form retaining entered show notes as `showNotesHtml`, enclosure URL as `media.primaryEnclosure`, or its scheduled-time representation at detail. It does not observe the corrected exact head. P4 is undecided; [G-000015](situation/gaps/G-000015-episode-create-field-projection.md) retains the reviewed-head contradiction. |
 
 ## Notes
 
-- Behavior legs P2/P3 ran against the pre-format build of the same source tree;
-  the committed head differs only by `oxfmt` formatting, and the adapter tests,
-  module build, and a complete wizard create flow were re-run against the
-  deployed post-format bundle at the exact head.
-- This is a bounded manual observation, not an assurance of P-000019: it does not decide P4's existing episode detail-field or scheduled-time projection and therefore cannot be a complete PASS. It also does not establish the reusable fork assurance route absent in
+- P2 and the observed summary-profile controls ran against the pre-format build
+  of the same source tree; the committed head differs only by `oxfmt`
+  formatting, and the adapter tests, module build, and a complete wizard create
+  flow were re-run against the deployed post-format bundle at the exact head.
+- This is a bounded manual observation, not an assurance of P-000019: it does
+  not decide the room-widget's Poda Dark render and host-theme update in P1,
+  the Profile Edit submission projection in P3, or the episode detail-field and
+  scheduled-time projection in P4 on a corrected exact head. It also does not
+  establish the reusable fork assurance route absent in
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).

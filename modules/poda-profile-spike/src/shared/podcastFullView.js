@@ -23,7 +23,7 @@ const POD_STYLES = `
 .podaStudio_section--internals { border-style: dashed; background: hsl(var(--pn-primary) / 0.06); }
 .podaStudio_section h3 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; }
 .podaStudio_section h3 .note { font-size: 12px; font-weight: 500; color: hsl(var(--pn-muted-fg)); margin-left: 8px; }
-.podaStudio_row { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; border-bottom: 1px solid hsl(var(--pn-border) / 0.5); font-size: 14px; }
+.podaStudio_row { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; border-bottom: 1px solid hsl(var(--pn-border)); font-size: 14px; }
 .podaStudio_row:last-child { border-bottom: none; }
 .podaStudio_row b { font-weight: 500; flex-shrink: 0; }
 .podaStudio_row span { text-align: right; overflow-wrap: anywhere; font-family: ui-monospace, monospace; font-size: 12px; color: hsl(var(--pn-muted-fg)); }

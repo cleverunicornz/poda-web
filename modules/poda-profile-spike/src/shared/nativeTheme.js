@@ -393,7 +393,7 @@ body[class*="cpd-theme-dark"] .pnRailItem--done { background: hsl(160 40% 12%); 
 .pnQuote { border-left: 3px solid hsl(var(--pn-primary)); padding: 4px 0 4px 14px; margin: 0 0 12px; }
 .pnQuote p { margin: 0 0 4px; font-size: 14px; font-style: italic; }
 .pnQuote span { font-size: 12px; color: hsl(var(--pn-muted-fg)); }
-.pnDefRow { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid hsl(var(--pn-border) / 0.5); font-size: 14px; }
+.pnDefRow { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid hsl(var(--pn-border)); font-size: 14px; }
 .pnDefRow:last-child { border-bottom: none; }
 .pnDefRow b { font-weight: 500; flex-shrink: 0; }
 .pnDefRow span { text-align: right; overflow-wrap: anywhere; color: hsl(var(--pn-muted-fg)); }
