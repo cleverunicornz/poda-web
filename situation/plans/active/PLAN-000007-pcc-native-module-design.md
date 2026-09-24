@@ -7,14 +7,14 @@ None.
 ## Promises
 
 - [P-000019](../../promises/P-000019-pcc-native-module-design.md) — the module's
-  Profile/Studio/wizard surfaces render the PCC native design language without
-  changing behavior contracts.
+  Profile/Studio/wizard surfaces render the PCC native design language, with
+  D-000022's explicit three-category cap and preserved existing field projection.
 
 ## Dependencies
 
-P-000019 restyles surfaces delivered under P-000018; it depends on P-000018's
-adapter and validation contracts remaining intact and does not close P-000018's
-remaining Analytics leg.
+P-000019 restyles surfaces delivered under P-000018. It preserves P-000018's
+adapter and required/format validation semantics while adding D-000022's
+three-category rule; it does not close P-000018's remaining Analytics leg.
 
 ## Completion
 
