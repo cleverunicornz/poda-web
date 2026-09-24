@@ -17,7 +17,7 @@ creation applies the selected three-category cap and the declared `Save Draft`
 to collection / `Create Podcast` to detail outcomes while retaining its
 existing required/format validation. The session-only adapter boundary and
 native Chat remain unchanged. Episode creation preserves its existing
-show-notes and enclosure projection into the rendered detail model.
+show-notes/enclosure detail projection and scheduled-time representation.
 
 ## Scope
 
@@ -26,8 +26,8 @@ The `modules/poda-profile-spike/` package: one shared native theme module
 wizards, the shared profile and podcast detail views, and the module host
 shell. The transfer changes presentation plus the selected three-category and
 podcast post-submit behaviors while preserving the `MockPodaDataAdapter`,
-fixtures, existing episode creation-field projection, and required/format
-validation contracts. Mock data only; reload resets.
+fixtures, existing episode show-notes/enclosure and scheduled-time projection,
+and required/format validation contracts. Mock data only; reload resets.
 
 ## Oracle
 
