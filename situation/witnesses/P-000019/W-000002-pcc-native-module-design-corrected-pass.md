@@ -14,7 +14,7 @@ PASS
 
 ## Head
 
-`81c5fc21b6007c4affac924e5242f7c0f0aa7e99`
+`709231e4accd88d4ab5b8793cc734a99896e3b58` (merge of the closure's corrector commits and the polish round)
 
 ## Observed
 
@@ -39,11 +39,11 @@ Run against the corrected head's bundle deployed into the local preview:
 | P1 / F1 | Token render verified at 1440/500/380px in both Poda themes; polish round consolidated page/stack patterns into the shared theme so all surfaces share one component layer. |
 | P2 / F2 | Both wizards behave as before with the native frame; category cap, validation, and both submit intents exercised live. |
 | P3 / F3 | Profile rail, segmented control, welcome banner, and topic popover exercised live; widget host shares the same views. |
-| P4 / F4 | The G-000015 projection defect is repaired and observed fixed in the browser and in a focused adapter smoke; scheduled values are ISO-normalized again; adapter tests pass; Chat untouched. |
+| P4 / F4 | The G-000015 projection defect is repaired by the closure's corrector commit `3c2bcee968fd441ab138a85787c928111335e15d` and observed fixed in the browser and in a focused adapter smoke at the merge head; scheduled values are ISO-normalized again; adapter tests pass; Chat untouched. |
 
 ## Notes
 
-- The exact head is the polish commit `81c5fc21b6007c4affac924e5242f7c0f0aa7e99`
-  on `internal/poda-native-design`.
+- The exact head is the merge commit `709231e4accd88d4ab5b8793cc734a99896e3b58`
+  on `internal/poda-native-design` (closure corrector commits + polish round).
 - Local manual assurance only; the reusable fork assurance route remains absent
   per [G-000001](situation/gaps/G-000001-fork-assurance-route.md).

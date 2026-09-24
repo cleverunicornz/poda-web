@@ -49,10 +49,11 @@ preservation. The same episode creation flow remains part of
   This observed sequence is limited to the field projection.
 
 - Repair observation (2026-09-24, assigned by the 20260924T141117Z validator
-  docket): commit `29a6ddf174689f679f22b8e616db0ee3ef27396d` restores the
-  `showNotesHtml` / `media.primaryEnclosure` projection and the ISO
-  `scheduledAt` conversion. Verified live at
-  `81c5fc21b6007c4affac924e5242f7c0f0aa7e99`: a created episode's detail
+  docket): the closure's corrector commit
+  `3c2bcee968fd441ab138a85787c928111335e15d` restores the `showNotesHtml` /
+  `media.primaryEnclosure` projection and the ISO `scheduledAt` conversion; a
+  parallel local repair was merged away in favor of it. Verified live at merge
+  head `709231e4accd88d4ab5b8793cc734a99896e3b58`: a created episode's detail
   inventory renders the entered show notes and enclosure URL, and the focused
   adapter smoke prints the projected fields instead of nulls. Recorded in
   [W-000002](../witnesses/P-000019/W-000002-pcc-native-module-design-corrected-pass.md).

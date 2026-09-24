@@ -43,10 +43,10 @@ and required/format validation contracts. Mock data only; reload resets.
   O-000019 P4's existing episode detail-field and scheduled-time projection.
   The direct source/smoke contradiction is retained in
   [G-000015](situation/gaps/G-000015-episode-create-field-projection.md).
-  Commit `29a6ddf174689f679f22b8e616db0ee3ef27396d` restored the projection,
+  The closure's corrector commit `3c2bcee968fd441ab138a85787c928111335e15d` restored the projection,
   and [W-000002](situation/witnesses/P-000019/W-000002-pcc-native-module-design-corrected-pass.md)
   PASSes all O-000019 legs at corrected head
-  `81c5fc21b6007c4affac924e5242f7c0f0aa7e99`.
+  `709231e4accd88d4ab5b8793cc734a99896e3b58`.
 
 ## Residual
 
