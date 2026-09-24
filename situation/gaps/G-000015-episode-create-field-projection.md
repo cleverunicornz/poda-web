@@ -23,9 +23,12 @@ preservation. The same episode creation flow remains part of
 ## Evidence
 
 - `modules/poda-profile-spike/src/studio/episodeCreate.js:251-270` returns
-  `showNotes` and `enclosureUrl`; `:314-346` passes that draft directly to the
-  adapter. The previous mapping in the admitted delta constructed
-  `showNotesHtml` and `media.primaryEnclosure` before `onSubmit`.
+  `showNotes` and `enclosureUrl`;
+  `modules/poda-profile-spike/src/studio/episodeCreate.js:314-346` passes that
+  draft directly to the adapter. The
+  `af00892498b68cba59146dc8b2c26a14b5312a55:modules/poda-profile-spike/src/studio/episodeCreate.js`
+  version constructed `showNotesHtml` and `media.primaryEnclosure` before
+  `onSubmit`.
 - `modules/poda-profile-spike/src/data/mockAdapter.js:137-179` defaults
   `showNotesHtml` to `null` and `media.primaryEnclosure` to `null`, then merges
   the incoming draft unchanged. `modules/poda-profile-spike/src/shared/podcastFullView.js:314-335`
