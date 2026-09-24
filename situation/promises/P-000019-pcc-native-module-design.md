@@ -40,8 +40,8 @@ and required/format validation contracts. Mock data only; reload resets.
   and the rewritten views on that head.
 - [W-000001](situation/witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
   is `INVALID`: it retains partial browser observations but does not decide
-  O-000019 P4's existing episode-field projection. The direct source/smoke
-  contradiction is retained in
+  O-000019 P4's existing episode detail-field and scheduled-time projection.
+  The direct source/smoke contradiction is retained in
   [G-000015](situation/gaps/G-000015-episode-create-field-projection.md).
 
 ## Residual
@@ -49,7 +49,7 @@ and required/format validation contracts. Mock data only; reload resets.
 This promise does not assure: donor i18n wiring, donor Podcasting 2.0 advanced
 repeater groups in creation forms, autosave, real uploads, the AI Polish card,
 guest attachment, or any persistence beyond the session. It does not yet
-assure the episode field projection retained in
+assure the episode detail-field and scheduled-time projection retained in
 [G-000015](situation/gaps/G-000015-episode-create-field-projection.md), the
 unimplemented Analytics leg of P-000018, or any change to P-000018's state.
 
