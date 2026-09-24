@@ -131,14 +131,14 @@ function visibilitySelect(sectionKey, value) {
     return `<div class="pnField podaProfileCreate_row"><label class="pnLabel" for="vis_${sectionKey}">${sectionKey === "bestFitFor" ? "Best fit" : sectionKey.replace(/[A-Z]/g, (m) => " " + m.toLowerCase())}</label><select class="pnSelect" id="vis_${sectionKey}" name="vis_${sectionKey}">${options}</select></div>`;
 }
 
-function editField(id, label, { type = "text", value = "", placeholder = "", required = false } = {}) {
-    return `<div class="pnField"><label class="pnLabel" for="${id}">${esc(label)}</label><input class="pnInput" id="${id}" name="${id}" type="${type}" value="${escAttr(value)}" placeholder="${escAttr(placeholder)}" ${required ? "required" : ""} /></div>`;
+function editField(id, name, label, { type = "text", value = "", placeholder = "", required = false } = {}) {
+    return `<div class="pnField"><label class="pnLabel" for="${id}">${esc(label)}</label><input class="pnInput" id="${id}" name="${name}" type="${type}" value="${escAttr(value)}" placeholder="${escAttr(placeholder)}" ${required ? "required" : ""} /></div>`;
 }
 
 function renderEdit(container, { api, overrides, setOverrides }) {
     const current = resolveOwnProfile(api, overrides);
     const socialInputs = SOCIAL_SERVICES.map((svc) =>
-        editField(`pp_s_${svc}`, svc.charAt(0).toUpperCase() + svc.slice(1), {
+        editField(`pp_s_${svc}`, `social_${svc}`, svc.charAt(0).toUpperCase() + svc.slice(1), {
             type: "url",
             value: current.socialLinks?.[svc],
             placeholder: "https://",
@@ -184,23 +184,23 @@ function renderEdit(container, { api, overrides, setOverrides }) {
             <form id="podaProfileCreateForm" class="pnStack">
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Identity</h2><p class="pnCard_desc">The public name and handle hosts see.</p></div><div class="pnCard_body">
                     <div class="pnGrid2">
-                        ${editField("ppName", "Display name", { value: current.displayName, required: true })}
-                        ${editField("ppSlug", "Profile slug", { value: current.slug, placeholder: "your-name" })}
+                        ${editField("ppName", "displayName", "Display name", { value: current.displayName, required: true })}
+                        ${editField("ppSlug", "slug", "Profile slug", { value: current.slug, placeholder: "your-name" })}
                     </div>
-                    ${editField("ppHeadline", "Headline", { value: current.headline, placeholder: "Podcast host and producer" })}
-                    ${editField("ppTagline", "Tagline", { value: current.tagline, placeholder: "One-line promise" })}
+                    ${editField("ppHeadline", "headline", "Headline", { value: current.headline, placeholder: "Podcast host and producer" })}
+                    ${editField("ppTagline", "tagline", "Tagline", { value: current.tagline, placeholder: "One-line promise" })}
                 </div></section>
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Media</h2><p class="pnCard_desc">Avatar, banner, and intro video links (mock uploads).</p></div><div class="pnCard_body">
                     <div class="pnGrid2">
-                        ${editField("ppAvatar", "Avatar URL (mock)", { type: "url", value: current.avatarUrl, placeholder: "https://…/avatar.png" })}
-                        ${editField("ppBanner", "Banner URL (mock)", { type: "url", value: current.bannerUrl, placeholder: "https://…/banner.png" })}
+                        ${editField("ppAvatar", "avatarUrl", "Avatar URL (mock)", { type: "url", value: current.avatarUrl, placeholder: "https://…/avatar.png" })}
+                        ${editField("ppBanner", "bannerUrl", "Banner URL (mock)", { type: "url", value: current.bannerUrl, placeholder: "https://…/banner.png" })}
                     </div>
-                    ${editField("ppIntroVideo", "Intro video URL", { type: "url", value: current.introVideoUrl, placeholder: "https://…/intro.mp4" })}
+                    ${editField("ppIntroVideo", "introVideoUrl", "Intro video URL", { type: "url", value: current.introVideoUrl, placeholder: "https://…/intro.mp4" })}
                 </div></section>
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">About</h2><p class="pnCard_desc">The hook and the full story.</p></div><div class="pnCard_body">
-                    ${editField("ppShort", "Short intro", { value: current.aboutShort, placeholder: "2-3 sentences shown on cards" })}
+                    ${editField("ppShort", "aboutShort", "Short intro", { value: current.aboutShort, placeholder: "2-3 sentences shown on cards" })}
                     <div class="pnField"><label class="pnLabel" for="ppBio">Full bio</label><textarea class="pnTextarea" id="ppBio" name="bio">${esc(current.bio)}</textarea></div>
-                    ${editField("ppTopics", "Topics (comma separated)", { value: current.topics.join(", "), placeholder: "Technology, Interviews" })}
+                    ${editField("ppTopics", "topics", "Topics (comma separated)", { value: current.topics.join(", "), placeholder: "Technology, Interviews" })}
                 </div></section>
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Expertise cards</h2><p class="pnCard_desc">Add 2-4 expertise cards highlighting your key talking points.</p></div><div class="pnCard_body">
                     <div id="ppExpRows">${expertiseRows}</div>
@@ -212,7 +212,7 @@ function renderEdit(container, { api, overrides, setOverrides }) {
                 </div></section>
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Links &amp; booking</h2><p class="pnCard_desc">Where hosts can find and book you.</p></div><div class="pnCard_body">
                     <div class="pnGrid2">${socialInputs}</div>
-                    ${editField("ppBooking", "Booking URL", { type: "url", value: current.bookingUrl, placeholder: "https://calendly.com/…" })}
+                    ${editField("ppBooking", "bookingUrl", "Booking URL", { type: "url", value: current.bookingUrl, placeholder: "https://calendly.com/…" })}
                 </div></section>
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Status</h2><p class="pnCard_desc">Draft vs published, and directory listing.</p></div><div class="pnCard_body">
                     <div class="pnGrid2">

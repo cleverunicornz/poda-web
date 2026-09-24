@@ -18,7 +18,7 @@ three-category rule; it does not close P-000018's remaining Analytics leg.
 
 ## Completion
 
-- P-000019 reaches `assured` by an O-000019 witness at an exact head.
-- [D-000022](../../decisions/D-000022-pcc-native-design-transfer.md) stays
-  `accepted`; the module renders the donor design in both Poda themes with the
-  widget host included.
+- Completes when [P-000019](../../promises/P-000019-pcc-native-module-design.md)
+  reaches `assured` through
+  [O-000019](../../oracles/O-000019-pcc-native-module-design.md) on an exact-head
+  PASS witness.
