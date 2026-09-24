@@ -66,7 +66,7 @@ function readiness(draft) {
         ["Title and number", Boolean(draft.title?.trim() && draft.episodeNumber != null), null],
         ["Hosted audio", Boolean(draft.enclosureUrl), null],
         ["Guest credits", false, "Display-only in this preview"],
-        ["Notes or transcript", Boolean(draft.description?.trim() || draft.showNotes?.trim()), null],
+        ["Notes or transcript", Boolean(draft.description?.trim() || draft.showNotesHtml?.trim()), null],
     ];
     const done = items.filter(([, ok]) => ok).length;
     return { items, percent: Math.round((done / items.length) * 100) };
@@ -255,18 +255,19 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
             return raw === "" ? null : Number(raw);
         };
         const status = data.get("epStatus") ?? "draft";
+        const scheduledRaw = formText(data, "epScheduledAt").trim();
         return {
             podcastId: formText(data, "epPodcast"),
             title: formText(data, "epTitle").trim(),
             slug: formText(data, "epSlug").trim(),
             description: formText(data, "epDescription").trim(),
-            showNotes: formText(data, "epShowNotes").trim(),
+            showNotesHtml: formText(data, "epShowNotes").trim() || null,
             episodeNumber: num("epNumber"),
             seasonNumber: num("epSeason"),
             duration: num("epDuration"),
             enclosureUrl: formText(data, "epEnclosure").trim(),
             status,
-            scheduledAt: status === "scheduled" ? formText(data, "epScheduledAt") : null,
+            scheduledAt: status === "scheduled" && scheduledRaw ? new Date(scheduledRaw).toISOString() : null,
         };
     }
 
@@ -343,6 +344,27 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
             banner.scrollIntoView({ block: "center" });
             return;
         }
-        onSubmit?.(draft);
+        const submitDraft = { ...draft };
+        delete submitDraft.enclosureUrl;
+        if (draft.enclosureUrl) {
+            submitDraft.media = {
+                primaryEnclosure: {
+                    url: draft.enclosureUrl,
+                    mimeType: "audio/mpeg",
+                    lengthBytes: null,
+                    durationSeconds: draft.duration,
+                    title: null,
+                    isDefault: true,
+                    bitrate: null,
+                    height: null,
+                    language: null,
+                    rel: null,
+                    codecs: null,
+                    sources: [{ uri: draft.enclosureUrl, contentType: "audio/mpeg" }],
+                },
+                alternateEnclosures: [],
+            };
+        }
+        onSubmit?.(submitDraft);
     });
 }
