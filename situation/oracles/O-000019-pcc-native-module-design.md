@@ -46,8 +46,9 @@ A complete PASS requires every leg:
   the widget card renders the same design.
 - **P4 — Behavior preservation.** Collection → create → detail flows preserve
   the existing episode projection of form show notes and enclosure URL into
-  `showNotesHtml` and `media.primaryEnclosure`; the session-only adapter
-  boundary (reload restores seed state) and native Chat remain unchanged.
+  `showNotesHtml` and `media.primaryEnclosure`, and preserve scheduled-time
+  representation; the session-only adapter boundary (reload restores seed state)
+  and native Chat remain unchanged.
 
 ## Fail
 
@@ -59,9 +60,9 @@ A valid observation fails on any corresponding in-Scope contradiction:
   inline validation is absent or dead (affordances that do nothing).
 - **F3 — Profile transfer.** The profile rail, segmented control, or topic
   interactions are absent or dead; the widget diverges from the module design.
-- **F4 — Behavior preservation.** A previously working flow or its episode
-  detail-field projection regresses, the adapter boundary is bypassed, or Chat
-  changes from native behavior.
+- **F4 — Behavior preservation.** A previously working flow, episode
+  detail-field projection, or scheduled-time representation regresses, the
+  adapter boundary is bypassed, or Chat changes from native behavior.
 
 ## Implementation coverage
 
