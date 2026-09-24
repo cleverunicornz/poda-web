@@ -230,10 +230,11 @@ the mock/session-only boundary; donor autosave claims, the AI Polish card, and
 Podcasting 2.0 advanced creation groups remain excluded.
 [W-000001](situation/witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
 is `INVALID` and does not assure P-000019 because its retained browser
-observation does not decide the existing episode-detail field projection.
-[G-000015](situation/gaps/G-000015-episode-create-field-projection.md) retains
-the current source/smoke contradiction. [G-000014](situation/gaps/G-000014-module-package-lint-debt.md)
-retains separate module lint debt.
+observation does not decide the existing episode detail-field or scheduled-time
+projection. [G-000015](situation/gaps/G-000015-episode-create-field-projection.md)
+retains the current source/smoke contradiction.
+[G-000014](situation/gaps/G-000014-module-package-lint-debt.md) retains
+separate module lint debt.
 
 ## Closure state
 
