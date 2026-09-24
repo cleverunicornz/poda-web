@@ -224,15 +224,21 @@ the maintainer's PCC native app as the design authority for these surfaces.
 Active [PLAN-000007](situation/plans/active/PLAN-000007-pcc-native-module-design.md)
 groups [P-000019](situation/promises/P-000019-pcc-native-module-design.md),
 now `implemented`: the module's Profile, Studio collections, and creation
-wizards use one shared theme module, with the widget host inheriting the shared
-views. The transfer adds D-000022's selected three-category cap while retaining
-the mock/session-only boundary; donor autosave claims, the AI Polish card, and
-Podcasting 2.0 advanced creation groups remain excluded.
+wizards use one shared theme module, with the widget applying host theme input
+inside its iframe. The transfer adds D-000022's selected three-category cap
+while retaining the mock/session-only boundary; donor autosave claims, the AI
+Polish card, and Podcasting 2.0 advanced creation groups remain excluded.
+The corrected source restores episode detail-field and scheduled-time
+projection, Profile Edit submitted-field projection, and the widget's initial
+and later host-theme path.
 [W-000001](situation/witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
-is `INVALID` and does not assure P-000019 because its retained browser
-observation does not decide the existing episode detail-field or scheduled-time
-projection. [G-000015](situation/gaps/G-000015-episode-create-field-projection.md)
-retains the current source/smoke contradiction.
+is `INVALID` and does not assure P-000019: its retained browser observation
+does not decide P1's widget render in both Poda themes, P3's Profile Edit
+submission projection, or P4's episode detail-field and scheduled-time
+projection on the corrected exact head. The reviewed-head observations remain
+in [G-000017](situation/gaps/G-000017-widget-host-theme-propagation.md),
+[G-000020](situation/gaps/G-000020-profile-edit-field-projection.md), and
+[G-000015](situation/gaps/G-000015-episode-create-field-projection.md).
 [G-000014](situation/gaps/G-000014-module-package-lint-debt.md) retains
 separate module lint debt.
 
