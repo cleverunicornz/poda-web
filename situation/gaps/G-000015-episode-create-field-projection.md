@@ -10,7 +10,9 @@ The current episode wizard submits `showNotes` and `enclosureUrl` directly to
 `MockPodaDataAdapter.saveEpisode`, while the adapter's episode detail model
 uses `showNotesHtml` and `media.primaryEnclosure`. The pre-transfer form
 projected the entered values to those detail fields; the changed submit path
-leaves the new keys on the saved object instead.
+leaves the new keys on the saved object instead. It also retains a
+`datetime-local` scheduled value without the prior ISO conversion, while the
+detail formatter adds a `Z` suffix to its displayed string.
 
 ## Relevance
 
@@ -29,6 +31,13 @@ preservation. The same episode creation flow remains part of
   `af00892498b68cba59146dc8b2c26a14b5312a55:modules/poda-profile-spike/src/studio/episodeCreate.js`
   version constructed `showNotesHtml` and `media.primaryEnclosure` before
   `onSubmit`.
+- `modules/poda-profile-spike/src/studio/episodeCreate.js:269` retains the raw
+  scheduled form value, where
+  `af00892498b68cba59146dc8b2c26a14b5312a55:modules/poda-profile-spike/src/studio/episodeCreate.js`
+  converted it with `new Date(...).toISOString()`.
+  `modules/poda-profile-spike/src/shared/podcastFullView.js:59-60` appends `Z`
+  when displaying the stored value. No browser observation in this closure
+  establishes the user-visible timezone effect.
 - `modules/poda-profile-spike/src/data/mockAdapter.js:137-179` defaults
   `showNotesHtml` to `null` and `media.primaryEnclosure` to `null`, then merges
   the incoming draft unchanged. `modules/poda-profile-spike/src/shared/podcastFullView.js:314-335`
@@ -43,7 +52,9 @@ preservation. The same episode creation flow remains part of
 
 A created episode can still reach its detail route, but entered show notes and
 primary enclosure do not populate the detail fields that the module renders.
-The retained [W-000001](../witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
+The changed scheduled-value format may also label a local browser value as UTC;
+that effect remains an observation gap, not a declared failure. The retained
+[W-000001](../witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
 therefore cannot decide O-000019 P4 as a complete PASS.
 
 ## Resolution
