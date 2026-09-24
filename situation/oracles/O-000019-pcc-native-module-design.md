@@ -10,9 +10,11 @@ designed
 
 ## Inputs
 
-- The exact source head's diff under `modules/poda-profile-spike/`, the module
-  build output identity, and the focused adapter/validation test result on that
-  head, retained as run identity rather than as a behavior leg.
+- The pinned donor coordinate in
+  [D-000022](situation/decisions/D-000022-pcc-native-design-transfer.md), the
+  exact source head's diff under `modules/poda-profile-spike/`, the module build
+  output identity, and the focused adapter/validation test result on that head,
+  retained as run identity rather than as a behavior leg.
 - A signed-in browser observation against the demo homeserver covering: Studio
   Podcasts and Episodes collections, the podcast wizard (live readiness,
   category cap of three, validation rejection, Save Draft → list, Create →
@@ -41,9 +43,10 @@ A complete PASS requires every leg:
   avatar tile and topic chips, the visibility segmented control (own profile
   interactive), and the right rail with stats, share, and At-a-Glance strength;
   the widget card renders the same design.
-- **P4 — Behavior preservation.** Collection → create → detail flows, the
-  session-only adapter boundary (reload restores seed state), and native Chat
-  are unchanged from their pre-transfer contracts.
+- **P4 — Behavior preservation.** Collection → create → detail flows preserve
+  the existing episode projection of form show notes and enclosure URL into
+  `showNotesHtml` and `media.primaryEnclosure`; the session-only adapter
+  boundary (reload restores seed state) and native Chat remain unchanged.
 
 ## Fail
 
@@ -55,8 +58,9 @@ A valid observation fails on any corresponding in-Scope contradiction:
   inline validation is absent or dead (affordances that do nothing).
 - **F3 — Profile transfer.** The profile rail, segmented control, or topic
   interactions are absent or dead; the widget diverges from the module design.
-- **F4 — Behavior preservation.** A previously working flow regresses, the
-  adapter boundary is bypassed, or Chat changes from native behavior.
+- **F4 — Behavior preservation.** A previously working flow or its episode
+  detail-field projection regresses, the adapter boundary is bypassed, or Chat
+  changes from native behavior.
 
 ## Implementation coverage
 
@@ -66,7 +70,11 @@ and lint commands are run evidence, not credited executable legs.
 
 | Leg | Decision | Coverage |
 | --- | --- | --- |
-| P1 / F1 | Theme-matrix render inspection | manual |
-| P2 / F2 | Wizard interaction walkthrough | manual |
-| P3 / F3 | Profile and widget render inspection | manual |
-| P4 / F4 | Flow regression walkthrough | manual |
+| P1 | Theme-matrix render inspection | manual |
+| F1 | Theme-matrix contradiction inspection | manual |
+| P2 | Wizard interaction walkthrough | manual |
+| F2 | Wizard-affordance contradiction walkthrough | manual |
+| P3 | Profile and widget render inspection | manual |
+| F3 | Profile/widget contradiction inspection | manual |
+| P4 | Flow and episode-field projection walkthrough | manual |
+| F4 | Flow-regression contradiction walkthrough | manual |
