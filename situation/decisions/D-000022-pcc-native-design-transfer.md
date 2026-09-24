@@ -42,10 +42,11 @@ with chips and draft-pulse panel, section cards with guidance and blue info
 notes, category checkbox grid capped at three, dashed upload areas, live
 readiness rail, and native footer actions. Profile gains the donor's publish
 pill, welcome banner, hero with topic chips and visibility segmented control,
-and the stats/share/At-a-Glance rail. Data and routing contracts stay
-unchanged. Existing required/format validation stays unchanged except for the
-selected three-category cap; everything remains session-only through the
-declared mock adapter.
+and the stats/share/At-a-Glance rail. Data contracts stay unchanged. The
+existing module routing seam carries the selected `Save Draft` to collection
+and `Create Podcast` to detail outcomes. Existing required/format validation
+stays unchanged except for the selected three-category cap; everything remains
+session-only through the declared mock adapter.
 
 ## Why
 
