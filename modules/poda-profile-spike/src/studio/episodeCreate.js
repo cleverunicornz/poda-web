@@ -343,6 +343,34 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
             banner.scrollIntoView({ block: "center" });
             return;
         }
-        onSubmit?.(draft);
+        // Project the form's mock fields onto the donor's detail model,
+        // exactly as the pre-transfer form did: showNotes → showNotesHtml,
+        // enclosure URL → media.primaryEnclosure, datetime-local → ISO.
+        const submitDraft = { ...draft };
+        delete submitDraft.showNotes;
+        delete submitDraft.enclosureUrl;
+        submitDraft.showNotesHtml = draft.showNotes || null;
+        submitDraft.scheduledAt =
+            draft.status === "scheduled" && draft.scheduledAt ? new Date(draft.scheduledAt).toISOString() : null;
+        if (draft.enclosureUrl) {
+            submitDraft.media = {
+                primaryEnclosure: {
+                    url: draft.enclosureUrl,
+                    mimeType: "audio/mpeg",
+                    lengthBytes: null,
+                    durationSeconds: draft.duration,
+                    title: null,
+                    isDefault: true,
+                    bitrate: null,
+                    height: null,
+                    language: null,
+                    rel: null,
+                    codecs: null,
+                    sources: [{ uri: draft.enclosureUrl, contentType: "audio/mpeg" }],
+                },
+                alternateEnclosures: [],
+            };
+        }
+        onSubmit?.(submitDraft);
     });
 }
