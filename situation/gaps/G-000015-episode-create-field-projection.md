@@ -1,0 +1,54 @@
+# Episode create field projection is not preserved
+
+## State
+
+open
+
+## Gap
+
+The current episode wizard submits `showNotes` and `enclosureUrl` directly to
+`MockPodaDataAdapter.saveEpisode`, while the adapter's episode detail model
+uses `showNotesHtml` and `media.primaryEnclosure`. The pre-transfer form
+projected the entered values to those detail fields; the changed submit path
+leaves the new keys on the saved object instead.
+
+## Relevance
+
+[P-000019](../promises/P-000019-pcc-native-module-design.md) explicitly keeps
+existing creation-field projection within scope, and
+[O-000019](../oracles/O-000019-pcc-native-module-design.md) P4 judges behavior
+preservation. The same episode creation flow remains part of
+[P-000018](../promises/P-000018-poda-creation-flows.md).
+
+## Evidence
+
+- `modules/poda-profile-spike/src/studio/episodeCreate.js:251-270` returns
+  `showNotes` and `enclosureUrl`; `:314-346` passes that draft directly to the
+  adapter. The previous mapping in the admitted delta constructed
+  `showNotesHtml` and `media.primaryEnclosure` before `onSubmit`.
+- `modules/poda-profile-spike/src/data/mockAdapter.js:137-179` defaults
+  `showNotesHtml` to `null` and `media.primaryEnclosure` to `null`, then merges
+  the incoming draft unchanged. `modules/poda-profile-spike/src/shared/podcastFullView.js:314-335`
+  renders the default detail fields rather than the new draft keys.
+- Focused current-head smoke observation for this closure supplied a valid
+  episode draft with `showNotes` and `enclosureUrl` to
+  `MockPodaDataAdapter.saveEpisode`; it printed
+  `{"showNotes":"<p>retained?</p>","showNotesHtml":null,"enclosureUrl":"https://cdn.example.test/mapping.mp3","primaryEnclosure":null}`.
+  This observed sequence is limited to the field projection.
+
+## Impact
+
+A created episode can still reach its detail route, but entered show notes and
+primary enclosure do not populate the detail fields that the module renders.
+The retained [W-000001](../witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
+therefore cannot decide O-000019 P4 as a complete PASS.
+
+## Resolution
+
+none
+
+## References
+
+- [P-000019](../promises/P-000019-pcc-native-module-design.md)
+- [O-000019](../oracles/O-000019-pcc-native-module-design.md)
+- [W-000001](../witnesses/P-000019/W-000001-pcc-native-module-design-pass.md)
