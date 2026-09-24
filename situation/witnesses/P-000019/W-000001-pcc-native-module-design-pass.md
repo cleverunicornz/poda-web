@@ -49,7 +49,7 @@ module source hygiene is retained in
 | P1 / F1 | Every named surface renders the `.podaNative` donor tokens: computed wizard grid `736px 360px` and hero row at 1440px, single-column stacking at 500px, and correct warm-dark surfaces under `cpd-theme-dark`. The superseded palette (`#fffdf9` pages, gradient CTAs, fieldset sections) no longer appears on any module surface. |
 | P2 / F2 | Podcast wizard readiness climbed 25% → 50% → 75% → 100% live with the checklist and rail mirroring it; the third category selection disabled the 16 remaining inputs (`Selected: 3/3`); an invalid submit showed the error banner plus inline slug/owner-email messages; `Save Draft` created the draft and returned to the list; `Create Podcast` opened `pod-mufjsn32-de4ks2` at the exact head. Episode wizard readiness tracked Title-and-number and audio/notes inputs, the hero chip followed the podcast selection, publish radio cards switched the Final action rail and submit label, and creation opened `ep-mufizz06-6zq40x`. |
 | P3 / F3 | Own profile shows the Draft pill, dismissible welcome banner, inline `+ Add Topic` (added `Resilience`), the Members Only → Public segmented toggle, Your Stats fed by the session adapter, and At a Glance moving 0% → 13%. The example fixture renders Published, Public, an 88% green strength bar, and the Share Profile copy row. The room-widget host renders the same shared design. |
-| P4 / F4 | The retained browser result confirms the adapter tests, reload behavior, and unchanged Chat, but it does not observe the episode form retaining entered show notes as `showNotesHtml` or enclosure URL as `media.primaryEnclosure` at detail. O-000019 P4 is therefore undecided; [G-000015](situation/gaps/G-000015-episode-create-field-projection.md) retains the source/smoke contradiction. |
+| P4 / F4 | The retained browser result confirms the adapter tests, reload behavior, and unchanged Chat, but it does not observe the episode form retaining entered show notes as `showNotesHtml`, enclosure URL as `media.primaryEnclosure`, or its scheduled-time representation at detail. O-000019 P4 is therefore undecided; [G-000015](situation/gaps/G-000015-episode-create-field-projection.md) retains the source/smoke contradiction. |
 
 ## Notes
 
@@ -57,5 +57,5 @@ module source hygiene is retained in
   the committed head differs only by `oxfmt` formatting, and the adapter tests,
   module build, and a complete wizard create flow were re-run against the
   deployed post-format bundle at the exact head.
-- This is a bounded manual observation, not an assurance of P-000019: it does not decide P4's existing episode-field projection and therefore cannot be a complete PASS. It also does not establish the reusable fork assurance route absent in
+- This is a bounded manual observation, not an assurance of P-000019: it does not decide P4's existing episode detail-field or scheduled-time projection and therefore cannot be a complete PASS. It also does not establish the reusable fork assurance route absent in
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
