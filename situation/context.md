@@ -244,6 +244,6 @@ separate module lint debt.
 
 ## Closure state
 
-- Current run: `20260924T141117Z-f187b0a0342cb1c5172d4b61d21386cbcb604ea6` (open)
-- Last completed closure: run `20260921T084538Z-9a1c0880b27a002b5b9350e81c94d520aac51345`, opened at `b57c31634d01170833c277b4e08d03623b094d0f`
-- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/35579404386`
+- Current run: none
+- Last completed closure: run `20260924T141117Z-f187b0a0342cb1c5172d4b61d21386cbcb604ea6`, opened at `e74b706ee9c1e398dc9d2ecd38f282423c9cf995`
+- Transcript: `https://github.com/cleverunicornz/infrastructure/actions/runs/36010600711`
