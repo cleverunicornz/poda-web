@@ -32,5 +32,5 @@ nx run @poda/web-module-profile-spike:build:widget      # → lib/widget/widget.
    `widget.bundle.js`).
 3. Register the widget on a room with
    `PUT im.vector.modular.widgets/poda-profile-spike`
-   `{ "type": "m.custom", "url": "<app-origin>/widgets/poda-profile/index.html?matrix_user_id=$matrix_user_id&matrix_room_id=$matrix_room_id&matrix_display_name=$matrix_display_name", "name": "Poda Profile" }`,
+   `{ "type": "m.custom", "url": "<app-origin>/widgets/poda-profile/index.html?matrix_user_id=$matrix_user_id&matrix_room_id=$matrix_room_id&matrix_display_name=$matrix_display_name&theme=$org.matrix.msc2873.client_theme", "name": "Poda Profile" }`,
    then open it from the room's Extensions panel and pin it.
