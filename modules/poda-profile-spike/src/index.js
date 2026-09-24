@@ -15,6 +15,7 @@ import { PROFILE_FIXTURE_MIRA, EMPTY_CREATOR_FIELDS, SOCIAL_SERVICES } from "./s
 import { NATIVE_STYLES, esc, icon, formText } from "./shared/nativeTheme.js";
 import { renderStudioView } from "./shared/podcastFullView.js";
 import { podaData } from "./data/mockAdapter.js";
+import { APPLE_CATEGORIES } from "./data/appleCategories.js";
 
 export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
 
@@ -92,26 +93,9 @@ async function renderSummary(container, { api, overrides, setOverrides, who }) {
             ? (topic) => setOverrides({ ...overrides, topics: (profile.topics ?? []).filter((t) => t !== topic) })
             : undefined,
         onAddTopic: isOwn
-            ? () => {
-                  const row = body.querySelector("[data-topics]");
-                  const addBtn = row?.querySelector("[data-add-topic]");
-                  if (!row || !addBtn) return;
-                  const form = document.createElement("span");
-                  form.innerHTML = `<span style="display:inline-flex;gap:4px"><input class="pnInput" style="height:28px;width:180px" placeholder="New topic" aria-label="New topic" /><button class="pnBtn pnBtn--outline pnBtn--sm" style="min-height:28px;padding:4px 12px" type="button">Add</button></span>`;
-                  addBtn.replaceWith(form);
-                  const input = form.querySelector("input");
-                  input.focus();
-                  const commit = () => {
-                      const value = input.value.trim();
-                      if (value) setOverrides({ ...overrides, topics: [...(profile.topics ?? []), value] });
-                  };
-                  form.querySelector("button").addEventListener("click", commit);
-                  input.addEventListener("keydown", (e) => {
-                      if (e.key === "Enter") commit();
-                      if (e.key === "Escape") setOverrides({ ...overrides });
-                  });
-              }
+            ? (value) => setOverrides({ ...overrides, topics: [...(profile.topics ?? []), value] })
             : undefined,
+        topicSuggestions: isOwn ? APPLE_CATEGORIES : undefined,
         onVisibilityChange: isOwn ? (vis) => setOverrides({ ...overrides, isPublic: vis === "public" }) : undefined,
     });
     body.querySelector("#podaProfileEditLink")?.addEventListener("click", () => navigateTo("edit", "me"));
@@ -197,7 +181,7 @@ function renderEdit(container, { api, overrides, setOverrides }) {
                     <p class="pnSubtitle">Signed in as ${esc(current.userId ?? "unknown")} — session-only mock; a reload discards edits.</p>
                 </div>
             </div>
-            <form id="podaProfileCreateForm">
+            <form id="podaProfileCreateForm" class="pnStack">
                 <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Identity</h2><p class="pnCard_desc">The public name and handle hosts see.</p></div><div class="pnCard_body">
                     <div class="pnGrid2">
                         ${editField("ppName", "Display name", { value: current.displayName, required: true })}
@@ -362,7 +346,12 @@ function ProfilePage({ api }) {
         if (route.view === "edit" || route.view === "create") {
             renderEdit(ref.current, { api, overrides, setOverrides });
         } else {
-            void renderSummary(ref.current, { api, overrides, setOverrides, who: route.who });
+            renderSummary(ref.current, { api, overrides, setOverrides, who: route.who }).catch((error) => {
+                console.error("Poda profile render failed", error);
+                const host = ref.current?.querySelector(".podaProfilePage_body");
+                if (host)
+                    host.innerHTML = `<div class="pnError" role="alert">This profile could not be rendered. ${esc(String(error?.message ?? error))}</div>`;
+            });
         }
         ref.current.firstElementChild?.scrollIntoView({ block: "start" });
     }, [route, overrides, api]);

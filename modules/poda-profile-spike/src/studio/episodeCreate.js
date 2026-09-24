@@ -11,10 +11,6 @@ Please see LICENSE files in the repository root for full details.
 // Final action rail. Validation contract unchanged; guests stay display-only.
 import { NATIVE_STYLES, esc, formText, icon, noteHtml, railItem, progressHtml } from "../shared/nativeTheme.js";
 
-const EP_STYLES = `
-.podaEpisodeCreate { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-`;
-
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 // Pure validation — covered by contract tests.
@@ -125,7 +121,7 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
         )
         .join("");
 
-    container.innerHTML = `<style>${NATIVE_STYLES}${EP_STYLES}</style><div class="podaNative podaEpisodeCreate"><div class="pnPage">
+    container.innerHTML = `<style>${NATIVE_STYLES}</style><div class="podaNative pnScroll"><div class="pnPage">
         <div class="pnPageBand" aria-hidden="true"></div>
         <div class="pnOrb pnOrb--left" aria-hidden="true"></div>
         <div class="pnOrb pnOrb--right" aria-hidden="true"></div>
@@ -163,7 +159,7 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
         </div>
 
         <div class="pnWizardGrid pnWizardGrid--episode">
-        <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
+        <div class="pnStack">
 
         <section class="pnCard"><div class="pnCard_header">
             <h2 class="pnCard_title">Episode Info</h2>

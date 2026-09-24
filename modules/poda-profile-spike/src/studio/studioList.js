@@ -10,10 +10,6 @@ Please see LICENSE files in the repository root for full details.
 // the hover-arrow affordance. Data flows through the mock adapter unchanged.
 import { NATIVE_STYLES, esc, icon, statusPill } from "../shared/nativeTheme.js";
 
-const LIST_STYLES = `
-.podaStudioList { padding: 0 clamp(4px, 2vw, 16px) 24px; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-`;
-
 function cardMarkup(p) {
     const meta = [];
     if (p.author) meta.push(`<span>${icon("users")}${esc(p.author)}</span>`);
@@ -44,7 +40,7 @@ function cardMarkup(p) {
 export function renderStudioListView(container, { podcasts, onOpen, onCreate }) {
     const cards = podcasts.map(cardMarkup).join("");
 
-    container.innerHTML = `<style>${NATIVE_STYLES}${LIST_STYLES}</style><div class="podaNative podaStudioList"><div class="pnPage">
+    container.innerHTML = `<style>${NATIVE_STYLES}</style><div class="podaNative pnScroll"><div class="pnPage">
         <div class="pnPageBand" aria-hidden="true"></div>
         <div class="pnPageHeader">
             <div>

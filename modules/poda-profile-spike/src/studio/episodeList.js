@@ -11,7 +11,6 @@ Please see LICENSE files in the repository root for full details.
 import { NATIVE_STYLES, esc, icon, statusPill } from "../shared/nativeTheme.js";
 
 const EPLIST_STYLES = `
-.podaEpisodeList { padding: 0 clamp(4px, 2vw, 16px) 24px; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .podaEpisodeList_podcastFilter { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .podaEpisodeList_podcastFilter label { font-size: 14px; font-weight: 500; }
 `;
@@ -97,7 +96,7 @@ export function renderEpisodeListView(
     const empty = `<div class="pnEmpty">${icon("mic")}<h2>No episodes yet</h2><p>Create your first episode to see it here.</p>
         <button class="pnBtn pnBtn--cta" id="podaEpisodeNewEmpty" type="button">${icon("plus")} New Episode</button></div>`;
 
-    container.innerHTML = `<style>${NATIVE_STYLES}${EPLIST_STYLES}</style><div class="podaNative podaEpisodeList"><div class="pnPage">
+    container.innerHTML = `<style>${NATIVE_STYLES}${EPLIST_STYLES}</style><div class="podaNative pnScroll"><div class="pnPage">
         <div class="pnPageBand" aria-hidden="true"></div>
         <div class="pnPageHeader">
             <div>

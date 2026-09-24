@@ -65,7 +65,7 @@ export function fullProfileMarkup(profile, { showAll = true, editable = false } 
     const topics = profile.topics ?? [];
     const topicRow = `<div class="pnTopicRow" data-topics>
         ${topics.map((t) => `<span class="pnTopicChip">${esc(t)}${editable ? `<button type="button" data-remove-topic="${esc(t)}" aria-label="Remove topic ${esc(t)}">${icon("x")}</button>` : ""}</span>`).join("")}
-        ${editable ? `<button class="pnBtn pnBtn--outline pnBtn--sm" type="button" data-add-topic style="min-height:28px;padding:4px 12px">${icon("plus")} Add Topic</button>` : ""}
+        ${editable ? `<span class="pnTopicPicker"><button class="pnBtn pnBtn--outline pnBtn--sm" type="button" data-add-topic style="min-height:28px;padding:4px 12px">${icon("plus")} Add Topic</button></span>` : ""}
     </div>`;
 
     const socialRow = Object.entries(profile.socialLinks ?? {})
@@ -286,6 +286,7 @@ export function renderFullProfileView(
         onVisibilityChange,
         stats,
         shareUrl,
+        topicSuggestions = [],
         showWelcome = false,
     },
 ) {
@@ -308,7 +309,7 @@ export function renderFullProfileView(
                     : ""
             }
             <div class="pnProfileGrid">
-                <div style="display:flex;flex-direction:column;gap:32px;min-width:0">
+                <div class="pnStack pnStack--loose">
                     ${fullProfileMarkup(profile, { showAll: true, editable })}
                 </div>
                 ${railMarkup(profile, { stats, shareUrl })}
@@ -321,7 +322,51 @@ export function renderFullProfileView(
     container
         .querySelectorAll("[data-remove-topic]")
         .forEach((btn) => btn.addEventListener("click", () => onRemoveTopic?.(btn.dataset.removeTopic)));
-    container.querySelector("[data-add-topic]")?.addEventListener("click", () => onAddTopic?.());
+    container.querySelector("[data-add-topic]")?.addEventListener("click", (event) => {
+        if (!onAddTopic) return;
+        const picker = event.target.closest(".pnTopicPicker");
+        if (!picker || picker.querySelector(".pnTopicPopover")) return;
+        const pop = document.createElement("div");
+        pop.className = "pnTopicPopover";
+        pop.innerHTML = `<input type="text" placeholder="Add or find a topic…" aria-label="New topic" /><div class="pnTopicList" role="listbox"></div>`;
+        picker.appendChild(pop);
+        const input = pop.querySelector("input");
+        const list = pop.querySelector(".pnTopicList");
+        const commit = (value) => {
+            const topic = value.trim();
+            pop.remove();
+            if (topic) onAddTopic(topic);
+        };
+        const renderList = () => {
+            const query = input.value.trim().toLowerCase();
+            const suggestions = topicSuggestions
+                .filter((t) => !(profile.topics ?? []).includes(t))
+                .filter((t) => !query || t.toLowerCase().includes(query))
+                .slice(0, 8);
+            list.innerHTML = suggestions.length
+                ? suggestions
+                      .map((t) => `<button type="button" role="option" data-topic="${esc(t)}">${esc(t)}</button>`)
+                      .join("")
+                : `<div class="pnTopicList_empty">${query ? `Add “${esc(input.value.trim())}”` : "Type to add a topic"}</div>`;
+            list.querySelectorAll("[data-topic]").forEach((b) =>
+                b.addEventListener("click", () => commit(b.dataset.topic)),
+            );
+        };
+        input.addEventListener("input", renderList);
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") commit(input.value);
+            if (e.key === "Escape") pop.remove();
+        });
+        const onDocClick = (e) => {
+            if (!picker.contains(e.target)) {
+                pop.remove();
+                document.removeEventListener("mousedown", onDocClick);
+            }
+        };
+        document.addEventListener("mousedown", onDocClick);
+        renderList();
+        input.focus();
+    });
     container
         .querySelectorAll("[data-visibility]")
         .forEach((btn) => btn.addEventListener("click", () => onVisibilityChange?.(btn.dataset.visibility)));

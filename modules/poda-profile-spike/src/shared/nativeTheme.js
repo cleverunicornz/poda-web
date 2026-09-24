@@ -52,6 +52,13 @@ export const NATIVE_STYLES = `
 }
 .podaNative *, .podaNative *::before, .podaNative *::after { box-sizing: border-box; border-color: hsl(var(--pn-border)); }
 
+/* ---------- layout utilities ---------- */
+.pnScroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.pnStack { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.pnStack--tight { gap: 16px; }
+.pnStack--loose { gap: 32px; }
+.pnGrid2 + .pnGrid2, .pnGrid2 + .pnGrid3, .pnGrid3 + .pnGrid2, .pnToggle + .pnGrid2, .pnToggle + .pnGrid3, .pnToggle + .pnField { margin-top: 16px; }
+
 body[class*="cpd-theme-dark"] .podaNative {
     --pn-bg: 28 20% 8%;
     --pn-fg: 40 69% 95%;
@@ -131,6 +138,19 @@ body[class*="cpd-theme-dark"] .podaNative {
 .pnTopicChip button { border: none; background: none; padding: 0; margin-left: 4px; cursor: pointer; color: inherit; display: inline-flex; }
 .pnTopicChip button:hover { color: hsl(var(--pn-destructive)); }
 .pnTopicChip button svg { width: 12px; height: 12px; }
+
+/* topic picker popover (native Add-Topic pattern) */
+.pnTopicPicker { position: relative; display: inline-flex; }
+.pnTopicPopover { position: absolute; top: calc(100% + 4px); left: 0; z-index: 50; width: 256px; border-radius: 8px;
+    border: 1px solid hsl(var(--pn-border)); background: hsl(var(--pn-card)); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); padding: 8px; }
+.pnTopicPopover input { width: 100%; height: 36px; border-radius: 6px; border: 1px solid hsl(var(--pn-border));
+    background: hsl(var(--pn-input-bg)); color: hsl(var(--pn-fg)); padding: 4px 12px; font: inherit; font-size: 14px; }
+.pnTopicPopover input:focus-visible { outline: none; border-color: hsl(var(--pn-ring)); box-shadow: 0 0 0 3px hsl(var(--pn-ring) / 0.5); }
+.pnTopicList { max-height: 192px; overflow-y: auto; margin-top: 8px; }
+.pnTopicList button { display: block; width: 100%; text-align: left; border: none; background: none; font: inherit;
+    padding: 6px 12px; font-size: 14px; border-radius: 6px; cursor: pointer; color: hsl(var(--pn-fg)); }
+.pnTopicList button:hover { background: hsl(var(--pn-accent) / 0.25); }
+.pnTopicList_empty { padding: 6px 12px; font-size: 14px; color: hsl(var(--pn-muted-fg)); }
 
 /* ---------- info notes, banners ---------- */
 .pnNote { display: flex; align-items: flex-start; gap: 8px; border-radius: 8px; border: 1px solid var(--pn-blue-200);
@@ -407,6 +427,21 @@ body[class*="cpd-theme-dark"] .pnRailItem--done { background: hsl(160 40% 12%); 
 @media (max-width: 767px) {
     .pnGrid2, .pnGrid3 { grid-template-columns: 1fr; }
     .pnTableWrap { display: none; }
+}
+/* phone and sidebar widths: tighter page chrome, smaller hero type */
+@media (max-width: 640px) {
+    .pnPage { padding: 16px 12px 64px; gap: 16px; }
+    .pnTitle { font-size: 24px; line-height: 32px; }
+    .pnCard_header { padding: 16px 16px 0; }
+    .pnCard_body { padding: 0 16px 16px; }
+    .pnCard { gap: 16px; }
+    .pnHero_tile { width: 56px; height: 56px; border-radius: 20px; }
+    .pnHero_tile svg { width: 28px; height: 28px; }
+    .pnPulse { padding: 12px; }
+    .pnRailCard { padding: 16px; }
+    .pnFooter { padding: 12px; }
+    .pnProfileName { font-size: 24px; line-height: 32px; }
+    .pnSegmented { max-width: none; }
 }
 `;
 

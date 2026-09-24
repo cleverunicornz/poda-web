@@ -13,7 +13,6 @@ import { APPLE_CATEGORIES } from "../data/appleCategories.js";
 import { NATIVE_STYLES, esc, formText, icon, noteHtml, railItem, progressHtml } from "../shared/nativeTheme.js";
 
 const CREATE_STYLES = `
-.podaPodcastCreate { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .pnCoverPreview { margin-top: 12px; width: 120px; height: 120px; border-radius: 12px; border: 1px solid hsl(var(--pn-border)); object-fit: cover; display: none; }
 `;
 
@@ -117,7 +116,7 @@ export function renderPodcastCreateView(container, { onSubmit, onCancel }) {
 
     const initial = readiness({ showType: "episodic", language: "en" });
 
-    container.innerHTML = `<style>${NATIVE_STYLES}${CREATE_STYLES}</style><div class="podaNative podaPodcastCreate"><div class="pnPage">
+    container.innerHTML = `<style>${NATIVE_STYLES}${CREATE_STYLES}</style><div class="podaNative pnScroll"><div class="pnPage">
         <div class="pnPageBand" aria-hidden="true"></div>
         <div class="pnOrb pnOrb--left" aria-hidden="true"></div>
         <div class="pnOrb pnOrb--right" aria-hidden="true"></div>
@@ -147,7 +146,7 @@ export function renderPodcastCreateView(container, { onSubmit, onCancel }) {
         </div></div>
 
         <div class="pnWizardGrid">
-        <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
+        <div class="pnStack">
 
         <section class="pnCard"><div class="pnCard_header">
             <h2 class="pnCard_title">Basics</h2>
