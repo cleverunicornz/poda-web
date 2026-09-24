@@ -1,0 +1,72 @@
+# Oracle for PCC native module design
+
+## State
+
+designed
+
+## Judges
+
+[P-000019](situation/promises/P-000019-pcc-native-module-design.md)
+
+## Inputs
+
+- The exact source head's diff under `modules/poda-profile-spike/`, the module
+  build output identity, and the focused adapter/validation test result on that
+  head, retained as run identity rather than as a behavior leg.
+- A signed-in browser observation against the demo homeserver covering: Studio
+  Podcasts and Episodes collections, the podcast wizard (live readiness,
+  category cap of three, validation rejection, Save Draft → list, Create →
+  detail), the episode wizard (readiness, publish-state radio cards, Create →
+  detail), the own-profile page (welcome banner, topic chip add/remove,
+  visibility segmented control, stats/At-a-Glance rail), the example fixture
+  profile, and the room-widget profile card.
+- The same surfaces in Poda Light and Poda Dark at desktop (1440px) and narrow
+  (500px) widths, plus a native Chat screen.
+- Missing build/test or browser evidence makes an observation `INVALID` or
+  `BLOCKED`, never PASS; this Oracle judges no behavior outside P-000019's
+  Scope.
+
+## Pass
+
+A complete PASS requires every leg:
+
+- **P1 — Design language.** Named module surfaces render the donor token set
+  (`.podaNative` HSL triples), card/section anatomy, badges, inputs, and icon
+  tiles in both Poda themes; no surface keeps the superseded ad-hoc palette.
+- **P2 — Wizard transfer.** Both creation flows present the donor wizard frame
+  (hero card with chips, section cards with guidance notes, readiness rail with
+  live percent/checklist), enforce the three-category cap, reject invalid
+  drafts inline, and reach the correct post-submit route.
+- **P3 — Profile transfer.** The profile page shows the publish pill, hero with
+  avatar tile and topic chips, the visibility segmented control (own profile
+  interactive), and the right rail with stats, share, and At-a-Glance strength;
+  the widget card renders the same design.
+- **P4 — Behavior preservation.** Collection → create → detail flows, the
+  session-only adapter boundary (reload restores seed state), and native Chat
+  are unchanged from their pre-transfer contracts.
+
+## Fail
+
+A valid observation fails on any corresponding in-Scope contradiction:
+
+- **F1 — Design language.** A named surface keeps superseded styling or renders
+  broken tokens in either Poda theme.
+- **F2 — Wizard transfer.** The wizard frame, readiness rail, category cap, or
+  inline validation is absent or dead (affordances that do nothing).
+- **F3 — Profile transfer.** The profile rail, segmented control, or topic
+  interactions are absent or dead; the widget diverges from the module design.
+- **F4 — Behavior preservation.** A previously working flow regresses, the
+  adapter boundary is bypassed, or Chat changes from native behavior.
+
+## Implementation coverage
+
+This Oracle remains `designed`. The focused adapter test at
+`modules/poda-profile-spike/src/data/mockAdapter.test.js` plus the module build
+and lint commands are run evidence, not credited executable legs.
+
+| Leg | Decision | Coverage |
+| --- | --- | --- |
+| P1 / F1 | Theme-matrix render inspection | manual |
+| P2 / F2 | Wizard interaction walkthrough | manual |
+| P3 / F3 | Profile and widget render inspection | manual |
+| P4 / F4 | Flow regression walkthrough | manual |
