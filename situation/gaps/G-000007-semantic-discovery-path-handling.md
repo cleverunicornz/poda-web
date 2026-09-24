@@ -62,6 +62,13 @@ Semantic discovery is the default repository lookup path. This closure instead u
   returned the same unsafe-path rejection naming `control/`; exact Git and direct
   record/source reads remained available for the assigned interval
   `af00892498b68cba59146dc8b2c26a14b5312a55..ee1598172c939b75ad51b87233732be2c669964c`.
+- Corrector observation for run `20260924T141117Z-f187b0a0342cb1c5172d4b61d21386cbcb604ea6`
+  at correction base `5f6bede4b2314efcc329a9c0d56324cbd1c10afd`: four focused
+  `semantic_search` requests for the docketed episode projection, Profile Edit
+  projection, widget theme, and plan-completion concepts each returned the same
+  unsafe-path rejection naming `control/` without repository results. Native
+  exact target search and current-record reads remained available for this
+  correction.
 
 ## Impact
 
