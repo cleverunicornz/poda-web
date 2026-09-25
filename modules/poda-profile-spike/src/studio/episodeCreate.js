@@ -1,28 +1,15 @@
-// Episode creation form — validated single page over the editable-tier episode
-// fields (donor EpisodeCreateWizard evidence: basics, audio, guests, notes
-// readiness; single page in this slice, guests display-only).
+/*
+Copyright 2026 Poda contributors
 
-const EP_STYLES = `
-.podaEpisodeCreate { font-family: Inter, system-ui, sans-serif; padding: 24px clamp(12px, 4vw, 40px); background: #fffdf9; box-sizing: border-box; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-.podaEpisodeCreate_inner { max-width: 820px; margin: 0 auto; }
-.podaEpisodeCreate h1 { margin: 0; font-size: 26px; color: #332216; }
-.podaEpisodeCreate .hint { color: #6b5142; font-size: 13px; margin: 6px 0 18px; }
-.podaEpisodeCreate fieldset { background: #fff; border: 1px solid #e2c4aa; border-radius: 16px; padding: 18px 20px; margin: 0 0 16px; box-shadow: 0 4px 14px #33221614; }
-.podaEpisodeCreate legend { font-size: 13px; font-weight: 700; color: #743719; padding: 0 8px; }
-.podaEpisodeCreate label { display: block; font-size: 12px; font-weight: 600; color: #563522; margin: 12px 0 4px; }
-.podaEpisodeCreate input[type="text"], .podaEpisodeCreate input[type="url"], .podaEpisodeCreate input[type="number"], .podaEpisodeCreate input[type="datetime-local"], .podaEpisodeCreate textarea, .podaEpisodeCreate select { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid #e2c4aa; border-radius: 10px; background: #fffdf9; color: #332216; font-size: 14px; font-family: inherit; }
-.podaEpisodeCreate textarea { min-height: 90px; resize: vertical; }
-.podaEpisodeCreate input:focus, .podaEpisodeCreate textarea:focus, .podaEpisodeCreate select:focus { outline: 2px solid #f9ba51; outline-offset: 1px; }
-.podaEpisodeCreate .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
-.podaEpisodeCreate .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 14px; }
-.podaEpisodeCreate .error { color: #b3261e; font-size: 12px; margin: 4px 0 0; }
-.podaEpisodeCreate input[aria-invalid="true"], .podaEpisodeCreate select[aria-invalid="true"] { border-color: #b3261e; }
-.podaEpisodeCreate_actions { display: flex; gap: 10px; margin-top: 20px; }
-.podaEpisodeCreate_save { border: none; padding: 11px 20px; border-radius: 10px; background: linear-gradient(120deg, #f9ba51, #efa43e); color: #332216; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 14px #33221626; }
-.podaEpisodeCreate_cancel { padding: 11px 20px; border-radius: 10px; border: 1px solid #c9a58a; background: #fff; color: #563522; font-size: 14px; cursor: pointer; }
-.podaEpisodeCreate_notice { margin-top: 16px; padding: 10px 12px; border-radius: 10px; border: 1px solid #f9c66b; background: #fff8e8; color: #743719; font-size: 12px; }
-@media (max-width: 700px) { .podaEpisodeCreate .grid2, .podaEpisodeCreate .grid3 { grid-template-columns: 1fr; } }
-`;
+SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
+// Episode creation wizard — the PCC native guided flow transferred to the
+// module host: hero card with episode readiness, local-draft banner, section
+// cards, dashed audio upload (mock URL), publish-state radio cards, and the
+// Final action rail. Validation contract unchanged; guests stay display-only.
+import { NATIVE_STYLES, esc, formText, icon, noteHtml, railItem, progressHtml } from "../shared/nativeTheme.js";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -31,17 +18,91 @@ export function validateEpisodeDraft(draft) {
     const errors = {};
     if (!draft.podcastId) errors.podcastId = "Pick a podcast.";
     if (!draft.title?.trim()) errors.title = "Title is required.";
-    if (draft.slug && !SLUG_PATTERN.test(draft.slug.trim())) errors.slug = "Slug must be lowercase letters, numbers, and hyphens.";
-    if (draft.duration != null && (!Number.isFinite(draft.duration) || draft.duration <= 0)) errors.duration = "Duration must be a positive number of seconds.";
-    if (draft.episodeNumber != null && !Number.isInteger(draft.episodeNumber)) errors.episodeNumber = "Episode number must be a whole number.";
-    if (draft.seasonNumber != null && !Number.isInteger(draft.seasonNumber)) errors.seasonNumber = "Season number must be a whole number.";
-    if (draft.status === "scheduled" && !draft.scheduledAt) errors.scheduledAt = "Scheduled episodes need a date and time.";
-    if (draft.enclosureUrl && !/^https?:\/\//.test(draft.enclosureUrl)) errors.enclosureUrl = "URLs must start with http(s)://";
+    if (draft.slug && !SLUG_PATTERN.test(draft.slug.trim()))
+        errors.slug = "Slug must be lowercase letters, numbers, and hyphens.";
+    if (draft.duration != null && (!Number.isFinite(draft.duration) || draft.duration <= 0))
+        errors.duration = "Duration must be a positive number of seconds.";
+    if (draft.episodeNumber != null && !Number.isInteger(draft.episodeNumber))
+        errors.episodeNumber = "Episode number must be a whole number.";
+    if (draft.seasonNumber != null && !Number.isInteger(draft.seasonNumber))
+        errors.seasonNumber = "Season number must be a whole number.";
+    if (draft.status === "scheduled" && !draft.scheduledAt)
+        errors.scheduledAt = "Scheduled episodes need a date and time.";
+    if (draft.enclosureUrl && !/^https?:\/\//.test(draft.enclosureUrl))
+        errors.enclosureUrl = "URLs must start with http(s)://";
     return errors;
 }
 
-function esc(value) {
-    return String(value ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const PUBLISH_STATES = {
+    draft: {
+        name: "Draft",
+        desc: "Saves the episode as a private draft. It will not be published or scheduled.",
+        button: "Save Draft",
+    },
+    scheduled: { name: "Scheduled", desc: "Publish at a later date.", button: "Schedule Episode" },
+};
+
+function epField(id, label, { type = "text", placeholder = "", helper = "", counter = 0 } = {}) {
+    return `<div class="pnField">
+        <label class="pnLabel" for="${id}">${esc(label)}</label>
+        <input class="pnInput" id="${id}" name="${id}" type="${type}" placeholder="${esc(placeholder)}" ${counter ? `maxlength="${counter}"` : ""} />
+        ${
+            counter
+                ? `<div class="pnFieldFoot"><p class="pnFieldError" data-error-for="${id}"></p><span class="pnCounter" data-counter-for="${id}">0/${counter}</span></div>`
+                : `<p class="pnFieldError" data-error-for="${id}"></p>`
+        }
+        ${helper ? `<p class="pnHelper">${esc(helper)}</p>` : ""}
+    </div>`;
+}
+
+// Native readiness model: Title and number / Hosted audio / Guest credits /
+// Notes or transcript.
+function readiness(draft) {
+    const items = [
+        ["Title and number", Boolean(draft.title?.trim() && draft.episodeNumber != null), null],
+        ["Hosted audio", Boolean(draft.enclosureUrl), null],
+        ["Guest credits", false, "Display-only in this preview"],
+        ["Notes or transcript", Boolean(draft.description?.trim() || draft.showNotesHtml?.trim()), null],
+    ];
+    const done = items.filter(([, ok]) => ok).length;
+    return { items, percent: Math.round((done / items.length) * 100) };
+}
+
+function pulsePanelHtml(state) {
+    return `<div class="pnPulse" data-pulse>
+        <div class="pnPulse_head">
+            <div><p class="pnPulse_label">Episode readiness</p><p class="pnPulse_sub">Quick scan of setup completeness.</p></div>
+            <span class="pnPulse_pct" data-pulse-pct>${state.percent}%</span>
+        </div>
+        ${progressHtml(state.percent)}
+        <ul class="pnChecklist" data-pulse-list>${state.items
+            .map(
+                ([label, ok, note]) =>
+                    `<li>${ok ? icon("checkCircle") : '<span class="pnDot"></span>'}<span>${esc(label)}${note ? ` <span class="pnSubtle" style="font-size:12px">— ${esc(note)}</span>` : ""}</span></li>`,
+            )
+            .join("")}</ul>
+        <div style="margin-top:12px">${noteHtml(PUBLISH_STATES.draft.desc)}</div>
+    </div>`;
+}
+
+function railHtml(state) {
+    return `<aside class="pnRail">
+        <div class="pnRailCard">
+            <div class="pnRailCard_head">
+                <span class="pnRailCard_icon">${icon("sparkles")}</span>
+                <div><p class="pnPulse_label">Final action</p><p class="pnPulse_sub">The primary button follows the selected publish state.</p></div>
+            </div>
+            <div class="pnRailReadiness">
+                <div class="pnRailReadiness_head"><span data-final-name>${PUBLISH_STATES.draft.name}</span><b data-rail-pct>${state.percent}%</b></div>
+                <p class="pnHelper" data-final-desc style="margin-top:4px">${PUBLISH_STATES.draft.desc}</p>
+                ${progressHtml(state.percent)}
+            </div>
+            <div style="margin-top:16px" data-rail-list>
+                ${state.items.map(([label, ok, note]) => railItem(label, ok, note ?? undefined)).join("")}
+            </div>
+        </div>
+        <div class="pnRailInfo">${icon("info")}<span>Everything here stays in this browser session. Reloading restores the seeded demo data.</span></div>
+    </aside>`;
 }
 
 export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCancel }) {
@@ -49,101 +110,236 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
         .map((p) => `<option value="${esc(p.id)}">${esc(p.title)}${p.status === "draft" ? " (draft)" : ""}</option>`)
         .join("");
 
-    container.innerHTML = `<style>${EP_STYLES}</style><div class="podaEpisodeCreate"><div class="podaEpisodeCreate_inner">
-        <h1>New episode</h1>
-        <p class="hint">Session-only mock — the episode appears in this session's collections; reload discards it.</p>
-        <form id="podaEpisodeCreateForm" novalidate>
-            <fieldset><legend>Basics</legend>
-                <label for="epPodcast">Podcast *</label>
-                <select id="epPodcast" name="epPodcast"><option value="">Choose a podcast…</option>${podcastOptions}</select>
-                <div class="grid2">
-                    <div><label for="epTitle">Title *</label><input id="epTitle" name="epTitle" type="text" placeholder="Systems that do not collapse" /></div>
-                    <div><label for="epSlug">Slug</label><input id="epSlug" name="epSlug" type="text" placeholder="systems-that-do-not-collapse" /></div>
-                </div>
-                <label for="epDescription">Description</label>
-                <textarea id="epDescription" name="epDescription" placeholder="What happens in this episode?"></textarea>
-                <label for="epShowNotes">Show notes (HTML allowed, mock)</label>
-                <textarea id="epShowNotes" name="epShowNotes" placeholder="<p>…</p>"></textarea>
-            </fieldset>
-            <fieldset><legend>Identity</legend>
-                <div class="grid3">
-                    <div><label for="epSeason">Season number</label><input id="epSeason" name="epSeason" type="number" min="1" placeholder="3" /></div>
-                    <div><label for="epNumber">Episode number</label><input id="epNumber" name="epNumber" type="number" min="1" placeholder="42" /></div>
-                    <div><label for="epDuration">Duration (seconds)</label><input id="epDuration" name="epDuration" type="number" min="1" placeholder="2745" /></div>
-                </div>
-            </fieldset>
-            <fieldset><legend>Audio</legend>
-                <label for="epEnclosure">Enclosure URL (mock)</label>
-                <input id="epEnclosure" name="epEnclosure" type="url" placeholder="https://cdn.example.com/ep43/episode.mp3" />
-            </fieldset>
-            <fieldset><legend>Publication</legend>
-                <div class="grid2">
-                    <div><label for="epStatus">Status</label>
-                        <select id="epStatus" name="epStatus">
-                            <option value="draft" selected>Draft</option><option value="scheduled">Scheduled</option>
-                        </select></div>
-                    <div><label for="epScheduledAt">Scheduled for (when scheduled)</label><input id="epScheduledAt" name="epScheduledAt" type="datetime-local" /></div>
-                </div>
-            </fieldset>
-            <div class="podaEpisodeCreate_actions">
-                <button class="podaEpisodeCreate_save" type="submit">Create episode</button>
-                <button class="podaEpisodeCreate_cancel" type="button" id="epCreateCancel">Cancel</button>
+    const initial = readiness({});
+    const publishCards = Object.entries(PUBLISH_STATES)
+        .map(
+            ([value, s]) => `<label class="pnPublishOpt">
+                <input type="radio" name="epStatus" value="${value}" ${value === "draft" ? "checked" : ""} />
+                <span><span class="pnPublishOpt_name">${esc(s.name)}</span>
+                <p class="pnPublishOpt_desc">${esc(s.desc)}</p></span>
+            </label>`,
+        )
+        .join("");
+
+    container.innerHTML = `<style>${NATIVE_STYLES}</style><div class="podaNative pnScroll"><div class="pnPage">
+        <div class="pnPageBand" aria-hidden="true"></div>
+        <div class="pnOrb pnOrb--left" aria-hidden="true"></div>
+        <div class="pnOrb pnOrb--right" aria-hidden="true"></div>
+        <div class="pnPageHeader">
+            <div>
+                <h1 class="pnTitle">Create New Episode</h1>
+                <p class="pnSubtitle">Add a new episode to one of your podcasts</p>
             </div>
-            <div class="podaEpisodeCreate_notice">Mock data only — nothing is sent anywhere. Guests stay display-only in this slice.</div>
+        </div>
+        <form id="podaEpisodeCreateForm" novalidate>
+        <div class="pnCard pnCard--hero"><div class="pnCard_body" style="padding-top:24px">
+            <div class="pnHero">
+                <div style="display:flex;gap:16px;align-items:flex-start;min-width:0">
+                    <span class="pnHero_tile" aria-hidden="true">${icon("mic")}</span>
+                    <div style="min-width:0">
+                        <h2 class="pnTitle" style="font-size:24px;line-height:32px">Create Episode</h2>
+                        <p class="pnSubtitle" style="font-size:14px;line-height:20px">Build the episode with hosted audio, guest context, and a clear publish outcome before creating it.</p>
+                        <div class="pnHero_chips">
+                            <span class="pnChip" data-podcast-chip>${icon("mic")} <span data-podcast-chip-label>Choose a podcast…</span></span>
+                            <span class="pnChip">${icon("upload")} Hosted upload first</span>
+                            <span class="pnChip">${icon("sparkles")} Session-only draft</span>
+                        </div>
+                    </div>
+                </div>
+                ${pulsePanelHtml(initial)}
+            </div>
+        </div></div>
+
+        <div class="pnDraftBar">
+            <div class="pnDraftBar_left">
+                <span class="pnDraftBar_icon">${icon("save")}</span>
+                <div><p class="pnDraftBar_title">Local draft state</p><p class="pnDraftBar_sub">Edits are kept in this browser until create succeeds.</p></div>
+            </div>
+            <button class="pnBtn pnBtn--ghost pnBtn--sm" type="button" id="epCreateCancel">${icon("x")} Cancel</button>
+        </div>
+
+        <div class="pnWizardGrid pnWizardGrid--episode">
+        <div class="pnStack">
+
+        <section class="pnCard"><div class="pnCard_header">
+            <h2 class="pnCard_title">Episode Info</h2>
+            <p class="pnCard_desc">Name and number the episode before attaching media.</p>
+        </div><div class="pnCard_body">
+            ${noteHtml("Start with the public episode identity so the rest of the setup has context.")}
+            <div class="pnField"><label class="pnLabel" for="epPodcast">Podcast *</label>
+                <select class="pnSelect" id="epPodcast" name="epPodcast"><option value="">Choose a podcast…</option>${podcastOptions}</select>
+                <p class="pnFieldError" data-error-for="podcastId"></p></div>
+            ${epField("epTitle", "Title *", { placeholder: "Systems that do not collapse", counter: 200 })}
+            <div class="pnGrid3">
+                ${epField("epNumber", "Episode number", { type: "number", placeholder: "42" })}
+                ${epField("epSeason", "Season number", { type: "number", placeholder: "3" })}
+                ${epField("epSlug", "Slug", { type: "text", placeholder: "systems-that-do-not-collapse" })}
+            </div>
+        </div></section>
+
+        <section class="pnCard"><div class="pnCard_header">
+            <h2 class="pnCard_title">Audio</h2>
+            <p class="pnCard_desc">Upload the canonical hosted audio file for publishing or scheduling.</p>
+        </div><div class="pnCard_body">
+            ${noteHtml("Hosted upload is the primary authoring path. Existing URLs are tucked under advanced migration.")}
+            <div class="pnUpload" id="epAudioDrop">
+                <span class="pnUpload_icon">${icon("upload")}</span>
+                <p class="pnUpload_title">Upload episode audio</p>
+                <p class="pnUpload_hint">MP3, M4A, WAV, or OGG</p>
+            </div>
+            ${epField("epEnclosure", "Enclosure URL (mock upload)", { type: "url", placeholder: "https://cdn.example.com/ep43/episode.mp3" })}
+            ${epField("epDuration", "Duration (seconds)", { type: "number", placeholder: "2745" })}
+        </div></section>
+
+        <section class="pnCard"><div class="pnCard_header">
+            <h2 class="pnCard_title">Guests</h2>
+            <p class="pnCard_desc">Attach guests whose appearance should be credited on the episode.</p>
+        </div><div class="pnCard_body">
+            ${noteHtml("Guest credits are optional, but they make episode appearances easier to browse later. Guest selection is display-only in this preview.")}
+            <p class="pnEmptyNote">No guests attached.</p>
+        </div></section>
+
+        <section class="pnCard"><div class="pnCard_header">
+            <h2 class="pnCard_title">Content</h2>
+            <p class="pnCard_desc">Add listener-facing description, notes, and transcript context.</p>
+        </div><div class="pnCard_body">
+            ${noteHtml("Descriptions and show notes help listeners decide whether this episode is relevant.")}
+            <div class="pnField">
+                <label class="pnLabel" for="epDescription">Description</label>
+                <textarea class="pnTextarea" id="epDescription" name="epDescription" maxlength="5000" placeholder="What happens in this episode?"></textarea>
+                <div class="pnFieldFoot"><span></span><span class="pnCounter" data-counter-for="epDescription">0/5000</span></div>
+            </div>
+            <div class="pnField">
+                <label class="pnLabel" for="epShowNotes">Show notes (HTML allowed, mock)</label>
+                <textarea class="pnTextarea" id="epShowNotes" name="epShowNotes" placeholder="<p>…</p>"></textarea>
+            </div>
+        </div></section>
+
+        <section class="pnCard"><div class="pnCard_header">
+            <h2 class="pnCard_title">Publish Settings</h2>
+            <p class="pnCard_desc">Choose the final create intent before submitting.</p>
+        </div><div class="pnCard_body">
+            ${publishCards}
+            <div class="pnField" id="epScheduleRow" hidden>
+                <label class="pnLabel" for="epScheduledAt">Scheduled for</label>
+                <input class="pnInput" id="epScheduledAt" name="epScheduledAt" type="datetime-local" />
+                <p class="pnFieldError" data-error-for="scheduledAt"></p>
+            </div>
+        </div></section>
+
+        <div class="pnError" id="podaEpisodeError" role="alert" hidden></div>
+        <div class="pnFooter">
+            <button class="pnBtn pnBtn--primary" type="submit" id="epCreateSubmit">${icon("checkCircle")} <span data-submit-label>Save Draft</span></button>
+        </div>
+        </div>
+        ${railHtml(initial)}
+        </div>
         </form>
     </div></div>`;
 
+    const form = container.querySelector("#podaEpisodeCreateForm");
+
     container.querySelector("#epCreateCancel").addEventListener("click", () => onCancel?.());
-    container.querySelector("#podaEpisodeCreateForm").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const form = event.target;
+    container
+        .querySelector("#epAudioDrop")
+        .addEventListener("click", () => container.querySelector("#epEnclosure").focus());
+
+    function readDraft() {
         const data = new FormData(form);
-        const numOrNull = (key) => {
-            const v = String(data.get(key) ?? "").trim();
-            if (!v) return null;
-            const n = Number(v);
-            return Number.isNaN(n) ? Number.NaN : n;
+        const num = (key) => {
+            const raw = formText(data, key).trim();
+            return raw === "" ? null : Number(raw);
         };
-        const scheduledRaw = String(data.get("epScheduledAt") ?? "").trim();
-        const draft = {
-            podcastId: String(data.get("epPodcast") ?? ""),
-            title: String(data.get("epTitle") ?? "").trim(),
-            slug: String(data.get("epSlug") ?? "").trim(),
-            description: String(data.get("epDescription") ?? "").trim(),
-            showNotesHtml: String(data.get("epShowNotes") ?? "").trim() || null,
-            seasonNumber: numOrNull("epSeason"),
-            episodeNumber: numOrNull("epNumber"),
-            duration: numOrNull("epDuration"),
-            status: data.get("epStatus") ?? "draft",
-            scheduledAt: scheduledRaw ? new Date(scheduledRaw).toISOString() : null,
-            enclosureUrl: String(data.get("epEnclosure") ?? "").trim(),
+        const status = data.get("epStatus") ?? "draft";
+        const scheduledRaw = formText(data, "epScheduledAt").trim();
+        return {
+            podcastId: formText(data, "epPodcast"),
+            title: formText(data, "epTitle").trim(),
+            slug: formText(data, "epSlug").trim(),
+            description: formText(data, "epDescription").trim(),
+            showNotesHtml: formText(data, "epShowNotes").trim() || null,
+            episodeNumber: num("epNumber"),
+            seasonNumber: num("epSeason"),
+            duration: num("epDuration"),
+            enclosureUrl: formText(data, "epEnclosure").trim(),
+            status,
+            scheduledAt: status === "scheduled" && scheduledRaw ? new Date(scheduledRaw).toISOString() : null,
         };
+    }
+
+    function refreshPulse() {
+        const state = readiness(readDraft());
+        container.querySelector("[data-pulse-pct]").textContent = `${state.percent}%`;
+        container.querySelector("[data-pulse] .pnProgress_fill").style.width = `${state.percent}%`;
+        container.querySelector("[data-pulse-list]").innerHTML = state.items
+            .map(
+                ([label, ok, note]) =>
+                    `<li>${ok ? icon("checkCircle") : '<span class="pnDot"></span>'}<span>${esc(label)}${note ? ` <span class="pnSubtle" style="font-size:12px">— ${esc(note)}</span>` : ""}</span></li>`,
+            )
+            .join("");
+        container.querySelector("[data-rail-pct]").textContent = `${state.percent}%`;
+        container.querySelector(".pnRailReadiness .pnProgress_fill").style.width = `${state.percent}%`;
+        container.querySelector("[data-rail-list]").innerHTML = state.items
+            .map(([label, ok, note]) => railItem(label, ok, note ?? undefined))
+            .join("");
+    }
+
+    form.addEventListener("input", (event) => {
+        const counter = event.target.id ? form.querySelector(`[data-counter-for="${event.target.id}"]`) : null;
+        if (counter) {
+            const max = counter.textContent.split("/")[1];
+            counter.textContent = `${event.target.value.length}/${max}`;
+        }
+        if (event.target.id === "epPodcast") {
+            const selected = podcasts.find((p) => p.id === event.target.value);
+            container.querySelector("[data-podcast-chip-label]").textContent = selected?.title ?? "Choose a podcast…";
+        }
+        refreshPulse();
+    });
+    form.addEventListener("change", refreshPulse);
+
+    form.querySelectorAll("input[name=epStatus]").forEach((radio) =>
+        radio.addEventListener("change", () => {
+            const state = PUBLISH_STATES[radio.value];
+            container.querySelector("[data-final-name]").textContent = state.name;
+            container.querySelector("[data-final-desc]").textContent = state.desc;
+            container.querySelector("[data-submit-label]").textContent = state.button;
+            container.querySelector("#epScheduleRow").hidden = radio.value !== "scheduled";
+        }),
+    );
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const draft = readDraft();
+
+        form.querySelectorAll("[aria-invalid]").forEach((i) => i.removeAttribute("aria-invalid"));
+        form.querySelectorAll(".pnFieldError").forEach((p) => (p.textContent = ""));
+        container.querySelector("#podaEpisodeError").hidden = true;
+
         const validation = validateEpisodeDraft(draft);
-        form.querySelectorAll("[aria-invalid=true]").forEach((el) => el.removeAttribute("aria-invalid"));
-        form.querySelectorAll(".error").forEach((el) => el.remove());
         if (Object.keys(validation).length) {
-            const fieldMap = {
-                podcastId: "epPodcast",
-                title: "epTitle",
-                slug: "epSlug",
-                duration: "epDuration",
-                episodeNumber: "epNumber",
-                seasonNumber: "epSeason",
-                scheduledAt: "epScheduledAt",
-                enclosureUrl: "epEnclosure",
+            const fieldFor = {
+                podcastId: "#epPodcast",
+                title: "#epTitle",
+                slug: "#epSlug",
+                duration: "#epDuration",
+                episodeNumber: "#epNumber",
+                seasonNumber: "#epSeason",
+                scheduledAt: "#epScheduledAt",
+                enclosureUrl: "#epEnclosure",
             };
             for (const [key, message] of Object.entries(validation)) {
-                const input = form.querySelector(`#${fieldMap[key] ?? key}`);
-                if (!input) continue;
-                input.setAttribute("aria-invalid", "true");
-                const p = document.createElement("p");
-                p.className = "error";
-                p.textContent = message;
-                input.insertAdjacentElement("afterend", p);
+                const input = form.querySelector(fieldFor[key] ?? `#${key}`);
+                if (input) input.setAttribute("aria-invalid", "true");
+                const errorEl = form.querySelector(`[data-error-for="${key}"]`);
+                if (errorEl) errorEl.textContent = message;
             }
+            const banner = container.querySelector("#podaEpisodeError");
+            banner.textContent = "A few fields still need attention before this episode can be created.";
+            banner.hidden = false;
+            banner.scrollIntoView({ block: "center" });
             return;
         }
-        // Map the form's enclosure mock onto the donor's media model.
         const submitDraft = { ...draft };
         delete submitDraft.enclosureUrl;
         if (draft.enclosureUrl) {

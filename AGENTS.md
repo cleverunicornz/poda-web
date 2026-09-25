@@ -35,6 +35,9 @@ existing Gaps and supporting records. Surfacing a Gap does not assign its
 investigation or resolution to this task; continue the assigned
 Promise/Oracle/Witness work.
 
+A change affecting claimed behavior repairs missing local Promise/Oracle/Witness
+lineage in its own closure; a Gap about unaffected behavior remains an observation.
+
 Git is the run's append-only event log. A run performs one closure on one pull
 request branch, bounded by an opening checkpoint commit and a closing checkpoint
 commit on that branch. Agents commit and push completed units of work promptly;
@@ -77,6 +80,9 @@ Candidates are possible responses derived from evidence. A Candidate becomes
 behavior only through a Decision that promotes it into a falsifiable Promise
 with an Oracle. Plans qualify Candidates and implement or assure Promises;
 recording a Gap does not assign that subsequent work.
+Detailed requirements may be adopted by reference from a pinned specification;
+changing it follows the assured-promise path. A promoted Promise is the selected
+commitment stating the accepted behavior; implementation never redefines it.
 
 The learning loop is:
 
@@ -259,7 +265,7 @@ Repository-specific orientation belongs in the repository block that follows.
     - [I-000010](situation/invariants/I-000010-explicit-host-extension-boundaries.md) — Poda extension code uses exported Module/widget contracts or a deliberately defined host extension; changes to Element-owned behavior are isolated and reviewed as explicit core changes.
     - [I-000012](situation/invariants/I-000012-shared-member-workspaces.md) — Poda's Element-derived member application presents shared domain views through first-class workspaces and suitable conversation contexts, with ordinary product workflows available without chat or assistant invocation.
 - Verification: Unassured: no implemented reusable fork-owned assurance route with a retained exact-pull-request-head CI run URL is presently recorded.
-  [G-000001](situation/gaps/G-000001-fork-assurance-route.md) retains this absence; [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) remains `hypothesis` and [O-000005](situation/oracles/O-000005-poda-fork-assurance-route.md) remains `designed`. The bounded local-observation [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) and [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md) do not establish that reusable route.
+  [G-000001](situation/gaps/G-000001-fork-assurance-route.md) retains this absence; [P-000005](situation/promises/P-000005-poda-fork-assurance-route.md) remains `hypothesis` and [O-000005](situation/oracles/O-000005-poda-fork-assurance-route.md) remains `designed`. The local `INVALID` [W-000001](situation/witnesses/P-000019/W-000001-pcc-native-module-design-pass.md), and the bounded local-observation [W-000003](situation/witnesses/P-000016/W-000003-decision-complete-module-navigation-gate-pass.md) and [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md), do not establish that reusable route.
   [C-000002](situation/candidates/C-000002-qualify-product-ui-boundaries.md) remains `proposed` and [C-000003](situation/candidates/C-000003-qualify-member-navigation.md) remains `qualifying`; neither is promoted by this projection.
 - Tool priority: organization defaults.
 - Donor boundary: `b53af60d7e2ae8c9021e94dd628d478dbc65c37e` (trigger tree admitted by opening checkpoint `51ccbf3c36fc160066424b656456b115994309b5`).

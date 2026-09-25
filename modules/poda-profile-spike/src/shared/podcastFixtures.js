@@ -42,10 +42,24 @@ export const PODCAST_FIXTURE = {
     },
     trailerUrl: "https://cdn.example.com/fieldnotes/trailer.mp3",
     testimonials: [
-        { id: "pt-1", name: "Casey Lin", role: "Founder, Northbeam", quote: "The only launch podcast I quote in board meetings.", order: 1 },
+        {
+            id: "pt-1",
+            name: "Casey Lin",
+            role: "Founder, Northbeam",
+            quote: "The only launch podcast I quote in board meetings.",
+            order: 1,
+        },
     ],
     mediaKit: [
-        { id: "pmk-1", name: "Show art pack", url: "https://example.com/mk/fieldnotes-art.zip", type: "logo", size: 3145728, filename: "fieldnotes-art.zip", mimeType: "application/zip" },
+        {
+            id: "pmk-1",
+            name: "Show art pack",
+            url: "https://example.com/mk/fieldnotes-art.zip",
+            type: "logo",
+            size: 3145728,
+            filename: "fieldnotes-art.zip",
+            mimeType: "application/zip",
+        },
     ],
     audienceStats: {
         monthlyListeners: 18400,
@@ -82,24 +96,62 @@ export const PODCAST_FIXTURE = {
                 method: "keysend",
                 suggested: "0.00000050000",
                 recipients: [
-                    { name: "Jordan Hale", type: "node", address: "03mocknodejordanhale000000000000000000000000000000", split: 90, fee: false },
-                    { name: "Poda", type: "node", address: "03mocknodepoda0000000000000000000000000000000000000", split: 10, fee: true },
+                    {
+                        name: "Jordan Hale",
+                        type: "node",
+                        address: "03mocknodejordanhale000000000000000000000000000000",
+                        split: 90,
+                        fee: false,
+                    },
+                    {
+                        name: "Poda",
+                        type: "node",
+                        address: "03mocknodepoda0000000000000000000000000000000000000",
+                        split: 10,
+                        fee: true,
+                    },
                 ],
                 timeSplits: [],
             },
         ],
         socialInteracts: [
-            { disabled: false, uri: "https://podcastindex.social/@fieldnotes", protocol: "activitypub", accountId: "@fieldnotes@podcastindex.social", accountUrl: "https://podcastindex.social/@fieldnotes", priority: 1 },
+            {
+                disabled: false,
+                uri: "https://podcastindex.social/@fieldnotes",
+                protocol: "activitypub",
+                accountId: "@fieldnotes@podcastindex.social",
+                accountUrl: "https://podcastindex.social/@fieldnotes",
+                priority: 1,
+            },
         ],
         txt: [{ purpose: "verify", value: "podcastindex-verification-mock-7f3a" }],
         chat: null,
         podping: { value: false },
-        trailers: [{ title: "Field Notes trailer", url: "https://cdn.example.com/fieldnotes/trailer.mp3", pubdate: "2026-01-05T12:00:00Z", lengthBytes: 1873920, mimeType: "audio/mpeg", season: null }],
-        locations: [{ name: "Toronto, Canada", geo: "geo:43.6532,-79.3832", osm: "P61033", country: "CA", rel: "subject" }],
+        trailers: [
+            {
+                title: "Field Notes trailer",
+                url: "https://cdn.example.com/fieldnotes/trailer.mp3",
+                pubdate: "2026-01-05T12:00:00Z",
+                lengthBytes: 1873920,
+                mimeType: "audio/mpeg",
+                season: null,
+            },
+        ],
+        locations: [
+            { name: "Toronto, Canada", geo: "geo:43.6532,-79.3832", osm: "P61033", country: "CA", rel: "subject" },
+        ],
         liveItems: [],
         remoteItems: [],
         podroll: null,
-        publisher: { remoteItem: { feedGuid: "pub-guid-0001", itemGuid: null, feedUrl: "https://feeds.example.com/poda-publisher.xml", medium: "publisher", title: "Poda Labs" } },
+        publisher: {
+            remoteItem: {
+                feedGuid: "pub-guid-0001",
+                itemGuid: null,
+                feedUrl: "https://feeds.example.com/poda-publisher.xml",
+                medium: "publisher",
+                title: "Poda Labs",
+            },
+        },
     },
     currentness: {
         canonicalAt: "2026-09-01T00:00:00Z",
@@ -137,7 +189,8 @@ export const EPISODES_FIXTURE = [
         episodeNumber: 42,
         seasonNumber: 3,
         status: "published",
-        showNotesHtml: "<p>Mira Chen on launch operating systems.</p><ul><li>The two-week runbook</li><li>Why checklists beat heroics</li></ul>",
+        showNotesHtml:
+            "<p>Mira Chen on launch operating systems.</p><ul><li>The two-week runbook</li><li>Why checklists beat heroics</li></ul>",
         publishedAt: "2026-09-08T11:00:00Z",
         scheduledAt: null,
         item: {
@@ -145,11 +198,25 @@ export const EPISODES_FIXTURE = [
                 { name: "Jordan Hale", role: "host", group: "cast", href: null, image: null },
                 { name: "Mira Chen", role: "guest", group: "cast", href: "https://example.com/mira", image: null },
             ],
-            transcripts: [{ url: "https://cdn.example.com/ep42/transcript.vtt", mimeType: "text/vtt", language: "en", rel: "captions" }],
+            transcripts: [
+                {
+                    url: "https://cdn.example.com/ep42/transcript.vtt",
+                    mimeType: "text/vtt",
+                    language: "en",
+                    rel: "captions",
+                },
+            ],
             funding: [{ title: "Support the show", url: "https://example.com/support" }],
             soundbites: [{ startTime: "1024.5", duration: "42.8", title: "The checklist that saved launch week" }],
-            locations: [{ name: "Toronto, Canada", geo: "geo:43.6532,-79.3832", osm: "P61033", country: "CA", rel: "subject" }],
-            chapters: { url: "https://cdn.example.com/ep42/chapters.json", mimeType: "application/json+chapters", language: "en", rel: "chapters" },
+            locations: [
+                { name: "Toronto, Canada", geo: "geo:43.6532,-79.3832", osm: "P61033", country: "CA", rel: "subject" },
+            ],
+            chapters: {
+                url: "https://cdn.example.com/ep42/chapters.json",
+                mimeType: "application/json+chapters",
+                language: "en",
+                rel: "chapters",
+            },
             license: { identifierOrText: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
         },
         media: {
@@ -193,7 +260,13 @@ export const EPISODES_FIXTURE = [
             internalizedAt: "2026-09-08T11:05:00Z",
             externalizedAt: null,
         },
-        provenance: { mode: "internal", kind: "original", sourceGuid: null, sourceEntryId: null, sourceEpisodeId: null },
+        provenance: {
+            mode: "internal",
+            kind: "original",
+            sourceGuid: null,
+            sourceEntryId: null,
+            sourceEpisodeId: null,
+        },
         guests: [
             {
                 guestId: "guest-mira",
@@ -218,7 +291,8 @@ export const EPISODES_FIXTURE = [
         id: "ep-research-loops",
         podcastId: "pod-field-notes",
         title: "Research loops with agents (working title)",
-        description: "Draft: how teams actually use AI-assisted research before a launch, with real examples and failure modes.",
+        description:
+            "Draft: how teams actually use AI-assisted research before a launch, with real examples and failure modes.",
         slug: "research-loops-with-agents",
         duration: null,
         episodeNumber: 43,

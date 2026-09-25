@@ -1,6 +1,14 @@
-// Shared Poda profile view — framework-free so the same artifact runs inside
-// the Element module host (React wrapper) and the room widget host (iframe).
-// Mock fixture data only.
+/*
+Copyright 2026 Poda contributors
+
+SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
+// Shared Poda profile card — framework-free so the same artifact runs inside
+// the Element module host (React wrapper) and the room widget host (iframe),
+// wearing the PCC native card design. Mock fixture data only.
+import { NATIVE_STYLES, esc, initials } from "./nativeTheme.js";
 
 export const MOCK_PROFILE = {
     displayName: "Mira Chen",
@@ -12,64 +20,59 @@ export const MOCK_PROFILE = {
     bestFitFor: ["Technical founders", "Launch retrospectives"],
 };
 
-export const PROFILE_STYLES = `
-.podaProfileCard { font-family: Inter, system-ui, sans-serif; max-width: 560px; margin: 24px auto; background: var(--poda-card, #ffffff); border: 1px solid #e2c4aa; border-radius: 18px; padding: 28px; box-shadow: 0 8px 24px #33221626; }
-.podaProfileCard_hero { display: flex; gap: 18px; align-items: center; }
-.podaProfileCard_avatar { width: 72px; height: 72px; border-radius: 16px; flex-shrink: 0; background: radial-gradient(circle, #f9ba51 0%, #efb855 61%, #e5793e 100%); color: #fff; font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-.podaProfileCard_name { margin: 0; font-size: 24px; color: #332216; }
-.podaProfileCard_headline { margin: 4px 0 0; color: #6b5142; font-size: 14px; }
-.podaProfileCard_tabs { display: inline-flex; gap: 4px; margin-top: 20px; padding: 4px; border: 1px solid #e2c4aa; border-radius: 12px; background: #fff8e8; }
-.podaProfileCard_tab { border: none; background: transparent; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #6b5142; cursor: pointer; }
-.podaProfileCard_tab[aria-selected="true"] { background: linear-gradient(120deg, #f9ba51, #efa43e); color: #332216; box-shadow: 0 4px 10px #f9ba5133; }
-.podaProfileCard_body { margin-top: 16px; color: #332216; font-size: 14px; line-height: 1.55; }
-.podaProfileCard_pill { display: inline-block; margin: 0 6px 6px 0; padding: 4px 10px; border-radius: 999px; background: #ffebc7; color: #743719; font-size: 12px; font-weight: 600; }
-.podaProfileCard_meta { color: #6b5142; font-size: 13px; margin-top: 8px; }
-.podaProfileCard_navBtn { margin-top: 16px; padding: 8px 14px; border: 1px solid #c9a58a; border-radius: 10px; background: #fff; color: #563522; font-size: 13px; cursor: pointer; }
+const CARD_STYLES = `
+.podaProfileCardWrap { max-width: 560px; margin: 24px auto; }
+.podaProfileCard_tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 `;
 
-function esc(value) {
-    return String(value).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-}
-
-export function profileMarkup(profile, view) {
-    const topics = profile.topics.map((t) => `<span class="podaProfileCard_pill">${esc(t)}</span>`).join("");
+function detailBody(profile, view) {
+    const topics = profile.topics.map((t) => `<span class="pnTopicChip">${esc(t)}</span>`).join("");
     const links = Object.entries(profile.socialLinks)
-        .map(([k, v]) => `<div class="podaProfileCard_meta">${esc(k)}: ${esc(v)}</div>`)
+        .filter(([, v]) => v)
+        .map(([k, v]) => `<div class="pnDefRow"><b>${esc(k)}</b><span>${esc(v)}</span></div>`)
         .join("");
-    const body =
-        view === "details"
-            ? `<p>${esc(profile.tagline)}</p><div>${topics}</div>${links}<div class="podaProfileCard_meta">Appearances: ${profile.appearanceCount} · Best fit: ${profile.bestFitFor.map(esc).join(", ")}</div>`
-            : `<p>${esc(profile.tagline)}</p><p class="podaProfileCard_meta">${esc(profile.headline)}</p>`;
-    return `
-        <div class="podaProfileCard_hero">
-            <div class="podaProfileCard_avatar" aria-hidden="true">${esc(profile.displayName.split(" ").map((w) => w[0]).join(""))}</div>
-            <div>
-                <h2 class="podaProfileCard_name">${esc(profile.displayName)}</h2>
-                <p class="podaProfileCard_headline">${esc(profile.headline)}</p>
-            </div>
-        </div>
-        <div class="podaProfileCard_body">${body}</div>`;
+    if (view === "details") {
+        return `<p style="margin:0;font-size:16px;line-height:24px">${esc(profile.tagline)}</p>
+            <div class="pnTopicRow">${topics}</div>${links}
+            <p class="pnHelper">Appearances: ${profile.appearanceCount} · Best fit: ${profile.bestFitFor.map(esc).join(", ")}</p>`;
+    }
+    return `<p style="margin:0;font-size:16px;line-height:24px">${esc(profile.tagline)}</p>
+        <p class="pnSubtle" style="margin:4px 0 0;font-size:14px">${esc(profile.headline)}</p>`;
 }
 
 // Renders the shared profile card with two internal views. onViewChange lets
 // the host persist the internal view (hash query in module, iframe hash in
 // the widget). hostLabel identifies which host rendered the artifact.
-export function renderProfileView(container, { hostLabel, profile, initialView = "summary", onViewChange, extraActionsHtml = "" }) {
+export function renderProfileView(
+    container,
+    { hostLabel, profile, initialView = "summary", onViewChange, extraActionsHtml = "" },
+) {
     const data = profile ?? MOCK_PROFILE;
     container.innerHTML = `
-        <style>${PROFILE_STYLES}</style>
-        <section class="podaProfileCard" data-host="${esc(hostLabel)}">
-            <div class="podaProfileCard_tabs" role="tablist">
-                <button class="podaProfileCard_tab" data-view="summary" role="tab">Summary</button>
-                <button class="podaProfileCard_tab" data-view="details" role="tab">Details</button>
+        <style>${NATIVE_STYLES}${CARD_STYLES}</style>
+        <div class="podaNative podaProfileCardWrap">
+        <section class="pnCard" data-host="${esc(hostLabel)}">
+            <div class="pnCard_body" style="padding-top:24px">
+                <div style="display:flex;gap:18px;align-items:center">
+                    <div class="pnAvatar" style="width:72px;height:72px;font-size:28px;border-width:2px" aria-hidden="true">${esc(initials(data.displayName))}</div>
+                    <div style="min-width:0">
+                        <h2 class="pnProfileName" style="font-size:24px;line-height:32px">${esc(data.displayName)}</h2>
+                        <p class="pnProfileHeadline" style="font-size:14px;line-height:20px">${esc(data.headline)}</p>
+                    </div>
+                </div>
+                <div class="podaProfileCard_tabs pnFilters" role="tablist">
+                    <button data-view="summary" role="tab" type="button">Summary</button>
+                    <button data-view="details" role="tab" type="button">Details</button>
+                </div>
+                <div class="podaProfileCard_view"></div>
+                ${extraActionsHtml}
             </div>
-            <div class="podaProfileCard_view"></div>
-            ${extraActionsHtml}
-        </section>`;
+        </section></div>`;
     const view = container.querySelector(".podaProfileCard_view");
-    const tabs = container.querySelectorAll(".podaProfileCard_tab");
+    const tabs = container.querySelectorAll(".podaProfileCard_tabs button");
     const show = (name) => {
-        view.innerHTML = profileMarkup(data, name);
+        view.innerHTML = detailBody(data, name);
+        tabs.forEach((t) => t.setAttribute("aria-pressed", String(t.dataset.view === name)));
     };
     tabs.forEach((t) =>
         t.addEventListener("click", () => {

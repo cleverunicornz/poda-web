@@ -1,14 +1,23 @@
+/*
+Copyright 2026 Poda contributors
+
+SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
 // Module host entry (plain JS for the spike): full creator-profile page using
-// the complete donor inventory. Identity comes from the public module API
+// the complete donor inventory, now wearing the PCC native design language
+// (shared native theme). Identity comes from the public module API
 // (api.profile); creator fields are mock/session-only. Switch between the own
 // editable profile and a fully-populated example fixture.
 import { renderFullProfileView } from "./shared/profileFullView.js";
 import { PROFILE_FIXTURE_MIRA, EMPTY_CREATOR_FIELDS, SOCIAL_SERVICES } from "./shared/profileFixtures.js";
-
-export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
-
+import { NATIVE_STYLES, esc, icon, formText } from "./shared/nativeTheme.js";
 import { renderStudioView } from "./shared/podcastFullView.js";
 import { podaData } from "./data/mockAdapter.js";
+import { APPLE_CATEGORIES } from "./data/appleCategories.js";
+
+export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
 
 export const STUDIO_LOCATION = "io.poda.profile-spike.studio";
 
@@ -28,29 +37,9 @@ function navigateTo(view, who) {
 
 const PAGE_STYLES = `
 .podaProfilePageHost { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
-.podaProfilePage { font-family: Inter, system-ui, sans-serif; padding: 24px clamp(12px, 4vw, 40px); background: #fffdf9; box-sizing: border-box; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-.podaProfilePage_switch { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid #e2c4aa; border-radius: 12px; background: #fff8e8; margin-bottom: 18px; }
-.podaProfilePage_switch button { border: none; background: transparent; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #6b5142; cursor: pointer; }
-.podaProfilePage_switch button[aria-selected="true"] { background: linear-gradient(120deg, #f9ba51, #efa43e); color: #332216; box-shadow: 0 4px 10px #f9ba5133; }
-.podaProfilePage_actions { display: flex; gap: 10px; margin-top: 20px; }
-.podaProfileCreate_check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #332216; }
+.podaProfilePage_switch { margin-bottom: 8px; }
 .podaProfileCreate_row { margin-top: 10px; }
-.podaProfileCreate_row label { display: block; font-size: 12px; font-weight: 600; color: #563522; margin-bottom: 4px; }
-.podaProfileCreate_row select { width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #e2c4aa; border-radius: 10px; background: #fffdf9; color: #332216; font-size: 13px; }
-.podaProfileCreate_cardRow, .podaProfileCreate_rowPair { border: 1px solid #f4e7d8; border-radius: 12px; padding: 12px; margin-bottom: 10px; }
-.podaProfileCreate_remove { margin-top: 10px; padding: 6px 12px; font-size: 12px; }
-.podaProfilePage_btn { padding: 9px 16px; border-radius: 10px; border: 1px solid #c9a58a; background: #fff; color: #563522; font-size: 13px; font-weight: 600; cursor: pointer; }
-.podaProfilePage_btn--primary { border: none; background: linear-gradient(120deg, #f9ba51, #efa43e); color: #332216; box-shadow: 0 5px 14px #33221626; }
-.podaProfileCreate { max-width: 720px; margin: 0 auto; background: #fff; border: 1px solid #e2c4aa; border-radius: 18px; padding: 28px; box-shadow: 0 8px 24px #33221626; }
-.podaProfileCreate h2 { margin: 0 0 4px; color: #332216; font-size: 22px; }
-.podaProfileCreate .hint { color: #6b5142; font-size: 13px; margin: 0 0 18px; }
-.podaProfileCreate fieldset { border: 1px solid #f4e7d8; border-radius: 12px; padding: 14px; margin: 0 0 14px; }
-.podaProfileCreate legend { font-size: 12px; font-weight: 700; color: #743719; padding: 0 6px; }
-.podaProfileCreate label { display: block; font-size: 12px; font-weight: 600; color: #563522; margin: 10px 0 4px; }
-.podaProfileCreate input, .podaProfileCreate textarea { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid #e2c4aa; border-radius: 10px; background: #fffdf9; color: #332216; font-size: 14px; font-family: inherit; }
-.podaProfileCreate textarea { min-height: 84px; resize: vertical; }
-.podaProfileCreate input:focus, .podaProfileCreate textarea:focus { outline: 2px solid #f9ba51; outline-offset: 1px; }
-.podaProfileCreate_grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.podaProfileCreate_cardRow, .podaProfileCreate_rowPair { border: 1px solid hsl(var(--pn-border)); border-radius: 12px; padding: 16px; margin-bottom: 12px; background: hsl(var(--pn-bg)); }
 `;
 
 function resolveOwnProfile(api, overrides) {
@@ -58,17 +47,18 @@ function resolveOwnProfile(api, overrides) {
     return {
         ...EMPTY_CREATOR_FIELDS,
         ...overrides,
-        socialLinks: { ...EMPTY_CREATOR_FIELDS.socialLinks, ...(overrides.socialLinks ?? {}) },
+        socialLinks: { ...EMPTY_CREATOR_FIELDS.socialLinks, ...overrides.socialLinks },
         displayName: overrides.displayName ?? base.displayName ?? base.userId ?? "Unknown user",
         userId: base.userId,
     };
 }
 
-function pageShell(container) {
-    container.innerHTML = `<style>${PAGE_STYLES}</style><div class="podaProfilePage"><div class="podaProfilePage_switch" role="tablist">
-        <button data-who="me" role="tab">My profile</button>
-        <button data-who="mira" role="tab">Mira Chen (example)</button>
-    </div><div class="podaProfilePage_body"></div></div>`;
+function pageShell(container, who) {
+    container.innerHTML = `<style>${NATIVE_STYLES}${PAGE_STYLES}</style><div class="podaNative" style="flex:1 1 auto;min-height:0;overflow-y:auto"><div class="pnPage">
+        <div class="podaProfilePage_switch pnFilters" role="tablist">
+            <button data-who="me" role="tab" type="button" aria-pressed="${String(who === "me")}">My profile</button>
+            <button data-who="mira" role="tab" type="button" aria-pressed="${String(who === "mira")}">Mira Chen (example)</button>
+        </div><div class="podaProfilePage_body"></div></div></div>`;
     const body = container.querySelector(".podaProfilePage_body");
     container.querySelectorAll(".podaProfilePage_switch button").forEach((b) => {
         b.addEventListener("click", () => navigateTo("summary", b.dataset.who));
@@ -76,30 +66,49 @@ function pageShell(container) {
     return body;
 }
 
-function renderSummary(container, { api, overrides, who }) {
-    const body = pageShell(container);
-    container.querySelectorAll(".podaProfilePage_switch button").forEach((b) =>
-        b.setAttribute("aria-selected", String(b.dataset.who === who)),
-    );
+async function renderSummary(container, { api, overrides, setOverrides, who }) {
+    const body = pageShell(container, who);
     const profile = who === "mira" ? PROFILE_FIXTURE_MIRA : resolveOwnProfile(api, overrides);
     const isOwn = who === "me";
+
+    // Right-rail stats come from the same session adapter as Studio.
+    const [podcasts, episodes] = await Promise.all([podaData.listPodcasts(), podaData.listEpisodes()]);
+    const stats = {
+        podcastsHosted: isOwn ? podcasts.length : null,
+        appearances: profile.appearanceCount ?? 0,
+        totalEpisodes: isOwn ? episodes.length : null,
+    };
+
     renderFullProfileView(body, {
         profile,
         hostLabel: `module (app page) — ${isOwn ? "own profile" : "example fixture"}`,
+        editable: isOwn,
+        showWelcome: isOwn && !profile.headline,
+        stats,
+        shareUrl: profile.slug ? `https://poda.social/@${profile.slug}` : null,
         extraActionsHtml: isOwn
-            ? `<div class="podaProfilePage_actions"><button class="podaProfilePage_btn podaProfilePage_btn--primary" id="podaProfileEditLink" type="button">Edit profile</button></div>`
+            ? `<button class="pnBtn pnBtn--primary" id="podaProfileEditLink" type="button">${icon("pencil")} Edit profile</button>`
             : "",
+        onRemoveTopic: isOwn
+            ? (topic) => setOverrides({ ...overrides, topics: (profile.topics ?? []).filter((t) => t !== topic) })
+            : undefined,
+        onAddTopic: isOwn
+            ? (value) => setOverrides({ ...overrides, topics: [...(profile.topics ?? []), value] })
+            : undefined,
+        topicSuggestions: isOwn ? APPLE_CATEGORIES : undefined,
+        onVisibilityChange: isOwn ? (vis) => setOverrides({ ...overrides, isPublic: vis === "public" }) : undefined,
     });
+    body.querySelector("#podaProfileEditLink")?.addEventListener("click", () => navigateTo("edit", "me"));
     if (isOwn) {
-        body.querySelector("#podaProfileEditLink")?.addEventListener("click", () => navigateTo("edit", "me"));
         const identity = document.createElement("p");
-        identity.style.cssText = "margin-top:14px;font-size:12px;color:#a58e7f";
+        identity.className = "pnSubtle";
+        identity.style.cssText = "font-size:12px;margin:0";
         identity.textContent = `Signed in as ${profile.userId ?? "unknown"} · creator fields are session-only`;
-        body.querySelector(".podaFullProfile")?.appendChild(identity);
+        body.querySelector(".pnProfileGrid")?.appendChild(identity);
     }
 }
 
-const escAttr = (v) => String(v ?? "").replace(/"/g, "&quot;");
+const escAttr = esc;
 
 const VIS_SECTIONS = [
     ["about", "About"],
@@ -119,94 +128,112 @@ function visibilitySelect(sectionKey, value) {
     const options = ["public", "members", "collaborators", "private"]
         .map((v) => `<option value="${v}" ${v === value ? "selected" : ""}>${v}</option>`)
         .join("");
-    return `<div class="podaProfileCreate_row"><label for="vis_${sectionKey}">${sectionKey === "bestFitFor" ? "Best fit" : sectionKey.replace(/[A-Z]/g, (m) => " " + m.toLowerCase())}</label><select id="vis_${sectionKey}" name="vis_${sectionKey}">${options}</select></div>`;
+    return `<div class="pnField podaProfileCreate_row"><label class="pnLabel" for="vis_${sectionKey}">${sectionKey === "bestFitFor" ? "Best fit" : sectionKey.replace(/[A-Z]/g, (m) => " " + m.toLowerCase())}</label><select class="pnSelect" id="vis_${sectionKey}" name="vis_${sectionKey}">${options}</select></div>`;
+}
+
+function editField(id, name, label, { type = "text", value = "", placeholder = "", required = false } = {}) {
+    return `<div class="pnField"><label class="pnLabel" for="${id}">${esc(label)}</label><input class="pnInput" id="${id}" name="${name}" type="${type}" value="${escAttr(value)}" placeholder="${escAttr(placeholder)}" ${required ? "required" : ""} /></div>`;
 }
 
 function renderEdit(container, { api, overrides, setOverrides }) {
     const current = resolveOwnProfile(api, overrides);
-    const socialInputs = SOCIAL_SERVICES.map(
-        (svc) => `<label for="pp_s_${svc}">${svc}</label><input id="pp_s_${svc}" name="social_${svc}" value="${escAttr(current.socialLinks?.[svc])}" placeholder="https://" />`,
+    const socialInputs = SOCIAL_SERVICES.map((svc) =>
+        editField(`pp_s_${svc}`, `social_${svc}`, svc.charAt(0).toUpperCase() + svc.slice(1), {
+            type: "url",
+            value: current.socialLinks?.[svc],
+            placeholder: "https://",
+        }),
     ).join("");
 
     const expertiseRows = (current.expertiseCards ?? [])
         .map(
             (c, i) => `<div class="podaProfileCreate_cardRow" data-exp-row>
-                <div class="podaProfileCreate_grid">
-                    <div><label>Card title</label><input name="exp_title_${i}" value="${escAttr(c.title)}" /></div>
-                    <div><label>Icon name</label><input name="exp_icon_${i}" value="${escAttr(c.icon ?? "")}" placeholder="Target" /></div>
+                <div class="pnGrid2">
+                    <div class="pnField"><label class="pnLabel">Card title</label><input class="pnInput" name="exp_title_${i}" value="${escAttr(c.title)}" /></div>
+                    <div class="pnField"><label class="pnLabel">Icon name</label><input class="pnInput" name="exp_icon_${i}" value="${escAttr(c.icon ?? "")}" placeholder="Target" /></div>
                 </div>
-                <label>Description</label><input name="exp_desc_${i}" value="${escAttr(c.description)}" />
-                <button type="button" class="podaProfilePage_btn podaProfileCreate_remove" data-remove-row>Remove card</button>
+                <div class="pnField" style="margin-top:10px"><label class="pnLabel">Description</label><input class="pnInput" name="exp_desc_${i}" value="${escAttr(c.description)}" /></div>
+                <button type="button" class="pnBtn pnBtn--ghost pnBtn--sm" style="margin-top:10px" data-remove-row>${icon("x")} Remove card</button>
             </div>`,
         )
         .join("");
     const customRows = (current.customFields ?? [])
         .map(
             (f, i) => `<div class="podaProfileCreate_rowPair" data-cf-row>
-                <div class="podaProfileCreate_grid">
-                    <div><label>Field name</label><input name="cf_name_${i}" value="${escAttr(f.name)}" /></div>
-                    <div><label>Value</label><input name="cf_value_${i}" value="${escAttr(f.value)}" /></div>
+                <div class="pnGrid2">
+                    <div class="pnField"><label class="pnLabel">Field name</label><input class="pnInput" name="cf_name_${i}" value="${escAttr(f.name)}" /></div>
+                    <div class="pnField"><label class="pnLabel">Value</label><input class="pnInput" name="cf_value_${i}" value="${escAttr(f.value)}" /></div>
                 </div>
-                <button type="button" class="podaProfilePage_btn podaProfileCreate_remove" data-remove-row>Remove field</button>
+                <button type="button" class="pnBtn pnBtn--ghost pnBtn--sm" style="margin-top:10px" data-remove-row>${icon("x")} Remove field</button>
             </div>`,
         )
         .join("");
-    const visRows = VIS_SECTIONS.map(([key, label]) => visibilitySelect(key, current.sectionVisibility?.[key] ?? "public")).join("");
+    const visRows = VIS_SECTIONS.map(([key, value]) =>
+        visibilitySelect(key, current.sectionVisibility?.[key] ?? "public"),
+    ).join("");
 
     container.innerHTML = `
-        <style>${PAGE_STYLES}</style>
-        <div class="podaProfilePage"><div class="podaProfileCreate">
-            <h2>Edit creator profile</h2>
-            <p class="hint">Signed in as ${current.userId ?? "unknown"} — session-only mock; a reload discards edits.</p>
-            <form id="podaProfileCreateForm">
-                <fieldset><legend>Identity</legend>
-                    <div class="podaProfileCreate_grid">
-                        <div><label for="ppName">Display name</label><input id="ppName" name="displayName" required value="${escAttr(current.displayName)}" /></div>
-                        <div><label for="ppSlug">Profile slug</label><input id="ppSlug" name="slug" value="${escAttr(current.slug)}" placeholder="your-name" /></div>
+        <style>${NATIVE_STYLES}${PAGE_STYLES}</style>
+        <div class="podaNative" style="flex:1 1 auto;min-height:0;overflow-y:auto"><div class="pnPage pnPage_narrow">
+            <div class="pnPageHeader">
+                <div>
+                    <h1 class="pnTitle">Edit creator profile</h1>
+                    <p class="pnSubtitle">Signed in as ${esc(current.userId ?? "unknown")} — session-only mock; a reload discards edits.</p>
+                </div>
+            </div>
+            <form id="podaProfileCreateForm" class="pnStack">
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Identity</h2><p class="pnCard_desc">The public name and handle hosts see.</p></div><div class="pnCard_body">
+                    <div class="pnGrid2">
+                        ${editField("ppName", "displayName", "Display name", { value: current.displayName, required: true })}
+                        ${editField("ppSlug", "slug", "Profile slug", { value: current.slug, placeholder: "your-name" })}
                     </div>
-                    <label for="ppHeadline">Headline</label><input id="ppHeadline" name="headline" value="${escAttr(current.headline)}" placeholder="Podcast host and producer" />
-                    <label for="ppTagline">Tagline</label><input id="ppTagline" name="tagline" value="${escAttr(current.tagline)}" placeholder="One-line promise" />
-                </fieldset>
-                <fieldset><legend>Media</legend>
-                    <div class="podaProfileCreate_grid">
-                        <div><label for="ppAvatar">Avatar URL (mock)</label><input id="ppAvatar" name="avatarUrl" type="url" value="${escAttr(current.avatarUrl)}" placeholder="https://…/avatar.png" /></div>
-                        <div><label for="ppBanner">Banner URL (mock)</label><input id="ppBanner" name="bannerUrl" type="url" value="${escAttr(current.bannerUrl)}" placeholder="https://…/banner.png" /></div>
+                    ${editField("ppHeadline", "headline", "Headline", { value: current.headline, placeholder: "Podcast host and producer" })}
+                    ${editField("ppTagline", "tagline", "Tagline", { value: current.tagline, placeholder: "One-line promise" })}
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Media</h2><p class="pnCard_desc">Avatar, banner, and intro video links (mock uploads).</p></div><div class="pnCard_body">
+                    <div class="pnGrid2">
+                        ${editField("ppAvatar", "avatarUrl", "Avatar URL (mock)", { type: "url", value: current.avatarUrl, placeholder: "https://…/avatar.png" })}
+                        ${editField("ppBanner", "bannerUrl", "Banner URL (mock)", { type: "url", value: current.bannerUrl, placeholder: "https://…/banner.png" })}
                     </div>
-                    <label for="ppIntroVideo">Intro video URL</label><input id="ppIntroVideo" name="introVideoUrl" type="url" value="${escAttr(current.introVideoUrl)}" placeholder="https://…/intro.mp4" />
-                </fieldset>
-                <fieldset><legend>About</legend>
-                    <label for="ppShort">Short intro</label><input id="ppShort" name="aboutShort" value="${escAttr(current.aboutShort)}" placeholder="2-3 sentences shown on cards" />
-                    <label for="ppBio">Full bio</label><textarea id="ppBio" name="bio">${escAttr(current.bio)}</textarea>
-                    <label for="ppTopics">Topics (comma separated)</label><input id="ppTopics" name="topics" value="${escAttr(current.topics.join(", "))}" placeholder="Technology, Interviews" />
-                </fieldset>
-                <fieldset><legend>Expertise cards</legend>
+                    ${editField("ppIntroVideo", "introVideoUrl", "Intro video URL", { type: "url", value: current.introVideoUrl, placeholder: "https://…/intro.mp4" })}
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">About</h2><p class="pnCard_desc">The hook and the full story.</p></div><div class="pnCard_body">
+                    ${editField("ppShort", "aboutShort", "Short intro", { value: current.aboutShort, placeholder: "2-3 sentences shown on cards" })}
+                    <div class="pnField"><label class="pnLabel" for="ppBio">Full bio</label><textarea class="pnTextarea" id="ppBio" name="bio">${esc(current.bio)}</textarea></div>
+                    ${editField("ppTopics", "topics", "Topics (comma separated)", { value: current.topics.join(", "), placeholder: "Technology, Interviews" })}
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Expertise cards</h2><p class="pnCard_desc">Add 2-4 expertise cards highlighting your key talking points.</p></div><div class="pnCard_body">
                     <div id="ppExpRows">${expertiseRows}</div>
-                    <button type="button" class="podaProfilePage_btn" id="ppAddExp">+ Add expertise card</button>
-                </fieldset>
-                <fieldset><legend>Custom fields</legend>
+                    <button type="button" class="pnBtn pnBtn--outline pnBtn--sm" id="ppAddExp">${icon("plus")} Add expertise card</button>
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Custom fields</h2><p class="pnCard_desc">Add details like your location, pronouns, languages, or industry.</p></div><div class="pnCard_body">
                     <div id="ppCfRows">${customRows}</div>
-                    <button type="button" class="podaProfilePage_btn" id="ppAddCf">+ Add custom field</button>
-                </fieldset>
-                <fieldset><legend>Links & booking</legend>
-                    <div class="podaProfileCreate_grid">${socialInputs}</div>
-                    <label for="ppBooking">Booking URL</label><input id="ppBooking" name="bookingUrl" type="url" value="${escAttr(current.bookingUrl)}" placeholder="https://calendly.com/…" />
-                </fieldset>
-                <fieldset><legend>Status</legend>
-                    <div class="podaProfileCreate_grid">
-                        <div><label for="ppStatus">Profile status</label>
-                            <select id="ppStatus" name="profileStatus">
+                    <button type="button" class="pnBtn pnBtn--outline pnBtn--sm" id="ppAddCf">${icon("plus")} Add custom field</button>
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Links &amp; booking</h2><p class="pnCard_desc">Where hosts can find and book you.</p></div><div class="pnCard_body">
+                    <div class="pnGrid2">${socialInputs}</div>
+                    ${editField("ppBooking", "bookingUrl", "Booking URL", { type: "url", value: current.bookingUrl, placeholder: "https://calendly.com/…" })}
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Status</h2><p class="pnCard_desc">Draft vs published, and directory listing.</p></div><div class="pnCard_body">
+                    <div class="pnGrid2">
+                        <div class="pnField"><label class="pnLabel" for="ppStatus">Profile status</label>
+                            <select class="pnSelect" id="ppStatus" name="profileStatus">
                                 <option value="draft" ${current.profileStatus === "draft" ? "selected" : ""}>Draft</option>
                                 <option value="published" ${current.profileStatus === "published" ? "selected" : ""}>Published</option>
                             </select></div>
-                        <div><label class="podaProfileCreate_check"><input type="checkbox" id="ppPublic" name="isPublic" ${current.isPublic ? "checked" : ""} /> Public profile (listed in the directory)</label></div>
+                        <label class="pnToggle"><input type="checkbox" id="ppPublic" name="isPublic" ${current.isPublic ? "checked" : ""} />
+                            <span class="pnToggle_track"><span class="pnToggle_thumb"></span></span>
+                            <span><span class="pnToggle_label">Public profile</span>
+                            <p class="pnToggle_hint">Listed in the creator directory.</p></span>
+                        </label>
                     </div>
-                </fieldset>
-                <fieldset><legend>Section visibility</legend>
-                    <div class="podaProfileCreate_grid">${visRows}</div>
-                </fieldset>
-                <div class="podaProfilePage_actions">
-                    <button class="podaProfilePage_btn podaProfilePage_btn--primary" type="submit">Save profile</button>
-                    <button class="podaProfilePage_btn" type="button" id="ppCancel">Cancel</button>
+                </div></section>
+                <section class="pnCard"><div class="pnCard_header"><h2 class="pnCard_title">Section visibility</h2><p class="pnCard_desc">Who can see each profile section.</p></div><div class="pnCard_body">
+                    <div class="pnGrid2">${visRows}</div>
+                </div></section>
+                <div class="pnFooter">
+                    <button class="pnBtn pnBtn--outline" type="button" id="ppCancel">Cancel</button>
+                    <button class="pnBtn pnBtn--primary" type="submit">${icon("checkCircle")} Save profile</button>
                 </div>
             </form>
         </div></div>`;
@@ -219,12 +246,12 @@ function renderEdit(container, { api, overrides, setOverrides }) {
         const row = document.createElement("div");
         row.className = "podaProfileCreate_cardRow";
         row.dataset.expRow = "";
-        row.innerHTML = `<div class="podaProfileCreate_grid">
-            <div><label>Card title</label><input name="exp_title_${expCount}" /></div>
-            <div><label>Icon name</label><input name="exp_icon_${expCount}" placeholder="Target" /></div>
+        row.innerHTML = `<div class="pnGrid2">
+            <div class="pnField"><label class="pnLabel">Card title</label><input class="pnInput" name="exp_title_${expCount}" /></div>
+            <div class="pnField"><label class="pnLabel">Icon name</label><input class="pnInput" name="exp_icon_${expCount}" placeholder="Target" /></div>
         </div>
-        <label>Description</label><input name="exp_desc_${expCount}" />
-        <button type="button" class="podaProfilePage_btn podaProfileCreate_remove" data-remove-row>Remove card</button>`;
+        <div class="pnField" style="margin-top:10px"><label class="pnLabel">Description</label><input class="pnInput" name="exp_desc_${expCount}" /></div>
+        <button type="button" class="pnBtn pnBtn--ghost pnBtn--sm" style="margin-top:10px" data-remove-row>Remove card</button>`;
         host.appendChild(row);
         expCount++;
     });
@@ -233,11 +260,11 @@ function renderEdit(container, { api, overrides, setOverrides }) {
         const row = document.createElement("div");
         row.className = "podaProfileCreate_rowPair";
         row.dataset.cfRow = "";
-        row.innerHTML = `<div class="podaProfileCreate_grid">
-            <div><label>Field name</label><input name="cf_name_${cfCount}" /></div>
-            <div><label>Value</label><input name="cf_value_${cfCount}" /></div>
+        row.innerHTML = `<div class="pnGrid2">
+            <div class="pnField"><label class="pnLabel">Field name</label><input class="pnInput" name="cf_name_${cfCount}" /></div>
+            <div class="pnField"><label class="pnLabel">Value</label><input class="pnInput" name="cf_value_${cfCount}" /></div>
         </div>
-        <button type="button" class="podaProfilePage_btn podaProfileCreate_remove" data-remove-row>Remove field</button>`;
+        <button type="button" class="pnBtn pnBtn--ghost pnBtn--sm" style="margin-top:10px" data-remove-row>Remove field</button>`;
         host.appendChild(row);
         cfCount++;
     });
@@ -253,7 +280,7 @@ function renderEdit(container, { api, overrides, setOverrides }) {
         const data = new FormData(form);
         const socialLinks = {};
         for (const svc of SOCIAL_SERVICES) {
-            const v = String(data.get(`social_${svc}`) ?? "").trim();
+            const v = formText(data, `social_${svc}`).trim();
             if (v) socialLinks[svc] = v;
         }
         // Collect repeatable rows by their surviving inputs
@@ -285,7 +312,10 @@ function renderEdit(container, { api, overrides, setOverrides }) {
             tagline: data.get("tagline") || "",
             aboutShort: data.get("aboutShort") || "",
             bio: data.get("bio") || "",
-            topics: String(data.get("topics") ?? "").split(",").map((t) => t.trim()).filter(Boolean),
+            topics: formText(data, "topics")
+                .split(",")
+                .map((t) => t.trim())
+                .filter(Boolean),
             socialLinks,
             bookingUrl: data.get("bookingUrl") || "",
             avatarUrl: data.get("avatarUrl") || "",
@@ -316,17 +346,20 @@ function ProfilePage({ api }) {
         if (route.view === "edit" || route.view === "create") {
             renderEdit(ref.current, { api, overrides, setOverrides });
         } else {
-            renderSummary(ref.current, { api, overrides, who: route.who });
+            renderSummary(ref.current, { api, overrides, setOverrides, who: route.who }).catch((error) => {
+                console.error("Poda profile render failed", error);
+                const host = ref.current?.querySelector(".podaProfilePage_body");
+                if (host)
+                    host.innerHTML = `<div class="pnError" role="alert">This profile could not be rendered. ${esc(String(error?.message ?? error))}</div>`;
+            });
         }
         ref.current.firstElementChild?.scrollIntoView({ block: "start" });
-    }, [route, overrides]);
+    }, [route, overrides, api]);
     return React.createElement("div", { ref, className: "podaProfilePageHost" });
 }
 
 const STUDIO_NAV_STYLES = `
-.podaStudioNav { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid #e2c4aa; border-radius: 12px; background: #fff8e8; margin: 18px clamp(12px, 4vw, 40px) 0; align-self: flex-start; }
-.podaStudioNav button { border: none; background: transparent; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #6b5142; cursor: pointer; }
-.podaStudioNav button[aria-selected="true"] { background: linear-gradient(120deg, #f9ba51, #efa43e); color: #332216; box-shadow: 0 4px 10px #f9ba5133; }
+.podaStudioNav { margin: 0 clamp(4px, 2vw, 16px); padding-top: 18px; align-self: flex-start; }
 `;
 
 function studioRoute() {
@@ -337,7 +370,8 @@ function studioRoute() {
     if (params.get("new") === "episode") return { view: "new-episode" };
     if (params.get("podcast")) return { view: "detail", id: params.get("podcast") };
     if (params.get("episode")) return { view: "episodeDetail", id: params.get("episode") };
-    if (params.get("section") === "episodes") return { view: "episodes", filter: params.get("podcastFilter") || null };
+    if (params.get("section") === "episodes")
+        return { view: "episodes", filter: params.get("podcastFilter") || null, status: params.get("status") || null };
     return { view: "list" };
 }
 
@@ -350,15 +384,16 @@ function studioNavigate(route) {
     if (route.view === "episodes") {
         query.set("section", "episodes");
         if (route.filter) query.set("podcastFilter", route.filter);
+        if (route.status) query.set("status", route.status);
     }
     window.location.hash = `/${STUDIO_LOCATION}${query.toString() ? `?${query.toString()}` : ""}`;
 }
 
-function studioNavHost() {
+function studioNavHost(active) {
     const host = document.createElement("div");
-    host.innerHTML = `<style>${STUDIO_NAV_STYLES}</style><nav class="podaStudioNav" aria-label="Studio sections">
-        <button data-section="podcasts" type="button">Podcasts</button>
-        <button data-section="episodes" type="button">Episodes</button>
+    host.innerHTML = `<style>${NATIVE_STYLES}${STUDIO_NAV_STYLES}</style><nav class="podaNative podaStudioNav pnFilters" aria-label="Studio sections">
+        <button data-section="podcasts" type="button" aria-pressed="${String(active === "podcasts")}">Podcasts</button>
+        <button data-section="episodes" type="button" aria-pressed="${String(active === "episodes")}">Episodes</button>
     </nav>`;
     return host;
 }
@@ -388,10 +423,9 @@ function StudioPage() {
 
             ref.current.replaceChildren();
             if (showNav) {
-                const nav = studioNavHost();
                 const active = route.view === "episodes" ? "episodes" : "podcasts";
+                const nav = studioNavHost(active);
                 nav.querySelectorAll("button").forEach((b) => {
-                    b.setAttribute("aria-selected", String(b.dataset.section === active));
                     b.addEventListener("click", () =>
                         studioNavigate(b.dataset.section === "episodes" ? { view: "episodes" } : { view: "list" }),
                     );
@@ -403,9 +437,9 @@ function StudioPage() {
             if (route.view === "new-podcast") {
                 const { renderPodcastCreateView } = await import("./studio/podcastCreate.js");
                 renderPodcastCreateView(contentHost, {
-                    onSubmit: async (draft) => {
+                    onSubmit: async (draft, intent) => {
                         const created = await podaData.savePodcast(draft);
-                        studioNavigate({ view: "detail", id: created.id });
+                        studioNavigate(intent === "draft" ? { view: "list" } : { view: "detail", id: created.id });
                     },
                     onCancel: () => studioNavigate({ view: "list" }),
                 });
@@ -451,7 +485,9 @@ function StudioPage() {
                     episodes,
                     podcasts,
                     filterPodcastId: route.filter,
-                    onFilter: (id) => studioNavigate({ view: "episodes", filter: id }),
+                    statusFilter: route.status,
+                    onFilter: (id) => studioNavigate({ view: "episodes", filter: id, status: route.status }),
+                    onStatusFilter: (status) => studioNavigate({ view: "episodes", filter: route.filter, status }),
                     onOpen: (id) => studioNavigate({ view: "episodeDetail", id }),
                     onCreate: () => studioNavigate({ view: "new-episode" }),
                 });

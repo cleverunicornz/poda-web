@@ -1,0 +1,36 @@
+{
+    "head": "574702d38e42776479b1c032c9c08d7bfa02d0c9",
+    "observed": "2026-09-23",
+    "environment": {
+        "app": "Poda Web local preview at http://localhost:8082/ (module bundle rebuilt and deployed from the exact head)",
+        "homeserver": "persistent local Synapse at http://localhost:8488/ (docker volume poda-synapse-data)",
+        "browser": "managed Chromium tab (browser tool), viewports 1440x960 and 500x900, deviceScaleFactor 1.25",
+        "themes": ["custom-Poda Light", "custom-Poda Dark"],
+        "session": "@demo:localhost (signed in)"
+    },
+    "legs": {
+        "P1": "All named surfaces render .podaNative donor tokens; computed styles confirmed hero row + 736px/360px wizard grid at 1440px and stacking at 500px; dark surfaces confirmed in Poda Dark (body class cpd-theme-dark). No surface retains the superseded ad-hoc palette.",
+        "P2": "Podcast wizard: readiness 25% -> 50% -> 75% -> 100% live; 3-category cap disabled 16 unchecked inputs; invalid submit showed banner + inline slug/owner-email errors; Save Draft navigated to the list with the draft row; Create opened the created detail view at the exact head (pod-mufjsn32-de4ks2). Episode wizard: readiness 25% -> 75%, podcast chip followed selection, publish radio cards, Create opened the episode detail (ep-mufizz06-6zq40x).",
+        "P3": "Own profile: Draft pill, welcome banner, + Add Topic inline (Resilience chip added), Members Only -> Public segmented toggle, Your Stats (2 podcasts, 3 episodes from the session adapter), At a Glance 0% -> 13%. Example fixture: Published pill, segmented Public, Share Profile copy row, At a Glance 88% green bar. Widget host rendered the same design standalone.",
+        "P4": "Adapter tests 12/12 passed at the exact head; reload restored the 2-episode seed state; native Chat (room timeline, composer, widget registration event) rendered unchanged after the transfer."
+    },
+    "screenshots": [
+        "studio-wizard-light.webp",
+        "studio-wizard-ready-light.webp",
+        "studio-wizard-validation-light.webp",
+        "studio-wizard-dark.webp",
+        "studio-wizard-narrow-dark.webp",
+        "studio-episodes-light.webp",
+        "studio-episodes-narrow-dark.webp",
+        "studio-podcast-detail-light.webp",
+        "profile-own-light.webp",
+        "profile-example-light.webp",
+        "profile-example-dark.webp",
+        "widget-profile-light.webp",
+        "chat-unchanged-light.webp"
+    ],
+    "notes": [
+        "Behavior legs P2/P3 ran against the pre-oxfmt build of the same source tree; the committed head differs from that build only by formatting, and the adapter tests, module build, and a full wizard create flow were re-run against the deployed post-format bundle at the exact head.",
+        "The donor design source is Private: cleverunicornz/yeet-code@1d70c5b377702835a87013b44e7758a0ed269151#applications/pcc/pcc-native/src; rendered donor screenshots were taken from the running local PCC Local instance."
+    ]
+}
