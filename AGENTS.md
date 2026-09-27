@@ -2,7 +2,7 @@
 ## poda-web
 
 - Identity: Poda Web is an internal Element Web fork that produces the Element Matrix web client and Electron-wrapped desktop client.
-- Ownership: `UPSTREAM_FORK` of https://github.com/element-hq/element-web; synchronization and contribution follow the organization's fork rules in the root organization block.
+- Ownership: `UPSTREAM_FORK` of https://github.com/element-hq/element-web; synchronization and contribution follow the organization's fork rules in the organization layer (`git-etiquette` skill).
 - Phase and implementation map: `situation/context.md`.
 - Critical invariants:
     - [I-000001](situation/invariants/I-000001-upstream-authority-boundary.md) — Bedrock keeps the upstream-owned Element Web source, documentation, configuration, and nested `AGENTS.md` files intact; fork-specific orientation exists only in `situation/` and the root `<bedrock-repository>` block.
