@@ -33,8 +33,10 @@ export function validateEpisodeDraft(draft) {
         errors.duration = "Duration must be a positive number of seconds.";
     if (draft.episodeNumber != null && !Number.isInteger(draft.episodeNumber))
         errors.episodeNumber = "Episode number must be a whole number.";
-    if (draft.seasonNumber != null && !Number.isInteger(draft.seasonNumber))
-        errors.seasonNumber = "Season number must be a whole number.";
+    // Every episode belongs to a season (maintainer rule, D-000025).
+    if (draft.seasonNumber == null) errors.seasonNumber = "Season number is required.";
+    else if (!Number.isInteger(draft.seasonNumber) || draft.seasonNumber < 1)
+        errors.seasonNumber = "Season number must be a whole number of 1 or more.";
     if (draft.status === "scheduled" && !draft.scheduledAt)
         errors.scheduledAt = "Scheduled episodes need a date and time.";
     if (draft.enclosureUrl && !/^https?:\/\//.test(draft.enclosureUrl))
@@ -51,10 +53,14 @@ const PUBLISH_STATES = {
     scheduled: { name: "Scheduled", desc: "Publish at a later date.", button: "Schedule Episode" },
 };
 
-function epField(id, label, { type = "text", placeholder = "", helper = "", counter = 0 } = {}) {
+function epField(
+    id,
+    label,
+    { type = "text", placeholder = "", helper = "", counter = 0, value = "", min = null } = {},
+) {
     return `<div class="pnField">
         <label class="pnLabel" for="${id}">${esc(label)}</label>
-        <input class="pnInput" id="${id}" name="${id}" type="${type}" placeholder="${esc(placeholder)}" ${counter ? `maxlength="${counter}"` : ""} />
+        <input class="pnInput" id="${id}" name="${id}" type="${type}" placeholder="${esc(placeholder)}" value="${esc(value)}" ${min !== null ? `min="${min}"` : ""} ${counter ? `maxlength="${counter}"` : ""} />
         ${
             counter
                 ? `<div class="pnFieldFoot"><p class="pnFieldError" data-error-for="${id}"></p><span class="pnCounter" data-counter-for="${id}">0/${counter}</span></div>`
@@ -181,7 +187,7 @@ export function renderEpisodeCreateView(container, { podcasts, initialPodcastId 
             ${epField("epTitle", "Title *", { placeholder: "Systems that do not collapse", counter: 200 })}
             <div class="pnGrid3">
                 ${epField("epNumber", "Episode number", { type: "number", placeholder: "42" })}
-                ${epField("epSeason", "Season number", { type: "number", placeholder: "3" })}
+                ${epField("epSeason", "Season number *", { type: "number", placeholder: "1", value: "1", min: 1 })}
                 ${epField("epSlug", "Slug", { type: "text", placeholder: "systems-that-do-not-collapse" })}
             </div>
         </div></section>
