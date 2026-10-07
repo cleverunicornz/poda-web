@@ -288,14 +288,16 @@ export function renderFullProfileView(
         shareUrl,
         topicSuggestions = [],
         showWelcome = false,
+        compact = false,
+        showStatus = true,
     },
 ) {
     container.innerHTML = `
         <style>${NATIVE_STYLES}</style>
-        <div class="podaNative podaFullProfile" data-host="${esc(hostLabel)}" style="flex:1 1 auto;min-height:0;overflow-y:auto">
+        <div class="podaNative podaFullProfile${compact ? " podaNative--panel" : ""}" data-host="${esc(hostLabel)}" style="flex:1 1 auto;min-height:0;overflow-y:auto">
         <div class="pnPage pnPage_narrow" style="max-width:1152px">
             <div class="pnProfileStatus">
-                ${statusPillProfile(profile)}
+                ${showStatus ? statusPillProfile(profile) : "<span></span>"}
                 ${extraActionsHtml ? `<div style="display:flex;gap:8px;align-items:center">${extraActionsHtml}</div>` : ""}
             </div>
             ${

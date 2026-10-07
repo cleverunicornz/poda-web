@@ -48,7 +48,7 @@ function resolveOwnProfile(api, overrides) {
         ...EMPTY_CREATOR_FIELDS,
         ...overrides,
         socialLinks: { ...EMPTY_CREATOR_FIELDS.socialLinks, ...overrides.socialLinks },
-        displayName: overrides.displayName ?? base.displayName ?? base.userId ?? "Unknown user",
+        displayName: overrides.displayName || base.displayName || base.userId || "Unknown user",
         userId: base.userId,
     };
 }
@@ -335,14 +335,26 @@ function ProfilePage({ api }) {
     const React = window.React;
     const ref = React.useRef(null);
     const [route, setRoute] = React.useState(currentView());
-    const [overrides, setOverrides] = React.useState({});
+    // Own creator fields live in the session adapter so the right-panel profile (D-000024) shows the same edits.
+    const [overrides, setOverridesState] = React.useState(null);
+    React.useEffect(() => {
+        let live = true;
+        void podaData.getMyProfile().then((profile) => live && setOverridesState(profile));
+        return () => {
+            live = false;
+        };
+    }, []);
+    const setOverrides = React.useCallback((next) => {
+        setOverridesState(next);
+        void podaData.saveMyProfile(next);
+    }, []);
     React.useEffect(() => {
         const onHashChange = () => setRoute(currentView());
         window.addEventListener("hashchange", onHashChange);
         return () => window.removeEventListener("hashchange", onHashChange);
     }, []);
     React.useEffect(() => {
-        if (!ref.current) return;
+        if (!ref.current || !overrides) return;
         if (route.view === "edit" || route.view === "create") {
             renderEdit(ref.current, { api, overrides, setOverrides });
         } else {
@@ -354,8 +366,49 @@ function ProfilePage({ api }) {
             });
         }
         ref.current.firstElementChild?.scrollIntoView({ block: "start" });
-    }, [route, overrides, api]);
+    }, [route, overrides, setOverrides, api]);
     return React.createElement("div", { ref, className: "podaProfilePageHost" });
+}
+
+// Right-panel profile (D-000024): the shared profile view, read-only and compact, for any Matrix user. Only the
+// signed-in user has creator fields (session-only); other members show their Matrix identity and empty sections.
+async function renderProfilePanel(container, { api, userId, displayName }) {
+    const ownUserId = api.profile.value?.userId;
+    const isOwn = userId === ownUserId;
+    const profile = isOwn
+        ? resolveOwnProfile(api, await podaData.getMyProfile())
+        : { ...EMPTY_CREATOR_FIELDS, displayName: displayName || userId, userId };
+    renderFullProfileView(container, {
+        profile,
+        hostLabel: `right panel — ${isOwn ? "own profile" : "member"}`,
+        compact: true,
+        showStatus: isOwn,
+        extraActionsHtml: isOwn
+            ? `<button class="pnBtn pnBtn--outline pnBtn--sm" id="podaPanelEditProfile" type="button">${icon("pencil")} Edit profile</button>`
+            : "",
+    });
+    const note = document.createElement("p");
+    note.className = "pnSubtle";
+    note.style.cssText = "font-size:12px;margin:0";
+    note.textContent = isOwn
+        ? `${userId} · creator fields are session-only`
+        : `${userId} · no Poda creator profile in this preview`;
+    container.querySelector(".pnProfileGrid")?.appendChild(note);
+    container.querySelector("#podaPanelEditProfile")?.addEventListener("click", () => navigateTo("edit", "me"));
+}
+
+function ProfilePanel({ api, userId, displayName }) {
+    const React = window.React;
+    const ref = React.useRef(null);
+    React.useEffect(() => {
+        if (!ref.current) return;
+        renderProfilePanel(ref.current, { api, userId, displayName }).catch((error) => {
+            console.error("Poda profile panel render failed", error);
+            if (ref.current)
+                ref.current.innerHTML = `<div class="pnError" role="alert">This profile could not be rendered. ${esc(String(error?.message ?? error))}</div>`;
+        });
+    }, [api, userId, displayName]);
+    return React.createElement("div", { ref, className: "podaProfilePanelHost" });
 }
 
 const STUDIO_NAV_STYLES = `
@@ -517,5 +570,9 @@ export default class PodaProfileSpikeModule {
         const api = this.api;
         this.api.navigation.registerLocationRenderer(PROFILE_LOCATION, () => React.createElement(ProfilePage, { api }));
         this.api.navigation.registerLocationRenderer(STUDIO_LOCATION, () => React.createElement(StudioPage));
+        // Poda host extension (D-000024); absent on hosts without it.
+        this.api.extras.setUserProfilePanel?.(({ userId, displayName }) =>
+            React.createElement(ProfilePanel, { api, userId, displayName }),
+        );
     }
 }

@@ -32,5 +32,18 @@ nx run @poda/web-module-profile-spike:build:widget      # → lib/widget/widget.
    `widget.bundle.js`).
 3. Register the widget on a room with
    `PUT im.vector.modular.widgets/poda-profile-spike`
-   `{ "type": "m.custom", "url": "<app-origin>/widgets/poda-profile/index.html?matrix_user_id=$matrix_user_id&matrix_room_id=$matrix_room_id&matrix_display_name=$matrix_display_name&theme=$org.matrix.msc2873.client_theme", "name": "Poda Profile" }`,
-   then open it from the room's Extensions panel and pin it.
+   `{ "type": "io.poda.profile", "url": "<app-origin>/widgets/poda-profile/index.html?matrix_user_id=$matrix_user_id&matrix_room_id=$matrix_room_id&matrix_display_name=$matrix_display_name&theme=$org.matrix.msc2873.client_theme", "name": "Poda Profile" }`.
+4. One-click access (D-000024): build `modules/widget-toggles` and list it in
+   `modules`, with
+   `"io.element.element-web-modules.widget-toggles": { "types": ["io.poda.profile"] }`
+   in `config.json`. The room header then shows a Poda Profile button that pins
+   the widget above the timeline and unpins it again. Extensions also sit at the
+   top of the room info panel.
+
+## Profile in the right panel
+
+The module sets the host's `extras.setUserProfilePanel` renderer (a Poda host
+extension, D-000024). The user info panel then offers **View profile**, which
+opens the shared profile view, compact and read-only, in the right panel: the
+signed-in user's session-only creator fields, or another member's Matrix
+identity with empty sections.

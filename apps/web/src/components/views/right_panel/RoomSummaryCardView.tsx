@@ -236,6 +236,17 @@ const RoomSummaryCardView: React.FC<IProps> = ({
             <Separator />
 
             <div role="menubar" aria-orientation="vertical">
+                {/* Poda (D-000024): Extensions (room widgets) come first. */}
+                {!vm.isVideoRoom && (
+                    <>
+                        <MenuItem
+                            Icon={ExtensionsIcon}
+                            label={_t("right_panel|extensions_button")}
+                            onSelect={vm.onRoomExtensionsClick}
+                        />
+                        <Separator />
+                    </>
+                )}
                 <ToggleMenuItem
                     Icon={FavouriteIcon}
                     label={_t("room|context_menu|favourite")}
@@ -268,11 +279,6 @@ const RoomSummaryCardView: React.FC<IProps> = ({
                             Icon={FilesIcon}
                             label={_t("right_panel|files_button")}
                             onSelect={vm.onRoomFilesClick}
-                        />
-                        <MenuItem
-                            Icon={ExtensionsIcon}
-                            label={_t("right_panel|extensions_button")}
-                            onSelect={vm.onRoomExtensionsClick}
                         />
                     </>
                 )}

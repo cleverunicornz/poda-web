@@ -239,6 +239,7 @@ export interface ExtrasApi {
     addRoomHeaderButtonCallback(cb: RoomHeaderButtonsCallback): void;
     getVisibleRoomBySpaceKey(spaceKey: string, cb: () => string[]): void;
     setSpacePanelItem(spaceKey: string, props: SpacePanelItemProps): void;
+    setUserProfilePanel(renderer: UserProfilePanelRenderFunction): void;
 }
 
 // @public
@@ -435,6 +436,16 @@ export interface UrlPreviewApi {
 //
 // @alpha
 export type UrlPreviewHandler = (url: string, mxEvent?: MatrixEvent) => Promise<UrlPreview | null>;
+
+// @alpha
+export interface UserProfilePanelProps {
+    displayName?: string;
+    roomId?: string;
+    userId: string;
+}
+
+// @alpha
+export type UserProfilePanelRenderFunction = (props: UserProfilePanelProps) => JSX.Element;
 
 // @public
 export function useWatchable<T>(watchable: Watchable<T>): T;

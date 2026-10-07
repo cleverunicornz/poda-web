@@ -25,6 +25,8 @@ export enum RightPanelPhases {
     Timeline = "Timeline",
     Extensions = "Extensions",
     PdfViewer = "PdfViewer",
+    // Poda (D-000024): a module-rendered user profile
+    UserProfile = "UserProfile",
 
     // Thread stuff
     ThreadView = "ThreadView",

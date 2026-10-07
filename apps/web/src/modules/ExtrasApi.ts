@@ -11,6 +11,7 @@ import {
     type SpacePanelItemProps,
     type ExtrasApi,
     type RoomHeaderButtonsCallback,
+    type UserProfilePanelRenderFunction,
 } from "@element-hq/element-web-module-api";
 import { TypedEventEmitter } from "matrix-js-sdk/src/matrix";
 
@@ -22,10 +23,12 @@ export interface ModuleSpacePanelItem extends SpacePanelItemProps {
 
 enum ExtrasApiEvent {
     SpacePanelItemsChanged = "SpacePanelItemsChanged",
+    UserProfilePanelChanged = "UserProfilePanelChanged",
 }
 
 interface EmittedEvents {
     [ExtrasApiEvent.SpacePanelItemsChanged]: () => void;
+    [ExtrasApiEvent.UserProfilePanelChanged]: () => void;
 }
 
 export class ElementWebExtrasApi extends TypedEventEmitter<keyof EmittedEvents, EmittedEvents> implements ExtrasApi {
@@ -45,6 +48,27 @@ export class ElementWebExtrasApi extends TypedEventEmitter<keyof EmittedEvents, 
     public addRoomHeaderButtonCallback(cb: RoomHeaderButtonsCallback): void {
         this.roomHeaderButtonsCallbacks.push(cb);
     }
+
+    // Poda host extension (D-000024)
+    public userProfilePanel?: UserProfilePanelRenderFunction;
+
+    public setUserProfilePanel(renderer: UserProfilePanelRenderFunction): void {
+        this.userProfilePanel = renderer;
+        this.emit(ExtrasApiEvent.UserProfilePanelChanged);
+    }
+}
+
+/**
+ * The module-supplied user profile panel renderer, if any (Poda D-000024).
+ */
+export function useModuleUserProfilePanel(api: ElementWebExtrasApi): UserProfilePanelRenderFunction | undefined {
+    const [renderer, setRenderer] = useState(() => api.userProfilePanel);
+
+    useTypedEventEmitter(api, ExtrasApiEvent.UserProfilePanelChanged, () => {
+        setRenderer(() => api.userProfilePanel);
+    });
+
+    return renderer;
 }
 
 export function useModuleSpacePanelItems(api: ElementWebExtrasApi): ModuleSpacePanelItem[] {

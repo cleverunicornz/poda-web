@@ -34,6 +34,7 @@ import { Action } from "../../dispatcher/actions";
 import { PdfViewerCard } from "../views/right_panel/PdfViewerCard";
 import { type XOR } from "../../@types/common";
 import ExtensionsCard from "../views/right_panel/ExtensionsCard";
+import { UserProfileCard } from "../views/right_panel/UserProfileCard";
 import MemberListView from "../views/rooms/MemberList/MemberListView";
 
 interface BaseProps {
@@ -276,6 +277,19 @@ export default class RightPanel extends React.Component<Props, IState> {
             case RightPanelPhases.Widget:
                 if (!!this.props.room && !!cardState?.widgetId) {
                     card = <WidgetCard room={this.props.room} widgetId={cardState.widgetId} onClose={this.onClose} />;
+                }
+                break;
+
+            case RightPanelPhases.UserProfile:
+                if (!!cardState?.member) {
+                    card = (
+                        <UserProfileCard
+                            member={cardState.member}
+                            roomId={roomId}
+                            key={cardState.member.userId}
+                            onClose={this.onClose}
+                        />
+                    );
                 }
                 break;
 

@@ -10,12 +10,17 @@ import React, { type JSX, type ReactNode, useState } from "react";
 import { MenuItem } from "@vector-im/compound-web";
 import { ChatIcon, CheckIcon, MentionIcon, ShareIcon } from "@vector-im/compound-design-tokens/assets/web/icons";
 import InviteIcon from "@vector-im/compound-design-tokens/assets/web/icons/user-add";
+import UserProfileIcon from "@vector-im/compound-design-tokens/assets/web/icons/user-profile";
 
 import { _t } from "../../../../languageHandler";
 import { useUserInfoBasicOptionsViewModel } from "../../../viewmodels/right_panel/user_info/UserInfoBasicOptionsViewModel";
 import { Container, type Member } from "../UserInfo";
 import { shouldShowComponent } from "../../../../customisations/helpers/UIComponents";
 import { UIComponent } from "../../../../settings/UIFeature";
+import { ModuleApi } from "../../../../modules/Api";
+import { useModuleUserProfilePanel } from "../../../../modules/ExtrasApi";
+import RightPanelStore from "../../../../stores/right-panel/RightPanelStore";
+import { RightPanelPhases } from "../../../../stores/right-panel/RightPanelStorePhases";
 
 const MessageButton = ({
     member,
@@ -49,6 +54,20 @@ export const UserInfoBasicOptionsView: React.FC<{
     children?: ReactNode;
 }> = ({ room, member, children }) => {
     const vm = useUserInfoBasicOptionsViewModel(room, member);
+    const userProfilePanel = useModuleUserProfilePanel(ModuleApi.instance.extras);
+
+    // Poda (D-000024): open the module-supplied profile for this user in the right panel.
+    const viewProfileButton = userProfilePanel ? (
+        <MenuItem
+            role="button"
+            onSelect={(ev) => {
+                ev.preventDefault();
+                RightPanelStore.instance.pushCard({ phase: RightPanelPhases.UserProfile, state: { member } });
+            }}
+            label={_t("user_info|view_profile")}
+            Icon={UserProfileIcon}
+        />
+    ) : null;
 
     let insertPillButton: JSX.Element | undefined;
     let inviteUserButton: JSX.Element | undefined;
@@ -117,6 +136,7 @@ export const UserInfoBasicOptionsView: React.FC<{
     return (
         <Container>
             {children}
+            {viewProfileButton}
             {directMessageButton}
             {inviteUserButton}
             {readReceiptButton}

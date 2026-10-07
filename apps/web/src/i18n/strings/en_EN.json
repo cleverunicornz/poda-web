@@ -3865,7 +3865,8 @@
         "unignore_button": "Unignore",
         "verification_unavailable": "User verification unavailable",
         "verify_button": "Verify User",
-        "verify_explainer": "For extra security, verify this user by checking a one-time code on both of your devices."
+        "verify_explainer": "For extra security, verify this user by checking a one-time code on both of your devices.",
+        "view_profile": "View profile"
     },
     "user_status": {
         "on_a_call": "On a call"

@@ -428,6 +428,13 @@ body[class*="cpd-theme-dark"] .pnRailItem--done { background: hsl(160 40% 12%); 
     .pnGrid2, .pnGrid3 { grid-template-columns: 1fr; }
     .pnTableWrap { display: none; }
 }
+/* right-panel host (D-000024): one column whatever the viewport width */
+.podaNative--panel .pnPage { padding: 12px 4px 32px; gap: 16px; }
+.podaNative--panel .pnProfileGrid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.podaNative--panel .pnRail { position: static; }
+.podaNative--panel .pnProfileHero { flex-direction: column; align-items: flex-start; gap: 12px; }
+.podaNative--panel .pnAvatar { width: 96px; height: 96px; }
+.podaNative--panel .pnExpertiseGrid, .podaNative--panel .pnGrid2, .podaNative--panel .pnGrid3 { grid-template-columns: minmax(0, 1fr); }
 /* phone and sidebar widths: tighter page chrome, smaller hero type */
 @media (max-width: 640px) {
     .pnPage { padding: 16px 12px 64px; gap: 16px; }

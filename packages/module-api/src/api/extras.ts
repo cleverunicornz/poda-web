@@ -53,6 +53,39 @@ export interface SpacePanelItemProps {
 export type RoomHeaderButtonsCallback = (roomId: string) => JSX.Element | undefined;
 
 /**
+ * Properties passed to a {@link UserProfilePanelRenderFunction}.
+ *
+ * @alpha
+ */
+export interface UserProfilePanelProps {
+    /**
+     * The Matrix ID of the user whose profile is shown.
+     */
+    userId: string;
+
+    /**
+     * The user's display name as the client knows it, if any.
+     */
+    displayName?: string;
+
+    /**
+     * The ID of the room the panel was opened from, if any.
+     */
+    roomId?: string;
+}
+
+/**
+ * Renders a user's profile inside the right panel.
+ *
+ * Poda host extension (D-000024): not part of upstream Element's module API.
+ *
+ * @alpha
+ * @param props - Who to show and where the panel was opened from.
+ * @returns The profile content; the host supplies the card frame and its navigation.
+ */
+export type UserProfilePanelRenderFunction = (props: UserProfilePanelProps) => JSX.Element;
+
+/**
  * API for inserting extra UI into Element Web.
  * @alpha Subject to change.
  */
@@ -83,4 +116,15 @@ export interface ExtrasApi {
      * @param cb - A callback that returns a JSX element representing the buttons (see {@link RoomHeaderButtonsCallback}).
      */
     addRoomHeaderButtonCallback(cb: RoomHeaderButtonsCallback): void;
+
+    /**
+     * Sets the renderer for a user's profile in the right panel. While one is set, the user info panel offers a
+     * "View profile" action that opens the renderer's output as a right panel card. Calling it again replaces the
+     * renderer.
+     *
+     * Poda host extension (D-000024): not part of upstream Element's module API.
+     *
+     * @param renderer - Renders the profile content for a user.
+     */
+    setUserProfilePanel(renderer: UserProfilePanelRenderFunction): void;
 }
