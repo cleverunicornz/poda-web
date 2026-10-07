@@ -33,12 +33,11 @@ nx run @poda/web-module-profile-spike:build:widget      # → lib/widget/widget.
 3. Register the widget on a room with
    `PUT im.vector.modular.widgets/poda-profile-spike`
    `{ "type": "io.poda.profile", "url": "<app-origin>/widgets/poda-profile/index.html?matrix_user_id=$matrix_user_id&matrix_room_id=$matrix_room_id&matrix_display_name=$matrix_display_name&theme=$org.matrix.msc2873.client_theme", "name": "Poda Profile" }`.
-4. One-click access (D-000024): build `modules/widget-toggles` and list it in
-   `modules`, with
-   `"io.element.element-web-modules.widget-toggles": { "types": ["io.poda.profile"] }`
-   in `config.json`. The room header then shows a Poda Profile button that pins
-   the widget above the timeline and unpins it again. Extensions also sit at the
-   top of the room info panel.
+4. One-click access (D-000024): the host treats `io.poda.profile` widgets as
+   side-panel-only. The room header shows a Poda Profile button that opens the
+   widget in the right panel and closes it again; the widget is never pinned
+   above the timeline or maximised. Extensions also sit at the top of the room
+   info panel.
 
 ## Profile in the right panel
 

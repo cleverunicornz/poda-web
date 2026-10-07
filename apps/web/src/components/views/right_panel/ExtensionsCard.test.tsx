@@ -84,6 +84,40 @@ describe("<ExtensionsCard />", () => {
         expect(asFragment()).toMatchSnapshot();
     });
 
+    it("should not offer pinning for side-panel-only widgets (Poda D-000024)", () => {
+        vi.mocked(useWidgets).mockReturnValue([
+            {
+                id: "profile",
+                roomId: room.roomId,
+                eventId: "$event1",
+                creatorUserId: client.getSafeUserId(),
+                type: "io.poda.profile",
+                name: "Poda Profile",
+                url: "http://profile",
+            },
+            {
+                id: "id",
+                roomId: room.roomId,
+                eventId: "$event2",
+                creatorUserId: client.getSafeUserId(),
+                type: MatrixWidgetType.Custom,
+                name: "Custom Widget",
+                url: "http://url1",
+            },
+        ] satisfies IApp[]);
+
+        const { container } = render(
+            <ExtensionsCard room={room} onClose={vi.fn()} />,
+            clientAndSDKContextRenderOptions(client, sdkContext),
+        );
+        const row = (name: string): Element =>
+            [...container.querySelectorAll(".mx_ExtensionsCard_Button")].find((r) => r.textContent?.includes(name))!;
+        const pinToggles = (name: string): number =>
+            row(name).querySelectorAll(".mx_ExtensionsCard_app_pinToggle").length;
+        expect(pinToggles("Poda Profile")).toBe(0);
+        expect(pinToggles("Custom Widget")).toBe(1);
+    });
+
     it("should show context menu on widget row", async () => {
         vi.spyOn(WidgetUtils, "canUserModifyWidgets").mockReturnValue(true);
         vi.mocked(useWidgets).mockReturnValue([
