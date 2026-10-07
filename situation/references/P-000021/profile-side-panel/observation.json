@@ -1,0 +1,38 @@
+{
+    "head": "81391f0f75",
+    "observed": "2026-10-07",
+    "environment": {
+        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false, built from 55edc140ab; apps/ and packages/ are unchanged between 55edc140ab and 81391f0f75. The poda-profile-spike bundle was rebuilt from 81391f0f75 (served file md5 da1934b2a9ba08a227a749ec37f773d3 equals the built lib/index.js).",
+        "config": "default_server_config pointing at the local homeserver, disable_guests, modules poda-navigation-spike, poda-profile-spike and widget-toggles, and io.element.element-web-modules.widget-toggles.types = [io.poda.profile]",
+        "homeserver": "matrixdotorg/synapse:latest in Docker, server_name localhost",
+        "widget": "Poda profile widget registered in the invite-only room as im.vector.modular.widgets/poda-profile-spike with type io.poda.profile, served from a separate static origin (127.0.0.1:20002)",
+        "browser": "HeadlessChrome/154.0.0.0 at 1440x900",
+        "session": "@mira:localhost (power level 0); other member @demo:localhost (room creator)"
+    },
+    "tests": {
+        "command": "pnpm exec vitest run (the four files named in O-000021 Implementation), from apps/web",
+        "result": "4 files passed, 75 tests passed; poda-profile-spike vitest 12/12, tsc --noEmit and vite build clean"
+    },
+    "legs": {
+        "P1": "User info panel actions for Demo Creator and for Mira Chen begin with View profile, ahead of Send message, Jump to read receipt, Share profile and Mention (only the avatar and Verify User, which are header controls, precede it).",
+        "P2": "After saving headline 'Host of Field Notes', tagline, short intro and topics Technology, Business on the Profile page in the same document, Mira's card showed all five values, a Draft badge, Edit profile, stats Podcasts Hosted 1, Guest Appearances 0, Total Episodes 2, and the note '@mira:localhost · creator fields are session-only'. Demo's card showed 'Demo Creator', empty-section notes, no badge, no visibility control, no stats rail, none of the own-profile prompts, and '@demo:localhost · no Poda creator profile in this preview'. Both grids computed one column of 277px in a 319px card.",
+        "P3": "Back from Demo's card returned to Demo's user info panel; Close on Mira's card closed the right panel. Containment of a throwing renderer is covered by UserProfileCard.test.tsx.",
+        "P4": "Room info items began Extensions, Favourite, Invite.",
+        "P5": "Header button label 'Hide Poda Profile' with the widget iframe present; one click gave 'Show Poda Profile' and no iframe; a second click gave 'Hide Poda Profile' and the iframe again (after Element's one-time widget approval prompt), same document throughout."
+    },
+    "notes": [
+        "The static app server redirected index.html URLs, which broke the widget's relative script; the test therefore served the widget from a second static origin. This is a property of the local server, not of the build.",
+        "Element asks each viewer to approve a widget before its first load (and again when its URL changes); that prompt is part of Element's widget security and adds a click on first use.",
+        "Reloading the page discards session-only creator fields, as P-000018 and P-000021 Residual state."
+    ],
+    "screenshots": [
+        "header-toggle-widget-pinned.png",
+        "user-info-view-profile.png",
+        "member-profile-card.png",
+        "own-profile-card.png",
+        "room-info-extensions-first.png"
+    ],
+    "screenshot_notes": {
+        "user-info-view-profile.png": "taken at 55edc140ab during the same session; the user info panel and its View profile action are unchanged at 81391f0f75"
+    }
+}

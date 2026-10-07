@@ -259,6 +259,20 @@ Diagnostic workspace link awaits supersession of assured navigation records
 ([G-000028](situation/gaps/G-000028-diagnostic-link-in-member-navigation.md)).
 The walk-through also surfaced module-flow concerns G-000021 through G-000026.
 
+## Profile side panel
+
+[D-000024](situation/decisions/D-000024-poda-profile-side-panel.md) adds a
+deliberate host extension, the alpha module API method
+`extras.setUserProfilePanel`, so the user info panel offers **View profile** and
+the right panel shows the shared profile view; Extensions lead the room info
+panel; the profile widget gets type `io.poda.profile` for the existing
+`widget-toggles` header button. [P-000021](situation/promises/P-000021-poda-profile-side-panel.md)
+is assured by [W-000006](situation/witnesses/P-000021/W-000006-profile-side-panel-local-pass.md)
+under [O-000021](situation/oracles/O-000021-poda-profile-side-panel.md), grouped
+by active [PLAN-000009](situation/plans/active/PLAN-000009-poda-profile-side-panel.md).
+G-000029 through G-000032 record the toggle tooltip, the widget approval click,
+a widget handshake warning and the shared "Profile" title.
+
 ## Closure state
 
 - Current run: none
