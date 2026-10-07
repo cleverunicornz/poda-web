@@ -26,6 +26,8 @@ placeholders that read as values
 - The maintainer approved fixing these ("yeah keep going", 2026-10-07) after the
   proposal listed the false autosave text, stale messages, the "S?E1" label and
   back buttons on detail pages.
+- During the work the maintainer added a rule: "podcasts should always have
+  seasons" (2026-10-07).
 - While fixing G-000022 it was observed that the episode wizard's inline errors
   never rendered: its error slots are keyed by input id (`epTitle`) while
   validation reports draft keys (`title`).
@@ -43,8 +45,11 @@ placeholders that read as values
 - Podcast detail offers **Back to podcasts** and **New episode** (preselecting
   the podcast); episode detail offers **Back to episodes** and **Open podcast**.
   There is no edit flow to link to, so none is offered.
-- Episode labels show only the numbers that exist (`S3E1`, `E1`, `S3`, or
-  nothing).
+- Every episode has a season: the wizard's season number is required,
+  pre-filled with 1 and at least 1. Episode number stays optional (its required
+  status is the separate question in G-000019). Labels show only the numbers
+  that exist, so new episodes read `S1E3` or `S1`; the helper still omits a
+  missing season for older data.
 - Placeholders render at 55% of the muted foreground so they no longer read as
   entered values.
 

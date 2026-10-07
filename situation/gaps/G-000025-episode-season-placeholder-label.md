@@ -27,4 +27,4 @@ Unseasoned shows display a question mark in every episode header.
 
 ## Resolution
 
-Closed: [P-000022](situation/promises/P-000022-creation-flow-fixes.md) passed [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) on [W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md) at `0c85c60c61` under [D-000025](situation/decisions/D-000025-creation-flow-fixes.md); labels omit missing numbers.
+Closed: [P-000022](situation/promises/P-000022-creation-flow-fixes.md) passed [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) on [W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md) at `9e5079fc81` under [D-000025](situation/decisions/D-000025-creation-flow-fixes.md); new episodes always have a season (required, default 1) and labels omit missing numbers.

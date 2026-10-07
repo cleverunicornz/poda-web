@@ -16,7 +16,8 @@ implemented
 - A signed-in browser observation of the head's module bundle in the Poda web
   build: an empty podcast submit, then fields corrected one by one, then create;
   New episode from the podcast detail; an empty scheduled episode submit, then
-  correction and create without a season number; both detail pages' actions;
+  correction (including an emptied season) and create; both detail pages'
+  actions;
   the own profile's welcome banner; and a placeholder's computed colour.
 - Missing head, test or browser evidence makes an observation `INVALID` or
   `BLOCKED`, never PASS.
@@ -32,8 +33,9 @@ implemented
 - **P3 — Detail navigation.** Route tests pass, and in the browser New episode
   preselects the podcast, Open podcast and both Back actions reach their
   targets.
-- **P4 — Labels.** Label tests pass, and an episode created without a season
-  shows `E1`.
+- **P4 — Seasons and labels.** Validation and label tests pass; the season
+  field is marked required and starts at 1; an emptied season is rejected
+  inline; a created episode shows `S<season>E<number>`.
 - **P5 — Placeholders.** A placeholder's computed colour has lower opacity than
   entered text.
 
@@ -44,7 +46,7 @@ implemented
 - **F2** — a failing field without its inline error, an error surviving the
   edit of its field, or the banner shown with no field error left.
 - **F3** — a missing action, or an action reaching the wrong page or podcast.
-- **F4** — a `?` in an episode label.
+- **F4** — an episode accepted without a season, or a `?` in an episode label.
 - **F5** — placeholders as dark as entered text.
 
 ## Implementation
@@ -62,5 +64,5 @@ pnpm exec vitest run
 | P1 / F1 | Retired claims absent; session-only statement present | `src/studio/copy.test.js`; browser manual |
 | P2 / F2 | Inline errors and clearing on edit | manual |
 | P3 / F3 | Detail routes and actions | `src/studio/routes.test.js`; browser manual |
-| P4 / F4 | Episode label | `src/shared/podcastFullView.test.js`; browser manual |
+| P4 / F4 | Required season and episode label | `src/data/mockAdapter.test.js` "requires a season of 1 or more", `src/shared/podcastFullView.test.js`; browser manual |
 | P5 / F5 | Placeholder colour | manual |

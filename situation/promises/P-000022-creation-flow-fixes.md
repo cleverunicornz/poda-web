@@ -20,7 +20,9 @@ In the `modules/poda-profile-spike/` Studio and Profile surfaces:
 3. The podcast detail page offers Back to podcasts and New episode, which opens
    the episode wizard with that podcast selected; the episode detail page offers
    Back to episodes and Open podcast.
-4. Episode labels show only the season and episode numbers that are set.
+4. Every new episode has a season: the wizard's season number is required,
+   starts at 1 and must be a whole number of 1 or more; episode labels show the
+   season and, when set, the episode number (`S1E3`, `S1`), never a `?`.
 5. Input placeholders render visibly lighter than entered text.
 
 ## Scope
@@ -37,10 +39,11 @@ module, the Studio routes and page host), per
 
 - [D-000025](situation/decisions/D-000025-creation-flow-fixes.md) selects the
   behavior.
-- `implemented`: `0c85c60c61` on branch `internal/creation-flow-fixes`.
+- `implemented`: `0c85c60c61` and `9e5079fc81` (season rule) on branch
+  `internal/creation-flow-fixes`.
 - `assured`: [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) passed
   on [W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md)
-  at `0c85c60c61`, covering every leg; local manual assurance per
+  at `9e5079fc81`, covering every leg; local manual assurance per
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
 
 ## Residual

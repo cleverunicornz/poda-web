@@ -278,7 +278,7 @@ click, a widget handshake warning and the shared "Profile" title.
 [D-000025](situation/decisions/D-000025-creation-flow-fixes.md) fixes the
 walk-through's creation-flow defects: truthful draft and guidance copy, inline
 errors that clear on edit, Back / New episode / Open podcast on detail pages,
-episode labels without "?", and lighter placeholders.
+required seasons and episode labels without "?", and lighter placeholders.
 [P-000022](situation/promises/P-000022-creation-flow-fixes.md) is assured by
 [W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md)
 under [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) (active
