@@ -1,4 +1,4 @@
-# Profile in the right panel and one-click room widgets
+# Profile in the right panel and side-panel-only profile widget
 
 ## Status
 
@@ -24,7 +24,10 @@ right panel.
   full Poda profile in the side panel, in every room and direct message, with
   no per-room setup (selected over opening a room widget focused on the user).
 - Maintainer review of the first implementation on 2026-10-07: "I want the
-  profile widget to only open in the side panel … not in the chat".
+  profile widget to only open in the side panel … not in the chat"; and, after
+  a room header button for it was added and it was clarified that the widget
+  shows one fixed example profile while View profile shows whoever is
+  clicked: "I want the header widget or header button gone".
 - `packages/module-api/src/api/` exposes room header buttons
   (`extras.addRoomHeaderButtonCallback`) and widget container moves
   (`widget.moveAppToContainer`) but nothing for the user info panel or the
@@ -44,9 +47,9 @@ right panel.
   own type, `io.poda.profile`, which the host treats as side-panel-only: the
   widget layout store keeps it in the right container whatever a layout event,
   user layout or pin request says, so it is never pinned above the timeline or
-  maximised; the Extensions list offers no pin for it; and the room header
-  carries a host button per such widget that opens its right panel card in one
-  click and closes it on the next. The rule lives in
+  maximised; the Extensions list offers no pin for it, so members open it
+  there, in the right panel. There is no room header button for it; per-person
+  profiles are reached through View profile. The rule lives in
   `apps/web/src/podaWidgetPolicy.ts`.
 - **Extensions first.** Extensions is the first item of the room info panel.
 - **Profile in the right panel.** A deliberate host extension: the module API
@@ -65,8 +68,9 @@ right panel.
 
 The maintainer wants the widget beside the conversation, not over it. No
 exported seam opens a widget's right panel card or constrains its container,
-so the rule, the header button and the pin restriction are isolated host
-changes (I-000010). Placing module
+so the rule and the pin restriction are isolated host changes (I-000010).
+View profile, not the widget, is the per-person entry point, so the widget
+needs no header affordance. Placing module
 content in the right panel and adding an action to Element's user info panel
 have no exported seam, so I-000010 calls for a deliberately defined host
 extension: one narrow, alpha, typed method plus one card, rather than DOM
@@ -85,9 +89,12 @@ page, widget and panel (I-000006, I-000012).
 - Pin the widget above the timeline with the existing `widget-toggles`
   module: implemented first and rejected by the maintainer on review; the
   widget belongs in the side panel, not in the chat.
+- A room header button that opens and closes the widget's right panel card:
+  implemented second and rejected by the maintainer on review; the widget
+  shows a fixed example profile, and View profile already opens whoever is
+  clicked.
 - A header button inside the profile module plus a new module API method to
-  open right panel cards: rejected; the side-panel-only rule is host policy,
-  and one host-owned button keeps the rule and its entry point together.
+  open right panel cards: rejected for the same reason.
 
 ## Consequences
 

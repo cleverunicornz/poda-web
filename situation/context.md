@@ -266,7 +266,7 @@ deliberate host extension, the alpha module API method
 `extras.setUserProfilePanel`, so the user info panel offers **View profile** and
 the right panel shows the shared profile view; Extensions lead the room info
 panel; the profile widget (type `io.poda.profile`) opens only in the right
-panel, from a host room header button. [P-000021](situation/promises/P-000021-poda-profile-side-panel.md)
+panel, from Extensions, with no room header button. [P-000021](situation/promises/P-000021-poda-profile-side-panel.md)
 is assured by [W-000006](situation/witnesses/P-000021/W-000006-profile-side-panel-local-pass.md)
 under [O-000021](situation/oracles/O-000021-poda-profile-side-panel.md), grouped
 by active [PLAN-000009](situation/plans/active/PLAN-000009-poda-profile-side-panel.md).

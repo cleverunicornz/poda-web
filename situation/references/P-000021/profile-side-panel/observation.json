@@ -1,8 +1,8 @@
 {
-    "head": "6fb6f0bcd1",
+    "head": "7f5635f1a0",
     "observed": "2026-10-07",
     "environment": {
-        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false, built after the last code edit; the 27 changed code files on the workbench hash identically to 6fb6f0bcd1 (combined sha256 of per-file sha256 values 7f809018cb178ac44083bd5686a2b81cdc36ccf3c25be81e8f2dea8f9eee8d99)",
+        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false, rebuilt from the worktree after 7f5635f1a0 was committed; 7f5635f1a0 differs from 6fb6f0bcd1 only by removing the room header button (RoomHeader.tsx now identical to internal/main), the README and a doc comment",
         "config": "default_server_config pointing at the local homeserver, disable_guests, and modules poda-navigation-spike and poda-profile-spike; no widget-toggles",
         "homeserver": "matrixdotorg/synapse:latest in Docker, server_name localhost",
         "widget": "im.vector.modular.widgets/poda-profile-spike of type io.poda.profile in the invite-only room, served from a separate static origin (127.0.0.1:20002); Mira's stored Widgets.layout for the room was {\"widgets\":{\"poda-profile-spike\":{\"container\":\"top\"}}}",
@@ -10,27 +10,28 @@
         "session": "@mira:localhost (power level 0); other member @demo:localhost (room creator)"
     },
     "tests": {
-        "command": "pnpm exec vitest run (the eight files named in O-000021 Implementation), from apps/web",
-        "result": "8 files passed, 116 tests passed; poda-profile-spike vitest 12/12; tsc --noEmit clean; oxlint 0 errors; oxfmt clean"
+        "command": "pnpm exec vitest run (the seven files named in O-000021 Implementation), from apps/web",
+        "result": "7 files passed, 113 tests passed; wider set 24 files, 364 tests; poda-profile-spike vitest 12/12; tsc --noEmit clean; oxlint 0 errors; oxfmt clean"
     },
     "legs": {
-        "P1": "User info panel actions for Demo Creator: View profile, Send message, Jump to read receipt, Share profile, Mention, Ignore; for Mira Chen: View profile, Share profile (avatar and Verify User are header controls). Clicking a message avatar in the timeline also opened the user info panel with View profile first.",
-        "P2": "After saving headline, tagline, short intro and topics on the Profile page in the same document, Mira's card contained all of them, a Draft badge, Edit profile, stats Podcasts Hosted 1, Guest Appearances 0, Total Episodes 2 and the session-only note. Demo's card contained the name and '@demo:localhost · no Poda creator profile in this preview', with no badge, visibility control, stats rail or own-profile prompts. Both grids computed one 277px column.",
-        "P3": "Back from Demo's card returned to Demo's user info panel; Close on Mira's card closed the right panel.",
+        "P1": "User info actions for Demo Creator began View profile, Send message (after the avatar and Verify User header controls); for Mira Chen: View profile, Share profile.",
+        "P2": "After saving headline, tagline, short intro and topics on the Profile page in the same document, Mira's card contained all of them, a Draft badge, Edit profile, stats Podcasts Hosted 1, Guest Appearances 0, Total Episodes 2 and the session-only note. Demo's card contained '@demo:localhost · no Poda creator profile in this preview', with no badge, stats rail or own-profile prompts. Both grids computed one 277px column.",
+        "P3": "Back from Demo's card returned to Demo's user info panel; Close closed the right panel.",
         "P4": "Room info items began Extensions, Favourite, Invite.",
-        "P5": "With the stored pin present, the room view had no apps drawer and no widget iframe. The header showed a 'Poda Profile' button; one click opened the right panel WidgetCard with the widget (aria-pressed true, still no apps drawer); a second click closed the right panel (aria-pressed false). The Extensions list showed the Poda Profile row without a pin control."
+        "P5": "Mira's stored Widgets.layout still pinned the widget to top; the room had no apps drawer and no widget iframe; the room header labels were Open room settings, Room info, Video call, Voice call, Threads, Room info, 2 members (no widget button). Extensions listed Poda Profile without a pin control; selecting it opened the right panel WidgetCard showing the widget, with still no apps drawer."
     },
     "notes": [
         "The widget was served from a second static origin because the app's static server redirected index.html URLs; a property of the local server, not of the build.",
-        "No approval prompt appeared because Mira had approved the widget earlier in the session (G-000030).",
-        "member-profile-card.png and user-info-view-profile.png were taken earlier the same day at 81391f0f75 and 55edc140ab; the user info panel, the card and the module renderer are unchanged at 6fb6f0bcd1 and the legs above were re-observed at 6fb6f0bcd1."
+        "Element renders widget iframes through a persisted element outside the right panel's DOM subtree, so the observation records the WidgetCard and the screenshot rather than an iframe inside .mx_RightPanel.",
+        "own-profile-card.png was taken at 6fb6f0bcd1 (its header still shows the removed button) and member-profile-card.png at 81391f0f75, user-info-view-profile.png at 55edc140ab; the user info panel, the card and the module renderer are unchanged at 7f5635f1a0 and P1-P3 were re-observed there.",
+        "header-tooltip-contrast.png (taken at 6fb6f0bcd1; the facepile tooltip is unchanged) supports G-000029."
     ],
     "screenshots": [
-        "stored-pin-ignored-room-info-extensions-first.png",
-        "header-button-widget-in-side-panel.png",
+        "widget-from-extensions-in-side-panel.png",
         "extensions-no-pin.png",
         "own-profile-card.png",
         "member-profile-card.png",
-        "user-info-view-profile.png"
+        "user-info-view-profile.png",
+        "header-tooltip-contrast.png"
     ]
 }

@@ -1,4 +1,4 @@
-# Profile in the right panel and one-click room widgets
+# Profile in the right panel and side-panel-only profile widget
 
 ## State
 
@@ -18,11 +18,10 @@ In Poda Web with the Poda profile module loaded:
 3. The card offers back navigation to the user info panel and closing, and a
    failure inside the module's content stays inside the card.
 4. Extensions is the first item of the room info panel.
-5. A room carrying a Poda profile widget (type `io.poda.profile`) shows a room
-   header button that opens the widget in the right panel with one click and
-   closes it with a second; the widget never appears above the timeline or
-   maximised, even when a layout or pin request asks for it, and the
-   Extensions list offers no pin for it.
+5. A Poda profile widget (type `io.poda.profile`) opens only in the right
+   panel, from the Extensions list: it never appears above the timeline or
+   maximised, even when a layout or pin request asks for it, the Extensions
+   list offers no pin for it, and the room header carries no button for it.
 
 ## Scope
 
@@ -40,13 +39,15 @@ session adapter, and the side-panel-only widget rule in
 
 - [D-000024](situation/decisions/D-000024-poda-profile-side-panel.md) selects the
   behavior.
-- `implemented`: commits `55edc140ab`, `81391f0f75` and `6fb6f0bcd1` on branch
-  `internal/profile-side-panel` (alpha `extras.setUserProfilePanel`, the
-  `UserProfile` card, View profile, Extensions first, the side-panel-only
-  widget rule and header button, the module renderer and focused tests).
+- `implemented`: commits `55edc140ab`, `81391f0f75`, `6fb6f0bcd1` and
+  `7f5635f1a0` on branch `internal/profile-side-panel` (alpha
+  `extras.setUserProfilePanel`, the `UserProfile` card, View profile,
+  Extensions first, the side-panel-only widget rule, the module renderer and
+  focused tests; the header button added in `6fb6f0bcd1` is removed in
+  `7f5635f1a0`).
 - `assured`: [O-000021](situation/oracles/O-000021-poda-profile-side-panel.md)
   passed on [W-000006](situation/witnesses/P-000021/W-000006-profile-side-panel-local-pass.md)
-  at `6fb6f0bcd1`, covering every leg; local manual assurance per
+  at `7f5635f1a0`, covering every leg; local manual assurance per
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
 
 ## Residual

@@ -1,4 +1,4 @@
-# Oracle for the profile right panel and one-click room widgets
+# Oracle for the profile right panel and side-panel-only profile widget
 
 ## State
 
@@ -18,8 +18,8 @@ implemented
   type `io.poda.profile` whose stored user layout pins it above the timeline,
   and a second member: the user info panel for the signed-in user and for the other member,
   the Profile card for each, a Profile page edit followed by reopening the own
-  card, back and close, the room info panel and its Extensions list, and the
-  header widget button pressed twice.
+  card, back and close, the room header, and the room info panel and its
+  Extensions list with the widget opened from it.
 - Missing head, test or browser evidence makes an observation `INVALID` or
   `BLOCKED`, never PASS.
 
@@ -36,10 +36,10 @@ implemented
   panel; focused tests show a throwing renderer contained inside the card.
 - **P4 — Extensions.** Extensions is the first room info item.
 - **P5 — Side-panel widget.** Despite the stored pin, nothing appears above the
-  timeline; one click on the room header button opens the widget's right panel
-  card and a second closes the right panel; the Extensions list shows no pin
-  control for the widget; focused tests show layout pins, maximise and move
-  requests leaving it in the right container.
+  timeline; the room header has no button for the widget; opening the widget
+  from the Extensions list shows it in the right panel; the Extensions list
+  shows no pin control for it; focused tests show layout pins, maximise and
+  move requests leaving it in the right container.
 
 ## Fail
 
@@ -49,8 +49,9 @@ implemented
   data or a status badge, or a two-column layout in the panel.
 - **F3** — back or close not working, or a renderer failure escaping the card.
 - **F4** — Extensions not first.
-- **F5** — the widget above the timeline or maximised, no header button, the
-  button not opening/closing the right panel card, or a pin control offered.
+- **F5** — the widget above the timeline or maximised, a header button for it,
+  the Extensions entry not opening it in the right panel, or a pin control
+  offered.
 
 ## Implementation
 
@@ -63,7 +64,6 @@ pnpm exec vitest run src/components/views/right_panel/UserProfileCard.test.tsx \
   src/stores/right-panel/RightPanelStore.test.ts \
   src/components/views/right_panel/ExtensionsCard.test.tsx \
   src/stores/widgets/WidgetLayoutStore.test.ts \
-  src/components/views/rooms/RoomHeader/PodaSidePanelWidgetButtons.test.tsx \
   src/podaWidgetPolicy.test.ts
 ```
 
@@ -75,4 +75,4 @@ pnpm exec vitest run src/components/views/right_panel/UserProfileCard.test.tsx \
 | P2 / F2 | Profile content and layout | manual |
 | P3 / F3 | Card navigation and containment | `UserProfileCard.test.tsx`, `RightPanelStore.test.ts` "UserProfile"; back/close manual |
 | P4 / F4 | Extensions first | `RoomSummaryCardView.test.tsx` "offers Extensions as the first menu item" |
-| P5 / F5 | Side-panel-only widget and header button | `WidgetLayoutStore.test.ts` "Poda side-panel-only widgets", `PodaSidePanelWidgetButtons.test.tsx`, `ExtensionsCard.test.tsx`, `podaWidgetPolicy.test.ts`; browser manual |
+| P5 / F5 | Side-panel-only widget | `WidgetLayoutStore.test.ts` "Poda side-panel-only widgets", `ExtensionsCard.test.tsx`, `podaWidgetPolicy.test.ts`; browser manual |
