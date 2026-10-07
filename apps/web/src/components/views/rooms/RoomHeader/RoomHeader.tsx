@@ -51,7 +51,6 @@ import defaultDispatcher from "../../../../dispatcher/dispatcher.ts";
 import { RoomSettingsTab } from "../../dialogs/RoomSettingsDialog-tab";
 import { useScopedRoomContext } from "../../../../contexts/ScopedRoomContext.tsx";
 import { ToggleableIcon } from "./toggle/ToggleableIcon.tsx";
-import { PodaSidePanelWidgetButtons } from "./PodaSidePanelWidgetButtons";
 import { CurrentRightPanelPhaseContextProvider } from "../../../../contexts/CurrentRightPanelPhaseContext.tsx";
 import { LocalRoom } from "../../../../models/LocalRoom.ts";
 import { useIsEncrypted } from "../../../../hooks/useIsEncrypted.ts";
@@ -293,7 +292,6 @@ function RoomHeaderButtons({ room, extraButtons }: { room: Room; extraButtons?: 
     return (
         <>
             {extraButtons}
-            <PodaSidePanelWidgetButtons room={room} />
 
             {isViewingCall && <CallGuestLinkButton room={room} />}
 

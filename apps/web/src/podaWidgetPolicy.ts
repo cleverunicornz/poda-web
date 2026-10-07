@@ -10,8 +10,8 @@ import { type IWidget } from "matrix-widget-api";
 /**
  * Poda widget policy (situation/decisions/D-000024-poda-profile-side-panel.md).
  *
- * The Poda profile widget opens only in the right panel: it is never pinned above the timeline or maximised, and the
- * room header offers a button that opens and closes it there.
+ * The Poda profile widget opens only in the right panel (from the room's Extensions list): it is never pinned above
+ * the timeline or maximised.
  */
 export const PODA_PROFILE_WIDGET_TYPE = "io.poda.profile";
 
