@@ -58,7 +58,7 @@ const SOCIAL_ICONS = {
     calendly: "calendar",
 };
 
-export function fullProfileMarkup(profile, { showAll = true, editable = false } = {}) {
+export function fullProfileMarkup(profile, { showAll = true, editable = false, showVisibility = true } = {}) {
     const sv = profile.sectionVisibility ?? {};
     const parts = [];
 
@@ -91,14 +91,14 @@ export function fullProfileMarkup(profile, { showAll = true, editable = false } 
             <div class="pnAvatar" aria-hidden="true">${profile.avatarUrl ? `<img src="${esc(profile.avatarUrl)}" alt="" />` : esc(initials(profile.displayName))}</div>
             <div style="min-width:0">
                 <h2 class="pnProfileName">${esc(profile.displayName || "Your Name")}</h2>
-                <p class="pnProfileHeadline">${esc(profile.headline || "Your role & what you're known for")}</p>
-                <p class="pnProfileTagline"><em>${esc(profile.tagline || "One sentence that sums up your value to podcast hosts")}</em></p>
+                ${profile.headline || editable ? `<p class="pnProfileHeadline">${esc(profile.headline || "Your role & what you're known for")}</p>` : ""}
+                ${profile.tagline || editable ? `<p class="pnProfileTagline"><em>${esc(profile.tagline || "One sentence that sums up your value to podcast hosts")}</em></p>` : ""}
                 ${topicRow}
                 ${socialRow ? `<div class="pnSocialRow">${socialRow}</div>` : ""}
             </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
-            ${visibilityControl}
+            ${showVisibility ? visibilityControl : ""}
             ${!profile.avatarUrl && editable ? `<div style="max-width:384px">${noteHtml("Upload a headshot for credibility")}</div>` : ""}
         </div>
     `);
@@ -219,7 +219,9 @@ export function fullProfileMarkup(profile, { showAll = true, editable = false } 
                 sv.introVideo ?? "public",
                 profile.introVideoUrl
                     ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px"><div class="pnDefRow"><b>Intro video</b><span>${esc(profile.introVideoUrl)}</span></div></div></div>`
-                    : `<p class="pnSubtle" style="margin:0;font-size:14px">Paste a YouTube or Vimeo URL to embed a preview video.</p>`,
+                    : editable
+                      ? `<p class="pnSubtle" style="margin:0;font-size:14px">Paste a YouTube or Vimeo URL to embed a preview video.</p>`
+                      : emptyNote("No intro video yet."),
                 "playCircle",
             ),
         );
@@ -290,6 +292,8 @@ export function renderFullProfileView(
         showWelcome = false,
         compact = false,
         showStatus = true,
+        showVisibility = true,
+        showRail = true,
     },
 ) {
     container.innerHTML = `
@@ -312,9 +316,9 @@ export function renderFullProfileView(
             }
             <div class="pnProfileGrid">
                 <div class="pnStack pnStack--loose">
-                    ${fullProfileMarkup(profile, { showAll: true, editable })}
+                    ${fullProfileMarkup(profile, { showAll: true, editable, showVisibility })}
                 </div>
-                ${railMarkup(profile, { stats, shareUrl })}
+                ${showRail ? railMarkup(profile, { stats, shareUrl }) : ""}
             </div>
         </div></div>`;
 

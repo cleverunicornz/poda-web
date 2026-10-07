@@ -378,11 +378,21 @@ async function renderProfilePanel(container, { api, userId, displayName }) {
     const profile = isOwn
         ? resolveOwnProfile(api, await podaData.getMyProfile())
         : { ...EMPTY_CREATOR_FIELDS, displayName: displayName || userId, userId };
+    const stats = isOwn
+        ? await Promise.all([podaData.listPodcasts(), podaData.listEpisodes()]).then(([podcasts, episodes]) => ({
+              podcastsHosted: podcasts.length,
+              appearances: profile.appearanceCount ?? 0,
+              totalEpisodes: episodes.length,
+          }))
+        : undefined;
     renderFullProfileView(container, {
         profile,
+        stats,
         hostLabel: `right panel — ${isOwn ? "own profile" : "member"}`,
         compact: true,
         showStatus: isOwn,
+        showVisibility: isOwn,
+        showRail: isOwn,
         extraActionsHtml: isOwn
             ? `<button class="pnBtn pnBtn--outline pnBtn--sm" id="podaPanelEditProfile" type="button">${icon("pencil")} Edit profile</button>`
             : "",

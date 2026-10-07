@@ -429,7 +429,7 @@ body[class*="cpd-theme-dark"] .pnRailItem--done { background: hsl(160 40% 12%); 
     .pnTableWrap { display: none; }
 }
 /* right-panel host (D-000024): one column whatever the viewport width */
-.podaNative--panel .pnPage { padding: 12px 4px 32px; gap: 16px; }
+.podaNative--panel .pnPage { padding: 12px 16px 32px; gap: 16px; }
 .podaNative--panel .pnProfileGrid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 .podaNative--panel .pnRail { position: static; }
 .podaNative--panel .pnProfileHero { flex-direction: column; align-items: flex-start; gap: 12px; }
