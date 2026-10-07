@@ -32,6 +32,7 @@ import { shouldShowComponent } from "../../../customisations/helpers/UIComponent
 import { UIComponent } from "../../../settings/UIFeature.ts";
 import { WidgetContextMenu } from "../../../viewmodels/room/right-panel/WidgetContextMenuViewModel.tsx";
 import { SDKContext } from "../../../contexts/SDKContext.ts";
+import { isSidePanelOnlyWidget } from "../../../podaWidgetPolicy";
 
 interface Props {
     room: Room;
@@ -125,14 +126,17 @@ const AppRow: React.FC<IAppRowProps> = ({ app, room }) => {
                 />
             )}
 
-            <AccessibleButton
-                className="mx_ExtensionsCard_app_pinToggle"
-                onClick={togglePin}
-                title={pinTitle}
-                disabled={cannotPin}
-            >
-                <PinSolidIcon />
-            </AccessibleButton>
+            {/* Poda (D-000024): side-panel-only widgets cannot be pinned. */}
+            {!isSidePanelOnlyWidget(app) && (
+                <AccessibleButton
+                    className="mx_ExtensionsCard_app_pinToggle"
+                    onClick={togglePin}
+                    title={pinTitle}
+                    disabled={cannotPin}
+                >
+                    <PinSolidIcon />
+                </AccessibleButton>
+            )}
         </div>
     );
 };

@@ -21,6 +21,9 @@ import { UserInfoBasicOptionsView } from "./UserInfoBasicOptionsView";
 import { UIComponent } from "../../../../settings/UIFeature";
 import { shouldShowComponent } from "../../../../customisations/helpers/UIComponents";
 import { type Member } from "../UserInfo";
+import { ModuleApi } from "../../../../modules/Api";
+import RightPanelStore from "../../../../stores/right-panel/RightPanelStore";
+import { RightPanelPhases } from "../../../../stores/right-panel/RightPanelStorePhases";
 
 vi.mock("../../../viewmodels/right_panel/user_info/UserInfoBasicOptionsViewModel", () => ({
     useUserInfoBasicOptionsViewModel: vi.fn(),
@@ -209,5 +212,38 @@ describe("<UserOptionsSection />", () => {
         render(<UserInfoBasicOptionsView {...propsWithMe} />);
         const dmButton = screen.queryByRole("button", { name: "Send message" });
         expect(dmButton).not.toBeInTheDocument();
+    });
+    describe("View profile (Poda D-000024)", () => {
+        afterEach(() => {
+            ModuleApi.instance.extras.userProfilePanel = undefined;
+        });
+
+        it("is not offered when no module supplies a profile renderer", () => {
+            vi.mocked(useUserInfoBasicOptionsViewModel).mockReturnValue({ ...defaultValue });
+            render(<UserInfoBasicOptionsView {...defaultProps} />);
+            expect(screen.queryByRole("button", { name: "View profile" })).not.toBeInTheDocument();
+        });
+
+        it.each([false, true])("is offered first when a module supplies a renderer (isMe: %s)", (isMe) => {
+            ModuleApi.instance.extras.setUserProfilePanel(() => <div />);
+            vi.mocked(useUserInfoBasicOptionsViewModel).mockReturnValue({ ...defaultValue, isMe });
+            render(<UserInfoBasicOptionsView {...defaultProps} />);
+            const buttons = screen.getAllByRole("button");
+            expect(buttons[0]).toHaveAccessibleName("View profile");
+        });
+
+        it("opens the user profile card for the member", () => {
+            ModuleApi.instance.extras.setUserProfilePanel(() => <div />);
+            vi.mocked(useUserInfoBasicOptionsViewModel).mockReturnValue({ ...defaultValue });
+            const pushCard = vi.spyOn(RightPanelStore.instance, "pushCard").mockImplementation(() => {});
+            render(<UserInfoBasicOptionsView {...defaultProps} />);
+
+            fireEvent.click(screen.getByRole("button", { name: "View profile" }));
+
+            expect(pushCard).toHaveBeenCalledWith({
+                phase: RightPanelPhases.UserProfile,
+                state: { member: defaultMember },
+            });
+        });
     });
 });

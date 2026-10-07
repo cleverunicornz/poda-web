@@ -74,6 +74,39 @@ describe("WidgetLayoutStore", () => {
         store.removeListener(`update_${roomId}`, roomUpdateListener);
     });
 
+    describe("Poda side-panel-only widgets (D-000024)", () => {
+        beforeEach(() => {
+            mockApps[0] = <IApp>{ roomId: roomId, id: "1", type: "io.poda.profile" };
+        });
+
+        it("stay in the right container when the room layout pins them", () => {
+            layoutEventContent = { widgets: { "1": { container: "top" }, "2": { container: "top" } } };
+            store.recalculateRoom(mockRoom);
+            expect(store.getContainerWidgets(mockRoom, "top")).toStrictEqual([mockApps[1]]);
+            expect(store.isInContainer(mockRoom, mockApps[0], "right")).toBe(true);
+        });
+
+        it("stay in the right container when the room layout maximises them", () => {
+            layoutEventContent = { widgets: { "1": { container: "center" } } };
+            store.recalculateRoom(mockRoom);
+            expect(store.getContainerWidgets(mockRoom, "center")).toStrictEqual([]);
+            expect(store.isInContainer(mockRoom, mockApps[0], "right")).toBe(true);
+        });
+
+        it.each(["top", "center"] as const)("cannot be moved to the %s container", (container) => {
+            store.recalculateRoom(mockRoom);
+            store.moveToContainer(mockRoom, mockApps[0], container);
+            expect(store.isInContainer(mockRoom, mockApps[0], container)).toBe(false);
+            expect(store.isInContainer(mockRoom, mockApps[0], "right")).toBe(true);
+        });
+
+        it("leave other widgets free to be pinned", () => {
+            store.recalculateRoom(mockRoom);
+            store.moveToContainer(mockRoom, mockApps[1], "top");
+            expect(store.getContainerWidgets(mockRoom, "top")).toStrictEqual([mockApps[1]]);
+        });
+    });
+
     it("all widgets should be in the right container by default", () => {
         store.recalculateRoom(mockRoom);
         expect(store.getContainerWidgets(mockRoom, "right").length).toStrictEqual(mockApps.length);

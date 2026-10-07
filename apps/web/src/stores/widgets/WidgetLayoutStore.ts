@@ -13,6 +13,7 @@ import { clamp, defaultNumber, sum } from "@element-hq/web-shared-components";
 import { type Container } from "@element-hq/element-web-module-api";
 
 import SettingsStore from "../../settings/SettingsStore";
+import { isSidePanelOnlyWidget } from "../../podaWidgetPolicy";
 import WidgetStore, { type IApp } from "../WidgetStore";
 import { WidgetType } from "../../widgets/WidgetType";
 import defaultDispatcher from "../../dispatcher/dispatcher";
@@ -165,6 +166,11 @@ export class WidgetLayoutStore extends ReadyWatchingStore {
         const rightWidgets: IApp[] = [];
         const centerWidgets: IApp[] = [];
         for (const widget of widgets) {
+            // Poda (D-000024): side-panel-only widgets stay in the right container whatever the stored layout says.
+            if (isSidePanelOnlyWidget(widget)) {
+                rightWidgets.push(widget);
+                continue;
+            }
             const stateContainer = roomLayout?.widgets?.[widget.id]?.container;
             const manualContainer = userLayout?.widgets?.[widget.id]?.container;
             const isLegacyPinned = !!legacyPinned?.[widget.id];
@@ -411,6 +417,8 @@ export class WidgetLayoutStore extends ReadyWatchingStore {
     public moveToContainer(room: Room, widget: IWidget, toContainer: Container): void {
         const allWidgets = this.getAllWidgets(room);
         if (!allWidgets.some(([w]) => w.id === widget.id)) return; // invalid
+        // Poda (D-000024): side-panel-only widgets cannot be pinned or maximised.
+        if (toContainer !== "right" && isSidePanelOnlyWidget(widget)) return;
         // Prepare other containers (potentially move widgets to obey the following rules)
         const newLayout: Record<string, IStoredLayout> = {};
         switch (toContainer) {

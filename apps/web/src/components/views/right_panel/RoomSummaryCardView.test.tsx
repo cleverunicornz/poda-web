@@ -243,6 +243,12 @@ describe("<RoomSummaryCard />", () => {
         expect(vmDefaultValues.onRoomMembersClick).toHaveBeenCalled();
     });
 
+    it("offers Extensions as the first menu item (Poda D-000024)", () => {
+        const { getAllByRole } = getComponent();
+
+        expect(getAllByRole("menuitem")[0]).toHaveTextContent("Extensions");
+    });
+
     it("does not offer Threads, which is reached from the room header (Poda D-000023)", () => {
         const { queryByText } = getComponent();
 

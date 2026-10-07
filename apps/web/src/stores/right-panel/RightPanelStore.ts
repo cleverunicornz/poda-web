@@ -373,6 +373,7 @@ export default class RightPanelStore extends ReadyWatchingStore {
                 return !!card.state?.threadHeadEvent;
             case RightPanelPhases.MemberInfo:
             case RightPanelPhases.EncryptionPanel:
+            case RightPanelPhases.UserProfile:
                 if (!card.state?.member) {
                     logger.warn("removed card from right panel because of missing member in card state");
                 }
@@ -458,7 +459,9 @@ export default class RightPanelStore extends ReadyWatchingStore {
             if (panel?.history) {
                 panel.history = panel.history.filter(
                     (card: IRightPanelCard) =>
-                        card.phase != RightPanelPhases.MemberInfo && card.phase != RightPanelPhases.ThreePidMemberInfo,
+                        card.phase != RightPanelPhases.MemberInfo &&
+                        card.phase != RightPanelPhases.ThreePidMemberInfo &&
+                        card.phase != RightPanelPhases.UserProfile,
                 );
             }
         }

@@ -284,6 +284,33 @@ describe("RightPanelStore", () => {
         });
     });
 
+    describe("UserProfile (Poda D-000024)", () => {
+        it("needs a member to be valid", async () => {
+            await viewRoom("!1:example.org");
+            store.setCard({ phase: RightPanelPhases.UserProfile }, true, "!1:example.org");
+            expect(store.roomPhaseHistory).toEqual([]);
+        });
+
+        it("is not restored when switching back to a room", async () => {
+            await viewRoom("!1:example.org");
+            const member = new RoomMember("!1:example.org", "@alice:example.org");
+            store.setCards(
+                [
+                    { phase: RightPanelPhases.MemberList },
+                    { phase: RightPanelPhases.MemberInfo, state: { member } },
+                    { phase: RightPanelPhases.UserProfile, state: { member } },
+                ],
+                true,
+                "!1:example.org",
+            );
+            expect(store.currentCardForRoom("!1:example.org").phase).toEqual(RightPanelPhases.UserProfile);
+
+            await viewRoom("!2:example.org");
+            await viewRoom("!1:example.org");
+            expect(store.currentCardForRoom("!1:example.org").phase).toEqual(RightPanelPhases.MemberList);
+        });
+    });
+
     it("doesn't restore member info cards when switching back to a room", async () => {
         await viewRoom("!1:example.org");
         store.setCards(
