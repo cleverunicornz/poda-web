@@ -7,7 +7,7 @@ Please see LICENSE files in the repository root for full details.
 
 import type { Api, Module, ModuleFactory } from "@element-hq/element-web-module-api";
 
-import { DIAGNOSTIC_LOCATION, DiagnosticWorkspace, NavigationHeader } from "./Navigation";
+import { NavigationHeader } from "./Navigation";
 import style from "./style.css?inline";
 
 class PodaNavigationSpikeModule implements Module {
@@ -16,9 +16,6 @@ class PodaNavigationSpikeModule implements Module {
     public constructor(private api: Api) {}
 
     public async load(): Promise<void> {
-
-        this.api.navigation.registerLocationRenderer(DIAGNOSTIC_LOCATION, () => <DiagnosticWorkspace />);
-
         const host = document.createElement("div");
         host.dataset.podaNavigation = "gate-1";
         this.api.rootNode.before(host);
