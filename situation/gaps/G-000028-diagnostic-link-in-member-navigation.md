@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -31,4 +31,4 @@ supersession lands.
 
 ## Resolution
 
-none
+Closed: [D-000026](situation/decisions/D-000026-remove-diagnostic-navigation.md) removes the link and location and supersedes P-000015, P-000016 and P-000017 with [P-000023](situation/promises/P-000023-member-navigation-header.md), which passed [O-000023](situation/oracles/O-000023-member-navigation-header.md) on [W-000008](situation/witnesses/P-000023/W-000008-member-navigation-header-local-pass.md) at `ffb3ccf4b4`.

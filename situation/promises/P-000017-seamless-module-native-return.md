@@ -2,7 +2,7 @@
 
 ## State
 
-assured
+superseded
 
 ## Promise
 
@@ -30,6 +30,7 @@ The history sequence starts at native Home, activates Diagnostic, activates Chat
 - [G-000008](situation/gaps/G-000008-module-native-screen-transition.md) retains the pre-change failure and reload-limited baseline.
 - Commit `7c367aa5f7` implements the generic one-event router guard, focused regression, module workaround removal and same-document browser-specification assertions. The focused regression, module/module-harness type checks, module production build and Playwright specification compilation pass.
 - [W-000004](situation/witnesses/P-000017/W-000004-same-document-module-native-return-pass.md) applies every O-000017 leg at exact head `5f5aebcda2c829a6ff7489a4e05fd454352c17e5` and passes, so this Promise is assured within Scope.
+- Superseded by [P-000023](situation/promises/P-000023-member-navigation-header.md) under [D-000026](situation/decisions/D-000026-remove-diagnostic-navigation.md): the Diagnostic link and location are removed and the navigation behavior is re-stated against Studio.
 
 ## Residual
 

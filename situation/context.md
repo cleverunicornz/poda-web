@@ -273,6 +273,18 @@ by active [PLAN-000009](situation/plans/active/PLAN-000009-poda-profile-side-pan
 G-000029 through G-000032 record header tooltip contrast, the widget approval
 click, a widget handshake warning and the shared "Profile" title.
 
+## Diagnostic link removal
+
+[D-000026](situation/decisions/D-000026-remove-diagnostic-navigation.md)
+removes the Diagnostic workspace link and location from the member header,
+which now offers Chat, Profile and Studio. The navigation behavior assured by
+P-000016 and P-000017 is re-stated against Studio as
+[P-000023](situation/promises/P-000023-member-navigation-header.md), assured
+by [W-000008](situation/witnesses/P-000023/W-000008-member-navigation-header-local-pass.md)
+under [O-000023](situation/oracles/O-000023-member-navigation-header.md)
+(active [PLAN-000011](situation/plans/active/PLAN-000011-remove-diagnostic-navigation.md));
+P-000015, P-000016 and P-000017 are superseded and G-000028 is closed.
+
 ## Closure state
 
 - Current run: none
