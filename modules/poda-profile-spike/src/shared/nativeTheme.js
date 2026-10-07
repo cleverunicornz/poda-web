@@ -172,7 +172,7 @@ body[class*="cpd-theme-dark"] .podaNative {
     background: hsl(var(--pn-input-bg)); color: hsl(var(--pn-fg)); padding: 8px 12px; font: inherit; font-size: 14px; transition: border-color .15s, box-shadow .15s; }
 .pnInput { height: 36px; padding-block: 4px; }
 .pnTextarea { min-height: 120px; resize: vertical; padding: 12px; }
-.pnInput::placeholder, .pnTextarea::placeholder { color: hsl(var(--pn-muted-fg)); }
+.pnInput::placeholder, .pnTextarea::placeholder { color: hsl(var(--pn-muted-fg) / 0.55); }
 .pnInput:hover, .pnSelect:hover, .pnTextarea:hover { border-color: hsl(var(--pn-primary) / 0.4); }
 .pnInput:focus-visible, .pnSelect:focus-visible, .pnTextarea:focus-visible { outline: none; border-color: hsl(var(--pn-ring)); box-shadow: 0 0 0 3px hsl(var(--pn-ring) / 0.5); }
 .pnInput[aria-invalid="true"], .pnSelect[aria-invalid="true"], .pnTextarea[aria-invalid="true"] { border-color: hsl(var(--pn-destructive)); }
@@ -490,6 +490,7 @@ const ICONS = {
     upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
     sparkles:
         '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>',
+    arrowLeft: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
     arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
     calendar:
         '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',
@@ -512,6 +513,21 @@ export function icon(name, attrs = "") {
     const path = ICONS[name];
     if (!path) throw new Error(`Unknown icon: ${name}`);
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${attrs}>${path}</svg>`;
+}
+
+/**
+ * Clears the validation error of the field the user just edited, and hides the
+ * form's error banner once no field error is left (G-000022).
+ */
+export function clearFieldErrorOnEdit(form, target, banner) {
+    const field = target?.closest?.(".pnField");
+    if (!field) return;
+    field.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+    field.querySelectorAll(".pnFieldError").forEach((el) => (el.textContent = ""));
+    const anyLeft =
+        form.querySelector("[aria-invalid]") ||
+        [...form.querySelectorAll(".pnFieldError")].some((el) => el.textContent.trim());
+    if (banner && !anyLeft) banner.hidden = true;
 }
 
 export function noteHtml(text) {

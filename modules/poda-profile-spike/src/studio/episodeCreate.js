@@ -9,7 +9,16 @@ Please see LICENSE files in the repository root for full details.
 // module host: hero card with episode readiness, local-draft banner, section
 // cards, dashed audio upload (mock URL), publish-state radio cards, and the
 // Final action rail. Validation contract unchanged; guests stay display-only.
-import { NATIVE_STYLES, esc, formText, icon, noteHtml, railItem, progressHtml } from "../shared/nativeTheme.js";
+import {
+    NATIVE_STYLES,
+    clearFieldErrorOnEdit,
+    esc,
+    formText,
+    icon,
+    noteHtml,
+    railItem,
+    progressHtml,
+} from "../shared/nativeTheme.js";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -81,7 +90,7 @@ function pulsePanelHtml(state) {
                     `<li>${ok ? icon("checkCircle") : '<span class="pnDot"></span>'}<span>${esc(label)}${note ? ` <span class="pnSubtle" style="font-size:12px">— ${esc(note)}</span>` : ""}</span></li>`,
             )
             .join("")}</ul>
-        <div style="margin-top:12px">${noteHtml(PUBLISH_STATES.draft.desc)}</div>
+        <div style="margin-top:12px" data-pulse-note>${noteHtml(PUBLISH_STATES.draft.desc)}</div>
     </div>`;
 }
 
@@ -105,7 +114,7 @@ function railHtml(state) {
     </aside>`;
 }
 
-export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCancel }) {
+export function renderEpisodeCreateView(container, { podcasts, initialPodcastId = null, onSubmit, onCancel }) {
     const podcastOptions = podcasts
         .map((p) => `<option value="${esc(p.id)}">${esc(p.title)}${p.status === "draft" ? " (draft)" : ""}</option>`)
         .join("");
@@ -153,7 +162,7 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
         <div class="pnDraftBar">
             <div class="pnDraftBar_left">
                 <span class="pnDraftBar_icon">${icon("save")}</span>
-                <div><p class="pnDraftBar_title">Local draft state</p><p class="pnDraftBar_sub">Edits are kept in this browser until create succeeds.</p></div>
+                <div><p class="pnDraftBar_title">Session-only draft</p><p class="pnDraftBar_sub">Nothing is saved until you create the episode; leaving or reloading discards it.</p></div>
             </div>
             <button class="pnBtn pnBtn--ghost pnBtn--sm" type="button" id="epCreateCancel">${icon("x")} Cancel</button>
         </div>
@@ -284,7 +293,9 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
             .join("");
     }
 
+    const errorBanner = container.querySelector("#podaEpisodeError");
     form.addEventListener("input", (event) => {
+        clearFieldErrorOnEdit(form, event.target, errorBanner);
         const counter = event.target.id ? form.querySelector(`[data-counter-for="${event.target.id}"]`) : null;
         if (counter) {
             const max = counter.textContent.split("/")[1];
@@ -296,13 +307,17 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
         }
         refreshPulse();
     });
-    form.addEventListener("change", refreshPulse);
+    form.addEventListener("change", (event) => {
+        clearFieldErrorOnEdit(form, event.target, errorBanner);
+        refreshPulse();
+    });
 
     form.querySelectorAll("input[name=epStatus]").forEach((radio) =>
         radio.addEventListener("change", () => {
             const state = PUBLISH_STATES[radio.value];
             container.querySelector("[data-final-name]").textContent = state.name;
             container.querySelector("[data-final-desc]").textContent = state.desc;
+            container.querySelector("[data-pulse-note]").innerHTML = noteHtml(state.desc);
             container.querySelector("[data-submit-label]").textContent = state.button;
             container.querySelector("#epScheduleRow").hidden = radio.value !== "scheduled";
         }),
@@ -331,7 +346,10 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
             for (const [key, message] of Object.entries(validation)) {
                 const input = form.querySelector(fieldFor[key] ?? `#${key}`);
                 if (input) input.setAttribute("aria-invalid", "true");
-                const errorEl = form.querySelector(`[data-error-for="${key}"]`);
+                // Error slots are keyed by draft field or by input id (epField).
+                const errorEl =
+                    form.querySelector(`[data-error-for="${key}"]`) ??
+                    form.querySelector(`[data-error-for="${(fieldFor[key] ?? "").slice(1)}"]`);
                 if (errorEl) errorEl.textContent = message;
             }
             const banner = container.querySelector("#podaEpisodeError");
@@ -363,4 +381,9 @@ export function renderEpisodeCreateView(container, { podcasts, onSubmit, onCance
         }
         onSubmit?.(submitDraft);
     });
+    if (initialPodcastId && podcasts.some((p) => p.id === initialPodcastId)) {
+        const select = form.querySelector("#epPodcast");
+        select.value = initialPodcastId;
+        select.dispatchEvent(new Event("input", { bubbles: true }));
+    }
 }
