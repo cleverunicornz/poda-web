@@ -242,6 +242,23 @@ in [G-000017](situation/gaps/G-000017-widget-host-theme-propagation.md),
 [G-000014](situation/gaps/G-000014-module-package-lint-debt.md) retains
 separate module lint debt.
 
+## Chat controls
+
+[D-000023](situation/decisions/D-000023-poda-chat-controls.md) records the
+maintainer's chat-control selections of 2026-10-07: calls and voice messages
+only in invite-only rooms and direct messages (voice messages on the composer
+bar), admin-only polls in rooms created from Poda, stickers and location off,
+View source behind developer mode, and Threads from the room header only.
+[P-000020](situation/promises/P-000020-poda-chat-controls.md) is assured by
+[W-000005](situation/witnesses/P-000020/W-000005-chat-controls-local-pass.md)
+under [O-000020](situation/oracles/O-000020-poda-chat-controls.md), grouped by
+active [PLAN-000008](situation/plans/active/PLAN-000008-poda-chat-controls.md).
+Existing and provisioned rooms keep their poll power level
+([G-000027](situation/gaps/G-000027-existing-room-poll-power-levels.md)); the
+Diagnostic workspace link awaits supersession of assured navigation records
+([G-000028](situation/gaps/G-000028-diagnostic-link-in-member-navigation.md)).
+The walk-through also surfaced module-flow concerns G-000021 through G-000026.
+
 ## Closure state
 
 - Current run: none
