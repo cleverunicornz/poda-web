@@ -1,0 +1,27 @@
+{
+    "head": "0c85c60c61",
+    "observed": "2026-10-07",
+    "environment": {
+        "build": "Poda web build of internal/main efe71e6fe6 (apps/ and packages/ unchanged on this branch) with the poda-profile-spike bundle built from 0c85c60c61 (served index.js md5 460a18680cc1338cd4408b1f3f4f1e81 equals the built lib/index.js)",
+        "homeserver": "matrixdotorg/synapse:latest in Docker, server_name localhost",
+        "browser": "HeadlessChrome/154.0.0.0 at 1440x900",
+        "session": "@mira:localhost"
+    },
+    "tests": {
+        "command": "pnpm exec vitest run (modules/poda-profile-spike)",
+        "result": "4 files, 34 tests passed; tsc --noEmit clean; vite build clean; oxlint 0 errors in changed files (6 pre-existing errors in untouched files, G-000014)"
+    },
+    "legs": {
+        "P1": "Podcast wizard showed 'Fill in each section below; the checklist shows what is still missing. Creating saves a session-only draft.' and 'Some sections still empty'; no 'should feel like'. Episode draft bar: 'Session-only draft — Nothing is saved until you create the episode; leaving or reloading discards it.'; after selecting Scheduled the hero note and final-action text both read 'Publish at a later date.'. Profile banner: 'Welcome to your profile! Use Edit profile to fill in your details. …'.",
+        "P2": "Empty podcast submit: inline errors title, slug, categories, ownerEmail and aria-invalid on title, slug, ownerEmail, banner shown. Typing a title: errors slug, categories, ownerEmail remain, title cleared. Completing slug, a category and owner email: no errors, no aria-invalid, banner hidden. Empty scheduled episode submit: inline errors 'epTitle: Title is required.' and 'scheduledAt: Scheduled episodes need a date and time.'; after filling title, number and schedule: none, banner hidden.",
+        "P3": "Podcast detail showed 'Back to podcasts' and 'New episode'; New episode opened ?new=episode&podcast=<id> with 'Remote Rooms (draft)' selected and the chip 'Remote Rooms'. Episode detail showed 'Back to episodes' and 'Open podcast'; Open podcast opened the podcast listing 'Mic check E1 · scheduled …'; Back to podcasts reached the Studio list; Back to episodes reached the Episodes list; an unknown episode id redirected to Episodes.",
+        "P4": "Episode created with episode number 1 and no season showed 'E1 · scheduled' in the header and the inventory summary.",
+        "P5": "The License placeholder computed rgba(99, 61, 29, 0.55) against entered text rgb(59, 37, 17)."
+    },
+    "screenshots": [
+        "podcast-error-clears-on-edit.png",
+        "podcast-detail-actions.png",
+        "episode-wizard-scheduled-session-only.png",
+        "episode-detail-actions-label.png"
+    ]
+}

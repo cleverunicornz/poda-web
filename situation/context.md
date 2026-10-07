@@ -273,6 +273,18 @@ by active [PLAN-000009](situation/plans/active/PLAN-000009-poda-profile-side-pan
 G-000029 through G-000032 record header tooltip contrast, the widget approval
 click, a widget handshake warning and the shared "Profile" title.
 
+## Creation-flow fixes
+
+[D-000025](situation/decisions/D-000025-creation-flow-fixes.md) fixes the
+walk-through's creation-flow defects: truthful draft and guidance copy, inline
+errors that clear on edit, Back / New episode / Open podcast on detail pages,
+episode labels without "?", and lighter placeholders.
+[P-000022](situation/promises/P-000022-creation-flow-fixes.md) is assured by
+[W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md)
+under [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) (active
+[PLAN-000010](situation/plans/active/PLAN-000010-creation-flow-fixes.md));
+G-000021, G-000022, G-000023 and G-000025 are closed.
+
 ## Closure state
 
 - Current run: none

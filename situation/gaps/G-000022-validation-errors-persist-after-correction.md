@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -24,10 +24,14 @@ required." and the red border remained under the filled field.
 `f11fe6c0b2:modules/poda-profile-spike/src/studio/podcastCreate.js` lines 370-378 clear
 and set `aria-invalid` only in the submit handler.
 
+- Added 2026-10-07 by the D-000025 work: the episode wizard's inline errors
+  never rendered, because its error slots are keyed by input id (`epTitle`)
+  while validation reports draft keys (`title`); fixed in the same change.
+
 ## Impact
 
 Users see contradictory signals (100% ready, field still in error).
 
 ## Resolution
 
-none
+Closed: [P-000022](situation/promises/P-000022-creation-flow-fixes.md) passed [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) on [W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md) at `0c85c60c61` under [D-000025](situation/decisions/D-000025-creation-flow-fixes.md); errors clear on edit in both wizards.
