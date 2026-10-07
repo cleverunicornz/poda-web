@@ -346,46 +346,6 @@ exports[`<RoomSummaryCard /> > has button to edit topic 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M7 10a.97.97 0 0 1-.713-.287A.97.97 0 0 1 6 9q0-.424.287-.713A.97.97 0 0 1 7 8h10q.424 0 .712.287Q18 8.576 18 9t-.288.713A.97.97 0 0 1 17 10zm0 4a.97.97 0 0 1-.713-.287A.97.97 0 0 1 6 13q0-.424.287-.713A.97.97 0 0 1 7 12h6q.424 0 .713.287.287.288.287.713 0 .424-.287.713A.97.97 0 0 1 13 14z"
-            />
-            <path
-              d="M3.707 21.293c-.63.63-1.707.184-1.707-.707V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6zM6 17h14V5H4v13.172l.586-.586A2 2 0 0 1 6 17"
-            />
-          </svg>
-          <span
-            class="_typography_6v6n8_153 _font-body-md-medium_6v6n8_60 _label_bym9p_35"
-          >
-            Threads
-          </span>
-          <svg
-            aria-hidden="true"
-            class="_nav-hint_bym9p_60"
-            fill="currentColor"
-            height="24"
-            viewBox="8 0 8 24"
-            width="8"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8.7 17.3a.95.95 0 0 1-.275-.7q0-.425.275-.7l3.9-3.9-3.9-3.9a.95.95 0 0 1-.275-.7q0-.425.275-.7a.95.95 0 0 1 .7-.275q.425 0 .7.275l4.6 4.6q.15.15.213.325.062.175.062.375t-.062.375a.9.9 0 0 1-.213.325l-4.6 4.6a.95.95 0 0 1-.7.275.95.95 0 0 1-.7-.275"
-            />
-          </svg>
-        </button>
-        <button
-          class="_item_bym9p_8 _interactive_bym9p_26"
-          data-kind="primary"
-          role="menuitem"
-        >
-          <svg
-            aria-hidden="true"
-            class="_icon_bym9p_51"
-            fill="currentColor"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
               clip-rule="evenodd"
               d="M6.119 2a.5.5 0 0 0-.35.857L7.85 4.9a.5.5 0 0 1 .15.357v4.487a.5.5 0 0 1-.15.356l-3.7 3.644A.5.5 0 0 0 4 14.1v1.4a.5.5 0 0 0 .5.5H11v6a1 1 0 1 0 2 0v-6h6.5a.5.5 0 0 0 .5-.5v-1.4a.5.5 0 0 0-.15-.356l-3.7-3.644a.5.5 0 0 1-.15-.356V5.257a.5.5 0 0 1 .15-.357l2.081-2.043a.5.5 0 0 0-.35-.857zM10 4h4v5.744a2.5 2.5 0 0 0 .746 1.781L17.26 14H6.74l2.514-2.475A2.5 2.5 0 0 0 10 9.744z"
               fill-rule="evenodd"
@@ -1013,46 +973,6 @@ exports[`<RoomSummaryCard /> > renders the room summary 1`] = `
             class="_typography_6v6n8_153 _font-body-md-medium_6v6n8_60 _label_bym9p_35"
           >
             People
-          </span>
-          <svg
-            aria-hidden="true"
-            class="_nav-hint_bym9p_60"
-            fill="currentColor"
-            height="24"
-            viewBox="8 0 8 24"
-            width="8"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8.7 17.3a.95.95 0 0 1-.275-.7q0-.425.275-.7l3.9-3.9-3.9-3.9a.95.95 0 0 1-.275-.7q0-.425.275-.7a.95.95 0 0 1 .7-.275q.425 0 .7.275l4.6 4.6q.15.15.213.325.062.175.062.375t-.062.375a.9.9 0 0 1-.213.325l-4.6 4.6a.95.95 0 0 1-.7.275.95.95 0 0 1-.7-.275"
-            />
-          </svg>
-        </button>
-        <button
-          class="_item_bym9p_8 _interactive_bym9p_26"
-          data-kind="primary"
-          role="menuitem"
-        >
-          <svg
-            aria-hidden="true"
-            class="_icon_bym9p_51"
-            fill="currentColor"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 10a.97.97 0 0 1-.713-.287A.97.97 0 0 1 6 9q0-.424.287-.713A.97.97 0 0 1 7 8h10q.424 0 .712.287Q18 8.576 18 9t-.288.713A.97.97 0 0 1 17 10zm0 4a.97.97 0 0 1-.713-.287A.97.97 0 0 1 6 13q0-.424.287-.713A.97.97 0 0 1 7 12h6q.424 0 .713.287.287.288.287.713 0 .424-.287.713A.97.97 0 0 1 13 14z"
-            />
-            <path
-              d="M3.707 21.293c-.63.63-1.707.184-1.707-.707V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6zM6 17h14V5H4v13.172l.586-.586A2 2 0 0 1 6 17"
-            />
-          </svg>
-          <span
-            class="_typography_6v6n8_153 _font-body-md-medium_6v6n8_60 _label_bym9p_35"
-          >
-            Threads
           </span>
           <svg
             aria-hidden="true"
@@ -1752,46 +1672,6 @@ exports[`<RoomSummaryCard /> > renders the room topic in the summary 1`] = `
             class="_typography_6v6n8_153 _font-body-md-medium_6v6n8_60 _label_bym9p_35"
           >
             People
-          </span>
-          <svg
-            aria-hidden="true"
-            class="_nav-hint_bym9p_60"
-            fill="currentColor"
-            height="24"
-            viewBox="8 0 8 24"
-            width="8"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8.7 17.3a.95.95 0 0 1-.275-.7q0-.425.275-.7l3.9-3.9-3.9-3.9a.95.95 0 0 1-.275-.7q0-.425.275-.7a.95.95 0 0 1 .7-.275q.425 0 .7.275l4.6 4.6q.15.15.213.325.062.175.062.375t-.062.375a.9.9 0 0 1-.213.325l-4.6 4.6a.95.95 0 0 1-.7.275.95.95 0 0 1-.7-.275"
-            />
-          </svg>
-        </button>
-        <button
-          class="_item_bym9p_8 _interactive_bym9p_26"
-          data-kind="primary"
-          role="menuitem"
-        >
-          <svg
-            aria-hidden="true"
-            class="_icon_bym9p_51"
-            fill="currentColor"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 10a.97.97 0 0 1-.713-.287A.97.97 0 0 1 6 9q0-.424.287-.713A.97.97 0 0 1 7 8h10q.424 0 .712.287Q18 8.576 18 9t-.288.713A.97.97 0 0 1 17 10zm0 4a.97.97 0 0 1-.713-.287A.97.97 0 0 1 6 13q0-.424.287-.713A.97.97 0 0 1 7 12h6q.424 0 .713.287.287.288.287.713 0 .424-.287.713A.97.97 0 0 1 13 14z"
-            />
-            <path
-              d="M3.707 21.293c-.63.63-1.707.184-1.707-.707V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6zM6 17h14V5H4v13.172l.586-.586A2 2 0 0 1 6 17"
-            />
-          </svg>
-          <span
-            class="_typography_6v6n8_153 _font-body-md-medium_6v6n8_60 _label_bym9p_35"
-          >
-            Threads
           </span>
           <svg
             aria-hidden="true"

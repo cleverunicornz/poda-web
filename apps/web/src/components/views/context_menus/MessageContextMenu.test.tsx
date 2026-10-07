@@ -79,6 +79,26 @@ describe("MessageContextMenu", () => {
         expect(copyLinkButton).toBeFalsy();
     });
 
+    describe("view source (Poda D-000023)", () => {
+        afterEach(() => {
+            vi.spyOn(SettingsStore, "getValue").mockRestore();
+        });
+
+        it("does not offer View source outside developer mode", () => {
+            createMenuWithContent(createMessageEventContent("hello"));
+            expect(screen.queryByRole("menuitem", { name: "View source" })).toBeNull();
+        });
+
+        it("offers View source in developer mode", () => {
+            const getValue = SettingsStore.getValue;
+            vi.spyOn(SettingsStore, "getValue").mockImplementation((name: string, ...rest: any[]) =>
+                name === "developerMode" ? true : (getValue as any).call(SettingsStore, name, ...rest),
+            );
+            createMenuWithContent(createMessageEventContent("hello"));
+            expect(screen.getByRole("menuitem", { name: "View source" })).toBeInTheDocument();
+        });
+    });
+
     describe("message pinning", () => {
         let room: Room;
 

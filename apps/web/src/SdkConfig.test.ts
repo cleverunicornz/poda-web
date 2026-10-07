@@ -32,6 +32,13 @@ describe("SdkConfig", () => {
             ]);
             expect(SdkConfig.getObject("setting_defaults").get("layout")).toBe("bubble");
         });
+
+        it("turns off stickers and location sharing (Poda D-000023)", () => {
+            SdkConfig.put({ setting_defaults: { layout: "bubble" } });
+            const settingDefaults = SdkConfig.getObject("setting_defaults");
+            expect(settingDefaults.get("MessageComposerInput.showStickersButton")).toBe(false);
+            expect(settingDefaults.get("UIFeature.locationSharing")).toBe(false);
+        });
     });
 
     describe("with custom values", () => {

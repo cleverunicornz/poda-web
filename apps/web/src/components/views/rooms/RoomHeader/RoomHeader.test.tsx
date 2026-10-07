@@ -261,6 +261,69 @@ describe("RoomHeader", () => {
         expect(screen.queryByRole("button", { name: "Voice call" })).not.toBeInTheDocument();
     });
 
+    describe("Poda: calls only in private conversations (D-000023)", () => {
+        let joinRuleEventCount = 0;
+        const setJoinRule = (joinRule: JoinRule): void => {
+            room.addLiveEvents(
+                [
+                    new MatrixEvent({
+                        event_id: `$join_rule_${++joinRuleEventCount}`,
+                        type: EventType.RoomJoinRules,
+                        content: { join_rule: joinRule },
+                        sender: MatrixClientPeg.get()!.getSafeUserId(),
+                        state_key: "",
+                        room_id: room.roomId,
+                    }),
+                ],
+                { addToState: true },
+            );
+        };
+
+        it.each([JoinRule.Public, JoinRule.Restricted, JoinRule.Knock])(
+            "does not show call buttons in a %s room",
+            (joinRule) => {
+                mockRoomMembers(room, 2);
+                setJoinRule(joinRule);
+                render(<RoomHeader room={room} />, getWrapper());
+
+                expect(screen.queryByRole("button", { name: "Video call" })).not.toBeInTheDocument();
+                expect(screen.queryByRole("button", { name: "Voice call" })).not.toBeInTheDocument();
+            },
+        );
+
+        it("does not show call buttons in a large public room", () => {
+            mockRoomMembers(room, 1000);
+            setJoinRule(JoinRule.Public);
+            render(<RoomHeader room={room} />, getWrapper());
+
+            expect(screen.queryByRole("button", { name: "Video call" })).not.toBeInTheDocument();
+            expect(screen.queryByRole("button", { name: "Voice call" })).not.toBeInTheDocument();
+        });
+
+        it("shows call buttons in an invite-only room", () => {
+            mockRoomMembers(room, 2);
+            setJoinRule(JoinRule.Invite);
+            render(<RoomHeader room={room} />, getWrapper());
+
+            expect(screen.getByRole("button", { name: "Video call" })).toBeInTheDocument();
+            expect(screen.getByRole("button", { name: "Voice call" })).toBeInTheDocument();
+        });
+
+        it("hides call buttons when an invite-only room becomes public", async () => {
+            mockRoomMembers(room, 2);
+            setJoinRule(JoinRule.Invite);
+            render(<RoomHeader room={room} />, getWrapper());
+            expect(screen.getByRole("button", { name: "Video call" })).toBeInTheDocument();
+
+            act(() => setJoinRule(JoinRule.Public));
+
+            await waitFor(() => {
+                expect(screen.queryByRole("button", { name: "Video call" })).not.toBeInTheDocument();
+                expect(screen.queryByRole("button", { name: "Voice call" })).not.toBeInTheDocument();
+            });
+        });
+    });
+
     describe("UIFeature.Voip disabled", () => {
         beforeEach(() => {
             SdkConfig.put({

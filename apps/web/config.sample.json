@@ -42,7 +42,9 @@
     },
     "setting_defaults": {
         "breadcrumbs": true,
-        "layout": "bubble"
+        "layout": "bubble",
+        "MessageComposerInput.showStickersButton": false,
+        "UIFeature.locationSharing": false
     },
     "jitsi": {
         "preferred_domain": "meet.element.io"

@@ -477,14 +477,17 @@ export default class MessageContextMenu extends React.Component<IProps, IState> 
             );
         }
 
-        // This is specifically not behind the developerMode flag to give people insight into the Matrix
-        const viewSourceButton = (
-            <IconizedContextMenuOption
-                icon={<InlineCodeIcon />}
-                label={_t("timeline|context_menu|view_source")}
-                onClick={this.onViewSourceClick}
-            />
-        );
+        // Poda (D-000023): View source is a developer tool, so it is behind the developerMode flag.
+        let viewSourceButton: JSX.Element | undefined;
+        if (SettingsStore.getValue("developerMode")) {
+            viewSourceButton = (
+                <IconizedContextMenuOption
+                    icon={<InlineCodeIcon />}
+                    label={_t("timeline|context_menu|view_source")}
+                    onClick={this.onViewSourceClick}
+                />
+            );
+        }
 
         let unhidePreviewButton: JSX.Element | undefined;
         if (eventTileOps?.isWidgetHidden()) {

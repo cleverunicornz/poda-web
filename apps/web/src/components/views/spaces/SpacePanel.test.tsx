@@ -212,4 +212,9 @@ describe("<SpacePanel />", () => {
             expect(baseElement.querySelector("div[aria-label='User menu']")).toBeInTheDocument();
         });
     });
+
+    it("does not offer the Threads activity centre, which is reached from the room header (Poda D-000023)", () => {
+        render(<SpacePanel />);
+        expect(screen.queryByRole("button", { name: "Threads" })).not.toBeInTheDocument();
+    });
 });

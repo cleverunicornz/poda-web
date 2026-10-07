@@ -60,6 +60,9 @@ const POWER_LEVELS_WITH_CALL_MEMBER = {
     "m.room.tombstone": 100,
     // Custom rtc.member event we expect to be 0
     [ElementCallMemberEventType.name]: 0,
+    // Poda (D-000023): only room admins may start polls
+    "m.poll.start": 100,
+    "org.matrix.msc3381.poll.start": 100,
 };
 
 describe("createRoom", () => {
@@ -363,6 +366,66 @@ describe("createRoom", () => {
             client.createRoom.mock.calls[0][0].power_level_content_override?.events?.[ElementCallMemberEventType.name];
 
         expect(callMemberPower).toBe(0);
+    });
+
+    describe("Poda poll power levels", () => {
+        const pollPowers = () => {
+            const events = client.createRoom.mock.calls[0][0].power_level_content_override?.events;
+            return [events?.["m.poll.start"], events?.["org.matrix.msc3381.poll.start"]];
+        };
+
+        it("restricts starting polls to room admins", async () => {
+            await createRoom(client, { createOpts: { preset: Preset.PublicChat } });
+            expect(pollPowers()).toEqual([100, 100]);
+        });
+
+        it("restricts starting polls to room admins when Element Call is disabled", async () => {
+            SdkConfig.put({ element_call: { disable: true } });
+            await createRoom(client, {});
+            expect(client.createRoom.mock.calls[0][0].power_level_content_override?.events).toEqual({
+                "m.room.avatar": 50,
+                "m.room.canonical_alias": 50,
+                "m.room.encryption": 100,
+                "m.room.history_visibility": 100,
+                "m.room.name": 50,
+                "m.room.power_levels": 100,
+                "m.room.server_acl": 100,
+                "m.room.tombstone": 100,
+                "m.poll.start": 100,
+                "org.matrix.msc3381.poll.start": 100,
+            });
+        });
+
+        it("keeps video room power levels alongside the poll restriction", async () => {
+            await createRoom(client, { roomType: RoomType.UnstableCall });
+            const events = client.createRoom.mock.calls[0][0].power_level_content_override?.events;
+            expect(events?.[ElementCallMemberEventType.name]).toBe(0);
+            expect(events?.["im.vector.modular.widgets"]).toBe(100);
+            expect(pollPowers()).toEqual([100, 100]);
+        });
+
+        it("leaves space power levels unchanged", async () => {
+            SdkConfig.put({ element_call: { disable: true } });
+            await createRoom(client, {
+                roomType: RoomType.Space,
+                createOpts: { power_level_content_override: { events_default: 100, invite: 0 } },
+            });
+            expect(client.createRoom.mock.calls[0][0].power_level_content_override).toEqual({
+                events_default: 100,
+                invite: 0,
+            });
+        });
+
+        it("keeps caller-supplied event power levels", async () => {
+            SdkConfig.put({ element_call: { disable: true } });
+            await createRoom(client, {
+                createOpts: { power_level_content_override: { events: { "org.example.custom": 0 }, invite: 50 } },
+            });
+            const override = client.createRoom.mock.calls[0][0].power_level_content_override;
+            expect(override?.invite).toBe(50);
+            expect(override?.events?.["org.example.custom"]).toBe(0);
+            expect(pollPowers()).toEqual([100, 100]);
+        });
     });
 
     it("should upload avatar if one is passed", async () => {

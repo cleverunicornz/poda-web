@@ -38,6 +38,7 @@ import { ElementCallMemberEventType } from "../../call-types";
 import { LocalRoom, LocalRoomState } from "../../models/LocalRoom";
 import { useScopedRoomContext } from "../../contexts/ScopedRoomContext";
 import { SDKContext } from "../../contexts/SDKContext.ts";
+import { isPodaPrivateConversation } from "../../podaChatPolicy";
 import SdkConfig from "../../SdkConfig";
 
 const logger = rootLogger.getChild("useRoomCall");
@@ -166,9 +167,10 @@ export const useRoomCall = (
     // room
     const memberCount = useRoomMemberCount(room);
 
-    const [mayEditWidgets, mayCreateElementCallState] = useRoomState(room, () => [
+    const [mayEditWidgets, mayCreateElementCallState, isPrivateConversation] = useRoomState(room, () => [
         room.currentState.mayClientSendStateEvent("im.vector.modular.widgets", room.client),
         room.currentState.mayClientSendStateEvent(ElementCallMemberEventType.name, room.client),
+        isPodaPrivateConversation(room.currentState),
     ]);
 
     const mayCreateElementCalls = mayCreateElementCallState && serverIsConfiguredForElementCall;
@@ -343,7 +345,13 @@ export const useRoomCall = (
     // - they require widgets but widgets are disabled
     // - if the Voip feature is disabled.
     // - The room is not created yet (rendering "send first message view")
-    if ((memberCount > 2 && !widgetsFeatureEnabled) || !voipFeatureEnabled || roomDoesNotExist) {
+    // - Poda: the room is not a private conversation (D-000023)
+    if (
+        (memberCount > 2 && !widgetsFeatureEnabled) ||
+        !voipFeatureEnabled ||
+        roomDoesNotExist ||
+        !isPrivateConversation
+    ) {
         hideVoiceCallButton = true;
         hideVideoCallButton = true;
     }

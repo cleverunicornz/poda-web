@@ -44,6 +44,8 @@ import { useSettingValue } from "../../../hooks/useSettings";
 import AccessibleButton, { type ButtonEvent } from "../elements/AccessibleButton";
 import { useScopedRoomContext } from "../../../contexts/ScopedRoomContext.tsx";
 import { useRoomUploadViewModel } from "../../../viewmodels/room/RoomUploadViewModel.tsx";
+import { useRoomState } from "../../../hooks/useRoomState";
+import { isPodaPrivateConversation } from "../../../podaChatPolicy";
 
 interface IProps {
     addEmoji: (emoji: string) => boolean;
@@ -69,6 +71,12 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
     const { room, narrow } = useScopedRoomContext("room", "narrow");
 
     const isWysiwygLabEnabled = useSettingValue("feature_wysiwyg_composer");
+
+    // Poda (D-000023): voice messages only in private conversations; polls only for members allowed to start them.
+    const [isPrivateConversation, mayStartPoll] = useRoomState(room, (state) => [
+        isPodaPrivateConversation(state),
+        !!matrixClient && state.maySendEvent(M_POLL_START.name, matrixClient.getSafeUserId()),
+    ]) ?? [false, false];
 
     if (!matrixClient || !room || props.haveRecording) {
         return null;
@@ -99,8 +107,8 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
                 />
             )),
             showStickersButton(props),
-            voiceRecordingButton(props, narrow),
-            props.showPollsButton ? pollButton(room, props.relation) : null,
+            isPrivateConversation ? voiceRecordingButton(props, narrow) : null,
+            props.showPollsButton && mayStartPoll ? pollButton(room, props.relation) : null,
             showLocationButton(props, room, matrixClient),
         ];
     } else {
@@ -115,11 +123,12 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
                 emojiButton(props)
             ),
             <UploadButton key="upload" vm={roomUploadVM} />,
+            // Poda (D-000023): voice messages sit on the composer bar rather than in the overflow menu.
+            isPrivateConversation ? voiceRecordingButton(props, narrow) : null,
         ];
         moreButtons = [
             showStickersButton(props),
-            voiceRecordingButton(props, narrow),
-            props.showPollsButton ? pollButton(room, props.relation) : null,
+            props.showPollsButton && mayStartPoll ? pollButton(room, props.relation) : null,
             showLocationButton(props, room, matrixClient),
         ];
     }
