@@ -11,6 +11,7 @@ Please see LICENSE files in the repository root for full details.
 import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, waitFor } from "test-utils-rtl";
+import { JoinRule } from "matrix-js-sdk/src/matrix";
 import { createTestClient, getRoomContext, mkStubRoom } from "test-utils";
 
 import MatrixClientContext from "../../../contexts/MatrixClientContext";
@@ -52,8 +53,14 @@ describe("MessageComposerButtons", () => {
         return mainLabels;
     }
 
-    function wrapAndRender(component: React.ReactElement, narrow: boolean) {
+    function wrapAndRender(
+        component: React.ReactElement,
+        narrow: boolean,
+        { joinRule = JoinRule.Invite, mayStartPoll = true }: { joinRule?: JoinRule; mayStartPoll?: boolean } = {},
+    ) {
         const mockRoom = mkStubRoom("myfakeroom", "myfakeroom", mockClient) as any;
+        mockRoom.currentState.getJoinRule.mockReturnValue(joinRule);
+        mockRoom.currentState.maySendEvent.mockReturnValue(mayStartPoll);
         const defaultRoomContext: RoomContextType = getRoomContext(mockRoom, { narrow });
 
         return render(
@@ -77,7 +84,7 @@ describe("MessageComposerButtons", () => {
             false,
         );
 
-        expect(getButtonLabels()).toEqual(["Emoji", "Attachment", "More options"]);
+        expect(getButtonLabels()).toEqual(["Emoji", "Attachment", "Voice Message", "More options"]);
     });
 
     it("Renders other buttons in menu in wide mode", async () => {
@@ -98,8 +105,9 @@ describe("MessageComposerButtons", () => {
             expect(getButtonLabels()).toEqual([
                 "Emoji",
                 "Attachment",
+                "Voice Message",
                 "More options",
-                ["Sticker", "Voice Message", "Poll", "Location"],
+                ["Sticker", "Poll", "Location"],
             ]);
         });
     });
@@ -172,6 +180,67 @@ describe("MessageComposerButtons", () => {
                     "Location",
                 ],
             ]);
+        });
+    });
+    describe("Poda chat controls (D-000023)", () => {
+        const allButtons = (
+            <MessageComposerButtons
+                {...mockProps}
+                isMenuOpen={true}
+                showLocationButton={true}
+                showPollsButton={true}
+                showStickersButton={true}
+            />
+        );
+
+        it.each([JoinRule.Public, JoinRule.Restricted, JoinRule.Knock])(
+            "does not offer voice messages in a %s room",
+            async (joinRule) => {
+                wrapAndRender(allButtons, false, { joinRule });
+
+                await waitFor(() => {
+                    expect(getButtonLabels()).toEqual([
+                        "Emoji",
+                        "Attachment",
+                        "More options",
+                        ["Sticker", "Poll", "Location"],
+                    ]);
+                });
+            },
+        );
+
+        it("offers voice messages on the composer bar in an invite-only room", async () => {
+            wrapAndRender(allButtons, false, { joinRule: JoinRule.Invite });
+
+            await waitFor(() => {
+                expect(getButtonLabels()).toEqual([
+                    "Emoji",
+                    "Attachment",
+                    "Voice Message",
+                    "More options",
+                    ["Sticker", "Poll", "Location"],
+                ]);
+            });
+        });
+
+        it("hides the poll button from members who may not start polls", async () => {
+            wrapAndRender(allButtons, false, { mayStartPoll: false });
+
+            await waitFor(() => {
+                expect(getButtonLabels()).toEqual([
+                    "Emoji",
+                    "Attachment",
+                    "Voice Message",
+                    "More options",
+                    ["Sticker", "Location"],
+                ]);
+            });
+        });
+
+        it("hides the poll button in narrow mode from members who may not start polls", () => {
+            wrapAndRender(allButtons, true, { mayStartPoll: false });
+
+            expect(getButtonLabels()).toEqual(["Emoji", "More options", ["Attachment", "Sticker", "Location"]]);
         });
     });
 });

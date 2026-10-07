@@ -49,6 +49,7 @@ import { ElementCallMemberEventType } from "./call-types";
 import { htmlSerializeFromMdIfNeeded } from "./editor/serialize";
 import { SDKContextClass } from "./contexts/SDKContextClass.ts";
 import SdkConfig from "./SdkConfig";
+import { PODA_POLL_START_EVENT_POWER_LEVELS } from "./podaChatPolicy";
 
 // we define a number of interfaces which take their names from the js-sdk
 export interface IOpts {
@@ -201,6 +202,18 @@ export default async function createRoom(client: MatrixClient, opts: IOpts): Pro
                 ...DEFAULT_EVENTS_POWER_LEVEL,
                 // It should always (including non video rooms) be possible to join a group call.
                 [ElementCallMemberEventType.name]: 0,
+            },
+        };
+    }
+
+    // Poda (D-000023): only room admins may start polls; the homeserver enforces the power level.
+    if (opts.roomType !== RoomType.Space) {
+        createOpts.power_level_content_override = {
+            ...createOpts.power_level_content_override,
+            events: {
+                ...DEFAULT_EVENTS_POWER_LEVEL,
+                ...createOpts.power_level_content_override?.events,
+                ...PODA_POLL_START_EVENT_POWER_LEVELS,
             },
         };
     }

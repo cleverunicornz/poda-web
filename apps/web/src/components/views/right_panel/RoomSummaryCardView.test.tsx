@@ -243,12 +243,10 @@ describe("<RoomSummaryCard />", () => {
         expect(vmDefaultValues.onRoomMembersClick).toHaveBeenCalled();
     });
 
-    it("opens room threads list on button click", () => {
-        const { getByText } = getComponent();
+    it("does not offer Threads, which is reached from the room header (Poda D-000023)", () => {
+        const { queryByText } = getComponent();
 
-        fireEvent.click(getByText("Threads"));
-
-        expect(vmDefaultValues.onRoomThreadsClick).toHaveBeenCalled();
+        expect(queryByText("Threads")).toBeNull();
     });
 
     it("opens room pinned messages on button click", () => {

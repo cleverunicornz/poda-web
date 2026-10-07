@@ -1,0 +1,40 @@
+{
+    "head": "07867e4a7e",
+    "observed": "2026-10-07",
+    "environment": {
+        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false, served statically; the 18 changed files on the workbench hash identically to the head (combined sha256 of per-file sha256 values ba3bea059032e93c9ccc8b90a97440f4a6c5803b87027ef8320b9297b5dc3dbe)",
+        "config": "default_server_config pointing at the local homeserver, disable_guests, and the two Poda modules; every other value from apps/web/src/SdkConfig.ts DEFAULTS",
+        "homeserver": "matrixdotorg/synapse:latest in Docker, server_name localhost",
+        "browser": "HeadlessChrome/154.0.0.0 at 1440x900",
+        "users": "@demo:localhost (creator/admin of seeded rooms) and @mira:localhost (power level 0 except in the direct message she created)"
+    },
+    "rooms": {
+        "public": "join_rule public, created by API",
+        "restricted": "join_rule restricted, allow rule names a space, created by API",
+        "invite": "join_rule invite, two members, created by API",
+        "dm": "trusted_private_chat direct message created by Mira",
+        "poda_created": "invite-only room created by Demo through the New room dialog"
+    },
+    "tests": {
+        "command": "pnpm exec vitest run (the eight files named in O-000020 Implementation), from apps/web",
+        "result": "8 files passed, 192 tests passed"
+    },
+    "legs": {
+        "P1": "As Demo: public and restricted rooms show header buttons Open room settings, Room info, Threads, Room info (no Video call, no Voice call); invite room and DM show Video call and Voice call. As Mira: public room no call buttons; DM and the Poda-created room show both.",
+        "P2": "As Demo and Mira: public and restricted composers show Emoji, Attachment, More options; invite room, DM and Poda-created room show Emoji, Attachment, Voice Message on the bar, and Voice Message is absent from the overflow menu.",
+        "P3": "Poda-created room m.room.power_levels events: m.poll.start 100, org.matrix.msc3381.poll.start 100. Mira PUT m.poll.start and org.matrix.msc3381.poll.start: 403 M_FORBIDDEN each; Demo: 200 each; Mira m.room.message: 200. Mira's composer in that room: Emoji, Attachment, Voice Message and no More options (no poll control); Demo's overflow menus offered Poll.",
+        "P4": "Overflow menus in all five rooms for both users contained only Poll or nothing; no Sticker or Location item.",
+        "P5": "Developer mode off: message Options menu Forward, Share, Report, Remove. Developer mode on (account level): Forward, Share, Report, View source, Remove. Reset to off afterwards.",
+        "P6": "Room header offers Threads in every room; room info panel items Invite, People, Pinned messages, Files, Extensions, Copy link, Polls, Export Chat, Settings, Report room, Leave room (no Threads); the space panel has no Threads button."
+    },
+    "notes": [
+        "The API-created public room keeps the homeserver's default poll power level, so Mira's composer still offers Poll there; P-000020 Residual and G-000027 cover rooms not created from Poda.",
+        "Messages sent through the API into the encrypted Poda-created room render with an unencrypted-message warning; this is a property of the test sends, not of the observed controls."
+    ],
+    "screenshots": [
+        "public-room-admin.png",
+        "invite-room-message-options.png",
+        "invite-room-info-panel.png",
+        "poda-created-room-member.png"
+    ]
+}

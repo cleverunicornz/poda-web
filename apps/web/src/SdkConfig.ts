@@ -26,8 +26,11 @@ export const DEFAULTS = {
         welcome_background_url: "themes/poda/img/backgrounds/poda-landscape.svg",
     },
     setting_defaults: {
-        custom_themes: PODA_CUSTOM_THEMES,
-        layout: "bubble",
+        "custom_themes": PODA_CUSTOM_THEMES,
+        "layout": "bubble",
+        // Poda chat controls (D-000023): no sticker picker or location sharing.
+        "MessageComposerInput.showStickersButton": false,
+        "UIFeature.locationSharing": false,
     },
     help_url: "https://element.io/help",
     help_encryption_url: "https://element.io/help#encryption",
