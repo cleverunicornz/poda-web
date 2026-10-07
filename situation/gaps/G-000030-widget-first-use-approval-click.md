@@ -20,9 +20,11 @@ access authority.
 
 ## Evidence
 
-In the [W-000006](situation/witnesses/P-000021/W-000006-profile-side-panel-local-pass.md)
-run, the first header click pinned the widget and showed the approval prompt;
-the widget content appeared after Continue.
+During the 2026-10-07 runs behind
+[W-000006](situation/witnesses/P-000021/W-000006-profile-side-panel-local-pass.md),
+the widget's first load for Mira, and its first load after its URL changed,
+showed Element's "Widget added by … Continue" prompt; the content appeared after
+Continue.
 
 ## Impact
 

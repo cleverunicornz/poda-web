@@ -1,38 +1,36 @@
 {
-    "head": "81391f0f75",
+    "head": "6fb6f0bcd1",
     "observed": "2026-10-07",
     "environment": {
-        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false, built from 55edc140ab; apps/ and packages/ are unchanged between 55edc140ab and 81391f0f75. The poda-profile-spike bundle was rebuilt from 81391f0f75 (served file md5 da1934b2a9ba08a227a749ec37f773d3 equals the built lib/index.js).",
-        "config": "default_server_config pointing at the local homeserver, disable_guests, modules poda-navigation-spike, poda-profile-spike and widget-toggles, and io.element.element-web-modules.widget-toggles.types = [io.poda.profile]",
+        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false, built after the last code edit; the 27 changed code files on the workbench hash identically to 6fb6f0bcd1 (combined sha256 of per-file sha256 values 7f809018cb178ac44083bd5686a2b81cdc36ccf3c25be81e8f2dea8f9eee8d99)",
+        "config": "default_server_config pointing at the local homeserver, disable_guests, and modules poda-navigation-spike and poda-profile-spike; no widget-toggles",
         "homeserver": "matrixdotorg/synapse:latest in Docker, server_name localhost",
-        "widget": "Poda profile widget registered in the invite-only room as im.vector.modular.widgets/poda-profile-spike with type io.poda.profile, served from a separate static origin (127.0.0.1:20002)",
+        "widget": "im.vector.modular.widgets/poda-profile-spike of type io.poda.profile in the invite-only room, served from a separate static origin (127.0.0.1:20002); Mira's stored Widgets.layout for the room was {\"widgets\":{\"poda-profile-spike\":{\"container\":\"top\"}}}",
         "browser": "HeadlessChrome/154.0.0.0 at 1440x900",
         "session": "@mira:localhost (power level 0); other member @demo:localhost (room creator)"
     },
     "tests": {
-        "command": "pnpm exec vitest run (the four files named in O-000021 Implementation), from apps/web",
-        "result": "4 files passed, 75 tests passed; poda-profile-spike vitest 12/12, tsc --noEmit and vite build clean"
+        "command": "pnpm exec vitest run (the eight files named in O-000021 Implementation), from apps/web",
+        "result": "8 files passed, 116 tests passed; poda-profile-spike vitest 12/12; tsc --noEmit clean; oxlint 0 errors; oxfmt clean"
     },
     "legs": {
-        "P1": "User info panel actions for Demo Creator and for Mira Chen begin with View profile, ahead of Send message, Jump to read receipt, Share profile and Mention (only the avatar and Verify User, which are header controls, precede it).",
-        "P2": "After saving headline 'Host of Field Notes', tagline, short intro and topics Technology, Business on the Profile page in the same document, Mira's card showed all five values, a Draft badge, Edit profile, stats Podcasts Hosted 1, Guest Appearances 0, Total Episodes 2, and the note '@mira:localhost · creator fields are session-only'. Demo's card showed 'Demo Creator', empty-section notes, no badge, no visibility control, no stats rail, none of the own-profile prompts, and '@demo:localhost · no Poda creator profile in this preview'. Both grids computed one column of 277px in a 319px card.",
-        "P3": "Back from Demo's card returned to Demo's user info panel; Close on Mira's card closed the right panel. Containment of a throwing renderer is covered by UserProfileCard.test.tsx.",
+        "P1": "User info panel actions for Demo Creator: View profile, Send message, Jump to read receipt, Share profile, Mention, Ignore; for Mira Chen: View profile, Share profile (avatar and Verify User are header controls). Clicking a message avatar in the timeline also opened the user info panel with View profile first.",
+        "P2": "After saving headline, tagline, short intro and topics on the Profile page in the same document, Mira's card contained all of them, a Draft badge, Edit profile, stats Podcasts Hosted 1, Guest Appearances 0, Total Episodes 2 and the session-only note. Demo's card contained the name and '@demo:localhost · no Poda creator profile in this preview', with no badge, visibility control, stats rail or own-profile prompts. Both grids computed one 277px column.",
+        "P3": "Back from Demo's card returned to Demo's user info panel; Close on Mira's card closed the right panel.",
         "P4": "Room info items began Extensions, Favourite, Invite.",
-        "P5": "Header button label 'Hide Poda Profile' with the widget iframe present; one click gave 'Show Poda Profile' and no iframe; a second click gave 'Hide Poda Profile' and the iframe again (after Element's one-time widget approval prompt), same document throughout."
+        "P5": "With the stored pin present, the room view had no apps drawer and no widget iframe. The header showed a 'Poda Profile' button; one click opened the right panel WidgetCard with the widget (aria-pressed true, still no apps drawer); a second click closed the right panel (aria-pressed false). The Extensions list showed the Poda Profile row without a pin control."
     },
     "notes": [
-        "The static app server redirected index.html URLs, which broke the widget's relative script; the test therefore served the widget from a second static origin. This is a property of the local server, not of the build.",
-        "Element asks each viewer to approve a widget before its first load (and again when its URL changes); that prompt is part of Element's widget security and adds a click on first use.",
-        "Reloading the page discards session-only creator fields, as P-000018 and P-000021 Residual state."
+        "The widget was served from a second static origin because the app's static server redirected index.html URLs; a property of the local server, not of the build.",
+        "No approval prompt appeared because Mira had approved the widget earlier in the session (G-000030).",
+        "member-profile-card.png and user-info-view-profile.png were taken earlier the same day at 81391f0f75 and 55edc140ab; the user info panel, the card and the module renderer are unchanged at 6fb6f0bcd1 and the legs above were re-observed at 6fb6f0bcd1."
     ],
     "screenshots": [
-        "header-toggle-widget-pinned.png",
-        "user-info-view-profile.png",
-        "member-profile-card.png",
+        "stored-pin-ignored-room-info-extensions-first.png",
+        "header-button-widget-in-side-panel.png",
+        "extensions-no-pin.png",
         "own-profile-card.png",
-        "room-info-extensions-first.png"
-    ],
-    "screenshot_notes": {
-        "user-info-view-profile.png": "taken at 55edc140ab during the same session; the user info panel and its View profile action are unchanged at 81391f0f75"
-    }
+        "member-profile-card.png",
+        "user-info-view-profile.png"
+    ]
 }

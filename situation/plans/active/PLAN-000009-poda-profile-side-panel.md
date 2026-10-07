@@ -7,8 +7,8 @@ None.
 ## Promises
 
 - [P-000021](../../promises/P-000021-poda-profile-side-panel.md) — View profile
-  opens the shared profile in the right panel; Extensions first; one-click
-  widget toggle, per D-000024.
+  opens the shared profile in the right panel; Extensions first; the profile
+  widget opens only in the right panel from a header button, per D-000024.
 
 ## Dependencies
 

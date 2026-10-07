@@ -23,21 +23,31 @@ right panel.
 - Maintainer request and selection on 2026-10-07: "View profile" opens the
   full Poda profile in the side panel, in every room and direct message, with
   no per-room setup (selected over opening a room widget focused on the user).
+- Maintainer review of the first implementation on 2026-10-07: "I want the
+  profile widget to only open in the side panel … not in the chat".
 - `packages/module-api/src/api/` exposes room header buttons
   (`extras.addRoomHeaderButtonCallback`) and widget container moves
   (`widget.moveAppToContainer`) but nothing for the user info panel or the
   right panel.
-- `modules/widget-toggles/src/index.tsx` already adds a room header toggle per
-  configured widget type that pins the widget in the room's top container.
+- `modules/widget-toggles/src/index.tsx` adds a room header toggle per
+  configured widget type, but it pins the widget in the room's top container
+  (above the timeline); the module API cannot open a widget's right panel card.
+- `apps/web/src/stores/widgets/WidgetLayoutStore.ts` places each widget in the
+  top, right or center container from the room layout event, the user's layout
+  and pin requests.
 - `apps/web/src/components/views/right_panel/RoomSummaryCardView.tsx` lists
   Extensions below People, Pinned messages and Files.
 
 ## Decision
 
-- **One-click widgets.** The Poda profile widget is registered with its own
-  type, `io.poda.profile`; deployments enable the existing `widget-toggles`
-  module for that type, so the room header carries a button that pins the
-  widget above the timeline and unpins it. No new header code.
+- **Profile widget in the side panel only.** The Poda profile widget has its
+  own type, `io.poda.profile`, which the host treats as side-panel-only: the
+  widget layout store keeps it in the right container whatever a layout event,
+  user layout or pin request says, so it is never pinned above the timeline or
+  maximised; the Extensions list offers no pin for it; and the room header
+  carries a host button per such widget that opens its right panel card in one
+  click and closes it on the next. The rule lives in
+  `apps/web/src/podaWidgetPolicy.ts`.
 - **Extensions first.** Extensions is the first item of the room info panel.
 - **Profile in the right panel.** A deliberate host extension: the module API
   gains an alpha `extras.setUserProfilePanel(renderer)` with
@@ -53,8 +63,10 @@ right panel.
 
 ## Why
 
-The header toggle already exists as a supported, tested module, so reusing it
-keeps one-click access inside exported contracts (I-000010). Placing module
+The maintainer wants the widget beside the conversation, not over it. No
+exported seam opens a widget's right panel card or constrains its container,
+so the rule, the header button and the pin restriction are isolated host
+changes (I-000010). Placing module
 content in the right panel and adding an action to Element's user info panel
 have no exported seam, so I-000010 calls for a deliberately defined host
 extension: one narrow, alpha, typed method plus one card, rather than DOM
@@ -70,8 +82,12 @@ page, widget and panel (I-000006, I-000012).
 - An untyped method only on Element's implementation: rejected; a hidden
   contract between host and module is harder to review than a declared alpha
   method.
-- A new Poda-specific header button inside the profile module: rejected; the
-  widget-toggles module already provides it.
+- Pin the widget above the timeline with the existing `widget-toggles`
+  module: implemented first and rejected by the maintainer on review; the
+  widget belongs in the side panel, not in the chat.
+- A header button inside the profile module plus a new module API method to
+  open right panel cards: rejected; the side-panel-only rule is host policy,
+  and one host-owned button keeps the rule and its entry point together.
 
 ## Consequences
 
@@ -81,11 +97,11 @@ page, widget and panel (I-000006, I-000012).
   them with an upstream seam.
 - Profiles of other members carry no Poda creator data until a profile service
   exists (G-000004, G-000005).
-- `widget-toggles` must be built, listed in `modules` and configured for
-  `io.poda.profile` in each deployment's `config.json`.
+- Any widget of type `io.poda.profile` is side-panel-only for every member,
+  regardless of room layout state set by other clients.
 
 ## Revisit when
 
 A Poda profile service supplies creator data for any member, upstream Element
 exposes a seam for the user info panel or right panel, or the maintainer wants
-the widget opened in the right panel rather than pinned above the timeline.
+other widget types treated as side-panel-only.

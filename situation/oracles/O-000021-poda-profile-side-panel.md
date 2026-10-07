@@ -14,12 +14,12 @@ implemented
 - The focused Vitest command below and its result on that head, plus the
   profile module's adapter tests and build.
 - A signed-in browser observation of a build of that head with the Poda
-  profile module and `widget-toggles` configured for `io.poda.profile`, against
-  a local Synapse with a room carrying the Poda profile widget and a second
-  member: the user info panel for the signed-in user and for the other member,
+  profile module, against a local Synapse with a room carrying a widget of
+  type `io.poda.profile` whose stored user layout pins it above the timeline,
+  and a second member: the user info panel for the signed-in user and for the other member,
   the Profile card for each, a Profile page edit followed by reopening the own
-  card, back and close, the room info panel, and the header toggle pressed
-  twice.
+  card, back and close, the room info panel and its Extensions list, and the
+  header widget button pressed twice.
 - Missing head, test or browser evidence makes an observation `INVALID` or
   `BLOCKED`, never PASS.
 
@@ -35,8 +35,11 @@ implemented
 - **P3 — Card.** Back returns to the user info panel and close closes the right
   panel; focused tests show a throwing renderer contained inside the card.
 - **P4 — Extensions.** Extensions is the first room info item.
-- **P5 — Header toggle.** One click on the room header button shows the profile
-  widget above the timeline; a second hides it.
+- **P5 — Side-panel widget.** Despite the stored pin, nothing appears above the
+  timeline; one click on the room header button opens the widget's right panel
+  card and a second closes the right panel; the Extensions list shows no pin
+  control for the widget; focused tests show layout pins, maximise and move
+  requests leaving it in the right container.
 
 ## Fail
 
@@ -46,7 +49,8 @@ implemented
   data or a status badge, or a two-column layout in the panel.
 - **F3** — back or close not working, or a renderer failure escaping the card.
 - **F4** — Extensions not first.
-- **F5** — no header button, or the widget not shown/hidden by it.
+- **F5** — the widget above the timeline or maximised, no header button, the
+  button not opening/closing the right panel card, or a pin control offered.
 
 ## Implementation
 
@@ -56,7 +60,11 @@ From `apps/web/`:
 pnpm exec vitest run src/components/views/right_panel/UserProfileCard.test.tsx \
   src/components/views/right_panel/user_info/UserInfoBasicOptionsView.test.tsx \
   src/components/views/right_panel/RoomSummaryCardView.test.tsx \
-  src/stores/right-panel/RightPanelStore.test.ts
+  src/stores/right-panel/RightPanelStore.test.ts \
+  src/components/views/right_panel/ExtensionsCard.test.tsx \
+  src/stores/widgets/WidgetLayoutStore.test.ts \
+  src/components/views/rooms/RoomHeader/PodaSidePanelWidgetButtons.test.tsx \
+  src/podaWidgetPolicy.test.ts
 ```
 
 ## Implementation coverage
@@ -67,4 +75,4 @@ pnpm exec vitest run src/components/views/right_panel/UserProfileCard.test.tsx \
 | P2 / F2 | Profile content and layout | manual |
 | P3 / F3 | Card navigation and containment | `UserProfileCard.test.tsx`, `RightPanelStore.test.ts` "UserProfile"; back/close manual |
 | P4 / F4 | Extensions first | `RoomSummaryCardView.test.tsx` "offers Extensions as the first menu item" |
-| P5 / F5 | Header widget toggle | manual |
+| P5 / F5 | Side-panel-only widget and header button | `WidgetLayoutStore.test.ts` "Poda side-panel-only widgets", `PodaSidePanelWidgetButtons.test.tsx`, `ExtensionsCard.test.tsx`, `podaWidgetPolicy.test.ts`; browser manual |
