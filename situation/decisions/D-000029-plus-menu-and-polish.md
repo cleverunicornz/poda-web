@@ -64,8 +64,9 @@ agreed to fix both in the same pull request.
   (`#fad990`) in both Poda themes; message links use
   `--cpd-color-text-action-accent`, underlined; release announcements colour
   their description and close button with `--cpd-color-text-on-solid-primary`.
-- **Episode number**: stays optional; the wizard's first readiness item is
-  "Title and season", since every episode has a season (D-000025).
+- **Readiness**: the wizard's first readiness item is "Title and season", since
+  every episode has a season (D-000025); when an episode number is required is
+  decided by [D-000031](situation/decisions/D-000031-episode-types-and-numbers.md).
 - **Studio routes**: every route skips rendering when a newer route has
   replaced it; G-000026 was not reproduced.
 - [P-000026](situation/promises/P-000026-plus-menu-and-polish.md), judged by
@@ -85,7 +86,6 @@ second profile view.
 - **Changing `--cpd-color-text-on-solid-primary`**: would break the amber
   buttons' contrast.
 - **Changing `--primary-color`**: recolours brand surfaces far beyond links.
-- **Making the episode number required**: trailers and bonus episodes have none.
 
 ## Consequences
 

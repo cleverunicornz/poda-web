@@ -42,7 +42,11 @@ incomplete. The intended requirement remains uncertain.
 
 ## Resolution
 
-Closed: [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) keeps the episode number optional (its label already carries no asterisk) and makes the first readiness item "Title and season"; [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P6.
+Closed: [D-000031](situation/decisions/D-000031-episode-types-and-numbers.md)
+settles the requirement: full episodes need a number once scheduled or
+published, drafts, trailers and bonus episodes may go without, and the label
+carries no asterisk; [W-000015](situation/witnesses/P-000028/W-000015-episode-types-and-numbers-local-pass.md)
+P2. The readiness item reads "Title and season" (D-000029).
 
 ## References
 

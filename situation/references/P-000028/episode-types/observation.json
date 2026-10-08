@@ -1,0 +1,27 @@
+{
+    "head": "9ea389cd71",
+    "observed": "2026-10-08",
+    "environment": {
+        "web": "bundle directory 8a5a6c3a2dc9e9e7a36a (apps/web unchanged since a992f2df65)",
+        "module": "poda-profile-spike lib/index.js ab47c529b73347ac… (sha256 prefix) built from 9ea389cd71 and served",
+        "browser": "Headless Chromium at 1440x900",
+        "user": "@olu:localhost (session-only Studio data)"
+    },
+    "tests": {
+        "module": "9 files, 81 tests passed; tsc clean; oxfmt clean; oxlint only the pre-existing G-000014 errors in mockAdapter.js and mockAdapter.test.js"
+    },
+    "legs": {
+        "P1": "#epType options: Full episode, Trailer, Bonus; helper 'Needed for full episodes once scheduled; optional for drafts, trailers and bonus episodes.'",
+        "P2": "Scheduled full 'Season two kickoff' without a number: epNumber error 'Full episodes need an episode number once they are scheduled or published.' (scheduled-full-episode-needs-number.png, at 806ce935f8 before the alignment fix). A scheduled trailer and a draft 'Ideas for season three' were created without numbers.",
+        "P3": "After the error, selecting Bonus left no field error.",
+        "P4": "Trailer detail tagline 'S1 · Trailer · scheduled'; its list row subline 'Field Notes · S1 · Trailer'; draft 'S1 · draft'; numbered full episode 'S2E1 · scheduled'.",
+        "P5": "Episode wizard #epType/#epNumber/#epSeason tops 984/984/984; Title and Podcast left edges 215/215; podcast wizard: no two-field grid row with differing input tops; every .pnInput margin 0px (aligned-episode-fields.png). Before the fix tops were 538/554/554-style offsets and Author/License/Funding inputs sat 9 px lower."
+    },
+    "notes": [
+        "P1, P3, the draft, the refused full episode and the numbered full episode (P2, P4) were observed on the build of 806ce935f8. The scheduled trailer and its detail and list labels (P2, P4) were observed on the build just before it, which differed only by the dependent error clearing that 806ce935f8 adds. 9ea389cd71 changes only nativeTheme.js and its test; it was observed for P5, and Create post and Share to chat still worked on it (a 'Coming soon' card posted to Producers)."
+    ],
+    "screenshots": [
+        "scheduled-full-episode-needs-number.png",
+        "aligned-episode-fields.png"
+    ]
+}

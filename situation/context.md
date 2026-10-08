@@ -338,6 +338,11 @@ routes against stale renders.
 [D-000030](situation/decisions/D-000030-share-entry-points.md) moves share cards
 from the composer to a top-bar **Create post** (with a chat picker) and **Share
 to chat** on podcast, episode and Profile pages.
+[D-000031](situation/decisions/D-000031-episode-types-and-numbers.md) adds
+episode types (Full, Trailer, Bonus) and requires a number for full episodes
+once scheduled or published
+([P-000028](situation/promises/P-000028-episode-types-and-numbers.md),
+[W-000015](situation/witnesses/P-000028/W-000015-episode-types-and-numbers-local-pass.md)).
 [P-000026](situation/promises/P-000026-plus-menu-and-polish.md) and
 [P-000027](situation/promises/P-000027-share-cards-create-post.md) (superseding
 P-000025) are assured by
