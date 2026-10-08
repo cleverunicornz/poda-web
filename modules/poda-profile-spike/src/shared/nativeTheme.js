@@ -182,8 +182,12 @@ body[class*="cpd-theme-dark"] .podaNative {
 .pnHelper { margin: 4px 0 0; font-size: 12px; color: hsl(var(--pn-muted-fg)); }
 .pnFieldError { margin: 0; font-size: 12px; color: var(--pn-red-600); }
 .pnCounter { font-size: 12px; color: hsl(var(--pn-muted-fg)); }
-.pnGrid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
-.pnGrid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 16px; }
+.pnGrid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pnGrid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+/* Element styles input[type=text] with a 9px margin; Poda fields set their own spacing. */
+.podaNative .pnInput { margin: 0; }
+/* Fields side by side share a row; the grid gap spaces rows, so the stacked-field margin would misalign them. */
+.pnGrid2 > .pnField + .pnField, .pnGrid3 > .pnField + .pnField { margin-top: 0; }
 .pnDivider { border: none; border-top: 1px solid hsl(var(--pn-border)); margin: 4px 0 0; }
 .pnSubhead { margin: 0 0 4px; font-size: 14px; font-weight: 500; }
 
