@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -42,7 +42,7 @@ incomplete. The intended requirement remains uncertain.
 
 ## Resolution
 
-none
+Closed: [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) keeps the episode number optional (its label already carries no asterisk) and makes the first readiness item "Title and season"; [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P6.
 
 ## References
 

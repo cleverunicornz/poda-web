@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -32,4 +32,4 @@ until they navigate again.
 
 ## Resolution
 
-none
+Closed: not reproduced; [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) makes every Studio route skip rendering once replaced, and [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P7 listed the new podcast in three quick passes. The cause of the single observation remains unknown.

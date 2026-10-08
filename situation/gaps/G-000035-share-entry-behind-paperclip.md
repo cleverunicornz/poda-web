@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -28,4 +28,4 @@ Members may not look for sharing behind a paperclip.
 
 ## Resolution
 
-none
+Closed: the maintainer chose a "+"; [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) gives the multi-option upload menu a plus icon labelled "Attach or share" ([W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P1).

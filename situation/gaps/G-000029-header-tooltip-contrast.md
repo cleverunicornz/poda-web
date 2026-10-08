@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -29,4 +29,4 @@ Users hovering header buttons may not learn what they do.
 
 ## Resolution
 
-none
+Closed: the cause was Compound's tooltip pairing `--cpd-color-text-on-solid-primary` with `--cpd-color-alpha-gray-1400`; [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) sets the latter to light amber, measured about 10:1 in [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md).

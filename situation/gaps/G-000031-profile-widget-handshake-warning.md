@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -30,4 +30,4 @@ Possibly none; possibly missed host messages before the handshake completes.
 
 ## Resolution
 
-none
+Closed: the widget now passes its widget ID and client origin and sends no content-loaded message ([D-000029](situation/decisions/D-000029-plus-menu-and-polish.md)); no handshake error was logged in [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P3.

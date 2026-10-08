@@ -1,0 +1,39 @@
+{
+    "head": "8bcc9dc76a",
+    "observed": "2026-10-08",
+    "environment": {
+        "web": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false from 8bcc9dc76a after rebuilding @element-hq/web-shared-components and the module API; bundle directory 8ce2887a96c654885d42; served by python3 http.server on 127.0.0.1:20000",
+        "module": "poda-profile-spike lib/index.js sha256 8384880c31d91f443…; widget.bundle.js a2246cc0d64d6f645…; widget index.html 971a9fe7f3bc05525… (prefixes), all built from the head and served at /modules and /widgets/poda-profile/",
+        "homeserver": "matrixdotorg/synapse 1.162.0, room version 12",
+        "browser": "Headless Chromium via the workbench Playwright tools at 1440x900, Poda Light",
+        "widgets": "Producers (invite only) poda-profile-spike, type io.poda.profile, URL http://127.0.0.1:20000/widgets/poda-profile/index.html?… (event $iNg70-DCVrmJi2cSY1VcunWfM-DA-LHoEP6i9uq7-z8); General (public) lookalike-profile, same type, URL on http://127.0.0.1:20002 (event $tSujDjtSXA-rmQ8KbByvGrVXP54Cl1q3qis2dCX-VCA)",
+        "users": "@mira:localhost (had never approved either widget event), @demo:localhost, @nina:localhost (new account for the Sections announcement)"
+    },
+    "tests": {
+        "shared_components": "UploadButton: 2 files, 7 tests passed (browser mode); tsc clean",
+        "web": "podaTheme, ThemeWatcher, SdkConfig, MessageComposerButtons, MessageComposer, UserProfileCard, UserInfoBasicOptionsView, ExtrasApi, podaChatPolicy: 9 files, 113 tests passed; tsc clean; stylelint clean; pnpm i18n left en_EN.json unchanged",
+        "module": "8 files, 68 tests passed; tsc clean",
+        "static": "oxfmt and oxlint clean on every changed file"
+    },
+    "legs": {
+        "P1": "Composer buttons Emoji, Attach or share, Voice Message; the Attach or share menu listed Attachment and Share to chat (plus-menu-and-own-bubble-links.png).",
+        "P2": "Mira opened Poda Profile from Extensions: no 'Widget added by' or Continue, iframe /widgets/poda-profile/index.html with widgetId, content 'Mira Chen …' (own-widget-without-prompt.png). Lookalike Profile: panel 'Widget added by Demo Creator … Using this widget may share data with 127.0.0.1:20002 … Continue' and no 20002 frame.",
+        "P3": "Console listener for 'unknown widget ID', 'Improper sequence' and 'Poda profile widget' captured nothing across two widget loads at the head.",
+        "P4": "View profile from Demo's profile card: heading 'Creator profile' (creator-profile-title.png); Back: 'Profile'.",
+        "P5": "Threads tooltip background rgb(250, 217, 144) with text rgb(51, 34, 22) (about 10:1); links rgb(116, 55, 25) underlined on others' bubble rgb(247, 241, 235) and own bubble rgb(255, 235, 199) (about 7–8:1); Introducing Sections description and Ok text rgb(51, 34, 22) on rgb(249, 186, 81) (about 8:1) (tooltip-and-links.png, sections-announcement.png). Before: tooltip text rgb(51, 34, 22) on rgba(2, 4, 8, 0.9); links rgb(249, 186, 81) on rgb(255, 235, 199); description rgb(205, 211, 218) on rgb(249, 186, 81).",
+        "P6": "The episode wizard showed 'Title and season'; with a title and the default season 1 and no episode number the item read 'In place' and carried pnRailItem--done.",
+        "P7": "Three passes of create podcast → Studio → Episodes → New episode with 150 ms between routes: 'Picker check 1/2/3' listed each time (3, 4, 5 options), one #epPodcast each time."
+    },
+    "notes": [
+        "P2, P4, P5 (announcement) and P7 were observed on a build from the worktree before the commit; the commit then changed only UploadButton.tsx formatting and widget.js's copyright header and a void operator. P1, P2, P3 and P5 (tooltip, links) were re-observed at the head build.",
+        "The AppearanceUserSettingsTab snapshot test fails identically on internal/main cb99f7b34a (G-000036).",
+        "Fixture passwords are local to the workbench homeserver and not retained."
+    ],
+    "screenshots": [
+        "plus-menu-and-own-bubble-links.png",
+        "tooltip-and-links.png",
+        "sections-announcement.png",
+        "creator-profile-title.png",
+        "own-widget-without-prompt.png"
+    ]
+}

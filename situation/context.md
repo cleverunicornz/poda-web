@@ -327,6 +327,21 @@ under [O-000025](situation/oracles/O-000025-share-cards.md) (active
 [PLAN-000013](situation/plans/active/PLAN-000013-share-cards.md)). G-000034
 (items cannot be opened yet) and G-000035 (the paperclip trigger) stay open.
 
+## "+" menu and polish
+
+[D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) opens the
+composer's upload menu from a "+" ("Attach or share"), loads Poda's own profile
+widget without the approval prompt, fixes its handshake, titles the module card
+"Creator profile", makes tooltips, message links and the Sections announcement
+readable, bases the episode readiness item on the season, and guards Studio
+routes against stale renders.
+[P-000026](situation/promises/P-000026-plus-menu-and-polish.md) is assured by
+[W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md)
+under [O-000026](situation/oracles/O-000026-plus-menu-and-polish.md) (active
+[PLAN-000014](situation/plans/active/PLAN-000014-plus-menu-and-polish.md));
+G-000019, G-000024, G-000026, G-000029–G-000032 and G-000035 are closed;
+G-000036 records a pre-existing failing snapshot.
+
 ## Closure state
 
 - Current run: none
