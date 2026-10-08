@@ -309,7 +309,7 @@ function episodeCard(ep) {
               row("  sources", (e.sources ?? []).map((s) => s.uri).join(" | "))
             : "";
     return `<details class="podaStudio_ep"><summary>
-        ${esc(ep.title)} <span class="meta">S${ep.seasonNumber ?? "?"}E${ep.episodeNumber ?? "?"} · ${esc(ep.status ?? "?")}${ep.scheduledAt ? ` · scheduled ${esc(fmtDate(ep.scheduledAt))}` : ""}${ep.publishedAt ? ` · ${esc(fmtDate(ep.publishedAt))}` : ""}</span>
+        ${esc(ep.title)} <span class="meta">${[episodeNumberLabel(ep.seasonNumber, ep.episodeNumber), esc(ep.status ?? "?")].filter(Boolean).join(" · ")}${ep.scheduledAt ? ` · scheduled ${esc(fmtDate(ep.scheduledAt))}` : ""}${ep.publishedAt ? ` · ${esc(fmtDate(ep.publishedAt))}` : ""}</span>
     </summary><div class="podaStudio_epBody">
         ${row("description", ep.description, { mono: false })}
         ${row("showNotesHtml", ep.showNotesHtml)}
@@ -338,6 +338,14 @@ function episodeCard(ep) {
         ${row("currentness", `canonical ${fmtDate(ep.currentness?.canonicalAt) ?? "—"} · fresh ${fmtDate(ep.currentness?.activityFreshnessAt) ?? "—"}`, { mono: false })}
         ${row("created / updated", `${fmtDate(ep.createdAt) ?? "—"} / ${fmtDate(ep.updatedAt) ?? "—"}`, { mono: false })}
     </div></details>`;
+}
+
+/**
+ * "S3E1", "E1", "S3", or "" when neither number is set (G-000025).
+ */
+export function episodeNumberLabel(seasonNumber, episodeNumber) {
+    const has = (n) => n !== null && n !== undefined && n !== "";
+    return `${has(seasonNumber) ? `S${seasonNumber}` : ""}${has(episodeNumber) ? `E${episodeNumber}` : ""}`;
 }
 
 export function renderStudioView(container, { podcast, episodes, hostLabel }) {
@@ -383,7 +391,7 @@ export function renderEpisodeDetailView(container, episode) {
             <div class="podaStudio_cover" aria-hidden="true">EP</div>
             <div style="min-width:0">
                 <h2 class="podaStudio_title">${esc(episode.title)}</h2>
-                <p class="podaStudio_tagline">S${episode.seasonNumber ?? "?"}E${episode.episodeNumber ?? "?"} · ${esc(episode.status ?? "?")}</p>
+                <p class="podaStudio_tagline">${[episodeNumberLabel(episode.seasonNumber, episode.episodeNumber), esc(episode.status ?? "?")].filter(Boolean).join(" · ")}</p>
             </div>
         </div>
         <section class="podaStudio_section"><h3>Episode inventory</h3><div data-episode-detail></div></section>

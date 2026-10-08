@@ -1,0 +1,30 @@
+{
+    "head": "9e5079fc81",
+    "observed": "2026-10-07",
+    "environment": {
+        "build": "Poda web build of internal/main efe71e6fe6 (apps/ and packages/ unchanged on this branch) with the poda-profile-spike bundle built from 9e5079fc81 (served index.js md5 7a1639bd56e6d87d765631c0d340f214 equals the built lib/index.js)",
+        "homeserver": "matrixdotorg/synapse:latest in Docker, server_name localhost",
+        "browser": "HeadlessChrome/154.0.0.0 at 1440x900",
+        "session": "@mira:localhost"
+    },
+    "tests": {
+        "command": "pnpm exec vitest run (modules/poda-profile-spike)",
+        "result": "4 files, 35 tests passed; tsc --noEmit clean; vite build clean; oxlint 0 errors in changed files (6 pre-existing errors in untouched files, G-000014)"
+    },
+    "legs": {
+        "P1": "Podcast wizard: guidance and 'Some sections still empty' present; none of 'should feel like', 'vibe', 'Ready to publish'. Episode draft bar: 'Session-only draft Nothing is saved until you create the episode; leaving or reloading discards it.'; after selecting Scheduled the hero note read 'Publish at a later date.'. Profile banner: 'Welcome to your profile! Use Edit profile to fill in your details. …'.",
+        "P2": "Empty podcast submit: errors title, slug, categories, ownerEmail; after typing a title: slug, categories, ownerEmail; after the rest: none and banner hidden. Empty scheduled episode submit with season emptied: errors epTitle, epSeason, scheduledAt; after the title: epSeason, scheduledAt; after season, number and schedule: none and banner hidden.",
+        "P3": "Podcast detail actions 'Back to podcasts', 'New episode'; New episode opened ?new=episode&podcast=<id> with 'Season Show (draft)' selected. Episode detail actions 'Back to episodes', 'Open podcast'; Open podcast returned to the created podcast listing 'Pilot S1E3 · scheduled …'; Back to podcasts reached the Studio list; Back to episodes reached the Episodes list.",
+        "P4": "Season field label 'Season number *' with initial value 1; an emptied season was rejected ('Season number is required.' observed in the earlier run of the same build path); the created episode showed 'S1E3 · scheduled'.",
+        "P5": "The License placeholder computed rgba(99, 61, 29, 0.55) against entered text rgb(59, 37, 17)."
+    },
+    "screenshots": [
+        "podcast-error-clears-on-edit.png",
+        "podcast-detail-actions.png",
+        "episode-wizard-scheduled-session-only.png",
+        "episode-detail-actions-label.png"
+    ],
+    "notes": [
+        "podcast-error-clears-on-edit.png, podcast-detail-actions.png and episode-wizard-scheduled-session-only.png were taken at 0c85c60c61; 9e5079fc81 changes only the episode season field and validation, and every leg was re-observed at 9e5079fc81. episode-detail-actions-label.png is from 9e5079fc81."
+    ]
+}

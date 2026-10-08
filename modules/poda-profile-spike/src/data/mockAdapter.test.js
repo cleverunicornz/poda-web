@@ -98,7 +98,7 @@ describe("validatePodcastDraft", () => {
 });
 
 describe("validateEpisodeDraft", () => {
-    const baseEpisode = { podcastId: "pod-field-notes", title: "Pilot", status: "draft" };
+    const baseEpisode = { podcastId: "pod-field-notes", title: "Pilot", seasonNumber: 1, status: "draft" };
 
     it("passes a minimal valid draft", () => {
         expect(validateEpisodeDraft(baseEpisode)).toEqual({});
@@ -121,6 +121,16 @@ describe("validateEpisodeDraft", () => {
         expect(errors.scheduledAt).toBeTruthy();
         expect(errors.duration).toBeTruthy();
         expect(errors.episodeNumber).toBeTruthy();
+    });
+
+    it("requires a season of 1 or more", () => {
+        const { seasonNumber, ...withoutSeason } = baseEpisode;
+        expect(seasonNumber).toBe(1);
+        expect(validateEpisodeDraft(withoutSeason).seasonNumber).toBe("Season number is required.");
+        expect(validateEpisodeDraft({ ...baseEpisode, seasonNumber: null }).seasonNumber).toBeTruthy();
+        expect(validateEpisodeDraft({ ...baseEpisode, seasonNumber: 0 }).seasonNumber).toBeTruthy();
+        expect(validateEpisodeDraft({ ...baseEpisode, seasonNumber: 1.5 }).seasonNumber).toBeTruthy();
+        expect(validateEpisodeDraft({ ...baseEpisode, seasonNumber: 2 })).toEqual({});
     });
 
     it("rejects non-http enclosure urls and bad slugs", () => {

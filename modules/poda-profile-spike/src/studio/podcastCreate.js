@@ -10,7 +10,16 @@ Please see LICENSE files in the repository root for full details.
 // and blue info notes, category checkbox grid (1-3), dashed cover upload, and
 // the sticky Podcast Pulse readiness rail. Validation contract unchanged.
 import { APPLE_CATEGORIES } from "../data/appleCategories.js";
-import { NATIVE_STYLES, esc, formText, icon, noteHtml, railItem, progressHtml } from "../shared/nativeTheme.js";
+import {
+    NATIVE_STYLES,
+    clearFieldErrorOnEdit,
+    esc,
+    formText,
+    icon,
+    noteHtml,
+    railItem,
+    progressHtml,
+} from "../shared/nativeTheme.js";
 
 const CREATE_STYLES = `
 .pnCoverPreview { margin-top: 12px; width: 120px; height: 120px; border-radius: 12px; border: 1px solid hsl(var(--pn-border)); object-fit: cover; display: none; }
@@ -83,7 +92,7 @@ function pulsePanelHtml(readinessState) {
                     `<li>${ok ? icon("checkCircle") : '<span class="pnDot"></span>'}<span>${esc(label)}</span></li>`,
             )
             .join("")}</ul>
-        <div style="margin-top:12px">${noteHtml("The wizard should feel like the profile flow: guided, bold, and alive.")}</div>
+        <div style="margin-top:12px">${noteHtml("Fill in each section below; the checklist shows what is still missing. Creating saves a session-only draft.")}</div>
     </div>`;
 }
 
@@ -98,7 +107,7 @@ function railHtml(readinessState) {
                 <div class="pnRailReadiness_head"><span>Readiness</span><b data-rail-pct>${readinessState.percent}%</b></div>
                 ${progressHtml(readinessState.percent)}
                 <span class="pnRailStatus${readinessState.ready ? " pnRailStatus--ready" : ""}" data-rail-status>
-                    ${icon(readinessState.ready ? "checkCircle" : "sparkles")} ${readinessState.ready ? "Ready to publish" : "Still getting the vibe right"}
+                    ${icon(readinessState.ready ? "checkCircle" : "sparkles")} ${readinessState.ready ? "Ready to create" : "Some sections still empty"}
                 </span>
             </div>
             <div style="margin-top:16px" data-rail-list>
@@ -307,13 +316,15 @@ export function renderPodcastCreateView(container, { onSubmit, onCancel }) {
         container.querySelector(".pnRailReadiness .pnProgress_fill").style.width = `${state.percent}%`;
         const status = container.querySelector("[data-rail-status]");
         status.className = `pnRailStatus${state.ready ? " pnRailStatus--ready" : ""}`;
-        status.innerHTML = `${icon(state.ready ? "checkCircle" : "sparkles")} ${state.ready ? "Ready to publish" : "Still getting the vibe right"}`;
+        status.innerHTML = `${icon(state.ready ? "checkCircle" : "sparkles")} ${state.ready ? "Ready to create" : "Some sections still empty"}`;
         container.querySelector("[data-rail-list]").innerHTML = state.items
             .map(([label, ok]) => railItem(label, ok))
             .join("");
     }
 
+    const errorBanner = container.querySelector("#podaCreateError");
     form.addEventListener("input", (event) => {
+        clearFieldErrorOnEdit(form, event.target, errorBanner);
         const counter = event.target.id ? form.querySelector(`[data-counter-for="${event.target.id}"]`) : null;
         if (counter) {
             const max = counter.textContent.split("/")[1];
@@ -327,7 +338,10 @@ export function renderPodcastCreateView(container, { onSubmit, onCancel }) {
         }
         refreshPulse();
     });
-    form.addEventListener("change", refreshPulse);
+    form.addEventListener("change", (event) => {
+        clearFieldErrorOnEdit(form, event.target, errorBanner);
+        refreshPulse();
+    });
 
     // Category cap of 3 (native rule): disable unchecked boxes at the cap.
     const catBox = container.querySelector("#podaCreateCats");

@@ -309,7 +309,7 @@ export function renderFullProfileView(
                     ? `<div class="pnBannerWarm" data-welcome>
                 <div style="display:flex;gap:12px;align-items:flex-start"><span style="color:hsl(var(--pn-primary));display:inline-flex;margin-top:1px">${icon("sparkles")}</span>
                 <div><p class="pnBannerWarm_title">Welcome to your profile!</p>
-                <p class="pnBannerWarm_body">Click any text to edit it. Add topics so hosts can find you, and upload a headshot for credibility.</p></div></div>
+                <p class="pnBannerWarm_body">Use Edit profile to fill in your details. Add topics so hosts can find you, and upload a headshot for credibility.</p></div></div>
                 <button class="pnBtn pnBtn--ghost pnBtn--sm" type="button" data-welcome-dismiss aria-label="Dismiss">${icon("x")}</button>
             </div>`
                     : ""
