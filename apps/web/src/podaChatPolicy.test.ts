@@ -32,6 +32,8 @@ describe("podaChatPolicy", () => {
     it.each([
         [100, true],
         [150, true],
+        // Room creators in room versions with privileged creators.
+        [Infinity, true],
         [99, false],
         [50, false],
         [0, false],
