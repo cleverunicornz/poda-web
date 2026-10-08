@@ -302,6 +302,19 @@ under [O-000023](situation/oracles/O-000023-member-navigation-header.md)
 (active [PLAN-000011](situation/plans/active/PLAN-000011-remove-diagnostic-navigation.md));
 P-000015, P-000016 and P-000017 are superseded and G-000028 is closed.
 
+## Share cards
+
+[D-000028](situation/decisions/D-000028-share-cards.md) adds **Share to chat**
+to the composer's upload menu: members post an episode, a podcast or their
+profile with a type of post, description and optional link, shown as a
+PCC-style card with View profile. Two Poda host extensions,
+`extras.openUserProfilePanel` and `extras.sendRoomMessage`, carry it.
+[P-000025](situation/promises/P-000025-share-cards.md) is assured by
+[W-000012](situation/witnesses/P-000025/W-000012-share-cards-local-pass.md)
+under [O-000025](situation/oracles/O-000025-share-cards.md) (active
+[PLAN-000013](situation/plans/active/PLAN-000013-share-cards.md)). G-000034
+(items cannot be opened yet) and G-000035 (the paperclip trigger) stay open.
+
 ## Closure state
 
 - Current run: none
