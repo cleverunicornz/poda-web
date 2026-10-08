@@ -284,6 +284,11 @@ required seasons and episode labels without "?", and lighter placeholders.
 under [O-000022](situation/oracles/O-000022-creation-flow-fixes.md) (active
 [PLAN-000010](situation/plans/active/PLAN-000010-creation-flow-fixes.md));
 G-000021, G-000022, G-000023 and G-000025 are closed.
+The form error banner stayed visible after its last error was corrected
+([G-000033](situation/gaps/G-000033-error-banner-shown-when-hidden.md),
+failing [W-000010](situation/witnesses/P-000022/W-000010-error-banner-visible-fail.md));
+after the fix [W-000011](situation/witnesses/P-000022/W-000011-creation-flow-fixes-rerun-pass.md)
+passes O-000022 again.
 
 ## Diagnostic link removal
 

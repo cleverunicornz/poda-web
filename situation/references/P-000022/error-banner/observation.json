@@ -1,0 +1,36 @@
+{
+    "fail": {
+        "witness": "W-000010",
+        "head": "4778887e67",
+        "observed": "2026-10-08",
+        "provenance": "poda-profile-spike bundle built from 4778887e67 (internal/share-cards); its src/shared and src/studio files are identical to internal/main c573129238. Web app build of internal/main apps/web.",
+        "leg": "P2",
+        "observation": "Podcast wizard: empty submit showed title, slug, categories and owner email errors and the banner. After correcting all four, no .pnFieldError had text and no element had aria-invalid; #podaCreateError.hidden was true, computed display flex, Playwright isVisible true.",
+        "screenshot": "banner-visible-without-errors.png"
+    },
+    "pass": {
+        "witness": "W-000011",
+        "head": "1e3a268248",
+        "observed": "2026-10-08",
+        "environment": {
+            "web": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false; apps/web identical to internal/main; served bundle directory 82f0f44fdaf024aaca55",
+            "module": "poda-profile-spike lib/index.js sha256 a41f03c2d703e263f385cefee18dbc9dd219f93d774851e1a328be44eff43530, built from 1e3a268248 and served",
+            "homeserver": "matrixdotorg/synapse 1.162.0, server_name localhost",
+            "browser": "Headless Chromium via the workbench Playwright tools, cache disabled, page reloaded before the run",
+            "session": "@mira:localhost"
+        },
+        "tests": "module vitest: 5 files, 36 tests passed (copy, routes, podcastFullView, mockAdapter, nativeTheme); tsc --noEmit clean; vite build; oxfmt and oxlint clean on src/shared",
+        "legs": {
+            "P1": "Podcast wizard showed the guidance 'Fill in each section below; the checklist shows what is still missing.' and 'Some sections still empty'; the episode wizard showed 'Session-only draft' with 'Nothing is saved until you create the episode; leaving or reloading discards it.'; selecting Scheduled set the hero note to 'Publish at a later date.'; the own profile showed 'Use Edit profile to fill in your details.'",
+            "P2": "Podcast: empty submit gave title, slug, categories and owner email errors with the banner visible; filling the title cleared only its error (banner still visible); after all four were corrected no error remained and the banner had hidden=true, computed display none, not visible (banner-hidden-after-fix.png). Episode: empty scheduled submit with the season emptied gave title, season and scheduled-date errors with the banner; filling the title cleared only its error; a second empty submit (podcast and title errors) followed by correcting both left no error and the banner hidden=true, display none, not visible.",
+            "P3": "Creating the podcast reached its detail page with Back to podcasts and New episode; New episode opened the wizard with 'Banner Check Show (draft)' selected; the created episode's detail offered Back to episodes (reached Episodes) and Open podcast (reached the podcast detail); Back to podcasts reached Podcasts.",
+            "P4": "Season label 'Season number *', initial value 1; the emptied season was rejected inline with 'Season number is required.'; the created episode showed 'S2E4 · scheduled' and no '?' label.",
+            "P5": "Title placeholder colour rgba(99, 61, 29, 0.55) against entered-text colour rgb(59, 37, 17)."
+        },
+        "notes": [
+            "A notifications toast covered the Back to podcasts button in one attempt; it was dismissed and the action re-run.",
+            "The first attempt navigated by hash only and submitted a form still filled from the failing observation; the run was restarted after a full reload, which resets the session-only data."
+        ],
+        "screenshot": "banner-hidden-after-fix.png"
+    }
+}
