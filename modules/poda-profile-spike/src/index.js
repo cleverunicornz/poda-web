@@ -16,10 +16,11 @@ import { NATIVE_STYLES, esc, icon, formText } from "./shared/nativeTheme.js";
 import { renderStudioView } from "./shared/podcastFullView.js";
 import { podaData } from "./data/mockAdapter.js";
 import { APPLE_CATEGORIES } from "./data/appleCategories.js";
+import { STUDIO_LOCATION, detailActions, parseStudioRoute, studioRouteHash } from "./studio/routes.js";
 
 export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
 
-export const STUDIO_LOCATION = "io.poda.profile-spike.studio";
+export { STUDIO_LOCATION };
 
 function currentView() {
     const hash = window.location.hash;
@@ -426,30 +427,29 @@ const STUDIO_NAV_STYLES = `
 `;
 
 function studioRoute() {
-    const hash = window.location.hash;
-    const query = hash.includes("?") ? hash.slice(hash.indexOf("?") + 1) : "";
-    const params = new URLSearchParams(query);
-    if (params.get("new") === "podcast") return { view: "new-podcast" };
-    if (params.get("new") === "episode") return { view: "new-episode" };
-    if (params.get("podcast")) return { view: "detail", id: params.get("podcast") };
-    if (params.get("episode")) return { view: "episodeDetail", id: params.get("episode") };
-    if (params.get("section") === "episodes")
-        return { view: "episodes", filter: params.get("podcastFilter") || null, status: params.get("status") || null };
-    return { view: "list" };
+    return parseStudioRoute(window.location.hash);
 }
 
 function studioNavigate(route) {
-    const query = new URLSearchParams();
-    if (route.view === "new-podcast") query.set("new", "podcast");
-    if (route.view === "new-episode") query.set("new", "episode");
-    if (route.view === "detail") query.set("podcast", route.id);
-    if (route.view === "episodeDetail") query.set("episode", route.id);
-    if (route.view === "episodes") {
-        query.set("section", "episodes");
-        if (route.filter) query.set("podcastFilter", route.filter);
-        if (route.status) query.set("status", route.status);
-    }
-    window.location.hash = `/${STUDIO_LOCATION}${query.toString() ? `?${query.toString()}` : ""}`;
+    window.location.hash = studioRouteHash(route);
+}
+
+// Back/next-step buttons above a Studio detail page (G-000023).
+function detailActionsHost(actions) {
+    const host = document.createElement("div");
+    host.innerHTML = `<style>${NATIVE_STYLES}${STUDIO_NAV_STYLES}</style><nav class="podaNative podaStudioNav" aria-label="Studio navigation" style="display:flex;gap:8px;flex-wrap:wrap">
+        ${actions
+            .map(
+                (a) =>
+                    `<button class="pnBtn ${a.id === "back" ? "pnBtn--ghost" : "pnBtn--outline"} pnBtn--sm" type="button" data-action="${esc(a.id)}">${icon(a.id === "back" ? "arrowLeft" : a.id === "new-episode" ? "plus" : "arrowRight")} ${esc(a.label)}</button>`,
+            )
+            .join("")}
+    </nav>`;
+    host.querySelectorAll("[data-action]").forEach((b) => {
+        const action = actions.find((a) => a.id === b.dataset.action);
+        b.addEventListener("click", () => studioNavigate(action.to));
+    });
+    return host;
 }
 
 function studioNavHost(active) {
@@ -513,6 +513,7 @@ function StudioPage() {
                 const podcasts = await podaData.listPodcasts();
                 renderEpisodeCreateView(contentHost, {
                     podcasts,
+                    initialPodcastId: route.podcastId,
                     onSubmit: async (draft) => {
                         const created = await podaData.saveEpisode(draft);
                         studioNavigate({ view: "episodeDetail", id: created.id });
@@ -528,6 +529,8 @@ function StudioPage() {
                     return;
                 }
                 const episodes = await podaData.listEpisodes(route.id);
+                if (contentHost.parentNode !== ref.current) return; // superseded by a newer route
+                ref.current.insertBefore(detailActionsHost(detailActions(route)), contentHost);
                 renderStudioView(contentHost, { podcast, episodes, hostLabel: "module (app page)" });
                 return;
             }
@@ -538,6 +541,11 @@ function StudioPage() {
                     return;
                 }
                 const { renderEpisodeDetailView } = await import("./shared/podcastFullView.js");
+                if (contentHost.parentNode !== ref.current) return; // superseded by a newer route
+                ref.current.insertBefore(
+                    detailActionsHost(detailActions(route, { podcastId: episode.podcastId })),
+                    contentHost,
+                );
                 renderEpisodeDetailView(contentHost, episode);
                 return;
             }
