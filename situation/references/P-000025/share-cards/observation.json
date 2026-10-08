@@ -1,0 +1,32 @@
+{
+    "head": "01cc142622",
+    "observed": "2026-10-08",
+    "environment": {
+        "web": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false from 01cc142622, served bundle directory eb976249299a3645b893 (contains sendRoomMessage); module API package rebuilt from the head first",
+        "module": "poda-profile-spike lib/index.js sha256 c40003b42f2134742002e07380e0c25238caccc36fb5f2f3cacad8f021b960c3, built from 01cc142622 and served (built and served digests equal)",
+        "source_identity": "SHA-256 of ExtrasApi.ts, ExtrasApi.test.ts, extras.ts, index.js and src/share/*.js on the workbench equal the committed files",
+        "homeserver": "matrixdotorg/synapse 1.162.0, server_name localhost, room version 12",
+        "browser": "Headless Chromium via the workbench Playwright tools at 1440x900, cache disabled",
+        "room": "Producers (invite only) !N8opTQy2VqLqfXmKd4-CNheSIvXsESz0g7gEEFwRdZQ with @mira:localhost (sender) and @demo:localhost"
+    },
+    "tests": {
+        "module": "pnpm exec vitest run in modules/poda-profile-spike: 6 files, 58 tests passed; tsc --noEmit clean; vite build",
+        "host": "apps/web vitest ExtrasApi.test.ts, UserProfileCard.test.tsx, UserInfoBasicOptionsView.test.tsx, RightPanelStore.test.ts, MessageComposerButtons.test.tsx: 5 files, 66 tests passed; tsc --noEmit clean for apps/web and packages/module-api",
+        "static": "oxfmt clean and oxlint 0 errors on the changed files; generated API report matches element-web-module-api.api.md apart from line endings"
+    },
+    "legs": {
+        "P1": "Mira's composer upload menu listed Attachment and Share to chat. The dialog 'Share to chat' offered An episode / A podcast / My profile; episodes 'Systems that do not collapse — Field Notes' and 'Research loops with agents (working title) — Field Notes'; episode types New episode, Coming soon, Looking for guests; podcast types Launch, Looking for guests, Looking for a co-host, Collab, Podcast swap; profile types Available as a guest, Looking for collaborators, Introduction (no item picker for the profile). The preview showed Field Notes, Podcast swap, the tagline, 'Jordan Hale · 2 episodes', Technology, Business, the description, View profile and Book a call.",
+        "P2": "Empty submit: 'Choose what to share.' and 'Choose the type of post.' with the banner visible. Link 'javascript:alert(1)': 'Enter a full link starting with https://.'. After entering https://calendly.com/mira-chen/podcast-swap no error remained and the banner was not visible.",
+        "P3": "Homeserver events $LwPGjUQn_JHvXYZc3Pe5hEr7YfC9FM6aqLKIfpthYdg (body 'Mira Chen shared a podcast: Field Notes (Podcast swap)' + description + 'Book a call: https://calendly.com/mira-chen/podcast-swap'; snapshot kind podcast, postType podcast-swap, item pod-field-notes, link) and $b-kE8C_8NhXwSkGHpUU4daUoqXYu9hBaV4xhBi6nnLw (episode, looking-for-guests, item ep-systems-collapse, meta 'S3E42 · published', link null), both m.room.message with msgtype io.poda.share.",
+        "P4": "Mira's and Demo's timelines showed 'Podcast swap: Field Notes' with View profile and Book a call (href https://calendly.com/mira-chen/podcast-swap, target _blank, rel 'noopener noreferrer nofollow') and 'Looking for guests: Systems that do not collapse' with View profile only; Demo's profile card 'Available as a guest: Demo Creator' with Book a time. Mira's action bar on her card: React, Reply, Reply in thread, Options; Options: Forward, Share, Remove (no Edit).",
+        "P5": "As Demo, View profile on Mira's podcast card opened the right panel 'Profile' card for Mira Chen (creator profile sections); Back showed Mira's user info (View profile, Send message, …).",
+        "P6": "Demo sent $xZozjSaK6Y_xs5Vaxv6A3sZCHU3kIdC6NmaC_IFwXEg with an <img onerror> title, <b> subtitle, <script> topic, an <a href='javascript:…'> description and a javascript: link: the card showed all of it as literal text, had no link element, and the page title stayed 'Poda | Producers (invite only)'. $qeE60utrkhWggGovjIo6I2GmNTGg8YoHh9fhpHuscTc (snapshot version 2) showed its body 'Demo shared something (malformed test: version 2)' and no card."
+    },
+    "notes": [
+        "upload-menu-share-to-chat.png was taken at 4778887e67 and share-dialog-podcast-swap.png before the send change was committed; the menu entry and dialog code are unchanged at 01cc142622 and P1/P2 were re-observed there.",
+        "An earlier attempt at 4778887e67 posted nothing: getRoom returns a read-only room summary without a client (TypeError reading sendMessage). 01cc142622 sends through extras.sendRoomMessage.",
+        "The dialog first overflowed the dialog width at 1280x657; 01cc142622 fits it (dialog content scrollWidth 704 = clientWidth 704 at 1440x900).",
+        "Fixture account passwords are local to the workbench homeserver and not retained."
+    ],
+    "screenshots": ["upload-menu-share-to-chat.png", "share-dialog-podcast-swap.png", "cards-in-timeline.png", "view-profile-and-untrusted-content.png", "profile-card-and-back-to-user-info.png"]
+}

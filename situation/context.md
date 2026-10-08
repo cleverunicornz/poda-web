@@ -314,6 +314,19 @@ under [O-000024](situation/oracles/O-000024-poda-chat-controls-admin-polls.md)
 (active [PLAN-000012](situation/plans/active/PLAN-000012-admin-only-polls.md));
 G-000027 is closed.
 
+## Share cards
+
+[D-000028](situation/decisions/D-000028-share-cards.md) adds **Share to chat**
+to the composer's upload menu: members post an episode, a podcast or their
+profile with a type of post, description and optional link, shown as a
+PCC-style card with View profile. Two Poda host extensions,
+`extras.openUserProfilePanel` and `extras.sendRoomMessage`, carry it.
+[P-000025](situation/promises/P-000025-share-cards.md) is assured by
+[W-000012](situation/witnesses/P-000025/W-000012-share-cards-local-pass.md)
+under [O-000025](situation/oracles/O-000025-share-cards.md) (active
+[PLAN-000013](situation/plans/active/PLAN-000013-share-cards.md)). G-000034
+(items cannot be opened yet) and G-000035 (the paperclip trigger) stay open.
+
 ## Closure state
 
 - Current run: none

@@ -238,6 +238,12 @@ originalComponent: (props: P) => JSX.Element) => JSX.Element;
 export interface ExtrasApi {
     addRoomHeaderButtonCallback(cb: RoomHeaderButtonsCallback): void;
     getVisibleRoomBySpaceKey(spaceKey: string, cb: () => string[]): void;
+    openUserProfilePanel(userId: string): void;
+    sendRoomMessage(roomId: string, content: {
+        msgtype: string;
+        body: string;
+        [key: string]: unknown;
+    }): Promise<string>;
     setSpacePanelItem(spaceKey: string, props: SpacePanelItemProps): void;
     setUserProfilePanel(renderer: UserProfilePanelRenderFunction): void;
 }
