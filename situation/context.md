@@ -302,6 +302,18 @@ under [O-000023](situation/oracles/O-000023-member-navigation-header.md)
 (active [PLAN-000011](situation/plans/active/PLAN-000011-remove-diagnostic-navigation.md));
 P-000015, P-000016 and P-000017 are superseded and G-000028 is closed.
 
+## Admin-only polls
+
+[D-000027](situation/decisions/D-000027-admin-only-polls-everywhere.md) offers
+the poll control only to room admins in every room, including rooms whose power
+levels let members start polls; room power levels are unchanged.
+[P-000024](situation/promises/P-000024-poda-chat-controls-admin-polls.md)
+supersedes P-000020 and is assured by
+[W-000009](situation/witnesses/P-000024/W-000009-chat-controls-admin-polls-local-pass.md)
+under [O-000024](situation/oracles/O-000024-poda-chat-controls-admin-polls.md)
+(active [PLAN-000012](situation/plans/active/PLAN-000012-admin-only-polls.md));
+G-000027 is closed.
+
 ## Share cards
 
 [D-000028](situation/decisions/D-000028-share-cards.md) adds **Share to chat**

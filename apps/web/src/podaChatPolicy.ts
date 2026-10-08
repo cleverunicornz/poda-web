@@ -20,8 +20,8 @@ export function isPodaPrivateConversation(state: Pick<RoomState, "getJoinRule">)
 }
 
 /**
- * Power level required to start a poll in rooms created from Poda: room admins only. The homeserver enforces it; the
- * composer only offers polls to members whose power level allows them.
+ * Power level required to start a poll in rooms created from Poda: room admins only. The homeserver enforces it in
+ * those rooms; the composer offers polls only to room admins in every room (D-000027).
  */
 export const PODA_POLL_START_POWER_LEVEL = 100;
 
@@ -29,3 +29,11 @@ export const PODA_POLL_START_EVENT_POWER_LEVELS: Record<string, number> = {
     [M_POLL_START.name]: PODA_POLL_START_POWER_LEVEL,
     [M_POLL_START.altName]: PODA_POLL_START_POWER_LEVEL,
 };
+
+/**
+ * Whether the user is an admin of the room: Poda offers the poll control only to them, also in rooms whose power
+ * levels would let other members start polls (D-000027).
+ */
+export function isPodaRoomAdmin(state: Pick<RoomState, "getMember">, userId: string): boolean {
+    return (state.getMember(userId)?.powerLevel ?? 0) >= PODA_POLL_START_POWER_LEVEL;
+}

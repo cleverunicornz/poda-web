@@ -56,11 +56,16 @@ describe("MessageComposerButtons", () => {
     function wrapAndRender(
         component: React.ReactElement,
         narrow: boolean,
-        { joinRule = JoinRule.Invite, mayStartPoll = true }: { joinRule?: JoinRule; mayStartPoll?: boolean } = {},
+        {
+            joinRule = JoinRule.Invite,
+            mayStartPoll = true,
+            powerLevel = 100,
+        }: { joinRule?: JoinRule; mayStartPoll?: boolean; powerLevel?: number } = {},
     ) {
         const mockRoom = mkStubRoom("myfakeroom", "myfakeroom", mockClient) as any;
         mockRoom.currentState.getJoinRule.mockReturnValue(joinRule);
         mockRoom.currentState.maySendEvent.mockReturnValue(mayStartPoll);
+        mockRoom.currentState.getMember.mockReturnValue({ powerLevel });
         const defaultRoomContext: RoomContextType = getRoomContext(mockRoom, { narrow });
 
         return render(
@@ -239,6 +244,26 @@ describe("MessageComposerButtons", () => {
 
         it("hides the poll button in narrow mode from members who may not start polls", () => {
             wrapAndRender(allButtons, true, { mayStartPoll: false });
+
+            expect(getButtonLabels()).toEqual(["Emoji", "More options", ["Attachment", "Sticker", "Location"]]);
+        });
+
+        it("hides the poll button from non-admins even where the room lets them start polls (D-000027)", async () => {
+            wrapAndRender(allButtons, false, { mayStartPoll: true, powerLevel: 50 });
+
+            await waitFor(() => {
+                expect(getButtonLabels()).toEqual([
+                    "Emoji",
+                    "Attachment",
+                    "Voice Message",
+                    "More options",
+                    ["Sticker", "Location"],
+                ]);
+            });
+        });
+
+        it("hides the poll button in narrow mode from non-admins (D-000027)", () => {
+            wrapAndRender(allButtons, true, { mayStartPoll: true, powerLevel: 0 });
 
             expect(getButtonLabels()).toEqual(["Emoji", "More options", ["Attachment", "Sticker", "Location"]]);
         });

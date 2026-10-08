@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -31,4 +31,11 @@ updated by an admin or by provisioning.
 
 ## Resolution
 
-none
+Closed: [D-000027](situation/decisions/D-000027-admin-only-polls-everywhere.md)
+selects how existing and provisioned rooms adopt the rule in Poda: the composer
+offers Poll only to room admins in every room, and room power levels are left
+unchanged. [P-000024](situation/promises/P-000024-poda-chat-controls-admin-polls.md)
+passed [O-000024](situation/oracles/O-000024-poda-chat-controls-admin-polls.md)
+on [W-000009](situation/witnesses/P-000024/W-000009-chat-controls-admin-polls-local-pass.md)
+at `f90c994814`. Other Matrix clients can still start polls in rooms whose
+power levels allow members to (P-000024 Residual).
