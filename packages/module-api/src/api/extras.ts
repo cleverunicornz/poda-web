@@ -127,4 +127,14 @@ export interface ExtrasApi {
      * @param renderer - Renders the profile content for a user.
      */
     setUserProfilePanel(renderer: UserProfilePanelRenderFunction): void;
+
+    /**
+     * Opens a user's profile in the right panel of the room being viewed, with the user's info card behind it so back
+     * returns there. Does nothing while no profile renderer is set (see {@link ExtrasApi.setUserProfilePanel}).
+     *
+     * Poda host extension (D-000028): not part of upstream Element's module API.
+     *
+     * @param userId - The Matrix ID of the user whose profile to show.
+     */
+    openUserProfilePanel(userId: string): void;
 }

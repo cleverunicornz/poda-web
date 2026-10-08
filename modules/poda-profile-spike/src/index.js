@@ -17,6 +17,8 @@ import { renderStudioView } from "./shared/podcastFullView.js";
 import { podaData } from "./data/mockAdapter.js";
 import { APPLE_CATEGORIES } from "./data/appleCategories.js";
 import { STUDIO_LOCATION, detailActions, parseStudioRoute, studioRouteHash } from "./studio/routes.js";
+import { SHARE_MSGTYPE, itemSnapshot, parseShareContent } from "./share/shareModel.js";
+import { ensureShareStyles, renderShareForm, shareCardHtml } from "./share/shareCard.js";
 
 export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
 
@@ -576,6 +578,101 @@ function StudioPage() {
     return React.createElement("div", { ref });
 }
 
+// ---------- share cards (D-000028) ----------
+
+const SHARE_ICON_PATH =
+    '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>';
+
+function ShareIcon(props) {
+    return window.React.createElement("svg", {
+        ...props,
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: 2,
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        dangerouslySetInnerHTML: { __html: SHARE_ICON_PATH },
+    });
+}
+
+/** The member's own items as share options, from the module's data adapter. */
+async function shareSources(api) {
+    const [podcasts, episodes, own] = await Promise.all([
+        podaData.listPodcasts(),
+        podaData.listEpisodes(),
+        podaData.getMyProfile(),
+    ]);
+    const profile = resolveOwnProfile(api, own);
+    return {
+        sharerName: profile.displayName,
+        sources: {
+            episode: episodes.map((episode) => {
+                const podcast = podcasts.find((p) => p.id === episode.podcastId) ?? null;
+                return {
+                    value: episode.id,
+                    label: podcast ? `${episode.title} — ${podcast.title}` : episode.title,
+                    item: itemSnapshot("episode", episode, { podcast }),
+                };
+            }),
+            podcast: podcasts.map((podcast) => ({
+                value: podcast.id,
+                label: podcast.title,
+                item: itemSnapshot("podcast", podcast, {
+                    episodeCount: episodes.filter((e) => e.podcastId === podcast.id).length,
+                }),
+            })),
+            profile: [{ value: "me", label: profile.displayName, item: itemSnapshot("profile", profile) }],
+            bookingUrl: profile.bookingUrl || profile.socialLinks?.calendly || "",
+        },
+    };
+}
+
+function ShareDialogBody({ sources, sharerName, onSubmit, onCancel }) {
+    const React = window.React;
+    const ref = React.useRef(null);
+    React.useEffect(() => {
+        if (!ref.current) return;
+        ensureShareStyles();
+        renderShareForm(ref.current, { sources, sharerName, onPost: onSubmit, onCancel });
+    }, [sources, sharerName, onSubmit, onCancel]);
+    return React.createElement("div", { ref });
+}
+
+async function openShareDialog(api, roomId) {
+    const room = roomId ? api.client.getRoom(roomId) : null;
+    if (!room) return;
+    const { sources, sharerName } = await shareSources(api);
+    const { ok, model } = await api.openDialog({ title: "Share to chat" }, ShareDialogBody, { sources, sharerName })
+        .finished;
+    if (!ok || !model) return;
+    await room.client.sendMessage(roomId, model);
+}
+
+function openSharerProfile(api, userId) {
+    if (api.extras.openUserProfilePanel) api.extras.openUserProfilePanel(userId);
+    else void api.navigation.toMatrixToLink(`https://matrix.to/#/${encodeURIComponent(userId)}`);
+}
+
+function isShareEvent(mxEvent) {
+    return mxEvent.type === "m.room.message" && parseShareContent(mxEvent.content) !== null;
+}
+
+function ShareCardTile({ api, mxEvent }) {
+    const React = window.React;
+    const ref = React.useRef(null);
+    React.useEffect(() => {
+        const model = parseShareContent(mxEvent.content);
+        if (!ref.current || !model) return;
+        ensureShareStyles();
+        ref.current.innerHTML = `<div class="podaNative" style="background:transparent">${shareCardHtml(model)}</div>`;
+        ref.current
+            .querySelector('[data-share-action="profile"]')
+            ?.addEventListener("click", () => openSharerProfile(api, mxEvent.sender));
+    }, [api, mxEvent.eventId, mxEvent.sender, mxEvent.content]);
+    return React.createElement("div", { ref, className: "podaShareTile" });
+}
+
 export default class PodaProfileSpikeModule {
     static moduleApiVersion = "^1.0.0 || ^2.0.0";
 
@@ -591,6 +688,18 @@ export default class PodaProfileSpikeModule {
         // Poda host extension (D-000024); absent on hosts without it.
         this.api.extras.setUserProfilePanel?.(({ userId, displayName }) =>
             React.createElement(ProfilePanel, { api, userId, displayName }),
+        );
+        // Share cards (D-000028): a "Share to chat" entry in the composer's upload menu, and the card in the timeline.
+        this.api.composer.addFileUploadOption({
+            type: SHARE_MSGTYPE,
+            label: "Share to chat",
+            icon: ShareIcon,
+            onSelected: (roomId) => openShareDialog(api, roomId),
+        });
+        this.api.customComponents.registerMessageRenderer(
+            isShareEvent,
+            (props) => React.createElement(ShareCardTile, { api, mxEvent: props.mxEvent }),
+            { allowEditingEvent: false },
         );
     }
 }

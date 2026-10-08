@@ -13,9 +13,13 @@ import {
     type RoomHeaderButtonsCallback,
     type UserProfilePanelRenderFunction,
 } from "@element-hq/element-web-module-api";
-import { TypedEventEmitter } from "matrix-js-sdk/src/matrix";
+import { TypedEventEmitter, User } from "matrix-js-sdk/src/matrix";
 
 import { useTypedEventEmitter } from "../hooks/useEventEmitter";
+import { MatrixClientPeg } from "../MatrixClientPeg";
+import RightPanelStore from "../stores/right-panel/RightPanelStore";
+import { RightPanelPhases } from "../stores/right-panel/RightPanelStorePhases";
+import { SDKContextClass } from "../contexts/SDKContextClass";
 
 export interface ModuleSpacePanelItem extends SpacePanelItemProps {
     spaceKey: string;
@@ -55,6 +59,19 @@ export class ElementWebExtrasApi extends TypedEventEmitter<keyof EmittedEvents, 
     public setUserProfilePanel(renderer: UserProfilePanelRenderFunction): void {
         this.userProfilePanel = renderer;
         this.emit(ExtrasApiEvent.UserProfilePanelChanged);
+    }
+
+    // Poda host extension (D-000028): the same cards as user info → View profile, so back returns to user info.
+    public openUserProfilePanel(userId: string): void {
+        if (!this.userProfilePanel) return;
+        const client = MatrixClientPeg.get();
+        const roomId = SDKContextClass.instance.roomViewStore.getRoomId();
+        const member =
+            (roomId && client?.getRoom(roomId)?.getMember(userId)) || client?.getUser(userId) || new User(userId);
+        RightPanelStore.instance.setCards([
+            { phase: RightPanelPhases.MemberInfo, state: { member } },
+            { phase: RightPanelPhases.UserProfile, state: { member } },
+        ]);
     }
 }
 
