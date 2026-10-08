@@ -163,6 +163,8 @@ body[class*="cpd-theme-dark"] .podaNative {
 .pnError { display: flex; align-items: flex-start; gap: 8px; border-radius: 12px; border: 1px solid var(--pn-red-200);
     background: var(--pn-red-50); padding: 12px 16px; font-size: 14px; color: var(--pn-red-700); }
 .pnError svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--pn-red-600); }
+/* The banner's display: flex would otherwise override the hidden attribute (G-000033). */
+.pnError[hidden] { display: none; }
 
 /* ---------- forms ---------- */
 .pnField { display: flex; flex-direction: column; }
