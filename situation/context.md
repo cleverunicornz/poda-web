@@ -345,7 +345,8 @@ P-000025) are assured by
 and [W-000014](situation/witnesses/P-000027/W-000014-share-cards-create-post-local-pass.md)
 (active [PLAN-000014](situation/plans/active/PLAN-000014-plus-menu-and-polish.md));
 G-000019, G-000024, G-000026, G-000029–G-000032 and G-000035 are closed;
-G-000036 records a pre-existing failing snapshot.
+G-000036 records a pre-existing failing snapshot; G-000037 records that group calls
+await Element Call.
 
 ## Closure state
 
