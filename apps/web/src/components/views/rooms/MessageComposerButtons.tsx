@@ -19,7 +19,6 @@ import React, { type JSX, type ReactElement, type ReactNode, useContext } from "
 import {
     MicOnIcon,
     OverflowHorizontalIcon,
-    PlusIcon,
     PollsIcon,
     StickerIcon,
     TextFormattingIcon,
@@ -126,13 +125,7 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
             ) : (
                 emojiButton(props)
             ),
-            // Poda (D-000029): with more than file upload on offer (e.g. Share to chat) the menu opens from a "+".
-            <UploadButton
-                key="upload"
-                vm={roomUploadVM}
-                menuIcon={PlusIcon}
-                menuLabel={_t("composer|attach_or_share")}
-            />,
+            <UploadButton key="upload" vm={roomUploadVM} />,
             // Poda (D-000023): voice messages sit on the composer bar rather than in the overflow menu.
             isPrivateConversation ? voiceRecordingButton(props, narrow) : null,
         ];

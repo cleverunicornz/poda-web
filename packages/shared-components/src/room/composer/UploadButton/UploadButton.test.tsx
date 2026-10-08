@@ -12,8 +12,6 @@ import { userEvent } from "vitest/browser";
 import { fn } from "storybook/test";
 
 import * as stories from "./UploadButton.stories.tsx";
-import { UploadButton } from "./UploadButton";
-import { useMockedViewModel } from "../../../core/viewmodel";
 
 const { Default, WithOneOption } = composeStories(stories);
 
@@ -44,26 +42,5 @@ describe("UploadButton", () => {
         await userEvent.keyboard("[ControlLeft>]");
         await userEvent.click(getByRole("button", { name: "Attachment" }));
         expect(onUploadOptionSelected).toHaveBeenCalledWith("local");
-    });
-    it("can give the menu button its own label and icon", async () => {
-        const onUploadOptionSelected = fn();
-        const Plus = (): React.JSX.Element => <svg data-testid="plus-icon" />;
-        const Wrapper = (): React.JSX.Element => {
-            const vm = useMockedViewModel(
-                {
-                    options: [
-                        { type: "local", label: "Attachment" },
-                        { type: "share", label: "Share to chat" },
-                    ],
-                },
-                { onUploadOptionSelected },
-            );
-            return <UploadButton vm={vm} menuIcon={Plus} menuLabel="Attach or share" />;
-        };
-        const { getByRole, getByTestId } = render(<Wrapper />);
-        expect(getByTestId("plus-icon")).toBeInTheDocument();
-        await userEvent.click(getByRole("button", { name: "Attach or share" }));
-        await userEvent.click(screen.getByRole("menuitem", { name: "Share to chat" }));
-        expect(onUploadOptionSelected).toHaveBeenCalledWith("share");
     });
 });

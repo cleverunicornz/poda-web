@@ -103,6 +103,7 @@ function field(id, label, control, hint = "") {
 }
 
 const FIELD_IDS = {
+    roomId: "shareRoom",
     kind: "shareKind",
     item: "shareItem",
     postType: "sharePostType",
@@ -112,14 +113,21 @@ const FIELD_IDS = {
 };
 
 /**
- * The share form: what to share, the item, the type of post, a description and
- * an optional link, with a live card preview. `sources` holds item snapshots:
- * { episode: [{ value, label, item }], podcast: [...], profile: [...], bookingUrl }.
+ * The post form: the chat to post in, what to share, the item, the type of
+ * post, a description and an optional link, with a live card preview.
+ * `sources` holds item snapshots: { episode: [{ value, label, item }], podcast:
+ * [...], profile: [...], bookingUrl }; `rooms` the postable chats
+ * ([{ roomId, name }]); `initial` an optional { kind, itemValue } to start from.
+ * `onPost` receives { roomId, content }.
  */
-export function renderShareForm(container, { sources, sharerName, onPost, onCancel }) {
+export function renderShareForm(
+    container,
+    { sources, sharerName, rooms = [], roomId = null, initial = null, onPost, onCancel },
+) {
     const state = { kind: "episode", itemValue: "", postType: "", description: "", linkLabel: "", linkUrl: "" };
+    state.roomId = roomId ?? rooms[0]?.roomId ?? "";
     const firstKind = SHARE_KINDS.find((k) => sources[k.id]?.length) ?? SHARE_KINDS[2];
-    state.kind = firstKind.id;
+    state.kind = SHARE_KINDS.some((k) => k.id === initial?.kind) ? initial.kind : firstKind.id;
 
     const itemsFor = (kind) => sources[kind] ?? [];
     const selectedItem = () => itemsFor(state.kind).find((o) => o.value === state.itemValue)?.item ?? null;
@@ -135,11 +143,23 @@ export function renderShareForm(container, { sources, sharerName, onPost, onCanc
         }
     }
     applyKindDefaults();
+    if (initial?.itemValue && itemsFor(state.kind).some((o) => o.value === initial.itemValue)) {
+        state.itemValue = initial.itemValue;
+    }
 
     container.innerHTML = `<div class="podaNative">
         <form class="pnShareForm" novalidate>
             <div class="pnStack pnStack--tight">
                 <p class="pnError" data-share-banner role="alert" hidden>Check the highlighted fields.</p>
+                ${field(
+                    FIELD_IDS.roomId,
+                    "Post to",
+                    `<select class="pnSelect" id="${FIELD_IDS.roomId}" name="roomId">${options(
+                        rooms.map((r) => ({ id: r.roomId, label: r.name })),
+                        state.roomId,
+                        rooms.length ? null : "No chats to post in",
+                    )}</select>`,
+                )}
                 ${field(FIELD_IDS.kind, "What do you want to share?", `<select class="pnSelect" id="${FIELD_IDS.kind}" name="kind">${options(SHARE_KINDS, state.kind)}</select>`)}
                 <div data-share-item></div>
                 <div data-share-posttype></div>
@@ -148,7 +168,7 @@ export function renderShareForm(container, { sources, sharerName, onPost, onCanc
                 ${field(FIELD_IDS.linkUrl, "Link", `<input class="pnInput" id="${FIELD_IDS.linkUrl}" name="linkUrl" type="url" inputmode="url" placeholder="https://calendly.com/you" />`, "Optional, for example a scheduling link.")}
                 <div class="pnFooter">
                     <button type="button" class="pnBtn pnBtn--ghost" data-share-cancel>Cancel</button>
-                    <button type="submit" class="pnBtn pnBtn--primary">Post to chat</button>
+                    <button type="submit" class="pnBtn pnBtn--primary">Post</button>
                 </div>
             </div>
             <div class="pnShareForm_preview">
@@ -232,6 +252,7 @@ export function renderShareForm(container, { sources, sharerName, onPost, onCanc
             renderItemAndType();
         }
         if (name === "item") state.itemValue = event.target.value;
+        if (name === "roomId") state.roomId = event.target.value;
         if (name === "postType") state.postType = event.target.value;
         clearFieldErrorOnEdit(form, event.target, banner);
         renderPreview();
@@ -247,11 +268,12 @@ export function renderShareForm(container, { sources, sharerName, onPost, onCanc
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         const errors = validateShareDraft(draft());
+        if (!state.roomId) errors.roomId = "Choose a chat to post in.";
         if (Object.keys(errors).length) {
             showErrors(errors);
             return;
         }
-        onPost(buildShareContent(draft(), { sharerName }));
+        onPost({ roomId: state.roomId, content: buildShareContent(draft(), { sharerName }) });
     });
 
     renderItemAndType();

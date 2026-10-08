@@ -93,3 +93,52 @@ describe("ElementWebExtrasApi.sendRoomMessage (Poda D-000028)", () => {
         expect(client.sendMessage).not.toHaveBeenCalled();
     });
 });
+
+describe("ElementWebExtrasApi.getPostableRooms (Poda D-000030)", () => {
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    function room(
+        roomId: string,
+        name: string,
+        opts: { membership?: string; space?: boolean; mayPost?: boolean; ts?: number },
+    ) {
+        return {
+            roomId,
+            name,
+            getMyMembership: () => opts.membership ?? "join",
+            isSpaceRoom: () => opts.space ?? false,
+            maySendMessage: () => opts.mayPost ?? true,
+            getLastActiveTimestamp: () => opts.ts ?? 0,
+        };
+    }
+
+    it("lists joined, non-space rooms the user may post in, most recent first, with the viewed one", () => {
+        const client = stubClient();
+        vi.mocked(client.getVisibleRooms).mockReturnValue([
+            room("!old:x", "Old", { ts: 1 }),
+            room("!new:x", "New", { ts: 5 }),
+            room("!invite:x", "Invited", { membership: "invite", ts: 9 }),
+            room("!space:x", "Space", { space: true, ts: 9 }),
+            room("!readonly:x", "Announcements", { mayPost: false, ts: 9 }),
+        ] as any);
+        vi.spyOn(SDKContextClass.instance.roomViewStore, "getRoomId").mockReturnValue("!old:x");
+
+        expect(new ElementWebExtrasApi().getPostableRooms()).toEqual({
+            currentRoomId: "!old:x",
+            rooms: [
+                { roomId: "!new:x", name: "New" },
+                { roomId: "!old:x", name: "Old" },
+            ],
+        });
+    });
+
+    it("reports no current room when the viewed room cannot be posted in", () => {
+        const client = stubClient();
+        vi.mocked(client.getVisibleRooms).mockReturnValue([room("!a:x", "A", {})] as any);
+        vi.spyOn(SDKContextClass.instance.roomViewStore, "getRoomId").mockReturnValue("!readonly:x");
+
+        expect(new ElementWebExtrasApi().getPostableRooms().currentRoomId).toBeNull();
+    });
+});

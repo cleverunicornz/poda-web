@@ -586,7 +586,6 @@
         "warning": "Warning"
     },
     "composer": {
-        "attach_or_share": "Attach or share",
         "autocomplete": {
             "@room_description": "Notify the whole room",
             "command_a11y": "Command Autocomplete",

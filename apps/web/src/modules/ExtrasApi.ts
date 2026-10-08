@@ -12,8 +12,10 @@ import {
     type ExtrasApi,
     type RoomHeaderButtonsCallback,
     type UserProfilePanelRenderFunction,
+    type PostableRooms,
 } from "@element-hq/element-web-module-api";
 import { TypedEventEmitter, User } from "matrix-js-sdk/src/matrix";
+import { KnownMembership } from "matrix-js-sdk/src/types";
 
 import { useTypedEventEmitter } from "../hooks/useEventEmitter";
 import { MatrixClientPeg } from "../MatrixClientPeg";
@@ -84,6 +86,23 @@ export class ElementWebExtrasApi extends TypedEventEmitter<keyof EmittedEvents, 
         }
         const { event_id: eventId } = await MatrixClientPeg.safeGet().sendMessage(roomId, content as any);
         return eventId;
+    }
+
+    // Poda host extension (D-000030): the rooms a module may offer as post targets.
+    public getPostableRooms(): PostableRooms {
+        const client = MatrixClientPeg.get();
+        if (!client) return { currentRoomId: null, rooms: [] };
+        const rooms = client
+            .getVisibleRooms()
+            .filter((room) => room.getMyMembership() === KnownMembership.Join && !room.isSpaceRoom())
+            .filter((room) => room.maySendMessage())
+            .sort((a, b) => b.getLastActiveTimestamp() - a.getLastActiveTimestamp())
+            .map((room) => ({ roomId: room.roomId, name: room.name }));
+        const viewedRoomId = SDKContextClass.instance.roomViewStore.getRoomId();
+        return {
+            currentRoomId: rooms.some((room) => room.roomId === viewedRoomId) ? viewedRoomId! : null,
+            rooms,
+        };
     }
 }
 

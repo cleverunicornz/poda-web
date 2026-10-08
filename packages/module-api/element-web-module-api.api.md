@@ -237,6 +237,7 @@ originalComponent: (props: P) => JSX.Element) => JSX.Element;
 // @alpha
 export interface ExtrasApi {
     addRoomHeaderButtonCallback(cb: RoomHeaderButtonsCallback): void;
+    getPostableRooms(): PostableRooms;
     getVisibleRoomBySpaceKey(spaceKey: string, cb: () => string[]): void;
     openUserProfilePanel(userId: string): void;
     sendRoomMessage(roomId: string, content: {
@@ -331,6 +332,15 @@ export type OriginalMessageComponentProps = {
 
 // @alpha
 export type PreloadApprover = (widget: WidgetDescriptor) => MaybePromise<boolean | undefined>;
+
+// @alpha
+export interface PostableRooms {
+    currentRoomId: string | null;
+    rooms: {
+        roomId: string;
+        name: string;
+    }[];
+}
 
 // @public
 export interface Profile {

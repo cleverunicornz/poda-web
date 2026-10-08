@@ -86,6 +86,24 @@ export interface UserProfilePanelProps {
 export type UserProfilePanelRenderFunction = (props: UserProfilePanelProps) => JSX.Element;
 
 /**
+ * Rooms the signed-in user can post in, as returned by {@link ExtrasApi.getPostableRooms}.
+ *
+ * Poda host extension (D-000030): not part of upstream Element's module API.
+ *
+ * @alpha
+ */
+export interface PostableRooms {
+    /**
+     * The room being viewed, when it is one of `rooms`.
+     */
+    currentRoomId: string | null;
+    /**
+     * Joined rooms (not spaces) the user may send messages in, most recently active first.
+     */
+    rooms: { roomId: string; name: string }[];
+}
+
+/**
  * API for inserting extra UI into Element Web.
  * @alpha Subject to change.
  */
@@ -151,4 +169,13 @@ export interface ExtrasApi {
         roomId: string,
         content: { msgtype: string; body: string; [key: string]: unknown },
     ): Promise<string>;
+
+    /**
+     * Lists the rooms the signed-in user can post in, for a module that lets them pick one.
+     *
+     * Poda host extension (D-000030): not part of upstream Element's module API.
+     *
+     * @returns The postable rooms and the viewed room among them, if any.
+     */
+    getPostableRooms(): PostableRooms;
 }
