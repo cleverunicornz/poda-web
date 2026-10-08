@@ -45,6 +45,12 @@ module, the Studio routes and page host), per
   on [W-000007](situation/witnesses/P-000022/W-000007-creation-flow-fixes-local-pass.md)
   at `9e5079fc81`, covering every leg; local manual assurance per
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
+- 2026-10-08: [W-000010](situation/witnesses/P-000022/W-000010-error-banner-visible-fail.md)
+  failed P2 on the shipped code: the banner stayed visible with no field error
+  left ([G-000033](situation/gaps/G-000033-error-banner-shown-when-hidden.md)).
+  Commit `1e3a268248` fixes it, and
+  [W-000011](situation/witnesses/P-000022/W-000011-creation-flow-fixes-rerun-pass.md)
+  passes every O-000022 leg at that head, so the Promise is assured again.
 
 ## Residual
 
