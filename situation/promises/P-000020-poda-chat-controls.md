@@ -2,7 +2,7 @@
 
 ## State
 
-assured
+superseded
 
 ## Promise
 
@@ -45,6 +45,9 @@ message menu, room info panel and space panel presentations.
   passed on [W-000005](situation/witnesses/P-000020/W-000005-chat-controls-local-pass.md)
   at that head, covering every leg; local manual assurance per
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
+- `superseded`: by [P-000024](situation/promises/P-000024-poda-chat-controls-admin-polls.md)
+  under [D-000027](situation/decisions/D-000027-admin-only-polls-everywhere.md),
+  which offers the poll control to room admins only in every room.
 
 ## Residual
 

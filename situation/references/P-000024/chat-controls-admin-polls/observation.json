@@ -1,0 +1,35 @@
+{
+    "head": "f90c994814",
+    "observed": "2026-10-08",
+    "environment": {
+        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false from the worktree at dbd8931097; f90c994814 adds only a test case. The bundle contains isPodaRoomAdmin. The five changed files on the workbench hash identically to the committed files.",
+        "config": "default_server_config pointing at the local homeserver, disable_guests, and the two Poda modules; every other value from apps/web/src/SdkConfig.ts DEFAULTS",
+        "homeserver": "matrixdotorg/synapse 1.162.0 in Docker, server_name localhost; all fixture rooms are room version 12 (privileged creators)",
+        "browser": "Headless Chromium via the workbench Playwright tools, 1280x657 viewport",
+        "users": "@demo:localhost (creator of the public, restricted, invite and Poda-created rooms; additional creator of the direct message) and @mira:localhost (creator of the direct message; power level 0 elsewhere)"
+    },
+    "rooms": {
+        "public": "General (public): join_rule public, created by API, no poll power level (any member may start polls)",
+        "restricted": "Equipment (space members): join_rule restricted",
+        "invite": "Producers (invite only): join_rule invite, no poll power level",
+        "dm": "direct message created by Mira with Demo as additional creator",
+        "poda_created": "Poll test (created in Poda): invite-only, created through the New room dialog, m.poll.start and org.matrix.msc3381.poll.start at 100"
+    },
+    "tests": {
+        "command": "the O-000024 Vitest command from apps/web",
+        "result": "9 files, 234 tests passed; tsc --noEmit clean; oxfmt and oxlint clean on the changed files"
+    },
+    "legs": {
+        "P1": "Demo's room headers: public 'Open room settings, Room info, Public room, Threads, 2 members' and restricted 'Open room settings, Room info, Threads, 2 members' (no call buttons); invite, direct message and Poda-created rooms offered Video call and Voice call.",
+        "P2": "Composer bars: public and restricted Emoji, Attachment (no Voice Message); invite, direct message and Poda-created rooms Emoji, Attachment, Voice Message on the bar, and the overflow menus held no voice message.",
+        "P3": "Poda-created room power levels m.poll.start 100, org.matrix.msc3381.poll.start 100; Mira's PUT of each: 403 M_FORBIDDEN. Mira's composers: public, restricted, invite and Poda-created rooms offered no More options and no Poll (the public and invite rooms' power levels would let her start polls); her own direct message's overflow menu offered Poll. Demo (creator) was offered Poll in the public room (screenshot) and in the restricted, invite, direct message and Poda-created rooms.",
+        "P4": "No Sticker or Location control in any composer bar or overflow menu above.",
+        "P5": "MessageContextMenu.test.tsx 'view source' tests passed within the O-000024 command.",
+        "P6": "The invite room header offered Threads; its room info panel items were Extensions, Favourite, Invite, People, Pinned messages, Files, Copy link, Polls, Export Chat, Settings, Report room, Leave room (no Threads); the Poda Community space context menu offered Space home, Invite, Manage & explore rooms, Preferences, Settings, Room, Space (no Threads)."
+    },
+    "notes": [
+        "The first public-room menu read for Demo in the multi-room pass came back empty because a menu opened in the previous step was toggled closed; the separate earlier read of the same room showed the overflow menu with Poll (public-room-creator-poll.png).",
+        "The fixture account password is local to the workbench homeserver and not retained."
+    ],
+    "screenshots": ["public-room-member-no-poll.png", "public-room-creator-poll.png"]
+}
