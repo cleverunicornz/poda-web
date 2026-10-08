@@ -45,7 +45,7 @@ import AccessibleButton, { type ButtonEvent } from "../elements/AccessibleButton
 import { useScopedRoomContext } from "../../../contexts/ScopedRoomContext.tsx";
 import { useRoomUploadViewModel } from "../../../viewmodels/room/RoomUploadViewModel.tsx";
 import { useRoomState } from "../../../hooks/useRoomState";
-import { isPodaPrivateConversation } from "../../../podaChatPolicy";
+import { isPodaPrivateConversation, isPodaRoomAdmin } from "../../../podaChatPolicy";
 
 interface IProps {
     addEmoji: (emoji: string) => boolean;
@@ -72,10 +72,13 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
 
     const isWysiwygLabEnabled = useSettingValue("feature_wysiwyg_composer");
 
-    // Poda (D-000023): voice messages only in private conversations; polls only for members allowed to start them.
+    // Poda (D-000023, D-000027): voice messages only in private conversations; polls only for room admins allowed to
+    // start them.
     const [isPrivateConversation, mayStartPoll] = useRoomState(room, (state) => [
         isPodaPrivateConversation(state),
-        !!matrixClient && state.maySendEvent(M_POLL_START.name, matrixClient.getSafeUserId()),
+        !!matrixClient &&
+            isPodaRoomAdmin(state, matrixClient.getSafeUserId()) &&
+            state.maySendEvent(M_POLL_START.name, matrixClient.getSafeUserId()),
     ]) ?? [false, false];
 
     if (!matrixClient || !room || props.haveRecording) {

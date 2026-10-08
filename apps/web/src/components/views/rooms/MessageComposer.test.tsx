@@ -128,6 +128,8 @@ describe("MessageComposer", () => {
 
     describe("for a Room", () => {
         const room = mkStubRoom("!roomId:server", "Room 1", cli);
+        // Poda (D-000027): the poll control is offered to room admins only.
+        vi.mocked(room.currentState.getMember).mockReturnValue({ powerLevel: 100 } as RoomMember);
 
         it("Renders a SendMessageComposer and MessageComposerButtons by default", () => {
             wrapAndRender({ room });
@@ -427,6 +429,8 @@ describe("MessageComposer", () => {
 
     describe("for a LocalRoom", () => {
         const localRoom = new LocalRoom("!room:example.com", cli, cli.getUserId()!);
+        // Poda (D-000027): as the room's creator the user is its admin and is offered the poll control.
+        vi.spyOn(localRoom.currentState, "getMember").mockReturnValue({ powerLevel: 100 } as RoomMember);
 
         it("should not show the stickers button", async () => {
             wrapAndRender({ room: localRoom });
