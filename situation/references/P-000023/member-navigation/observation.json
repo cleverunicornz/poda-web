@@ -1,0 +1,42 @@
+{
+    "head": "ffb3ccf4b4",
+    "observed": "2026-10-07",
+    "environment": {
+        "build": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false; apps/web is unchanged between internal/main and ffb3ccf4b4",
+        "modules": {
+            "poda-navigation-spike": "e734e3fc01041a9e97fb50ced6621ee5ba6a89588c9e9a98e59053f727fa2e86 (built lib/index.js = served copy; contains no 'diagnostic')",
+            "poda-profile-spike": "4cada3aff0b6bf4bea0985eb990519d9a21c5d357dd9e590f6f75e79418e4599 (built lib/index.js = served copy)"
+        },
+        "served_config_sha256": "a8cb62b90115247f924df58a95ee65992da28511e2db86fccb80637256600aef",
+        "browser": "Chrome for Testing 151.0.7922.34, headless",
+        "homeserver": "Playwright homeserver fixture for the specification; matrixdotorg/synapse 1.162.0 for the manual observation",
+        "session": "specification: a fresh fixture user per test; manual: @mira:localhost"
+    },
+    "tests": {
+        "specification": "from modules/: BASE_URL=<served build> playwright test --project @poda/web-module-navigation-spike: 3 passed after the commit; 9/9 with --repeat-each 3 on identical source before it",
+        "router": "from apps/web: vitest run src/vector/routing.test.ts: 8 passed",
+        "static": "tsc --noEmit for the module and modules/ clean; oxfmt --check and oxlint clean on modules/poda-navigation-spike",
+        "source_identity": "SHA-256 of every file in modules/poda-navigation-spike/src and e2e on the workbench equals the committed files"
+    },
+    "legs": {
+        "P1": "Specification 'mounts above Element…': header y <= #matrixchat y; header + app height equals body height.",
+        "P2": "Specification 'offers Chat, Profile and Studio…' passed (links exactly Chat, Profile, Studio; no Diagnostic workspace). Manual: header links Chat #/home (current), Profile #/io.poda.profile-spike.profile, Studio #/io.poda.profile-spike.studio. Setting the hash to /io.poda.navigation-spike.diagnostic ended at #/home with the Home welcome page, no poda-diagnostic-workspace element and no 'Diagnostic' text; Chat current. src/ contains no registerLocationRenderer.",
+        "P3": "Specification: Studio current after click and after refresh; Chat, Back (Studio) and Forward (Home) kept the post-refresh document token, the matching current control and the user.",
+        "P4": "routing.test.ts 8/8.",
+        "P5": "Specification matrix 1440x900 and 500x900 in Poda Light and Dark: body theme class, header and 'Podcasts' heading visible, scrollWidth <= viewport, heights fill the body, two header backgrounds. Manual Studio at 1440: scrollWidth 1440, only Studio current.",
+        "P6": "git diff --stat internal/main..ffb3ccf4b4: only modules/poda-navigation-spike (spec, Navigation.tsx, index.tsx, style.css); no reload, location.assign, pageshow or registerLocationRenderer in the module source."
+    },
+    "screenshots": [
+        "header-studio-current.png"
+    ],
+    "rerun_after_trunk_merge": {
+        "head": "a94b46ba0f",
+        "observed": "2026-10-08",
+        "why": "merging internal/main brought PR #21's changes to modules/poda-profile-spike, whose Studio location the specification navigates to; the navigation module is unchanged",
+        "modules": {
+            "poda-navigation-spike": "e734e3fc01041a9e97fb50ced6621ee5ba6a89588c9e9a98e59053f727fa2e86 (unchanged)",
+            "poda-profile-spike": "df96ccf6815aeac5788d9b183660117e64ed6706eb05ba2ea456a7c8e992a025 (built = served)"
+        },
+        "results": "navigation specification 6/6 (--repeat-each 2); poda-profile-spike vitest 35/35; routing.test.ts 8/8; tsc --noEmit for modules/ clean"
+    }
+}

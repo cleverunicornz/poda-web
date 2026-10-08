@@ -2,7 +2,7 @@
 
 ## State
 
-implemented
+superseded
 
 ## Promise
 
@@ -31,6 +31,7 @@ The declared history sequence is native home → diagnostic → refresh diagnost
 - Commit `78a3bb9d89b4f7a9f1196ea0e0859c934153caf3` implements the final exported-boundary module artifact.
 - [W-000001](situation/witnesses/P-000015/W-000001-playwright-chromium-unavailable.md) retains the blocked checked-in Playwright run without treating instrument absence as product failure.
 - [W-000002](situation/witnesses/P-000015/W-000002-module-navigation-gate-incomplete.md) retains direct observations at the exact final head but is `INVALID` for a complete PASS because it omits Back/Forward active-control observations and control-operability observations in every Poda theme/viewport case. [G-000011](situation/gaps/G-000011-navigation-gate-assurance-coverage.md) retains that absence without asserting runtime failure.
+- Superseded by [P-000023](situation/promises/P-000023-member-navigation-header.md) under [D-000026](situation/decisions/D-000026-remove-diagnostic-navigation.md): the Diagnostic link and location are removed and the navigation behavior is re-stated against Studio.
 
 ## Residual
 
