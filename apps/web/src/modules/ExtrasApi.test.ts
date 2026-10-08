@@ -66,3 +66,30 @@ describe("ElementWebExtrasApi.openUserProfilePanel (Poda D-000028)", () => {
         expect(cards[1].state.member.userId).toBe("@carol:example.org");
     });
 });
+
+describe("ElementWebExtrasApi.sendRoomMessage (Poda D-000028)", () => {
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    it("sends the content as a room message and returns the event ID", async () => {
+        const client = stubClient();
+        vi.mocked(client.sendMessage).mockResolvedValue({ event_id: "$sent" });
+        const content = {
+            "msgtype": "io.poda.share",
+            "body": "Mira shared a podcast",
+            "io.poda.share": { version: 1 },
+        };
+
+        await expect(new ElementWebExtrasApi().sendRoomMessage("!room:example.org", content)).resolves.toBe("$sent");
+        expect(client.sendMessage).toHaveBeenCalledWith("!room:example.org", content);
+    });
+
+    it("refuses content without a plain-text body", async () => {
+        const client = stubClient();
+        await expect(
+            new ElementWebExtrasApi().sendRoomMessage("!room:example.org", { msgtype: "io.poda.share" } as any),
+        ).rejects.toThrow("plain-text body");
+        expect(client.sendMessage).not.toHaveBeenCalled();
+    });
+});

@@ -639,14 +639,40 @@ function ShareDialogBody({ sources, sharerName, onSubmit, onCancel }) {
     return React.createElement("div", { ref });
 }
 
+function ShareErrorBody({ onCancel }) {
+    const React = window.React;
+    return React.createElement(
+        "div",
+        { className: "podaNative" },
+        React.createElement("p", null, "Your card wasn't posted. Check your connection and try again."),
+        React.createElement(
+            "div",
+            { className: "pnFooter" },
+            React.createElement(
+                "button",
+                { type: "button", className: "pnBtn pnBtn--primary", onClick: onCancel },
+                "OK",
+            ),
+        ),
+    );
+}
+
 async function openShareDialog(api, roomId) {
-    const room = roomId ? api.client.getRoom(roomId) : null;
-    if (!room) return;
+    if (!roomId) return;
     const { sources, sharerName } = await shareSources(api);
     const { ok, model } = await api.openDialog({ title: "Share to chat" }, ShareDialogBody, { sources, sharerName })
         .finished;
     if (!ok || !model) return;
-    await room.client.sendMessage(roomId, model);
+    if (!api.extras.sendRoomMessage) {
+        // Hosts without the Poda extension get the plain-text version in the composer to send themselves.
+        api.composer.insertPlaintextIntoComposer(model.body, { view: "room" });
+        return;
+    }
+    try {
+        await api.extras.sendRoomMessage(roomId, model);
+    } catch {
+        api.openDialog({ title: "Couldn't post the card" }, ShareErrorBody, {});
+    }
 }
 
 function openSharerProfile(api, userId) {

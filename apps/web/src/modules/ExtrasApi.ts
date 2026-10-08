@@ -73,6 +73,18 @@ export class ElementWebExtrasApi extends TypedEventEmitter<keyof EmittedEvents, 
             { phase: RightPanelPhases.UserProfile, state: { member } },
         ]);
     }
+
+    // Poda host extension (D-000028): lets a module post a message it built, e.g. a share card.
+    public async sendRoomMessage(
+        roomId: string,
+        content: { msgtype: string; body: string; [key: string]: unknown },
+    ): Promise<string> {
+        if (typeof content?.msgtype !== "string" || typeof content.body !== "string") {
+            throw new Error("A message needs a msgtype and a plain-text body");
+        }
+        const { event_id: eventId } = await MatrixClientPeg.safeGet().sendMessage(roomId, content as any);
+        return eventId;
+    }
 }
 
 /**

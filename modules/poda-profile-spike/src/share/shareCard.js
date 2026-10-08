@@ -37,9 +37,10 @@ export const SHARE_STYLES = `
 .pnShareCard_actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .pnShareCard_actions .pnBtn { text-decoration: none; max-width: 100%; }
 .pnShareCard_actions .pnBtn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pnShareForm { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; min-width: min(760px, 80vw); }
-.pnShareForm_preview { display: flex; flex-direction: column; gap: 8px; }
-@media (max-width: 720px) { .pnShareForm { grid-template-columns: minmax(0, 1fr); min-width: 0; } }
+.pnShareForm { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; width: 100%; min-width: min(640px, calc(100vw - 160px)); }
+.pnShareForm_preview { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pnShareForm_preview .pnShareCard { max-width: 100%; }
+@media (max-width: 960px) { .pnShareForm { grid-template-columns: minmax(0, 1fr); } }
 `;
 
 let stylesInstalled = false;
