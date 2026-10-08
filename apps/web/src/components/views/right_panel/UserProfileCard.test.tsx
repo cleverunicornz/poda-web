@@ -35,7 +35,7 @@ describe("<UserProfileCard /> (Poda D-000024)", () => {
         expect(container).toBeEmptyDOMElement();
     });
 
-    it("renders the module content for a room member inside a Profile card", () => {
+    it("renders the module content for a room member inside a Creator profile card", () => {
         const renderer = vi.fn((props: UserProfilePanelProps) => <p>profile of {props.userId}</p>);
         ModuleApi.instance.extras.setUserProfilePanel(renderer);
         const member = new RoomMember("!r:example.org", "@mira:example.org");
@@ -43,7 +43,7 @@ describe("<UserProfileCard /> (Poda D-000024)", () => {
 
         render(<UserProfileCard member={member} roomId="!r:example.org" onClose={vi.fn()} />, renderOptions);
 
-        expect(screen.getByText("Profile")).toBeInTheDocument();
+        expect(screen.getByText("Creator profile")).toBeInTheDocument();
         expect(screen.getByText("profile of @mira:example.org")).toBeInTheDocument();
         expect(renderer).toHaveBeenCalledWith({
             userId: "@mira:example.org",
@@ -90,6 +90,6 @@ describe("<UserProfileCard /> (Poda D-000024)", () => {
             renderOptions,
         );
 
-        expect(screen.getByText("Profile")).toBeInTheDocument();
+        expect(screen.getByText("Creator profile")).toBeInTheDocument();
     });
 });

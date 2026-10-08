@@ -19,6 +19,7 @@ import { APPLE_CATEGORIES } from "./data/appleCategories.js";
 import { STUDIO_LOCATION, detailActions, parseStudioRoute, studioRouteHash } from "./studio/routes.js";
 import { SHARE_MSGTYPE, itemSnapshot, parseShareContent } from "./share/shareModel.js";
 import { ensureShareStyles, renderShareForm, shareCardHtml } from "./share/shareCard.js";
+import { isOwnProfileWidget } from "./widgetApproval.js";
 
 export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
 
@@ -498,9 +499,13 @@ function StudioPage() {
                 ref.current.appendChild(nav);
             }
             ref.current.appendChild(contentHost);
+            // Every await below may finish after a newer route has replaced this one; only the current route renders
+            // (G-000026).
+            const superseded = () => contentHost.parentNode !== ref.current;
 
             if (route.view === "new-podcast") {
                 const { renderPodcastCreateView } = await import("./studio/podcastCreate.js");
+                if (superseded()) return;
                 renderPodcastCreateView(contentHost, {
                     onSubmit: async (draft, intent) => {
                         const created = await podaData.savePodcast(draft);
@@ -513,6 +518,7 @@ function StudioPage() {
             if (route.view === "new-episode") {
                 const { renderEpisodeCreateView } = await import("./studio/episodeCreate.js");
                 const podcasts = await podaData.listPodcasts();
+                if (superseded()) return;
                 renderEpisodeCreateView(contentHost, {
                     podcasts,
                     initialPodcastId: route.podcastId,
@@ -531,7 +537,7 @@ function StudioPage() {
                     return;
                 }
                 const episodes = await podaData.listEpisodes(route.id);
-                if (contentHost.parentNode !== ref.current) return; // superseded by a newer route
+                if (superseded()) return;
                 ref.current.insertBefore(detailActionsHost(detailActions(route)), contentHost);
                 renderStudioView(contentHost, { podcast, episodes, hostLabel: "module (app page)" });
                 return;
@@ -543,7 +549,7 @@ function StudioPage() {
                     return;
                 }
                 const { renderEpisodeDetailView } = await import("./shared/podcastFullView.js");
-                if (contentHost.parentNode !== ref.current) return; // superseded by a newer route
+                if (superseded()) return;
                 ref.current.insertBefore(
                     detailActionsHost(detailActions(route, { podcastId: episode.podcastId })),
                     contentHost,
@@ -554,6 +560,7 @@ function StudioPage() {
             if (route.view === "episodes") {
                 const { renderEpisodeListView } = await import("./studio/episodeList.js");
                 const [episodes, podcasts] = await Promise.all([podaData.listEpisodes(), podaData.listPodcasts()]);
+                if (superseded()) return;
                 renderEpisodeListView(contentHost, {
                     episodes,
                     podcasts,
@@ -568,6 +575,7 @@ function StudioPage() {
             }
             const { renderStudioListView } = await import("./studio/studioList.js");
             const podcasts = await podaData.listPodcasts();
+            if (superseded()) return;
             renderStudioListView(contentHost, {
                 podcasts,
                 onOpen: (id) => studioNavigate({ view: "detail", id }),
@@ -715,6 +723,15 @@ export default class PodaProfileSpikeModule {
         this.api.extras.setUserProfilePanel?.(({ userId, displayName }) =>
             React.createElement(ProfilePanel, { api, userId, displayName }),
         );
+        // Poda's own profile widget loads without the per-viewer approval prompt (D-000029); only one module may
+        // register a preload approver, so another module's approver wins.
+        try {
+            this.api.widgetLifecycle.registerPreloadApprover((widget) =>
+                isOwnProfileWidget(widget, window.location.origin) ? true : undefined,
+            );
+        } catch (error) {
+            console.warn("Poda profile module: preload approver not registered", error);
+        }
         // Share cards (D-000028): a "Share to chat" entry in the composer's upload menu, and the card in the timeline.
         this.api.composer.addFileUploadOption({
             type: SHARE_MSGTYPE,

@@ -25,13 +25,25 @@ export interface UploadButtonViewSnapshot {
     options: { type: string; label: string; icon?: ComponentType<SVGAttributes<SVGElement>> }[];
 }
 
+export interface UploadButtonTriggerProps {
+    /**
+     * Icon of the button that opens the menu when there are several options. Defaults to the attachment icon.
+     */
+    menuIcon?: ComponentType<SVGAttributes<SVGElement>>;
+    /**
+     * Label and tooltip of the button that opens the menu when there are several options. Defaults to "Attachment".
+     */
+    menuLabel?: string;
+}
+
 export interface UploadButtonViewActions {
     onUploadOptionSelected(this: void, type: string): void;
 }
 
 /**
  * A composer button to initiate uploading files. The button may also be
- * Ctrl+Clicked to pick the first option automatically.
+ * Ctrl+Clicked to pick the first option automatically. With several options it
+ * opens a menu, whose button can be given its own icon and label.
  *
  * @example
  * ```tsx
@@ -41,11 +53,15 @@ export interface UploadButtonViewActions {
 export function UploadButton({
     vm,
     defaultOpen = false,
+    menuIcon: MenuIcon = AttachmentIcon,
+    menuLabel,
     ...rootButtonProps
 }: PropsWithChildren<
-    { vm: ViewModel<UploadButtonViewSnapshot, UploadButtonViewActions>; defaultOpen?: boolean } & ComponentProps<
-        typeof IconButton
-    >
+    {
+        vm: ViewModel<UploadButtonViewSnapshot, UploadButtonViewActions>;
+        defaultOpen?: boolean;
+    } & UploadButtonTriggerProps &
+        ComponentProps<typeof IconButton>
 >): ReactElement {
     const i18n = useI18n();
     const [open, setOpen] = useState(defaultOpen);
@@ -78,22 +94,17 @@ export function UploadButton({
         );
     }
 
+    const triggerLabel = menuLabel ?? i18n.translate("common|attachment");
     const trigger = (
-        <IconButton
-            {...rootButtonProps}
-            size="26px"
-            tooltip={i18n.translate("common|attachment")}
-            onClick={onMenuClick}
-            title={i18n.translate("common|attachment")}
-        >
-            <AttachmentIcon />
+        <IconButton {...rootButtonProps} size="26px" tooltip={triggerLabel} onClick={onMenuClick} title={triggerLabel}>
+            <MenuIcon />
         </IconButton>
     );
 
     return (
         <Menu
             side="top"
-            title={i18n.translate("common|attachment")}
+            title={triggerLabel}
             showTitle={false}
             trigger={trigger}
             open={open}

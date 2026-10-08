@@ -1,3 +1,10 @@
+/*
+Copyright 2026 Poda contributors
+
+SPDX-License-Identifier: AGPL-3.0-only OR GPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
 // Widget host entry: previews the featured creator's full profile to the room.
 // Demonstrates: widget-api handshake, identity template params, and host
 // navigation via the MSC2931 navigate action (permalink-only). The bridge
@@ -27,16 +34,26 @@ renderFullProfileView(document.getElementById("root"), {
     extraActionsHtml: navBtnHtml,
 });
 
+// Element appends the widget's ID and the client's URL to the widget URL; telling the API both lets it address
+// the client. The widget registers with Element's default waitForIframeLoad, so the iframe load event marks it
+// loaded and it sends no content-loaded message (G-000031).
+function clientOrigin(parentUrl) {
+    try {
+        return parentUrl ? new URL(parentUrl).origin : undefined;
+    } catch {
+        return undefined;
+    }
+}
+
 let widgetApi = null;
 try {
-    widgetApi = new WidgetApi();
+    widgetApi = new WidgetApi(params.get("widgetId") ?? undefined, clientOrigin(params.get("parentUrl")));
     widgetApi.on(`action:${WidgetApiToWidgetAction.ThemeChange}`, (event) => {
         applyWidgetTheme(event.detail.data?.name);
         event.preventDefault();
         void widgetApi.transport.reply(event.detail, {});
     });
     widgetApi.start();
-    widgetApi.sendContentLoaded();
 } catch (error) {
     console.warn("Poda profile widget: no host bridge available", error);
 }
@@ -44,7 +61,7 @@ try {
 document.getElementById("podaProfileNavHost")?.addEventListener("click", () => {
     // The only host-navigation channel a widget gets: ask the client to
     // navigate to a Matrix permalink. No access to app routes like #/studio.
-    widgetApi?.navigateTo("https://matrix.to/#/#general:localhost");
+    void widgetApi?.navigateTo("https://matrix.to/#/#general:localhost");
 });
 
 window.__PODA_PROFILE_FIXTURE = PROFILE_FIXTURE_MIRA;

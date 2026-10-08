@@ -70,11 +70,12 @@ function epField(
     </div>`;
 }
 
-// Native readiness model: Title and number / Hosted audio / Guest credits /
-// Notes or transcript.
-function readiness(draft) {
+// Readiness: Title and season / Hosted audio / Guest credits / Notes or
+// transcript. The season is required and the episode number optional, so the
+// first item follows the season (G-000019).
+export function readiness(draft) {
     const items = [
-        ["Title and number", Boolean(draft.title?.trim() && draft.episodeNumber != null), null],
+        ["Title and season", Boolean(draft.title?.trim() && draft.seasonNumber != null), null],
         ["Hosted audio", Boolean(draft.enclosureUrl), null],
         ["Guest credits", false, "Display-only in this preview"],
         ["Notes or transcript", Boolean(draft.description?.trim() || draft.showNotesHtml?.trim()), null],
