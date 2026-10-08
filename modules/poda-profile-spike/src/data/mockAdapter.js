@@ -141,6 +141,7 @@ export class MockPodaDataAdapter {
             slug: "",
             duration: null,
             episodeNumber: null,
+            episodeType: "full",
             seasonNumber: null,
             status: "draft",
             showNotesHtml: null,

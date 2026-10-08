@@ -31,8 +31,14 @@ export function validateEpisodeDraft(draft) {
         errors.slug = "Slug must be lowercase letters, numbers, and hyphens.";
     if (draft.duration != null && (!Number.isFinite(draft.duration) || draft.duration <= 0))
         errors.duration = "Duration must be a positive number of seconds.";
-    if (draft.episodeNumber != null && !Number.isInteger(draft.episodeNumber))
-        errors.episodeNumber = "Episode number must be a whole number.";
+    // Episode types and numbering (D-000031): full episodes need a number once scheduled or published; drafts,
+    // trailers and bonus episodes may go without, as Apple Podcasts allows.
+    const episodeType = draft.episodeType ?? "full";
+    if (!EPISODE_TYPES.some(([id]) => id === episodeType)) errors.episodeType = "Choose an episode type.";
+    if (draft.episodeNumber != null && (!Number.isInteger(draft.episodeNumber) || draft.episodeNumber < 1))
+        errors.episodeNumber = "Episode number must be a whole number of 1 or more.";
+    else if (draft.episodeNumber == null && episodeType === "full" && (draft.status ?? "draft") !== "draft")
+        errors.episodeNumber = "Full episodes need an episode number once they are scheduled or published.";
     // Every episode belongs to a season (maintainer rule, D-000025).
     if (draft.seasonNumber == null) errors.seasonNumber = "Season number is required.";
     else if (!Number.isInteger(draft.seasonNumber) || draft.seasonNumber < 1)
@@ -43,6 +49,12 @@ export function validateEpisodeDraft(draft) {
         errors.enclosureUrl = "URLs must start with http(s)://";
     return errors;
 }
+
+export const EPISODE_TYPES = [
+    ["full", "Full episode"],
+    ["trailer", "Trailer"],
+    ["bonus", "Bonus"],
+];
 
 const PUBLISH_STATES = {
     draft: {
@@ -187,10 +199,13 @@ export function renderEpisodeCreateView(container, { podcasts, initialPodcastId 
                 <p class="pnFieldError" data-error-for="podcastId"></p></div>
             ${epField("epTitle", "Title *", { placeholder: "Systems that do not collapse", counter: 200 })}
             <div class="pnGrid3">
-                ${epField("epNumber", "Episode number", { type: "number", placeholder: "42" })}
+                <div class="pnField"><label class="pnLabel" for="epType">Episode type</label>
+                    <select class="pnSelect" id="epType" name="epType">${EPISODE_TYPES.map(([id, label]) => `<option value="${id}">${esc(label)}</option>`).join("")}</select>
+                    <p class="pnFieldError" data-error-for="epType"></p></div>
+                ${epField("epNumber", "Episode number", { type: "number", placeholder: "42", min: 1, helper: "Needed for full episodes once scheduled; optional for drafts, trailers and bonus episodes." })}
                 ${epField("epSeason", "Season number *", { type: "number", placeholder: "1", value: "1", min: 1 })}
-                ${epField("epSlug", "Slug", { type: "text", placeholder: "systems-that-do-not-collapse" })}
             </div>
+            ${epField("epSlug", "Slug", { type: "text", placeholder: "systems-that-do-not-collapse" })}
         </div></section>
 
         <section class="pnCard"><div class="pnCard_header">
@@ -274,6 +289,7 @@ export function renderEpisodeCreateView(container, { podcasts, initialPodcastId 
             slug: formText(data, "epSlug").trim(),
             description: formText(data, "epDescription").trim(),
             showNotesHtml: formText(data, "epShowNotes").trim() || null,
+            episodeType: formText(data, "epType") || "full",
             episodeNumber: num("epNumber"),
             seasonNumber: num("epSeason"),
             duration: num("epDuration"),
@@ -316,6 +332,11 @@ export function renderEpisodeCreateView(container, { podcasts, initialPodcastId 
     });
     form.addEventListener("change", (event) => {
         clearFieldErrorOnEdit(form, event.target, errorBanner);
+        // Whether the episode number is needed depends on the type and status (D-000031), so changing either clears
+        // a number error; submitting checks again.
+        if (event.target.id === "epType" || event.target.name === "epStatus") {
+            clearFieldErrorOnEdit(form, form.querySelector("#epNumber"), errorBanner);
+        }
         refreshPulse();
     });
 
@@ -345,6 +366,7 @@ export function renderEpisodeCreateView(container, { podcasts, initialPodcastId 
                 title: "#epTitle",
                 slug: "#epSlug",
                 duration: "#epDuration",
+                episodeType: "#epType",
                 episodeNumber: "#epNumber",
                 seasonNumber: "#epSeason",
                 scheduledAt: "#epScheduledAt",

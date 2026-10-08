@@ -11,7 +11,7 @@ Please see LICENSE files in the repository root for full details.
 // Content read back from the timeline is untrusted and goes through
 // parseShareContent before anything renders it.
 
-import { episodeNumberLabel } from "../shared/podcastFullView.js";
+import { episodeLabel } from "../shared/podcastFullView.js";
 
 export const SHARE_MSGTYPE = "io.poda.share";
 
@@ -77,7 +77,7 @@ export function postTypeLabel(kind, postTypeId) {
 /** The card's item snapshot for an episode (with its podcast), a podcast, or a profile. */
 export function itemSnapshot(kind, source, { podcast = null, episodeCount = null } = {}) {
     if (kind === "episode") {
-        const number = episodeNumberLabel(source.seasonNumber, source.episodeNumber);
+        const number = episodeLabel(source);
         return {
             id: source.id ?? null,
             title: source.title ?? "",
