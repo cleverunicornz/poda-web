@@ -1,4 +1,4 @@
-# "+" composer menu and chat/Studio polish
+# Chat/Studio polish: widget, titles, contrast, readiness and routes
 
 ## Status
 
@@ -10,16 +10,22 @@ accepted
 
 ## Context
 
-After share cards the maintainer chose to change the composer trigger to a "+"
-("+icon for sure", [G-000035](situation/gaps/G-000035-share-entry-behind-paperclip.md))
-and to fix the recorded small issues in one pull request ("small polish good"):
+After share cards the maintainer first chose a "+" composer trigger ("+icon
+for sure", [G-000035](situation/gaps/G-000035-share-entry-behind-paperclip.md)),
+then moved sharing out of the composer altogether
+([D-000030](situation/decisions/D-000030-share-entry-points.md)), so no trigger
+change remains. The maintainer asked to fix the recorded small issues in one
+pull request ("small polish good"):
 [G-000019](situation/gaps/G-000019-episode-number-required-label.md),
 [G-000024](situation/gaps/G-000024-placeholder-and-accent-contrast.md),
 [G-000026](situation/gaps/G-000026-episode-picker-missing-new-podcast-once.md),
 [G-000029](situation/gaps/G-000029-header-tooltip-contrast.md),
 [G-000030](situation/gaps/G-000030-widget-first-use-approval-click.md),
 [G-000031](situation/gaps/G-000031-profile-widget-handshake-warning.md) and
-[G-000032](situation/gaps/G-000032-two-profile-headed-cards.md).
+[G-000032](situation/gaps/G-000032-two-profile-headed-cards.md). Reviewing the
+resulting screenshots on 2026-10-08 also showed the room profile widget's test
+controls and another member's profile listing every empty field; the maintainer
+agreed to fix both in the same pull request.
 
 ## Evidence
 
@@ -39,10 +45,11 @@ and to fix the recorded small issues in one pull request ("small polish good"):
 
 ## Decision
 
-- **"+"**: `UploadButton` gains optional `menuIcon` and `menuLabel` for the
-  menu trigger (Element's default stays the paperclip); Poda's composer passes a
-  plus icon and "Attach or share". With only file upload on offer the composer
-  keeps the plain Attachment button.
+- **Profile views**: the room profile widget renders read-only for every
+  viewer (no publish status, visibility switch or host-navigation test button);
+  it still shows the room's featured creator, sample data in this preview.
+  Another member's Creator profile card leaves out empty sections and unset
+  links.
 - **Own widget, one click**: the profile module approves preloading only for a
   widget of type `io.poda.profile` whose URL is on the app's own origin at
   `/widgets/poda-profile/` (with or without `index.html`); any other URL keeps
@@ -67,9 +74,9 @@ and to fix the recorded small issues in one pull request ("small polish good"):
 ## Why
 
 Each choice fixes the recorded concern at its source with the smallest change:
-an opt-in prop instead of forking the upstream button, a token only tooltips
-use, a selector scoped to message bodies, and an approver scoped to the app's
-own widget copy.
+a token only tooltips use, a selector scoped to message bodies, an approver
+scoped to the app's own widget copy, and a rendering option rather than a
+second profile view.
 
 ## Rejected alternatives
 
@@ -82,11 +89,10 @@ own widget copy.
 
 ## Consequences
 
-- `packages/shared-components` `UploadButton` carries two optional props.
 - Tooltips are amber in both Poda themes.
 - A Studio route that loses a race renders nothing rather than stale content.
 
 ## Revisit when
 
-The maintainer wants a different trigger, moderators with Poll access, or Poda
-widgets served from another origin.
+Poda widgets are served from another origin, or another member's profile has
+real data to show.

@@ -1,4 +1,4 @@
-# "+" menu and polish, local build
+# Chat/Studio polish, local build
 
 ## Promise
 
@@ -14,7 +14,7 @@ PASS
 
 ## Head
 
-`8bcc9dc76a`
+`b170a08c78`
 
 ## Observed
 
@@ -24,7 +24,7 @@ PASS
 
 - [Structured observation](situation/references/P-000026/plus-and-polish/observation.json).
 - Screenshots in `situation/references/P-000026/plus-and-polish/`.
-- Tests: shared component 7/7, web 113/113 (nine files), module 68/68.
+- Tests: web 78/78 (six files), module 72/72.
 
 Local manual assurance only; the reusable fork assurance route remains absent
 per [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
@@ -33,10 +33,10 @@ per [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
 
 | Leg | Observation |
 | --- | --- |
-| P1 | "Attach or share" with Attachment and Share to chat; component tests passed. |
-| P2 | Own widget rendered with no prompt; the other-origin widget showed the prompt and no frame; approval tests passed. |
-| P3 | No widget handshake errors across two loads. |
+| P1 | Widget without publish status, visibility switch or test button; Demo's card without empty sections or "not set"; tests passed. |
+| P2 | Own widget open with no prompt; the other-origin widget prompted and did not load; approval tests passed. |
+| P3 | No widget handshake errors. |
 | P4 | "Creator profile", then "Profile" after Back. |
-| P5 | Tooltip about 10:1, links about 7–8:1 on both bubbles, announcement about 8:1; theme test passed. |
+| P5 | Tooltip, links (own and others' bubbles) and Sections announcement text dark brown on amber or cream; theme test passed. |
 | P6 | "Title and season" complete without an episode number; tests passed. |
 | P7 | New podcast listed once in all three passes, one form each time. |

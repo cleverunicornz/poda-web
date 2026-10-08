@@ -1,0 +1,32 @@
+{
+    "head": "b170a08c78",
+    "observed": "2026-10-08",
+    "environment": {
+        "web": "same build as W-000013: bundle directory 8a5a6c3a2dc9e9e7a36a from a992f2df65; b170a08c78 adds only a module test file",
+        "modules": "poda-profile-spike aeb46c261e5a2b3f4…, poda-navigation-spike 944517d89564d1606… (sha256 prefixes)",
+        "homeserver": "matrixdotorg/synapse 1.162.0",
+        "browser": "Headless Chromium at 1440x900",
+        "user": "@mira:localhost, joined to Producers (invite only), General (public), Poll test (created in Poda), Equipment (space members) and a DM with Demo Creator, and to the space Poda Community"
+    },
+    "tests": {
+        "module": "9 files, 72 tests passed",
+        "web": "ExtrasApi.test.ts within 6 files, 78 tests passed (getPostableRooms, sendRoomMessage, openUserProfilePanel)",
+        "e2e": "navigation module Playwright project: 4 passed, including 'offers Create post with an explaining tooltip that opens the post dialog'"
+    },
+    "legs": {
+        "P1": "Top bar 'Create post'; hovering set the tooltip 'Share an episode, a podcast or your profile as a card in one of your chats.' to opacity 1 (create-post-tooltip.png). Composer labels: Emoji, Attachment, Voice Message (no share entry). Share to chat on pod-field-notes opened the dialog with 'A podcast' / 'Field Notes'; on ep-systems-collapse with 'An episode' / 'Systems that do not collapse — Field Notes' (post-dialog-from-episode.png); on the Profile page (buttons Edit profile, Share to chat) with 'My profile'.",
+        "P2": "Post to options: Producers (invite only) [selected, the viewed chat], General (public), Poll test (created in Poda), Demo Creator, Equipment (space members); the space Poda Community absent. From Studio the default was the last viewed chat.",
+        "P3": "Model tests passed; the form adds 'Choose a chat to post in.' when no chat is chosen (source review of shareCard.js at the head).",
+        "P4": "From Producers, Post to General (public), podcast, Collab, description, Book a call → the app opened General (public) and its last card was 'Collab: Field Notes'. Again at the head: Post to Poll test (created in Poda), My profile, Introduction → 'Introduction: Mira Chen' in that chat.",
+        "P5": "The Collab card's link: https://calendly.com/mira-chen/collab, target _blank, rel 'noopener noreferrer nofollow'. Card editing remains disabled through the renderer hint (unchanged from W-000012).",
+        "P6": "View profile on Demo Creator's card opened 'Creator profile' for Demo Creator; Back showed Element's user info.",
+        "P7": "For @olu:localhost at the head the markup card had no a, img or script element and the page title was unchanged; 'Demo shared something (malformed test: version 2)' showed as text."
+    },
+    "notes": [
+        "P5's no-Edit observation was made at 01cc142622 (W-000012); allowEditingEvent: false is unchanged in index.js at the head."
+    ],
+    "screenshots": [
+        "create-post-tooltip.png",
+        "post-dialog-from-episode.png"
+    ]
+}

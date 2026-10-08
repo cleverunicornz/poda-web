@@ -327,18 +327,23 @@ under [O-000025](situation/oracles/O-000025-share-cards.md) (active
 [PLAN-000013](situation/plans/active/PLAN-000013-share-cards.md)). G-000034
 (items cannot be opened yet) and G-000035 (the paperclip trigger) stay open.
 
-## "+" menu and polish
+## Polish and share entry points
 
-[D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) opens the
-composer's upload menu from a "+" ("Attach or share"), loads Poda's own profile
-widget without the approval prompt, fixes its handshake, titles the module card
-"Creator profile", makes tooltips, message links and the Sections announcement
+[D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) loads Poda's
+own profile widget without the approval prompt and read-only, fixes its
+handshake, titles the module card "Creator profile" and hides another member's
+empty sections, makes tooltips, message links and the Sections announcement
 readable, bases the episode readiness item on the season, and guards Studio
 routes against stale renders.
-[P-000026](situation/promises/P-000026-plus-menu-and-polish.md) is assured by
+[D-000030](situation/decisions/D-000030-share-entry-points.md) moves share cards
+from the composer to a top-bar **Create post** (with a chat picker) and **Share
+to chat** on podcast, episode and Profile pages.
+[P-000026](situation/promises/P-000026-plus-menu-and-polish.md) and
+[P-000027](situation/promises/P-000027-share-cards-create-post.md) (superseding
+P-000025) are assured by
 [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md)
-under [O-000026](situation/oracles/O-000026-plus-menu-and-polish.md) (active
-[PLAN-000014](situation/plans/active/PLAN-000014-plus-menu-and-polish.md));
+and [W-000014](situation/witnesses/P-000027/W-000014-share-cards-create-post-local-pass.md)
+(active [PLAN-000014](situation/plans/active/PLAN-000014-plus-menu-and-polish.md));
 G-000019, G-000024, G-000026, G-000029–G-000032 and G-000035 are closed;
 G-000036 records a pre-existing failing snapshot.
 

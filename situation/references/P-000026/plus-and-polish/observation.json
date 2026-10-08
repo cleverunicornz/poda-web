@@ -1,39 +1,37 @@
 {
-    "head": "8bcc9dc76a",
+    "head": "b170a08c78",
     "observed": "2026-10-08",
     "environment": {
-        "web": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false from 8bcc9dc76a after rebuilding @element-hq/web-shared-components and the module API; bundle directory 8ce2887a96c654885d42; served by python3 http.server on 127.0.0.1:20000",
-        "module": "poda-profile-spike lib/index.js sha256 8384880c31d91f443…; widget.bundle.js a2246cc0d64d6f645…; widget index.html 971a9fe7f3bc05525… (prefixes), all built from the head and served at /modules and /widgets/poda-profile/",
+        "web": "apps/web webpack-cli --mode production with CI_PACKAGE=1 (unminified) and --devtool false from a992f2df65 after rebuilding @element-hq/web-shared-components and the module API; bundle directory 8a5a6c3a2dc9e9e7a36a; b170a08c78 adds only a module test file. Served by python3 http.server on 127.0.0.1:20000.",
+        "modules": "poda-profile-spike lib/index.js aeb46c261e5a2b3f4…, widget.bundle.js b9f50401fda5996ac…, widget index.html 971a9fe7f3bc05525…, poda-navigation-spike lib/index.js 944517d89564d1606… (sha256 prefixes), built from the head sources and served",
         "homeserver": "matrixdotorg/synapse 1.162.0, room version 12",
-        "browser": "Headless Chromium via the workbench Playwright tools at 1440x900, Poda Light",
-        "widgets": "Producers (invite only) poda-profile-spike, type io.poda.profile, URL http://127.0.0.1:20000/widgets/poda-profile/index.html?… (event $iNg70-DCVrmJi2cSY1VcunWfM-DA-LHoEP6i9uq7-z8); General (public) lookalike-profile, same type, URL on http://127.0.0.1:20002 (event $tSujDjtSXA-rmQ8KbByvGrVXP54Cl1q3qis2dCX-VCA)",
-        "users": "@mira:localhost (had never approved either widget event), @demo:localhost, @nina:localhost (new account for the Sections announcement)"
+        "browser": "Headless Chromium via the workbench Playwright tools at 1440x900, Poda Light, cache disabled",
+        "widgets": "Producers (invite only) poda-profile-spike, type io.poda.profile, URL http://127.0.0.1:20000/widgets/poda-profile/index.html?… (event $iNg70-DCVrmJi2cSY1VcunWfM-DA-LHoEP6i9uq7-z8, never approved by Mira); General (public) lookalike-profile, same type, URL on http://127.0.0.1:20002 (event $tSujDjtSXA-rmQ8KbByvGrVXP54Cl1q3qis2dCX-VCA)",
+        "users": "@mira:localhost; @olu:localhost (new account) for the Sections announcement"
     },
     "tests": {
-        "shared_components": "UploadButton: 2 files, 7 tests passed (browser mode); tsc clean",
-        "web": "podaTheme, ThemeWatcher, SdkConfig, MessageComposerButtons, MessageComposer, UserProfileCard, UserInfoBasicOptionsView, ExtrasApi, podaChatPolicy: 9 files, 113 tests passed; tsc clean; stylelint clean; pnpm i18n left en_EN.json unchanged",
-        "module": "8 files, 68 tests passed; tsc clean",
-        "static": "oxfmt and oxlint clean on every changed file"
+        "web": "ExtrasApi, MessageComposerButtons, MessageComposer, UserProfileCard, podaTheme, podaChatPolicy: 6 files, 78 tests passed; tsc clean for apps/web and packages/module-api",
+        "module": "9 files, 72 tests passed (including profileFullView hideEmpty, widgetApproval, episodeReadiness); tsc clean",
+        "static": "oxfmt clean on every changed file; oxlint reports only the six pre-existing G-000014 errors in untouched files (mockAdapter.js, mockAdapter.test.js, podcastFixtures.js, profileFixtures.js, appleCategories.js)"
     },
     "legs": {
-        "P1": "Composer buttons Emoji, Attach or share, Voice Message; the Attach or share menu listed Attachment and Share to chat (plus-menu-and-own-bubble-links.png).",
-        "P2": "Mira opened Poda Profile from Extensions: no 'Widget added by' or Continue, iframe /widgets/poda-profile/index.html with widgetId, content 'Mira Chen …' (own-widget-without-prompt.png). Lookalike Profile: panel 'Widget added by Demo Creator … Using this widget may share data with 127.0.0.1:20002 … Continue' and no 20002 frame.",
-        "P3": "Console listener for 'unknown widget ID', 'Improper sequence' and 'Poda profile widget' captured nothing across two widget loads at the head.",
-        "P4": "View profile from Demo's profile card: heading 'Creator profile' (creator-profile-title.png); Back: 'Profile'.",
-        "P5": "Threads tooltip background rgb(250, 217, 144) with text rgb(51, 34, 22) (about 10:1); links rgb(116, 55, 25) underlined on others' bubble rgb(247, 241, 235) and own bubble rgb(255, 235, 199) (about 7–8:1); Introducing Sections description and Ok text rgb(51, 34, 22) on rgb(249, 186, 81) (about 8:1) (tooltip-and-links.png, sections-announcement.png). Before: tooltip text rgb(51, 34, 22) on rgba(2, 4, 8, 0.9); links rgb(249, 186, 81) on rgb(255, 235, 199); description rgb(205, 211, 218) on rgb(249, 186, 81).",
-        "P6": "The episode wizard showed 'Title and season'; with a title and the default season 1 and no episode number the item read 'In place' and carried pnRailItem--done.",
-        "P7": "Three passes of create podcast → Studio → Episodes → New episode with 150 ms between routes: 'Picker check 1/2/3' listed each time (3, 4, 5 options), one #epPodcast each time."
+        "P1": "Widget page text contained 'Mira Chen' but no 'Published', no 'Ask host' and no [aria-label=\"Profile visibility\"] element (read-only-widget.png). Demo Creator's Creator profile card read 'Creator profile | DC | Demo Creator | @demo:localhost · no Poda creator profile in this preview' with 0 'not set' (member-card-without-empty-sections.png).",
+        "P2": "After a reload the app-served widget was open in Mira's right panel with no 'Widget added by'/'Continue' text; the Lookalike Profile showed the prompt and no 127.0.0.1:20002 frame.",
+        "P3": "A console listener for 'unknown widget ID', 'Improper sequence' and 'Poda profile widget' captured nothing across the reload and widget load.",
+        "P4": "View profile from Demo's card: heading 'Creator profile'; Back: Element's 'Profile'.",
+        "P5": "Threads tooltip rgb(51, 34, 22) on rgb(250, 217, 144); links rgb(116, 55, 25) on Mira's own bubble rgb(255, 235, 199) and, for Olu, on another's bubble; Introducing Sections heading, description and Ok text rgb(51, 34, 22) on rgb(249, 186, 81) (tooltip-and-links.png, sections-announcement.png).",
+        "P6": "With title 'Readiness check', default season 1 and no episode number, the 'Title and season' readiness item carried pnRailItem--done.",
+        "P7": "Three passes of create podcast → Studio → Episodes → New episode with 150 ms between routes listed 'Head check 1/2/3' each time, one #epPodcast each time."
     },
     "notes": [
-        "P2, P4, P5 (announcement) and P7 were observed on a build from the worktree before the commit; the commit then changed only UploadButton.tsx formatting and widget.js's copyright header and a void operator. P1, P2, P3 and P5 (tooltip, links) were re-observed at the head build.",
-        "The AppearanceUserSettingsTab snapshot test fails identically on internal/main cb99f7b34a (G-000036).",
+        "Earlier observations of this promise at 8bcc9dc76a included a '+' composer trigger that a992f2df65 removed (D-000030); those screenshots were replaced.",
+        "The AppearanceUserSettingsTab snapshot failure on internal/main remains G-000036.",
         "Fixture passwords are local to the workbench homeserver and not retained."
     ],
     "screenshots": [
-        "plus-menu-and-own-bubble-links.png",
+        "read-only-widget.png",
+        "member-card-without-empty-sections.png",
         "tooltip-and-links.png",
-        "sections-announcement.png",
-        "creator-profile-title.png",
-        "own-widget-without-prompt.png"
+        "sections-announcement.png"
     ]
 }

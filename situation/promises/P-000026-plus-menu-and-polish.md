@@ -1,4 +1,4 @@
-# "+" composer menu and chat/Studio polish
+# Chat/Studio polish: widget, titles, contrast, readiness and routes
 
 ## State
 
@@ -8,9 +8,9 @@ assured
 
 In Poda Web with the Poda modules, in Poda Light:
 
-1. **"+" menu.** Where the composer offers more than file upload, its button is
-   a "+" named "Attach or share" whose menu lists Attachment and Share to chat;
-   without extra options the Attachment button is unchanged.
+1. **Profile views.** The room profile widget shows no publish status,
+   visibility switch or host-navigation button to any viewer; another member's
+   Creator profile card shows no empty section and no unset link.
 2. **Own widget.** The Poda profile widget served by the app at
    `/widgets/poda-profile/` opens from Extensions without Element's approval
    prompt and renders; a widget of the same type at another origin still shows
@@ -30,8 +30,7 @@ In Poda Web with the Poda modules, in Poda Light:
 
 ## Scope
 
-`packages/shared-components` `UploadButton`, `apps/web` composer, profile card,
-Poda theme and stylesheet, and `modules/poda-profile-spike` (module, widget,
+`apps/web` profile card, Poda theme and stylesheet, and `modules/poda-profile-spike` (module, widget,
 Studio), in a local build with a local Synapse, as changed by
 [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md).
 
@@ -43,10 +42,11 @@ Studio), in a local build with a local Synapse, as changed by
 
 - [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) selects the
   behavior.
-- `implemented`: commit `8bcc9dc76a` on branch `internal/plus-and-polish`.
+- `implemented`: commits `8bcc9dc76a`, `a992f2df65` and `b170a08c78` on branch
+  `internal/plus-and-polish`.
 - `assured`: [O-000026](situation/oracles/O-000026-plus-menu-and-polish.md)
   passed on [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md)
-  at `8bcc9dc76a`; local manual assurance per
+  at `b170a08c78`; local manual assurance per
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
 
 ## Residual

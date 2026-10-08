@@ -1,4 +1,4 @@
-# Oracle for the "+" composer menu and polish
+# Oracle for the chat/Studio polish
 
 ## State
 
@@ -14,7 +14,8 @@ implemented
 - The test commands below and their results on that head.
 - A signed-in browser observation of a build of that head at 1440 × 900 in
   Poda Light against a local Synapse with the profile widget served by the app
-  and a same-type widget on another origin: the composer, a header tooltip,
+  and a same-type widget on another origin: the widget's content, another
+  member's Creator profile card, a header tooltip,
   links in own and others' messages, the Sections announcement for a new
   account, both widgets opened by a member who had not approved them, View
   profile and Back, the episode wizard, and three quick create-and-navigate
@@ -24,9 +25,9 @@ implemented
 
 ## Pass
 
-- **P1** — "Attach or share" with a plus icon whose menu lists Attachment and
-  Share to chat; component tests show the default paperclip and the custom
-  trigger.
+- **P1** — the widget's page has no "Published" text, no profile-visibility
+  group and no "Ask host" button; another member's card contains no "not set"
+  and no empty section; the profile view tests pass.
 - **P2** — the app-served widget renders with no prompt; the other-origin
   widget shows "Widget added by … Continue" and no frame; approval tests pass.
 - **P3** — no "unknown widget ID" or content-loaded error in the console while
@@ -41,7 +42,8 @@ implemented
 
 ## Fail
 
-- **F1** — paperclip or another label with several options, or a missing item.
+- **F1** — a test control or status in the widget, or an empty section or
+  unset link on another member's card.
 - **F2** — a prompt for the app's own widget, or none for the other origin.
 - **F3** — either widget error logged.
 - **F4** — both cards titled "Profile", or Back elsewhere.
@@ -50,12 +52,6 @@ implemented
 - **F7** — the podcast missing or a duplicated form.
 
 ## Implementation
-
-From `packages/shared-components/` (browser mode):
-
-```sh
-pnpm exec vitest run src/room/composer/UploadButton
-```
 
 From `apps/web/`:
 
@@ -74,7 +70,7 @@ pnpm exec vitest run
 
 | Leg | Decision | Coverage |
 | --- | --- | --- |
-| P1 / F1 | Menu trigger | `UploadButton.test.tsx` "can give the menu button its own label and icon"; browser manual |
+| P1 / F1 | Read-only widget and empty-free member card | `profileFullView.test.js` "hideEmpty"; widget and browser manual |
 | P2 / F2 | Own-widget preload approval | `widgetApproval.test.js`; browser manual |
 | P3 / F3 | Widget handshake | manual |
 | P4 / F4 | Card titles | `UserProfileCard.test.tsx`; browser manual |
