@@ -28,6 +28,10 @@ PASS
 - [Studio current in the header at 1440 × 900, Poda Light](situation/references/P-000023/member-navigation/header-studio-current.png).
 - Module Playwright specification: 3 passed at the head; router regression:
   8 passed.
+- After merging `internal/main` (which changed the profile module that
+  registers Studio), the specification passed 6/6, the router regression 8/8
+  and the profile module's tests 35/35 at merge head `a94b46ba0f`, with the
+  navigation bundle unchanged (`rerun_after_trunk_merge` in the observation).
 
 Local manual assurance only; the reusable fork assurance route remains absent
 per [G-000001](situation/gaps/G-000001-fork-assurance-route.md).

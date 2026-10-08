@@ -26,5 +26,17 @@
         "P5": "Specification matrix 1440x900 and 500x900 in Poda Light and Dark: body theme class, header and 'Podcasts' heading visible, scrollWidth <= viewport, heights fill the body, two header backgrounds. Manual Studio at 1440: scrollWidth 1440, only Studio current.",
         "P6": "git diff --stat internal/main..ffb3ccf4b4: only modules/poda-navigation-spike (spec, Navigation.tsx, index.tsx, style.css); no reload, location.assign, pageshow or registerLocationRenderer in the module source."
     },
-    "screenshots": ["header-studio-current.png"]
+    "screenshots": [
+        "header-studio-current.png"
+    ],
+    "rerun_after_trunk_merge": {
+        "head": "a94b46ba0f",
+        "observed": "2026-10-08",
+        "why": "merging internal/main brought PR #21's changes to modules/poda-profile-spike, whose Studio location the specification navigates to; the navigation module is unchanged",
+        "modules": {
+            "poda-navigation-spike": "e734e3fc01041a9e97fb50ced6621ee5ba6a89588c9e9a98e59053f727fa2e86 (unchanged)",
+            "poda-profile-spike": "df96ccf6815aeac5788d9b183660117e64ed6706eb05ba2ea456a7c8e992a025 (built = served)"
+        },
+        "results": "navigation specification 6/6 (--repeat-each 2); poda-profile-spike vitest 35/35; routing.test.ts 8/8; tsc --noEmit for modules/ clean"
+    }
 }
