@@ -7,7 +7,7 @@ Please see LICENSE files in the repository root for full details.
 
 import { describe, expect, it } from "vitest";
 
-import { episodeNumberLabel } from "./podcastFullView.js";
+import { episodeLabel, episodeNumberLabel } from "./podcastFullView.js";
 
 describe("episodeNumberLabel", () => {
     it.each([
@@ -19,5 +19,16 @@ describe("episodeNumberLabel", () => {
         [0, 0, "S0E0"],
     ])("season %s, episode %s -> %j", (season, episode, expected) => {
         expect(episodeNumberLabel(season, episode)).toBe(expected);
+    });
+});
+
+describe("episodeLabel (D-000031)", () => {
+    it.each([
+        [{ seasonNumber: 2, episodeNumber: 4, episodeType: "full" }, "S2E4"],
+        [{ seasonNumber: 1, episodeNumber: null, episodeType: "trailer" }, "S1 · Trailer"],
+        [{ seasonNumber: 1, episodeNumber: 3, episodeType: "bonus" }, "S1E3 · Bonus"],
+        [{ seasonNumber: 1, episodeNumber: null }, "S1"],
+    ])("%j → %s", (episode, expected) => {
+        expect(episodeLabel(episode)).toBe(expected);
     });
 });

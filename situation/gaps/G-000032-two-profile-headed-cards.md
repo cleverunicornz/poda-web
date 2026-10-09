@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -28,4 +28,4 @@ Users may not notice that View profile opened a different card.
 
 ## Resolution
 
-none
+Closed: the module card is titled "Creator profile" ([D-000029](situation/decisions/D-000029-plus-menu-and-polish.md), [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P4).

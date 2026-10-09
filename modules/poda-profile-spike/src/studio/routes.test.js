@@ -44,6 +44,21 @@ describe("studio routes", () => {
         ]);
     });
 
+    it("adds Share to chat on both detail pages when posting is available (D-000030)", () => {
+        expect(detailActions({ view: "detail", id: "pod-1" }, { canShare: true }).at(-1)).toEqual({
+            id: "share",
+            label: "Share to chat",
+            share: { kind: "podcast", id: "pod-1" },
+        });
+        expect(
+            detailActions({ view: "episodeDetail", id: "ep-1" }, { podcastId: "pod-1", canShare: true }).at(-1),
+        ).toEqual({
+            id: "share",
+            label: "Share to chat",
+            share: { kind: "episode", id: "ep-1" },
+        });
+    });
+
     it("offers nothing elsewhere", () => {
         expect(detailActions({ view: "list" })).toEqual([]);
     });

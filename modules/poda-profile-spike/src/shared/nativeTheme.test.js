@@ -15,4 +15,12 @@ describe("native theme", () => {
     it("hides an error banner that carries the hidden attribute", () => {
         expect(NATIVE_STYLES).toMatch(/\.pnError\[hidden\]\s*\{\s*display:\s*none;\s*\}/);
     });
+
+    it("aligns fields placed side by side in a grid row", () => {
+        expect(NATIVE_STYLES).toMatch(/\.pnGrid3 > \.pnField \+ \.pnField \{ margin-top: 0; \}/);
+    });
+
+    it("cancels Element's text-input margin inside Poda fields", () => {
+        expect(NATIVE_STYLES).toContain(".podaNative .pnInput { margin: 0; }");
+    });
 });

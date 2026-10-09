@@ -17,8 +17,9 @@ import { renderStudioView } from "./shared/podcastFullView.js";
 import { podaData } from "./data/mockAdapter.js";
 import { APPLE_CATEGORIES } from "./data/appleCategories.js";
 import { STUDIO_LOCATION, detailActions, parseStudioRoute, studioRouteHash } from "./studio/routes.js";
-import { SHARE_MSGTYPE, itemSnapshot, parseShareContent } from "./share/shareModel.js";
+import { itemSnapshot, parseShareContent } from "./share/shareModel.js";
 import { ensureShareStyles, renderShareForm, shareCardHtml } from "./share/shareCard.js";
+import { isOwnProfileWidget } from "./widgetApproval.js";
 
 export const PROFILE_LOCATION = "io.poda.profile-spike.profile";
 
@@ -90,7 +91,11 @@ async function renderSummary(container, { api, overrides, setOverrides, who }) {
         stats,
         shareUrl: profile.slug ? `https://poda.social/@${profile.slug}` : null,
         extraActionsHtml: isOwn
-            ? `<button class="pnBtn pnBtn--primary" id="podaProfileEditLink" type="button">${icon("pencil")} Edit profile</button>`
+            ? `<button class="pnBtn pnBtn--primary" id="podaProfileEditLink" type="button">${icon("pencil")} Edit profile</button>${
+                  canShare(api)
+                      ? `<button class="pnBtn pnBtn--outline" id="podaProfileShare" type="button">${icon("share")} Share to chat</button>`
+                      : ""
+              }`
             : "",
         onRemoveTopic: isOwn
             ? (topic) => setOverrides({ ...overrides, topics: (profile.topics ?? []).filter((t) => t !== topic) })
@@ -102,6 +107,9 @@ async function renderSummary(container, { api, overrides, setOverrides, who }) {
         onVisibilityChange: isOwn ? (vis) => setOverrides({ ...overrides, isPublic: vis === "public" }) : undefined,
     });
     body.querySelector("#podaProfileEditLink")?.addEventListener("click", () => navigateTo("edit", "me"));
+    body.querySelector("#podaProfileShare")?.addEventListener("click", () => {
+        void openShareDialog(api, { initial: { kind: "profile", itemValue: "me" } });
+    });
     if (isOwn) {
         const identity = document.createElement("p");
         identity.className = "pnSubtle";
@@ -396,6 +404,7 @@ async function renderProfilePanel(container, { api, userId, displayName }) {
         showStatus: isOwn,
         showVisibility: isOwn,
         showRail: isOwn,
+        hideEmpty: !isOwn,
         extraActionsHtml: isOwn
             ? `<button class="pnBtn pnBtn--outline pnBtn--sm" id="podaPanelEditProfile" type="button">${icon("pencil")} Edit profile</button>`
             : "",
@@ -437,19 +446,19 @@ function studioNavigate(route) {
 }
 
 // Back/next-step buttons above a Studio detail page (G-000023).
-function detailActionsHost(actions) {
+function detailActionsHost(actions, { onShare } = {}) {
     const host = document.createElement("div");
     host.innerHTML = `<style>${NATIVE_STYLES}${STUDIO_NAV_STYLES}</style><nav class="podaNative podaStudioNav" aria-label="Studio navigation" style="display:flex;gap:8px;flex-wrap:wrap">
         ${actions
             .map(
                 (a) =>
-                    `<button class="pnBtn ${a.id === "back" ? "pnBtn--ghost" : "pnBtn--outline"} pnBtn--sm" type="button" data-action="${esc(a.id)}">${icon(a.id === "back" ? "arrowLeft" : a.id === "new-episode" ? "plus" : "arrowRight")} ${esc(a.label)}</button>`,
+                    `<button class="pnBtn ${a.id === "back" ? "pnBtn--ghost" : a.id === "share" ? "pnBtn--primary" : "pnBtn--outline"} pnBtn--sm" type="button" data-action="${esc(a.id)}">${icon(a.id === "back" ? "arrowLeft" : a.id === "new-episode" ? "plus" : a.id === "share" ? "share" : "arrowRight")} ${esc(a.label)}</button>`,
             )
             .join("")}
     </nav>`;
     host.querySelectorAll("[data-action]").forEach((b) => {
         const action = actions.find((a) => a.id === b.dataset.action);
-        b.addEventListener("click", () => studioNavigate(action.to));
+        b.addEventListener("click", () => (action.share ? onShare?.(action.share) : studioNavigate(action.to)));
     });
     return host;
 }
@@ -463,7 +472,7 @@ function studioNavHost(active) {
     return host;
 }
 
-function StudioPage() {
+function StudioPage({ api }) {
     const React = window.React;
     const ref = React.useRef(null);
     const [route, setRoute] = React.useState(studioRoute());
@@ -498,9 +507,13 @@ function StudioPage() {
                 ref.current.appendChild(nav);
             }
             ref.current.appendChild(contentHost);
+            // Every await below may finish after a newer route has replaced this one; only the current route renders
+            // (G-000026).
+            const superseded = () => contentHost.parentNode !== ref.current;
 
             if (route.view === "new-podcast") {
                 const { renderPodcastCreateView } = await import("./studio/podcastCreate.js");
+                if (superseded()) return;
                 renderPodcastCreateView(contentHost, {
                     onSubmit: async (draft, intent) => {
                         const created = await podaData.savePodcast(draft);
@@ -513,6 +526,7 @@ function StudioPage() {
             if (route.view === "new-episode") {
                 const { renderEpisodeCreateView } = await import("./studio/episodeCreate.js");
                 const podcasts = await podaData.listPodcasts();
+                if (superseded()) return;
                 renderEpisodeCreateView(contentHost, {
                     podcasts,
                     initialPodcastId: route.podcastId,
@@ -531,8 +545,14 @@ function StudioPage() {
                     return;
                 }
                 const episodes = await podaData.listEpisodes(route.id);
-                if (contentHost.parentNode !== ref.current) return; // superseded by a newer route
-                ref.current.insertBefore(detailActionsHost(detailActions(route)), contentHost);
+                if (superseded()) return;
+                ref.current.insertBefore(
+                    detailActionsHost(detailActions(route, { canShare: canShare(api) }), {
+                        onShare: (share) =>
+                            void openShareDialog(api, { initial: { kind: share.kind, itemValue: share.id } }),
+                    }),
+                    contentHost,
+                );
                 renderStudioView(contentHost, { podcast, episodes, hostLabel: "module (app page)" });
                 return;
             }
@@ -543,9 +563,12 @@ function StudioPage() {
                     return;
                 }
                 const { renderEpisodeDetailView } = await import("./shared/podcastFullView.js");
-                if (contentHost.parentNode !== ref.current) return; // superseded by a newer route
+                if (superseded()) return;
                 ref.current.insertBefore(
-                    detailActionsHost(detailActions(route, { podcastId: episode.podcastId })),
+                    detailActionsHost(detailActions(route, { podcastId: episode.podcastId, canShare: canShare(api) }), {
+                        onShare: (share) =>
+                            void openShareDialog(api, { initial: { kind: share.kind, itemValue: share.id } }),
+                    }),
                     contentHost,
                 );
                 renderEpisodeDetailView(contentHost, episode);
@@ -554,6 +577,7 @@ function StudioPage() {
             if (route.view === "episodes") {
                 const { renderEpisodeListView } = await import("./studio/episodeList.js");
                 const [episodes, podcasts] = await Promise.all([podaData.listEpisodes(), podaData.listPodcasts()]);
+                if (superseded()) return;
                 renderEpisodeListView(contentHost, {
                     episodes,
                     podcasts,
@@ -568,32 +592,26 @@ function StudioPage() {
             }
             const { renderStudioListView } = await import("./studio/studioList.js");
             const podcasts = await podaData.listPodcasts();
+            if (superseded()) return;
             renderStudioListView(contentHost, {
                 podcasts,
                 onOpen: (id) => studioNavigate({ view: "detail", id }),
                 onCreate: () => studioNavigate({ view: "new-podcast" }),
             });
         })();
-    }, [route]);
+    }, [api, route]);
     return React.createElement("div", { ref });
 }
 
-// ---------- share cards (D-000028) ----------
+// ---------- share cards (D-000028) and where they are created (D-000030) ----------
 
-const SHARE_ICON_PATH =
-    '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>';
+// The navigation module's "Create post" button asks for the post dialog with this window event; this module marks
+// the document while it can answer, so the button only appears when posting is possible.
+const CREATE_POST_EVENT = "poda:create-post";
+const CREATE_POST_AVAILABLE_EVENT = "poda:create-post-available";
 
-function ShareIcon(props) {
-    return window.React.createElement("svg", {
-        ...props,
-        viewBox: "0 0 24 24",
-        fill: "none",
-        stroke: "currentColor",
-        strokeWidth: 2,
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        dangerouslySetInnerHTML: { __html: SHARE_ICON_PATH },
-    });
+function canShare(api) {
+    return typeof api.extras.sendRoomMessage === "function" && typeof api.extras.getPostableRooms === "function";
 }
 
 /** The member's own items as share options, from the module's data adapter. */
@@ -628,23 +646,23 @@ async function shareSources(api) {
     };
 }
 
-function ShareDialogBody({ sources, sharerName, onSubmit, onCancel }) {
+function ShareDialogBody({ sources, sharerName, rooms, roomId, initial, onSubmit, onCancel }) {
     const React = window.React;
     const ref = React.useRef(null);
     React.useEffect(() => {
         if (!ref.current) return;
         ensureShareStyles();
-        renderShareForm(ref.current, { sources, sharerName, onPost: onSubmit, onCancel });
-    }, [sources, sharerName, onSubmit, onCancel]);
+        renderShareForm(ref.current, { sources, sharerName, rooms, roomId, initial, onPost: onSubmit, onCancel });
+    }, [sources, sharerName, rooms, roomId, initial, onSubmit, onCancel]);
     return React.createElement("div", { ref });
 }
 
-function ShareErrorBody({ onCancel }) {
+function MessageDialogBody({ message, onCancel }) {
     const React = window.React;
     return React.createElement(
         "div",
         { className: "podaNative" },
-        React.createElement("p", null, "Your card wasn't posted. Check your connection and try again."),
+        React.createElement("p", null, message),
         React.createElement(
             "div",
             { className: "pnFooter" },
@@ -657,21 +675,35 @@ function ShareErrorBody({ onCancel }) {
     );
 }
 
-async function openShareDialog(api, roomId) {
-    if (!roomId) return;
-    const { sources, sharerName } = await shareSources(api);
-    const { ok, model } = await api.openDialog({ title: "Share to chat" }, ShareDialogBody, { sources, sharerName })
-        .finished;
-    if (!ok || !model) return;
-    if (!api.extras.sendRoomMessage) {
-        // Hosts without the Poda extension get the plain-text version in the composer to send themselves.
-        api.composer.insertPlaintextIntoComposer(model.body, { view: "room" });
+/**
+ * Opens the post dialog: pick a chat (the viewed one by default), what to share and how, then post the card there
+ * and open that chat. `initial` preselects an item, e.g. { kind: "episode", itemValue: id } from a Studio page.
+ */
+async function openShareDialog(api, { initial = null } = {}) {
+    if (!canShare(api)) return;
+    const { rooms, currentRoomId } = api.extras.getPostableRooms();
+    if (!rooms.length) {
+        api.openDialog({ title: "Create a post" }, MessageDialogBody, {
+            message: "Join a chat you can post in first, then share your episodes, podcasts or profile there.",
+        });
         return;
     }
+    const { sources, sharerName } = await shareSources(api);
+    const { ok, model } = await api.openDialog({ title: "Create a post" }, ShareDialogBody, {
+        sources,
+        sharerName,
+        rooms,
+        roomId: currentRoomId ?? rooms[0].roomId,
+        initial,
+    }).finished;
+    if (!ok || !model) return;
     try {
-        await api.extras.sendRoomMessage(roomId, model);
+        await api.extras.sendRoomMessage(model.roomId, model.content);
+        api.navigation.openRoom(model.roomId);
     } catch {
-        api.openDialog({ title: "Couldn't post the card" }, ShareErrorBody, {});
+        api.openDialog({ title: "Couldn't post the card" }, MessageDialogBody, {
+            message: "Your card wasn't posted. Check your connection and try again.",
+        });
     }
 }
 
@@ -710,18 +742,27 @@ export default class PodaProfileSpikeModule {
         const React = window.React;
         const api = this.api;
         this.api.navigation.registerLocationRenderer(PROFILE_LOCATION, () => React.createElement(ProfilePage, { api }));
-        this.api.navigation.registerLocationRenderer(STUDIO_LOCATION, () => React.createElement(StudioPage));
+        this.api.navigation.registerLocationRenderer(STUDIO_LOCATION, () => React.createElement(StudioPage, { api }));
         // Poda host extension (D-000024); absent on hosts without it.
         this.api.extras.setUserProfilePanel?.(({ userId, displayName }) =>
             React.createElement(ProfilePanel, { api, userId, displayName }),
         );
-        // Share cards (D-000028): a "Share to chat" entry in the composer's upload menu, and the card in the timeline.
-        this.api.composer.addFileUploadOption({
-            type: SHARE_MSGTYPE,
-            label: "Share to chat",
-            icon: ShareIcon,
-            onSelected: (roomId) => openShareDialog(api, roomId),
-        });
+        // Poda's own profile widget loads without the per-viewer approval prompt (D-000029); only one module may
+        // register a preload approver, so another module's approver wins.
+        try {
+            this.api.widgetLifecycle.registerPreloadApprover((widget) =>
+                isOwnProfileWidget(widget, window.location.origin) ? true : undefined,
+            );
+        } catch (error) {
+            console.warn("Poda profile module: preload approver not registered", error);
+        }
+        // Share cards: posts start from the navigation module's "Create post" button and from Share to chat on Studio
+        // and Profile pages (D-000030); the card renders in the timeline (D-000028).
+        if (canShare(api)) {
+            window.addEventListener(CREATE_POST_EVENT, () => void openShareDialog(api));
+            document.documentElement.dataset.podaCreatePost = "available";
+            window.dispatchEvent(new Event(CREATE_POST_AVAILABLE_EVENT));
+        }
         this.api.customComponents.registerMessageRenderer(
             isShareEvent,
             (props) => React.createElement(ShareCardTile, { api, mxEvent: props.mxEvent }),

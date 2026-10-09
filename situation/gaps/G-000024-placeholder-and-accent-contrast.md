@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -42,4 +42,4 @@ text.
 
 ## Resolution
 
-none
+Closed: placeholders were lightened by D-000025 (W-000007); [D-000029](situation/decisions/D-000029-plus-menu-and-polish.md) gives message links the accent text colour and the Sections announcement readable text; [W-000013](situation/witnesses/P-000026/W-000013-plus-menu-and-polish-local-pass.md) P5 measured both at 4.5:1 or more.

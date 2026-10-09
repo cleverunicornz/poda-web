@@ -40,7 +40,7 @@ export function UserProfileCard({ member, roomId, onClose }: Props): JSX.Element
     const displayName = member instanceof RoomMember ? member.rawDisplayName : (member.displayName ?? undefined);
 
     return (
-        <BaseCard className="mx_UserProfileCard" header={_t("common|profile")} onClose={onClose}>
+        <BaseCard className="mx_UserProfileCard" header={_t("user_info|creator_profile")} onClose={onClose}>
             <ErrorBoundary>
                 <ModuleUserProfile
                     renderer={renderer}

@@ -3804,6 +3804,7 @@
         "ban_room_confirm_title": "Ban from %(roomName)s",
         "ban_space_everything": "Ban them from everything I'm able to",
         "ban_space_specific": "Ban them from specific things I'm able to",
+        "creator_profile": "Creator profile",
         "deactivate_confirm_action": "Deactivate user",
         "deactivate_confirm_description": "Deactivating this user will remove their devices and prevent them from logging back in. Additionally, they will leave all the rooms they are in. This action cannot be reversed. Are you sure you want to deactivate this user?",
         "deactivate_confirm_title": "Deactivate user?",

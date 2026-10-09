@@ -9,6 +9,7 @@ Please see LICENSE files in the repository root for full details.
 // bordered desktop table (Episode/Status/Duration/Date), and card rows on
 // narrow widths. Data flows through the mock adapter unchanged.
 import { NATIVE_STYLES, esc, icon, statusPill } from "../shared/nativeTheme.js";
+import { episodeLabel } from "../shared/podcastFullView.js";
 
 const EPLIST_STYLES = `
 .podaEpisodeList_podcastFilter { display: flex; align-items: center; gap: 8px; margin-left: auto; }
@@ -59,7 +60,7 @@ export function renderEpisodeListView(
     const rows = filtered
         .map((e) => {
             const parent = podcastById.get(e.podcastId);
-            const sub = parent?.title ?? "No primary media";
+            const sub = [parent?.title ?? "No primary media", episodeLabel(e)].filter(Boolean).join(" · ");
             return `<tr data-episode="${esc(e.id)}" tabindex="0" role="button" aria-label="Open episode ${esc(e.title)}">
                 <td><span class="pnTable_episode">
                     <span class="pnTile" aria-hidden="true">${icon("playCircle")}</span>

@@ -2,7 +2,7 @@
 
 ## State
 
-assured
+superseded
 
 ## Promise
 
@@ -53,6 +53,9 @@ in a local build with a local Synapse, as changed by
   [W-000012](situation/witnesses/P-000025/W-000012-share-cards-local-pass.md)
   at `01cc142622`, covering every leg; local manual assurance per
   [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
+- `superseded`: by [P-000027](situation/promises/P-000027-share-cards-create-post.md)
+  under [D-000030](situation/decisions/D-000030-share-entry-points.md), which
+  moves the entry from the upload menu to Create post and Share to chat.
 
 ## Residual
 

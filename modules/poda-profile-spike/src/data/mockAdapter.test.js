@@ -133,6 +133,27 @@ describe("validateEpisodeDraft", () => {
         expect(validateEpisodeDraft({ ...baseEpisode, seasonNumber: 2 })).toEqual({});
     });
 
+    it("needs an episode number for full episodes once scheduled (D-000031)", () => {
+        const scheduled = { ...baseEpisode, status: "scheduled", scheduledAt: "2026-11-01T10:00:00.000Z" };
+        expect(validateEpisodeDraft(scheduled).episodeNumber).toBe(
+            "Full episodes need an episode number once they are scheduled or published.",
+        );
+        expect(validateEpisodeDraft({ ...scheduled, episodeType: "full", episodeNumber: 4 })).toEqual({});
+        expect(validateEpisodeDraft({ ...scheduled, status: "published" }).episodeNumber).toBeTruthy();
+    });
+
+    it("lets drafts, trailers and bonus episodes go without a number (D-000031)", () => {
+        const scheduled = { ...baseEpisode, status: "scheduled", scheduledAt: "2026-11-01T10:00:00.000Z" };
+        expect(validateEpisodeDraft(baseEpisode)).toEqual({});
+        expect(validateEpisodeDraft({ ...scheduled, episodeType: "trailer" })).toEqual({});
+        expect(validateEpisodeDraft({ ...scheduled, episodeType: "bonus" })).toEqual({});
+    });
+
+    it("rejects an unknown episode type and numbers below 1", () => {
+        expect(validateEpisodeDraft({ ...baseEpisode, episodeType: "teaser" }).episodeType).toBeTruthy();
+        expect(validateEpisodeDraft({ ...baseEpisode, episodeNumber: 0 }).episodeNumber).toBeTruthy();
+    });
+
     it("rejects non-http enclosure urls and bad slugs", () => {
         const errors = validateEpisodeDraft({
             ...baseEpisode,

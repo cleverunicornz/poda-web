@@ -58,9 +58,18 @@ const SOCIAL_ICONS = {
     calendly: "calendar",
 };
 
-export function fullProfileMarkup(profile, { showAll = true, editable = false, showVisibility = true } = {}) {
+export function fullProfileMarkup(
+    profile,
+    { showAll = true, editable = false, showVisibility = true, hideEmpty = false } = {},
+) {
     const sv = profile.sectionVisibility ?? {};
     const parts = [];
+    // hideEmpty (another member's profile): leave out empty sections and "not set" rows instead of listing them.
+    const note = (text) => (hideEmpty ? "" : emptyNote(text));
+    const addSection = (title, visibility, innerHtml, iconName = null) => {
+        if (hideEmpty && !innerHtml.trim()) return;
+        parts.push(section(title, visibility, innerHtml, iconName));
+    };
 
     const topics = profile.topics ?? [];
     const topicRow = `<div class="pnTopicRow" data-topics>
@@ -103,132 +112,117 @@ export function fullProfileMarkup(profile, { showAll = true, editable = false, s
         </div>
     `);
 
-    parts.push(
-        section(
-            "About",
-            sv.about ?? "public",
-            `
+    addSection(
+        "About",
+        sv.about ?? "public",
+        `
         ${!(profile.aboutShort || profile.bio) && editable ? noteHtml("Your about section is the first thing hosts read. Write a 2-3 sentence hook up top, then tell your full story below.") : ""}
-        ${profile.aboutShort ? `<p style="margin:0;font-size:16px;line-height:24px"><strong>${esc(profile.aboutShort)}</strong></p>` : editable ? "" : emptyNote("No short intro yet.")}
-        ${profile.bio ? `<p class="pnSubtle" style="margin:0;font-size:16px;line-height:24px">${esc(profile.bio)}</p>` : editable ? "" : emptyNote("No bio yet.")}
+        ${profile.aboutShort ? `<p style="margin:0;font-size:16px;line-height:24px"><strong>${esc(profile.aboutShort)}</strong></p>` : editable ? "" : note("No short intro yet.")}
+        ${profile.bio ? `<p class="pnSubtle" style="margin:0;font-size:16px;line-height:24px">${esc(profile.bio)}</p>` : editable ? "" : note("No bio yet.")}
     `,
-        ),
     );
 
     const ALL_SERVICES = ["website", "linkedin", "twitter", "youtube", "instagram", "tiktok", "calendly"];
-    const socialRows = ALL_SERVICES.map((svc) => {
-        const v = profile.socialLinks?.[svc];
-        return `<div class="pnDefRow"><b>${esc(svc)}</b><span>${v ? esc(v) : "not set"}</span></div>`;
-    }).join("");
-    parts.push(
-        section(
-            "Links",
-            sv.links ?? "public",
-            `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${socialRows}</div></div>`,
-        ),
+    const socialRows = ALL_SERVICES.filter((svc) => !hideEmpty || profile.socialLinks?.[svc])
+        .map((svc) => {
+            const v = profile.socialLinks?.[svc];
+            return `<div class="pnDefRow"><b>${esc(svc)}</b><span>${v ? esc(v) : "not set"}</span></div>`;
+        })
+        .join("");
+    addSection(
+        "Links",
+        sv.links ?? "public",
+        socialRows
+            ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${socialRows}</div></div>`
+            : "",
     );
 
     if (showAll) {
-        parts.push(
-            section(
-                "Expertise",
-                sv.expertiseCards ?? "public",
-                profile.expertiseCards?.length
-                    ? `<div class="pnExpertiseGrid">${profile.expertiseCards.map((c) => `<div class="pnExpertiseCard"><h3>${esc(c.title)}</h3><p>${esc(c.description)}</p></div>`).join("")}</div>`
-                    : emptyNote(
-                          editable
-                              ? "Add 2-4 expertise cards highlighting your key talking points."
-                              : "No expertise cards yet.",
-                      ),
-            ),
+        addSection(
+            "Expertise",
+            sv.expertiseCards ?? "public",
+            profile.expertiseCards?.length
+                ? `<div class="pnExpertiseGrid">${profile.expertiseCards.map((c) => `<div class="pnExpertiseCard"><h3>${esc(c.title)}</h3><p>${esc(c.description)}</p></div>`).join("")}</div>`
+                : note(
+                      editable
+                          ? "Add 2-4 expertise cards highlighting your key talking points."
+                          : "No expertise cards yet.",
+                  ),
         );
 
-        parts.push(
-            section(
-                "Custom Fields",
-                sv.customFields ?? "public",
-                profile.customFields?.length
-                    ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${profile.customFields.map((f) => `<div class="pnDefRow"><b>${esc(f.name)}</b><span>${esc(f.value)}</span></div>`).join("")}</div></div>`
-                    : emptyNote(
-                          editable
-                              ? "Add details like your location, pronouns, languages, or industry."
-                              : "No custom fields yet.",
-                      ),
-            ),
+        addSection(
+            "Custom Fields",
+            sv.customFields ?? "public",
+            profile.customFields?.length
+                ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${profile.customFields.map((f) => `<div class="pnDefRow"><b>${esc(f.name)}</b><span>${esc(f.value)}</span></div>`).join("")}</div></div>`
+                : note(
+                      editable
+                          ? "Add details like your location, pronouns, languages, or industry."
+                          : "No custom fields yet.",
+                  ),
         );
 
-        parts.push(
-            section(
-                "Booking",
-                sv.booking ?? "public",
-                profile.bookingUrl
-                    ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px"><div class="pnDefRow"><b>Book a call</b><span>${esc(profile.bookingUrl)}</span></div></div></div>`
-                    : emptyNote("No booking link set."),
-            ),
+        addSection(
+            "Booking",
+            sv.booking ?? "public",
+            profile.bookingUrl
+                ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px"><div class="pnDefRow"><b>Book a call</b><span>${esc(profile.bookingUrl)}</span></div></div></div>`
+                : note("No booking link set."),
         );
 
-        parts.push(
-            section(
-                "Media kit",
-                sv.mediaKit ?? "public",
-                profile.mediaKit?.length
-                    ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${profile.mediaKit.map((m) => `<div class="pnDefRow"><b>${esc(m.name)}</b><span>${esc(m.type)}${m.size ? ` · ${(m.size / 1024 / 1024).toFixed(1)} MB` : ""}${m.filename ? ` · ${esc(m.filename)}` : ""}</span></div>`).join("")}</div></div>`
-                    : emptyNote("No media kit items."),
-            ),
+        addSection(
+            "Media kit",
+            sv.mediaKit ?? "public",
+            profile.mediaKit?.length
+                ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${profile.mediaKit.map((m) => `<div class="pnDefRow"><b>${esc(m.name)}</b><span>${esc(m.type)}${m.size ? ` · ${(m.size / 1024 / 1024).toFixed(1)} MB` : ""}${m.filename ? ` · ${esc(m.filename)}` : ""}</span></div>`).join("")}</div></div>`
+                : note("No media kit items."),
         );
 
-        parts.push(
-            section(
-                "Testimonials",
-                sv.testimonials ?? "public",
-                profile.testimonials?.length
-                    ? profile.testimonials
-                          .map(
-                              (t) =>
-                                  `<blockquote class="pnQuote"><p>“${esc(t.quote)}”</p><span>${esc(t.name)} — ${esc(t.role)}</span></blockquote>`,
-                          )
-                          .join("")
-                    : emptyNote("No testimonials yet."),
-            ),
+        addSection(
+            "Testimonials",
+            sv.testimonials ?? "public",
+            profile.testimonials?.length
+                ? profile.testimonials
+                      .map(
+                          (t) =>
+                              `<blockquote class="pnQuote"><p>“${esc(t.quote)}”</p><span>${esc(t.name)} — ${esc(t.role)}</span></blockquote>`,
+                      )
+                      .join("")
+                : note("No testimonials yet."),
         );
 
-        parts.push(
-            section(
-                "Featured appearances",
-                sv.appearances ?? "public",
-                profile.featuredAppearances?.length
-                    ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${profile.featuredAppearances.map((a) => `<div class="pnDefRow"><b>${esc(a.podcastName ?? "")}</b><span>${esc(a.episodeTitle ?? "")}${a.date ? ` · ${esc(a.date)}` : ""}${a.displayClass ? ` · ${esc(a.displayClass.replaceAll("_", " "))}` : ""}</span></div>`).join("")}</div></div>`
-                    : emptyNote("No featured appearances yet."),
-            ),
+        addSection(
+            "Featured appearances",
+            sv.appearances ?? "public",
+            profile.featuredAppearances?.length
+                ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px">${profile.featuredAppearances.map((a) => `<div class="pnDefRow"><b>${esc(a.podcastName ?? "")}</b><span>${esc(a.episodeTitle ?? "")}${a.date ? ` · ${esc(a.date)}` : ""}${a.displayClass ? ` · ${esc(a.displayClass.replaceAll("_", " "))}` : ""}</span></div>`).join("")}</div></div>`
+                : note("No featured appearances yet."),
         );
 
-        parts.push(
-            section(
-                "Best fit",
-                sv.bestFitFor ?? "public",
-                `
+        addSection(
+            "Best fit",
+            sv.bestFitFor ?? "public",
+            `
             ${profile.appearanceCount ? `<p class="pnSubtle" style="margin:0;font-size:14px">${profile.appearanceCount} appearances</p>` : ""}
-            ${profile.bestFitFor?.length ? `<div class="pnTopicRow" style="margin-top:0">${profile.bestFitFor.map((t) => `<span class="pnTopicChip">${esc(t)}</span>`).join("")}</div>` : emptyNote("No best-fit topics yet.")}
+            ${profile.bestFitFor?.length ? `<div class="pnTopicRow" style="margin-top:0">${profile.bestFitFor.map((t) => `<span class="pnTopicChip">${esc(t)}</span>`).join("")}</div>` : note("No best-fit topics yet.")}
         `,
-            ),
         );
 
-        parts.push(
-            section(
-                "Intro Video",
-                sv.introVideo ?? "public",
-                profile.introVideoUrl
-                    ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px"><div class="pnDefRow"><b>Intro video</b><span>${esc(profile.introVideoUrl)}</span></div></div></div>`
-                    : editable
-                      ? `<p class="pnSubtle" style="margin:0;font-size:14px">Paste a YouTube or Vimeo URL to embed a preview video.</p>`
-                      : emptyNote("No intro video yet."),
-                "playCircle",
-            ),
+        addSection(
+            "Intro Video",
+            sv.introVideo ?? "public",
+            profile.introVideoUrl
+                ? `<div class="pnCard" style="gap:0"><div class="pnCard_body" style="padding-top:20px"><div class="pnDefRow"><b>Intro video</b><span>${esc(profile.introVideoUrl)}</span></div></div></div>`
+                : editable
+                  ? `<p class="pnSubtle" style="margin:0;font-size:14px">Paste a YouTube or Vimeo URL to embed a preview video.</p>`
+                  : note("No intro video yet."),
+            "playCircle",
         );
 
-        parts.push(
-            `<p class="pnSubtle" style="font-size:12px;margin:8px 0 0">${profile.createdAt ? `Created ${esc(profile.createdAt.slice(0, 10))}` : "Not created yet"}${profile.updatedAt ? ` · Updated ${esc(profile.updatedAt.slice(0, 10))}` : ""}</p>`,
-        );
+        if (!hideEmpty || profile.createdAt)
+            parts.push(
+                `<p class="pnSubtle" style="font-size:12px;margin:8px 0 0">${profile.createdAt ? `Created ${esc(profile.createdAt.slice(0, 10))}` : "Not created yet"}${profile.updatedAt ? ` · Updated ${esc(profile.updatedAt.slice(0, 10))}` : ""}</p>`,
+            );
     }
 
     return parts.join("");
@@ -294,6 +288,7 @@ export function renderFullProfileView(
         showStatus = true,
         showVisibility = true,
         showRail = true,
+        hideEmpty = false,
     },
 ) {
     container.innerHTML = `
@@ -316,7 +311,7 @@ export function renderFullProfileView(
             }
             <div class="pnProfileGrid">
                 <div class="pnStack pnStack--loose">
-                    ${fullProfileMarkup(profile, { showAll: true, editable, showVisibility })}
+                    ${fullProfileMarkup(profile, { showAll: true, editable, showVisibility, hideEmpty })}
                 </div>
                 ${showRail ? railMarkup(profile, { stats, shareUrl }) : ""}
             </div>

@@ -246,6 +246,27 @@ body.mx_PodaTheme .mx_EventTileBubble {
     box-shadow: 0 4px 14px var(--poda-shadow-color);
 }
 
+/* Links in messages use the accent text colour: the amber brand colour they otherwise get from --primary-color is
+   unreadable on the cream timeline and on the user's own amber bubble (G-000024). */
+body.mx_PodaTheme .mx_EventTile_body a:where(:not([data-kind]):not(.mx_MessageTimestamp)),
+body.mx_PodaTheme .mx_EventTile_content .markdown-body a {
+    color: var(--cpd-color-text-action-accent);
+    text-decoration: underline;
+}
+
+/* Compound's release announcements (e.g. "Introducing Sections") draw on --cpd-color-bg-action-primary-rest, amber in
+   Poda, but colour their description and close button for a near-black background, so both were unreadable
+   (G-000024). The selector follows the component's markup: a labelled, described popover whose heading is followed
+   by the description and the close button. */
+body.mx_PodaTheme [aria-labelledby][aria-describedby] > h3[id] + span[id],
+body.mx_PodaTheme [aria-labelledby][aria-describedby] > h3[id] + span[id] + button {
+    color: var(--cpd-color-text-on-solid-primary);
+}
+
+body.mx_PodaTheme [aria-labelledby][aria-describedby] > h3[id] + span[id] + button {
+    border-color: var(--cpd-color-text-on-solid-primary);
+}
+
 body.mx_PodaTheme .mx_ReactionsRow button,
 body.mx_PodaTheme .mx_MessageActionBar {
     border-color: var(--poda-border-color);

@@ -91,6 +91,10 @@ describe("Poda themes", () => {
                 ),
             ).toBeGreaterThanOrEqual(4.5);
             expect(contrastRatio("#ffffff", theme.colors!["accent-color"])).toBeGreaterThanOrEqual(4.5);
+            // Tooltips: text-on-solid-primary on alpha-gray-1400 (G-000029).
+            expect(
+                contrastRatio(compound["--cpd-color-text-on-solid-primary"], compound["--cpd-color-alpha-gray-1400"]),
+            ).toBeGreaterThanOrEqual(4.5);
         }
     });
 

@@ -41,6 +41,9 @@ const commonCompound = {
     "--cpd-color-text-on-solid-primary": "#332216",
     "--cpd-color-icon-on-solid-primary": "#332216",
     "--cpd-color-text-action-primary": "#332216",
+    // Compound tooltips draw text-on-solid-primary on alpha-gray-1400 (only tooltips use it). With dark text for the
+    // amber buttons, the default near-black tooltip was unreadable (G-000029), so tooltips are amber too.
+    "--cpd-color-alpha-gray-1400": "#fad990",
 };
 
 export const PODA_LIGHT_THEME: CustomTheme = {

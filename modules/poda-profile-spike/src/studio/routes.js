@@ -39,19 +39,22 @@ export function studioRouteHash(route) {
 }
 
 /**
- * The navigation offered above a Studio detail page (G-000023): a way back to
- * its collection and the natural next step.
+ * The actions offered above a Studio detail page (G-000023): a way back to its
+ * collection, the natural next step, and, where posting is available, sharing
+ * the item to a chat (D-000030).
  */
-export function detailActions(route, { podcastId } = {}) {
+export function detailActions(route, { podcastId, canShare = false } = {}) {
     if (route.view === "detail") {
         return [
             { id: "back", label: "Back to podcasts", to: { view: "list" } },
             { id: "new-episode", label: "New episode", to: { view: "new-episode", podcastId: route.id } },
+            ...(canShare ? [{ id: "share", label: "Share to chat", share: { kind: "podcast", id: route.id } }] : []),
         ];
     }
     if (route.view === "episodeDetail") {
         const actions = [{ id: "back", label: "Back to episodes", to: { view: "episodes" } }];
         if (podcastId) actions.push({ id: "podcast", label: "Open podcast", to: { view: "detail", id: podcastId } });
+        if (canShare) actions.push({ id: "share", label: "Share to chat", share: { kind: "episode", id: route.id } });
         return actions;
     }
     return [];

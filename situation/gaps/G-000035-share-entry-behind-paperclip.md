@@ -2,7 +2,7 @@
 
 ## State
 
-open
+closed
 
 ## Gap
 
@@ -28,4 +28,8 @@ Members may not look for sharing behind a paperclip.
 
 ## Resolution
 
-none
+Closed: the maintainer first chose a "+" and then moved sharing out of the
+composer: [D-000030](situation/decisions/D-000030-share-entry-points.md) puts
+Create post in the top bar and Share to chat on Studio and Profile pages, and
+the composer keeps Element's Attachment button
+([W-000014](situation/witnesses/P-000027/W-000014-share-cards-create-post-local-pass.md) P1).

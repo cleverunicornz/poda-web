@@ -43,6 +43,19 @@ test("offers Chat, Profile and Studio and no Diagnostic workspace", async ({ pag
     await expect(page.getByRole("link", { name: "Diagnostic workspace" })).toHaveCount(0);
 });
 
+test("offers Create post with an explaining tooltip that opens the post dialog (D-000030)", async ({ page, user }) => {
+    expect(await page.evaluate(() => window.localStorage.getItem("mx_user_id"))).toBe(user.userId);
+    const button = page.getByTestId("poda-navigation-header").getByRole("button", { name: "Create post" });
+    await expect(button).toBeVisible();
+    await expect(button).toHaveAccessibleDescription(
+        "Share an episode, a podcast or your profile as a card in one of your chats.",
+    );
+    await button.hover();
+    await expect(page.getByRole("tooltip")).toBeVisible();
+    await button.click();
+    await expect(page.getByRole("dialog", { name: "Create a post" })).toBeVisible();
+});
+
 test("mounts above Element and uses its signed-in navigation lifecycle", async ({ page, user }) => {
     const header = page.getByTestId("poda-navigation-header");
     const matrixChat = page.locator("#matrixchat");
