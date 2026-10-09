@@ -135,7 +135,7 @@ export function renderPodcastCreateView(container, { onSubmit, onCancel }) {
                 <p class="pnSubtitle">Set up the public identity, categories, and rights for a new show.</p>
             </div>
         </div>
-        <form id="podaPodcastCreateForm" novalidate>
+        <form id="podaPodcastCreateForm" class="pnStack" novalidate>
         <div class="pnCard pnCard--hero"><div class="pnCard_body" style="padding-top:24px">
             <div class="pnHero">
                 <div style="display:flex;gap:16px;align-items:flex-start;min-width:0">

@@ -159,7 +159,7 @@ export function renderEpisodeCreateView(container, { podcasts, initialPodcastId 
                 <p class="pnSubtitle">Add a new episode to one of your podcasts</p>
             </div>
         </div>
-        <form id="podaEpisodeCreateForm" novalidate>
+        <form id="podaEpisodeCreateForm" class="pnStack" novalidate>
         <div class="pnCard pnCard--hero"><div class="pnCard_body" style="padding-top:24px">
             <div class="pnHero">
                 <div style="display:flex;gap:16px;align-items:flex-start;min-width:0">

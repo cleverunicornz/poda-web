@@ -25,3 +25,13 @@ describe("creation flow copy", () => {
         expect(source("./episodeCreate.js")).toContain("Nothing is saved until you create the episode");
     });
 });
+
+// Page sections are spaced by the standard stack (24px), including inside the creation forms.
+describe("creation form layout", () => {
+    it.each([
+        ["./podcastCreate.js", "podaPodcastCreateForm"],
+        ["./episodeCreate.js", "podaEpisodeCreateForm"],
+    ])("%s stacks its sections with the standard spacing", (path, id) => {
+        expect(source(path)).toContain(`<form id="${id}" class="pnStack" novalidate>`);
+    });
+});
