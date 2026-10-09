@@ -14,7 +14,7 @@ PASS
 
 ## Head
 
-`9ea389cd71`
+`ab219e44e9`
 
 ## Observed
 
@@ -24,8 +24,9 @@ PASS
 
 - [Structured observation](situation/references/P-000028/episode-types/observation.json).
 - [Scheduled full episode refused without a number](situation/references/P-000028/episode-types/scheduled-full-episode-needs-number.png);
-  [aligned fields](situation/references/P-000028/episode-types/aligned-episode-fields.png).
-- Module tests 81/81.
+  [aligned fields](situation/references/P-000028/episode-types/aligned-episode-fields.png);
+  [section spacing](situation/references/P-000028/episode-types/section-spacing.png).
+- Module tests 83/83.
 
 Local manual assurance only; the reusable fork assurance route remains absent
 per [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
@@ -38,4 +39,4 @@ per [G-000001](situation/gaps/G-000001-fork-assurance-route.md).
 | P2 | Scheduled full episode refused without a number; scheduled trailer and draft created; tests passed. |
 | P3 | Switching to Bonus cleared the error. |
 | P4 | "S1 · Trailer · scheduled", "Field Notes · S1 · Trailer", "S2E1 · scheduled". |
-| P5 | Row tops equal, left edges equal, input margins 0; tests passed. |
+| P5 | Row tops equal, left edges equal, input margins 0; 24px between header, hero, draft bar and form in both wizards; tests passed. |

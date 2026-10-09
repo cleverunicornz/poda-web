@@ -1,5 +1,5 @@
 {
-    "head": "9ea389cd71",
+    "head": "ab219e44e9",
     "observed": "2026-10-08",
     "environment": {
         "web": "bundle directory 8a5a6c3a2dc9e9e7a36a (apps/web unchanged since a992f2df65)",
@@ -18,10 +18,19 @@
         "P5": "Episode wizard #epType/#epNumber/#epSeason tops 984/984/984; Title and Podcast left edges 215/215; podcast wizard: no two-field grid row with differing input tops; every .pnInput margin 0px (aligned-episode-fields.png). Before the fix tops were 538/554/554-style offsets and Author/License/Funding inputs sat 9 px lower."
     },
     "notes": [
-        "P1, P3, the draft, the refused full episode and the numbered full episode (P2, P4) were observed on the build of 806ce935f8. The scheduled trailer and its detail and list labels (P2, P4) were observed on the build just before it, which differed only by the dependent error clearing that 806ce935f8 adds. 9ea389cd71 changes only nativeTheme.js and its test; it was observed for P5, and Create post and Share to chat still worked on it (a 'Coming soon' card posted to Producers)."
+        "P1, P3, the draft, the refused full episode and the numbered full episode (P2, P4) were observed on the build of 806ce935f8. The scheduled trailer and its detail and list labels (P2, P4) were observed on the build just before it, which differed only by the dependent error clearing that 806ce935f8 adds. 9ea389cd71 changes only nativeTheme.js and its test; it was observed for P5, and Create post and Share to chat still worked on it (a 'Coming soon' card posted to Producers).",
+        "ab219e44e9 adds only the pnStack class to the two wizard forms and a layout test; P5's section spacing was observed on its build, and P1–P4's code is unchanged by it."
     ],
     "screenshots": [
         "scheduled-full-episode-needs-number.png",
-        "aligned-episode-fields.png"
-    ]
+        "aligned-episode-fields.png",
+        "section-spacing.png"
+    ],
+    "section_spacing": {
+        "observed": "2026-10-09",
+        "head": "ab219e44e9",
+        "module": "poda-profile-spike lib/index.js be2553029158c98a… (sha256 prefix)",
+        "result": "Episode wizard: header → hero 24px, hero → draft bar 24px, draft bar → form grid 24px; podcast wizard: header → hero 24px, hero → form grid 24px (before: 0px between hero, draft bar and form). An audit of Podcasts, Episodes, podcast and episode detail, both wizards, Profile and Profile edit found no touching card-level sections. Module tests 83/83.",
+        "screenshot": "section-spacing.png"
+    }
 }

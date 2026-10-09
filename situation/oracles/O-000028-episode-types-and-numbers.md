@@ -30,8 +30,9 @@ implemented
   Trailer" (list) and "S2E1 · scheduled" for the numbered full episode; label
   tests pass.
 - **P5** — the type, number and season inputs share one top; no two-field row
-  of the podcast wizard differs; Title and Podcast share a left edge; style
-  tests pass.
+  of the podcast wizard differs; Title and Podcast share a left edge; the gaps
+  between header, hero, draft bar and form are 24px in both wizards; style and
+  layout tests pass.
 
 ## Fail
 
@@ -40,7 +41,7 @@ implemented
   or bonus refused for lacking a number.
 - **F3** — the number error kept after the change.
 - **F4** — a missing or wrong type in a label.
-- **F5** — misaligned rows or edges.
+- **F5** — misaligned rows or edges, or sections touching or unevenly spaced.
 
 ## Implementation
 
@@ -58,4 +59,4 @@ pnpm exec vitest run
 | P2 / F2 | Numbering rule | `mockAdapter.test.js` "needs an episode number…", "lets drafts, trailers and bonus…", "rejects an unknown episode type…"; browser manual |
 | P3 / F3 | Dependent error clearing | manual |
 | P4 / F4 | Labels | `podcastFullView.test.js` "episodeLabel"; browser manual |
-| P5 / F5 | Field alignment | `nativeTheme.test.js` "aligns fields…", "cancels Element's text-input margin…"; browser manual |
+| P5 / F5 | Field alignment and section spacing | `nativeTheme.test.js` "aligns fields…", "cancels Element's text-input margin…", `copy.test.js` "creation form layout"; browser manual |
